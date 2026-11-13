@@ -146,10 +146,92 @@ Observado en sus sitios públicos. Solo como referencia de técnicas, no se reut
 - Henry's Farm Adventures, de Zumorroda-X (Art & Technology): juego 2D con Phaser, imágenes Landsat antes y después, NDVI y datos del US Drought Monitor.
 - Twisters (Best Use of Technology): web app con APIs de NASA y Gemini.
 
+## Decisiones tomadas
+
+| Tema | Decisión |
+|---|---|
+| Reto | Field Shift: Adapting Farms with NASA Data (dificultad Advanced/Intermediate) |
+| Modalidad | Participación individual |
+| Zona | McLean County, Illinois (EE. UU.) |
+| Caso principal | Verano 2023 (sequía moderada reciente) |
+| Contraste | Verano 2012 (sequía extrema) |
+| Punto de caso A (maíz en 2023) | -88.6594, 40.2840. Suelo Osco |
+| Punto de caso B (maíz en 2012) | -88.6735, 40.6954. Suelo Chenoa |
+| Procesamiento de datos | Python, antes de la demo |
+| Interfaz | React con Vite y Leaflet, página estática |
+| Explicaciones | Plantillas por código, con modelo opcional |
+
+Motivo de la zona: los datos de suelo (USDA) y de cultivos por año (CropScape) que recomienda el reto son de EE. UU. McLean fue el candidato donde los tres servicios respondieron con datos útiles.
+
+## Datos verificados (noviembre de 2026)
+
+| Dato | Fuente | Estado |
+|---|---|---|
+| Lluvia, temperatura y humedad de zona de raíces, mensual | NASA POWER (API) | Funciona sin cuenta. Datos hasta septiembre de 2026 |
+| Mosaicos satelitales por fecha (NDVI MODIS y VIIRS, lluvia IMERG) | NASA GIBS (WMTS) | Funciona. Permite CORS (`access-control-allow-origin: *`). NDVI MODIS cada 16 días desde 2000 |
+| Suelo por coordenada | USDA Soil Data Access (SSURGO) | Funciona sin cuenta |
+| Cultivo por año y coordenada | CropScape (CDL) | Funciona hasta 2025. Pide coordenadas en metros, proyección Albers EPSG:5070 |
+
+Notas:
+- GIBS no ofrece humedad de suelo de SMAP, solo capas de temperatura de brillo. La humedad de raíz sale de NASA POWER (`GWETROOT`).
+- NASA POWER usa una cuadrícula de unos 50 km: representa la zona, no la parcela.
+- Los servicios se probaron con consultas puntuales. La carga continua de varias capas en una demo no se probó.
+
+## Hallazgos de McLean County
+
+Muestra: 30 puntos al azar dentro del condado (verificados con el API de la FCC, código 17113). 23 son campos de cultivo (maíz o soya en al menos 12 de 16 años, 2008 a 2023).
+
+Transiciones de un año al siguiente entre campos de cultivo (n = 338):
+
+| Transición | Porcentaje |
+|---|---|
+| Maíz a soya | 45,6 % |
+| Soya a maíz | 45,3 % |
+| Maíz a maíz | 7,1 % |
+| Soya a soya | 2,1 % |
+
+- La rotación actual de la zona es la alternancia maíz-soya.
+- No apareció trigo, alfalfa, heno ni otros cultivos en esos campos. Las rotaciones alternativas serán hipotéticas y deben apoyarse en fuentes agronómicas citadas.
+- En 2012, 14 de 23 campos tenían maíz (61 %, intervalo aproximado 41 % a 78 %).
+
+Clima de verano (junio a agosto) en el punto del caso A, NASA POWER:
+
+| Año | Humedad de raíz | Desvío frente a 2001-2023 |
+|---|---|---|
+| 2012 | 0,51 | -1,98 |
+| 2013 | 0,73 | +1,02 |
+| 2022 | 0,61 | -0,59 |
+| 2023 | 0,56 | -1,22 |
+| 2024 | 0,62 | -0,41 |
+| 2025 | 0,61 | -0,59 |
+| 2026 | 0,66 | +0,04 |
+
+- 2012 fue el verano más seco de 2001 a 2023. Con 2012 excluido de la base, su desvío es -2,23 (intervalo de remuestreo al 95 %: -3,06 a -1,77).
+- Lluvia de verano 2012: 1,77 mm/día. Temperatura media de verano: 25,6 °C en 2012 y 21,9 °C en 2013.
+
+Suelos de los puntos de caso (capa superior):
+
+| Punto | Suelo | Drenaje | Grupo hidrológico | Materia orgánica | Agua disponible |
+|---|---|---|---|---|---|
+| A (-88.6594, 40.2840) | Osco, 90 % | Bien drenado | B | 3,5 % | 0,23 |
+| B (-88.6735, 40.6954) | Chenoa, 94 % | Algo pobremente drenado | C/D | 4,3 % | 0,17 |
+
+Historial de cultivos en los puntos:
+- A: alterna cada año. Maíz en 2023, soya en 2012.
+- B: alterna cada año. Maíz en 2012, 2022 y 2024. Soya en 2013, 2023 y 2025.
+
+Límites de esta prueba:
+- No hay rendimientos. La comparación retrospectiva mide estrés y exposición, no resultados.
+- CropScape es una clasificación con error propio, no verificado aquí.
+- Son 30 puntos (23 de cultivo): una muestra, no un censo.
+
 ## Por definir
 
-- [ ] Región concreta de la finca.
-- [ ] Fuente de datos de suelo (confirmar con los recursos del reto, publicados el viernes 13).
+- [x] Región concreta de la finca: McLean County, Illinois.
+- [x] Fuente de datos de suelo: USDA Soil Data Access (SSURGO).
+- [ ] Clave gratuita de NASS QuickStats, para traer rendimientos de maíz y soya por año.
+- [ ] Fuentes agronómicas citables para las rotaciones alternativas (por ejemplo trigo o cultivo de cobertura).
+- [ ] Criterios de evaluación y reglas sobre trabajo previo: no aparecieron en la página del reto ni en los recursos.
 - [ ] Modelo para las explicaciones: Ollama local o API (confirmar permiso y crédito si es el plan de la empresa).
 - [ ] Si se incluye el comparador de imágenes antes y después.
 - [ ] Nombre completo o significado de TEA, si lo tiene.
