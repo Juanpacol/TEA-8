@@ -74,11 +74,13 @@ Premios globales: Best Use of Science, Best Use of Data, Best Use of Technology,
 ### Código
 - Python solo para preparar datos antes de la demo (`pipeline/`). La página (`web/`) es estática.
 - React con Vite. Carpetas por funcionalidad en `web/src/features/`.
-- Componentes solo pintan. La lógica con estado y efectos va en hooks. Las reglas de rotación van en `domain/` como funciones puras, sin React.
+- Componentes solo pintan. La lógica con estado y efectos va en hooks. Las reglas de rotación van en `features/rotations/` (`rules.ts`, `compare.ts`) como funciones puras, sin React.
 - Cada funcionalidad expone solo lo necesario mediante su `index.ts`.
-- Todo lo 3D va en `features/globe/` con carga diferida.
+- Todo lo 3D, si se hace, va en `features/globe/` con carga diferida.
+- Las dependencias van en un solo sentido: componentes, hooks, reglas. Las reglas no importan React, `fetch` ni archivos.
+- Sin Docker. La IA en vivo, si se hace, va en una función serverless en `web/api/`; las explicaciones pregeneradas son la base. La clave de API va en variables de entorno, nunca en el repositorio.
 - TypeScript recomendado para datos y props.
-- Pruebas primero en `domain/` y en la validación de cifras y citas.
+- Pruebas junto a cada archivo, primero en las reglas y en la validación de cifras y citas.
 - Sin carpetas ni capas "por si acaso".
 - Revisar la licencia de cada librería antes de usarla. Ejemplo: react-leaflet 5 se reportó bajo una licencia no estándar.
 

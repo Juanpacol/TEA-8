@@ -60,7 +60,7 @@ Monolito simple en un solo repositorio, con dos partes unidas por un contrato de
 1. **pipeline/** (Python): se ejecuta antes de la demo. Descarga, resume y guarda JSON.
 2. **web/** (React con Vite): página estática que lee esos JSON.
 
-No se usa arquitectura hexagonal completa: el alcance es de un fin de semana. Se conserva una sola idea de ella: la lógica que compara rotaciones (`domain/`) no sabe de dónde vienen los datos ni cómo se muestran.
+No se usa arquitectura hexagonal completa: el alcance es de un fin de semana. Se conserva una sola idea de ella: la lógica que compara rotaciones (las reglas de `features/rotations/`) no sabe de dónde vienen los datos ni cómo se muestran.
 
 ### Principio para el frontend
 
@@ -79,37 +79,41 @@ Se usa el modelo propio de React y no patrones trasplantados de otros lenguajes.
 
 ```
 tea/
-├── docs/                  decisiones, fuentes y reglas citadas
-├── pipeline/              Python, se ejecuta antes de la demo
-│   ├── download/          NASA POWER, SMAP, NDVI
-│   ├── summarize/         resumen por temporada y región
-│   ├── explain/           explicaciones con plantillas o modelo
-│   └── schema/            contrato JSON entre pipeline y web
-├── data/processed/        JSON listos para la página
-└── web/src/
-    ├── app/               raíz, rutas y proveedores de contexto
-    ├── features/          una carpeta por funcionalidad
-    │   ├── map/           mapa y línea de tiempo
-    │   ├── rotations/     tarjetas, comparación y domain/ (reglas puras)
-    │   ├── evidence/      panel de evidencia y etiquetas de origen
-    │   ├── priorities/    prioridades del agricultor
-    │   └── globe/         3D opcional, aislado y con lazy loading
-    ├── shared/            componentes, hooks y utilidades comunes
-    ├── data/              JSON procesados que consume la página
-    └── styles/
+├── docs/                          decisiones, fuentes y reglas citadas
+├── pipeline/                      Python, se ejecuta antes de la demo
+│   ├── download/                  NASA POWER, GIBS, suelo y cultivos
+│   ├── summarize/                 resumen por temporada y zona
+│   ├── explain/                   explicaciones con plantillas o modelo
+│   ├── schema/                    contrato JSON entre pipeline y web
+│   └── requirements.txt
+└── web/                           React, Vite y TypeScript
+    ├── public/data/               JSON que escribe el pipeline
+    ├── api/                       opcional: función serverless para preguntas a la IA
+    └── src/
+        ├── app/                   App.tsx y proveedores de contexto
+        ├── features/
+        │   ├── landing/           una sección por archivo
+        │   ├── map/               mapa y línea de tiempo
+        │   ├── rotations/         reglas puras (rules.ts, compare.ts), hooks, componentes y pruebas
+        │   └── evidence/          panel de evidencia y etiquetas de origen
+        ├── shared/                components, hooks y lib (carga de datos, utilidades)
+        └── styles/                variables de la paleta y estilos globales
 ```
 
-### Reglas
+`priorities/` y `globe/` (3D opcional con carga diferida) se crean solo si llegan a existir. `web/api/` aparece solo si se hacen preguntas a la IA en vivo. Sin Docker: la web se instala con `npm install` y el pipeline con un entorno virtual y `requirements.txt`.
 
-1. Un componente, una responsabilidad. El hook decide, el componente pinta.
-2. Nada de lógica de negocio dentro del JSX: va en `domain/` o en un hook.
-3. Cada feature expone solo lo necesario mediante su `index.ts`.
-4. Composición antes que herencia: piezas pequeñas que se combinan.
-5. Los efectos (cargas, temporizadores, eventos del mapa) viven en hooks.
-6. TypeScript recomendado, para tipar datos y props.
-7. Todo lo 3D va dentro de `features/globe/` y se carga con `lazy`: si falla o sobra, se borra la carpeta sin tocar el resto.
-8. Las pruebas van primero en `domain/` y en la validación de cifras y citas.
-9. No crear carpetas ni capas "por si acaso": solo las que se usan.
+### Capas y dependencias
+
+| Capa | En TEA |
+|---|---|
+| Dominio | Reglas puras en `features/rotations/` (`rules.ts`, `compare.ts`) |
+| Aplicación | Hooks (`useRotations`, `useTimeline`) |
+| Infraestructura | `shared/lib` (carga de datos), `pipeline/` y `web/api/` |
+| Presentación | Componentes de cada feature |
+
+Las dependencias van en un solo sentido: componentes usan hooks, hooks usan reglas y carga de datos, y las reglas no importan nada de React, de `fetch` ni de archivos.
+
+Si el proyecto crece, nace `server/` con `domain/`, `services/`, `repositories/` y `api/`, y `shared/lib` pasa a llamar a esa API. Es un cambio pequeño porque la frontera con los datos ya está aislada.
 
 ### Librerías de React a evaluar
 
