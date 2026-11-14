@@ -16,7 +16,11 @@ export function MapView({ points, year }: Props) {
 
   useEffect(() => {
     if (!container.current) return
-    const instance = L.map(container.current, { zoomControl: true }).setView(
+    const instance = L.map(container.current, {
+      zoomControl: true,
+      // On a touch screen one finger scrolls the page; the map moves with two fingers or the zoom buttons.
+      dragging: !L.Browser.mobile,
+    }).setView(
       [points[0].lat + 0.2, points[0].lon],
       9,
     )

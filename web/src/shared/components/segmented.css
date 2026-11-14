@@ -48,3 +48,25 @@
     transition: none;
   }
 }
+
+/* On a phone the segments wrap onto more rows instead of forcing the page to scroll sideways. */
+@media (max-width: 600px) {
+  .seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+  .seg__thumb {
+    display: none;
+  }
+
+  .seg__item {
+    flex: 1 1 auto;
+  }
+
+  .seg__item[aria-selected='true'],
+  .seg__item[aria-checked='true'] {
+    background: var(--seg-thumb, var(--surface));
+  }
+}
