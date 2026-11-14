@@ -21,3 +21,44 @@
   color: var(--red);
   font-weight: 600;
 }
+
+.origin {
+  display: inline-block;
+  padding: 0 var(--space-2);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.origin--nasa { color: var(--origin-nasa); }
+.origin--platform { color: var(--origin-platform); }
+.origin--model { color: var(--origin-model); }
+.origin--citation { color: var(--origin-citation); }
+.origin--unverified { color: var(--origin-unverified); }
+
+.evidence__section + .evidence__section {
+  margin-top: var(--space-3);
+}
+
+.evidence__section h3 {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.evidence__list {
+  margin: 0;
+  padding-left: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.evidence__empty {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.evidence__citation {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}

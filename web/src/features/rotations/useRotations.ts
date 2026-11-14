@@ -6,5 +6,6 @@ import { compareRotations } from './compare.ts'
 export function useRotations(data: TEA8DataFile) {
   const summaries = useMemo(() => compareRotations(data.rotations), [data.rotations])
   const [selectedId, setSelectedId] = useState(summaries[0]?.id ?? '')
-  return { summaries, selectedId, select: setSelectedId }
+  const selected = data.rotations.find((rotation) => rotation.id === selectedId)
+  return { summaries, selectedId, selected, select: setSelectedId }
 }
