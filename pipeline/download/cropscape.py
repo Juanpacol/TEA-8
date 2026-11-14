@@ -13,9 +13,10 @@ from pipeline.download.albers import to_conus_albers
 from pipeline.download.http import request
 from pipeline.download.power import RAW_DIR
 from pipeline.points import CASE_POINTS
+from pipeline.region import REGION
 
 URL = "https://nassgeodata.gmu.edu/axis2/services/CDLService/GetCDLValue"
-YEARS = range(2008, 2024)
+YEARS = range(REGION["crop_history_years"][0], REGION["crop_history_years"][1] + 1)
 CATEGORY = re.compile(r'category: "([^"]*)"')
 
 
