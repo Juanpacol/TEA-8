@@ -179,7 +179,11 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     const instance = map.current
     const marker = ring.current
     if (!instance || !marker) return
-    if (selected) marker.setLatLng([selected.lat, selected.lon]).addTo(instance)
+    if (selected) {
+      marker.setLatLng([selected.lat, selected.lon]).addTo(instance)
+      // A town or a located device may be off screen: bring it into view.
+      if (!instance.getBounds().contains([selected.lat, selected.lon])) instance.panTo([selected.lat, selected.lon])
+    }
     else marker.remove()
   }, [selected])
 

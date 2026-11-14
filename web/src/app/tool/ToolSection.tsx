@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
-import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
+import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
@@ -31,7 +31,8 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </header>
 
         <div className="workspace__map">
-          <p className="map-hint">Start here: pick an example field.</p>
+          <p className="map-hint">Start here: tell us where you are, or pick an example field.</p>
+          <WhereAmI onSelect={setPlace} />
           <FieldCards
             points={data.region.case_points}
             year={year}

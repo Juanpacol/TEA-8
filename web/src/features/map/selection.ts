@@ -61,5 +61,5 @@ export function describePlace(place: Place, points: CasePoint[], year: number): 
   )
   lines.push(insideCounty(place.lat, place.lon) ? `Inside ${COUNTY_NAME}.` : `Outside ${COUNTY_NAME}: this tool has no data here.`)
 
-  return { title: isPoint ? point.label : `Chosen spot, ${formatCoords(place)}`, pointId: point.id, lines }
+  return { title: isPoint ? point.label : 'Chosen spot', pointId: point.id, lines }
 }

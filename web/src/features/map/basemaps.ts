@@ -52,4 +52,4 @@ export const BASES: Record<BaseId, Base> = {
 }
 
 export const BASE_ORDER: BaseId[] = ['simple', 'map', 'aerial', 'vegetation']
-export const DEFAULT_BASE: BaseId = 'simple'
+export const DEFAULT_BASE: BaseId = 'aerial'

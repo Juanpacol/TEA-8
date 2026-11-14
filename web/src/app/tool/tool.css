@@ -33,7 +33,7 @@
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
   gap: var(--space-4);
-  height: clamp(800px, calc(100vh - 2rem), 920px);
+  height: clamp(900px, calc(100vh - 2rem), 980px);
 }
 
 .workspace__top {
