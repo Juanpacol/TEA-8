@@ -3,6 +3,7 @@ import { AskPanel } from '../../features/ask/index.ts'
 import { EvidencePanel, Limits, Notice } from '../../features/evidence/index.ts'
 import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
 import { RotationList, useRotations } from '../../features/rotations/index.ts'
+import { SeasonPanel, seasonOf } from '../../features/season/index.ts'
 import { Panel } from '../../shared/components/index.ts'
 import type { useData } from '../../shared/hooks/useData.ts'
 import type { TEA8DataFile } from '../../shared/lib/data-types.ts'
@@ -30,6 +31,7 @@ function Tool({ data }: { data: TEA8DataFile }) {
         <MapView points={data.region.case_points} year={year} />
         <MapLegend year={year} />
       </Panel>
+      <SeasonPanel year={year} season={seasonOf(data.seasons, year)} pointLabel={data.region.case_points[0].label} />
       <Rotations data={data} />
       <Limits limits={data.limits ?? []} simulated={data.simulated} />
     </>
