@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Button, OriginLabel, Panel } from '../../shared/components/index.ts'
+import { Button, OriginLabel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
 import { ClaimView } from './ClaimView.tsx'
 import { useAsk } from './useAsk.ts'
@@ -29,7 +29,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
   }
 
   return (
-    <Panel title="Ask the data a question">
+    <div className="ask">
       <form className="ask__form" onSubmit={submit}>
         <label htmlFor="question">Your question</label>
         <textarea
@@ -100,6 +100,6 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
           </ul>
         </div>
       )}
-    </Panel>
+    </div>
   )
 }

@@ -1,2 +1,2 @@
-export { RotationList } from './RotationList.tsx'
+export { RotationPicker } from './RotationPicker.tsx'
 export { useRotations } from './useRotations.ts'

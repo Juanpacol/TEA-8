@@ -1,15 +1,13 @@
-import { OriginLabel, Panel } from '../../shared/components/index.ts'
+import { OriginLabel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
 import { splitCitation } from './citation.ts'
-import { OriginKey } from './OriginKey.tsx'
 import './evidence.css'
 
 type Statement = Rotation['explanation']['why'][number]
 
-function Section({ title, statements }: { title: string; statements: Statement[] }) {
-  return (
-    <section className="evidence__section">
-      <h3>{title}</h3>
+export function EvidenceSection({ title, statements, collapsed = false }: { title: string; statements: Statement[]; collapsed?: boolean }) {
+  const body = (
+    <>
       {statements.length === 0 ? (
         <p className="evidence__empty">Nothing recorded.</p>
       ) : (
@@ -35,20 +33,19 @@ function Section({ title, statements }: { title: string; statements: Statement[]
           ))}
         </ul>
       )}
-    </section>
+    </>
   )
-}
-
-/** Why a rotation is suggested, its evidence, gaps and risks. Every sentence shows its origin. */
-export function EvidencePanel({ rotation }: { rotation: Rotation }) {
-  const { why, evidence, gaps, risks } = rotation.explanation
-  return (
-    <Panel title={`Evidence: ${rotation.name}`}>
-      <OriginKey />
-      <Section title="Why it is shown" statements={why} />
-      <Section title="Evidence" statements={evidence} />
-      <Section title="What we do not know" statements={gaps} />
-      <Section title="Risks for a local expert to review" statements={risks} />
-    </Panel>
+  return collapsed ? (
+    <details className="evidence__section evidence__fold">
+      <summary>
+        {title} ({statements.length})
+      </summary>
+      {body}
+    </details>
+  ) : (
+    <section className="evidence__section">
+      <h3>{title}</h3>
+      {body}
+    </section>
   )
 }

@@ -1,5 +1,5 @@
 .notice {
-  padding: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--ochre);
   border-radius: var(--radius);
   background: var(--surface);
@@ -85,4 +85,9 @@
     grid-template-columns: 1fr;
     gap: var(--space-1);
   }
+}
+
+.evidence__fold summary {
+  cursor: pointer;
+  font-weight: 600;
 }

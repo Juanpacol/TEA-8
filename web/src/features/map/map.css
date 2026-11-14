@@ -77,3 +77,16 @@
   color: var(--text-soft);
   font-size: 0.85rem;
 }
+
+.legend__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+.legend__caption summary {
+  cursor: pointer;
+}

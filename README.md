@@ -94,10 +94,11 @@ tea/
         ├── features/
         │   ├── landing/           one section per file
         │   ├── map/               map and timeline
+│   ├── season/            season headline and figures for the chosen year
         │   ├── ask/               question box and verified answers
         │   ├── rotations/         pure rules (rules.ts, compare.ts), hooks, components and tests
-        │   └── evidence/          evidence panel and limits
-        ├── shared/                components (including the origin label), hooks and lib (data loading, shared types)
+        │   └── evidence/          evidence sections, origin key, limits and notices
+        ├── shared/                components (origin label, segmented control, tabs), hooks and lib (data loading, shared types)
         └── styles/                palette variables and global styles
 ```
 

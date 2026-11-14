@@ -1,2 +1,2 @@
-export { SeasonPanel } from './SeasonPanel.tsx'
+export { SeasonStrip } from './SeasonStrip.tsx'
 export { seasonOf } from './season.ts'
