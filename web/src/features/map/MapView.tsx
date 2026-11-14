@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css'
 import { useEffect, useRef, useState } from 'react'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASES, type BaseId } from './basemaps.ts'
-import { pointSummary, powerCell } from './cell.ts'
+import { pointLabel } from './cell.ts'
 import { COUNTY_NAME, COUNTY_OUTLINE, REFERENCE_TOWNS, insideCounty } from './county.ts'
 import { ndviTileUrl } from './gibs.ts'
 import { describePlace, formatCoords, type Place } from './selection.ts'
@@ -56,6 +56,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       zoomControl: true,
       // Scrolling the page must not zoom the map by accident; the zoom buttons and a double click still work.
       scrollWheelZoom: false,
+      zoomSnap: 0.25,
       minZoom: 8,
       // Keeps the view around the county, so nobody gets lost in the rest of the country.
       maxBounds: [
@@ -76,27 +77,21 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
 
     const styles = getComputedStyle(document.documentElement)
     const markerColor = styles.getPropertyValue('--ochre').trim() || 'currentColor'
-    const cell = powerCell(points[0].lat, points[0].lon)
-    L.rectangle(
-      [
-        [cell.south, cell.west],
-        [cell.north, cell.east],
-      ],
-      { color: markerColor, weight: 2, dashArray: '6 6', fill: false, interactive: false },
-    ).addTo(instance)
-    L.geoJSON(COUNTY_OUTLINE, {
-      style: { color: markerColor, weight: 2, fill: false },
+    const county = L.geoJSON(COUNTY_OUTLINE, {
+      style: { color: markerColor, weight: 3, fillColor: markerColor, fillOpacity: 0.12 },
       interactive: false,
       attribution: 'County: US Census Bureau',
     }).addTo(instance)
+    // Show the whole county, with room around it.
+    instance.fitBounds(county.getBounds(), { padding: [30, 30] })
     const checkCenter = () => {
       const center = instance.getCenter()
       setOutside(!insideCounty(center.lat, center.lng))
     }
     instance.on('moveend', checkCenter)
     markers.current = points.map((point) => {
-      const marker = L.circleMarker([point.lat, point.lon], { radius: 7, color: markerColor, weight: 2, fillOpacity: 0.3 })
-        .bindTooltip(pointSummary(point, year), { permanent: true, direction: 'right' })
+      const marker = L.circleMarker([point.lat, point.lon], { radius: 10, color: markerColor, weight: 3, fillColor: markerColor, fillOpacity: 0.85 })
+        .bindTooltip(pointLabel(point, year), { permanent: true, direction: 'right' })
         .addTo(instance)
       marker.on('click', (event) => {
         L.DomEvent.stopPropagation(event)
@@ -130,7 +125,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   useEffect(() => {
     setStatus('loading')
     ndvi.current?.setUrl(ndviTileUrl(year))
-    for (const { point, marker } of markers.current) marker.setTooltipContent(pointSummary(point, year))
+    for (const { point, marker } of markers.current) marker.setTooltipContent(pointLabel(point, year))
   }, [year])
 
   useEffect(() => {

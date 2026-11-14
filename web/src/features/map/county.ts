@@ -25,6 +25,5 @@ export function insideCounty(lat: number, lon: number, ring: Ring = OUTER_RING):
 /** A few places to orient by on the plain map. Coordinates checked against OpenStreetMap on 2026-11-14. */
 export const REFERENCE_TOWNS = [
   { name: 'Bloomington-Normal', lat: 40.4945, lon: -88.989 },
-  { name: 'Chenoa', lat: 40.7417, lon: -88.7198 },
   { name: 'Le Roy', lat: 40.352, lon: -88.7642 },
 ]
