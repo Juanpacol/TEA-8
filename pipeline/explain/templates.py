@@ -38,10 +38,24 @@ def climate_evidence(seasons):
     return [statement(text, "nasa_data")]
 
 
-def explain(rotation, seasons, all_rotations):
+def exposure_evidence(rotation, seasons):
+    """CG-2: how much of June to August the rotation keeps a crop in the field, set against the dry summers."""
+    share = rotation.get("summer_field_share")
+    dry = [s["year"] for s in seasons if s.get("dry") is True and 2001 <= s["year"] <= 2023]
+    if share is None or share["value"] is None or not dry:
+        return []
+    years = ", ".join(str(y) for y in dry)
+    text = (f"In the {len(dry)} dry summers of 2001-2023 ({years}), this rotation would have had a crop in the field "
+            f"on about {share['value']:.0f}% of June to August days (usual Illinois planting and harvest dates, "
+            f"USDA NASS Handbook 628, 1997). This measures how much of the summer a crop is exposed, not yield.")
+    return [statement(text, "platform_calculation")]
+
+
+def explain(rotation, seasons, all_rotations, assumptions=()):
     rules = rotation["rules"]
     cited = [r for r in rules if r["origin"] == "citation" and r.get("kind") != "risk"]
-    explanation = {"why": [], "evidence": climate_evidence(seasons), "gaps": [], "risks": []}
+    explanation = {"why": [], "evidence": climate_evidence(seasons) + exposure_evidence(rotation, seasons),
+                   "gaps": [statement(a, "platform_calculation") for a in assumptions], "risks": []}
 
     if rotation["is_current"]:
         explanation["why"] = [from_rule(r) for r in rules if r["origin"] == "platform_calculation"]

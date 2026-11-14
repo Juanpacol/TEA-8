@@ -80,6 +80,10 @@ def build_bundle(data):
         kind = "hypothetical" if r["hypothetical"] else "current"
         bundle[f"rotation.{r['id']}"] = entry(
             f"{r['name']} is a {kind} rotation: {', '.join(r['sequence'])}.", "platform_calculation")
+        if "summer_field_share" in r:
+            bundle[f"exposure.{r['id']}"] = _figure(
+                f"{r['name']}: share of June to August days with a crop in the field (exposure, not yield)",
+                r["summer_field_share"])
         for rule in r["rules"]:
             bundle[f"rule.{rule['id']}"] = entry(
                 rule["text"], rule["origin"], citation=rule.get("citation"))

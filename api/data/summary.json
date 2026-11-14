@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "simulated": false,
-  "generated_at": "2026-11-14T19:14:38Z",
+  "generated_at": "2026-11-14T23:55:48Z",
   "region": {
     "name": "McLean County",
     "state": "Illinois",
@@ -2363,6 +2363,13 @@
           "text": "At both case points the crop alternated between corn and soybeans every year from 2008 to 2023, so this is the rotation already in use."
         }
       ],
+      "summer_field_share": {
+        "value": 100.0,
+        "unit": "percent of June-August days with a crop in the field",
+        "source": "TEA-8 calculation",
+        "parameter": "USDA NASS Handbook 628 usual planting and harvesting dates, Illinois (1997)",
+        "queried_on": "2026-11-14"
+      },
       "explanation": {
         "why": [
           {
@@ -2374,6 +2381,10 @@
           {
             "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
             "origin": "nasa_data"
+          },
+          {
+            "text": "In the 4 dry summers of 2001-2023 (2005, 2006, 2012, 2023), this rotation would have had a crop in the field on about 100% of June to August days (usual Illinois planting and harvest dates, USDA NASS Handbook 628, 1997). This measures how much of the summer a crop is exposed, not yield.",
+            "origin": "platform_calculation"
           }
         ],
         "gaps": [
@@ -2424,6 +2435,13 @@
           "text": "The study measures how many crops a rotation has, not a specific third crop. Choosing a small grain such as wheat is our assumption and needs local review."
         }
       ],
+      "summer_field_share": {
+        "value": 80.4,
+        "unit": "percent of June-August days with a crop in the field",
+        "source": "TEA-8 calculation",
+        "parameter": "USDA NASS Handbook 628 usual planting and harvesting dates, Illinois (1997)",
+        "queried_on": "2026-11-14"
+      },
       "explanation": {
         "why": [
           {
@@ -2438,12 +2456,20 @@
             "origin": "nasa_data"
           },
           {
+            "text": "In the 4 dry summers of 2001-2023 (2005, 2006, 2012, 2023), this rotation would have had a crop in the field on about 80% of June to August days (usual Illinois planting and harvest dates, USDA NASS Handbook 628, 1997). This measures how much of the summer a crop is exposed, not yield.",
+            "origin": "platform_calculation"
+          },
+          {
             "text": "In neighboring Logan County, Illinois, the median reduction was about 5 percentage points in the probability of low corn yields in dry conditions.",
             "origin": "citation",
             "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
           }
         ],
         "gaps": [
+          {
+            "text": "For the summer calculation the small grain is counted as winter wheat, the same assumption as in the rotation itself.",
+            "origin": "platform_calculation"
+          },
           {
             "text": "The study measures how many crops a rotation has, not a specific third crop. Choosing a small grain such as wheat is our assumption and needs local review.",
             "origin": "platform_calculation"
@@ -2506,6 +2532,13 @@
           "text": "In a crop model for the Midwest, non-legume cover crops such as annual ryegrass and cereal rye reduced corn yield by 0.9 to 6.9%, and competition for water was stronger in dry years. The legume hairy vetch did not reduce corn yield under high nitrogen."
         }
       ],
+      "summer_field_share": {
+        "value": 92.1,
+        "unit": "percent of June-August days with a crop in the field",
+        "source": "TEA-8 calculation",
+        "parameter": "USDA NASS Handbook 628 usual planting and harvesting dates, Illinois (1997)",
+        "queried_on": "2026-11-14"
+      },
       "explanation": {
         "why": [
           {
@@ -2520,12 +2553,20 @@
             "origin": "nasa_data"
           },
           {
+            "text": "In the 4 dry summers of 2001-2023 (2005, 2006, 2012, 2023), this rotation would have had a crop in the field on about 92% of June to August days (usual Illinois planting and harvest dates, USDA NASS Handbook 628, 1997). This measures how much of the summer a crop is exposed, not yield.",
+            "origin": "platform_calculation"
+          },
+          {
             "text": "Across 11 long-term experiments, diverse rotations reduced corn yield losses by 14 to 90% in drought years in half of them, as reported by this study citing earlier work.",
             "origin": "citation",
             "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
           }
         ],
         "gaps": [
+          {
+            "text": "For the summer calculation the oat/clover year is counted as spring oats: the handbook has no row for clover.",
+            "origin": "platform_calculation"
+          },
           {
             "text": "The Nebraska trial is a single site under no-till, and the clover was a winter cover crop in only one of four years. Grain sorghum is not grown in the observed McLean fields.",
             "origin": "platform_calculation"
