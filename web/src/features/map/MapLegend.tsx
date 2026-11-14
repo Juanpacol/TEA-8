@@ -1,3 +1,4 @@
+import { COUNTY_NAME } from './county.ts'
 import { NDVI_LEGEND_STOPS } from './gibs.ts'
 import './map.css'
 
@@ -13,8 +14,9 @@ export function MapLegend({ year }: { year: number }) {
         <span>More vegetation</span>
       </div>
       <p className="legend__cell">
-        <span className="legend__dash" aria-hidden="true" /> Dashed box: the area the climate figures describe, about 50 km
-        across. Both points are inside it.
+        Green shows how much vegetation there was in mid-July (NASA satellite). Dashed box:{' '}
+        <span className="legend__dash" aria-hidden="true" /> the area the climate figures describe, about 50 km across.
+        Solid line: <span className="legend__line" aria-hidden="true" /> {COUNTY_NAME}, the only area with project data.
       </p>
       <figcaption className="legend__caption">
         <details>

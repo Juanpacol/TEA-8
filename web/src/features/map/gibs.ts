@@ -14,8 +14,6 @@ export function ndviTileUrl(year: number): string {
   return `${GIBS}/${NDVI_LAYER}/default/${ndviDate(year)}/GoogleMapsCompatible_Level9/{z}/{y}/{x}.png`
 }
 
-export const BASE_TILE_URL = `${GIBS}/BlueMarble_ShadedRelief/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg`
-
 /** Colors of the NDVI layer, sampled evenly along the colorbar of the NASA GIBS legend (MODIS_L3_NDVI_H.svg). Data colors, not theme colors. */
 export const NDVI_LEGEND_STOPS = ['#f1ecec', '#dfcec1', '#b4a596', '#a18064', '#96ba20', '#56a101', '#2e8001', '#006401', '#001801']
 
