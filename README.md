@@ -1,275 +1,278 @@
-# TEA
+# TEA-8
 
-Herramienta de apoyo a decisiones que compara rotaciones de cultivo con datos de la NASA, mostrando la evidencia detrás de cada recomendación.
+A decision-support tool that compares crop rotations using NASA data and shows the evidence behind every statement.
 
-**Reto:** Field Shift: Adapting Farms with NASA Data (NASA Space Apps 2026).
-**Fechas:** sábado y domingo del hackathon.
-**Estado:** propuesta. Hay un prototipo visual con datos ilustrativos. Aún no hay código del proyecto.
+**Challenge:** Field Shift: Adapting Farms with NASA Data (NASA Space Apps 2026).
+**Dates:** Saturday and Sunday of the hackathon (November 14-15, 2026).
+**Status:** proposal. There is a visual prototype with illustrative data. There is no project code yet.
 
 ## Idea
 
-El agricultor indica su ubicación y sus prioridades (ahorrar agua, ingresos, salud del suelo). TEA compara tres rotaciones, incluida la que ya usa, y para cada una muestra:
+The farmer enters a location and their priorities (save water, income, soil health). TEA-8 compares three rotations, including the one already in use, and for each one shows:
 
-- por qué se sugiere,
-- qué evidencia la respalda,
-- qué no sabemos,
-- qué riesgos debe revisar un experto local.
+- why it is suggested,
+- what evidence supports it,
+- what we do not know,
+- which risks a local expert should review.
 
-TEA apoya la decisión y no la reemplaza. No da un puntaje final ni una "mejor opción".
+TEA-8 supports the decision and does not replace it. It gives no final score and no "best option".
 
-## Qué la diferencia
+## What sets it apart
 
-- Cada frase indica su origen: dato NASA, cálculo de la plataforma, texto del modelo o cita por verificar.
-- Las barras de cada rotación salen de reglas visibles y citadas, no de números inventados.
-- Un mapa con línea de tiempo y un control de escenario de lluvia hacen visible el cambio entre años secos y húmedos.
-- Una historia real de una finca abre la demo.
+- Every statement shows its origin: NASA data, a platform calculation, model text, or a citation still to be verified.
+- The bars for each rotation come from visible, cited rules, not from invented numbers.
+- A map with a timeline and a rainfall scenario control makes the change between dry and wet years visible.
+- A real farm story opens the demo.
 
 ## Stack
 
-| Capa | Tecnología | Notas |
+| Layer | Technology | Notes |
 |---|---|---|
-| Preparación de datos | Python (xarray, rasterio, pandas) | Se ejecuta antes de la demo. Descarga, recorta a una región y guarda JSON. |
-| Interfaz | React con Vite | Si el tiempo aprieta, HTML y JavaScript simples. |
-| Mapa | Leaflet | |
-| Datos NASA | NASA POWER, GIBS (NDVI de MODIS). SMAP y GPM solo si llegan a usarse | Una sola región. Guardados como archivos estáticos. |
-| Reglas de rotación | Código propio, tabla de unos 6 cultivos | Con fuentes citadas. |
-| Explicaciones | Plantillas por código, mejoradas con un modelo | Opciones: Ollama local o una API. Se generan antes de la demo. |
-| Publicación | Vercel o Firebase Hosting | Página estática. Sin servidor ni base de datos. |
+| Data preparation | Python (xarray, rasterio, pandas) | Runs before the demo. Downloads, clips to one region and saves JSON. |
+| Interface | React with Vite | If time runs short, plain HTML and JavaScript. |
+| Map | Leaflet | |
+| NASA data | NASA POWER, GIBS (MODIS NDVI). SMAP and GPM only if they end up being used | One region. Saved as static files. |
+| Rotation rules | Own code, a table of about 6 crops | With cited sources. |
+| Explanations | Code templates, improved with a model | Options: local Ollama or an API. Generated before the demo. |
+| Hosting | Vercel or Firebase Hosting | Static page. No server or database. |
 
-## Alcance mínimo (MVP)
+## Minimum scope (MVP)
 
-- Una región.
-- Dos o tres fuentes NASA.
-- Tres rotaciones fijas, incluida la actual.
-- Tabla de cultivos hecha a mano.
-- Cada rotación con evidencia, lagunas y riesgos.
-- Mapa con control de año y de lluvia.
-- Aviso fijo: apoya, no reemplaza a un experto local.
+- One region.
+- Two or three NASA sources.
+- Three fixed rotations, including the current one.
+- A hand-made crop table.
+- Each rotation with evidence, gaps and risks.
+- Map with year and rainfall controls.
+- A fixed notice: it supports, and does not replace, a local expert.
 
-## Fuera del alcance
+## Out of scope
 
-- ECOSTRESS, GRACE, GEDI y SRTM.
-- Autenticación y base de datos.
-- Historial de usuarios y múltiples regiones.
-- Consultas en vivo a las APIs durante la demo.
+- ECOSTRESS, GRACE, GEDI and SRTM.
+- Authentication and a database.
+- User history and multiple regions.
+- Live API queries during the demo.
 
-## Arquitectura y estructura de carpetas
+## Architecture and folder structure
 
-Monolito simple en un solo repositorio, con dos partes unidas por un contrato de datos:
+A simple monolith in a single repository, with two parts joined by a data contract:
 
-1. **pipeline/** (Python): se ejecuta antes de la demo. Descarga, resume y guarda JSON.
-2. **web/** (React con Vite): página estática que lee esos JSON.
+1. **pipeline/** (Python): runs before the demo. Downloads, summarizes and saves JSON.
+2. **web/** (React with Vite): a static page that reads those JSON files.
 
-No se usa arquitectura hexagonal completa: el alcance es de un fin de semana. Se conserva una sola idea de ella: la lógica que compara rotaciones (las reglas de `features/rotations/`) no sabe de dónde vienen los datos ni cómo se muestran.
+Full hexagonal architecture is not used: the scope is one weekend. Only one idea from it is kept: the logic that compares rotations (the rules in `features/rotations/`) does not know where the data comes from or how it is displayed.
 
-### Principio para el frontend
+### Frontend principle
 
-Se usa el modelo propio de React y no patrones trasplantados de otros lenguajes.
+React's own model is used, not patterns transplanted from other languages.
 
-| Idea habitual | Equivalente en React |
+| Common idea | React equivalent |
 |---|---|
-| Vista | Componentes: solo pintan según sus props |
-| Controlador | Hooks personalizados: estado y efectos (`useRotations`, `useTimeline`) |
-| Servicio | Módulos de funciones para cargar datos en `shared/lib`, usados desde hooks |
-| Estado compartido | Context con `useReducer`, o una librería pequeña como Zustand |
-| Modelo o dominio | Funciones puras en TypeScript, sin React |
-| Carga pesada (3D) | `React.lazy` y `Suspense` |
+| View | Components: they only render from their props |
+| Controller | Custom hooks: state and effects (`useRotations`, `useTimeline`) |
+| Service | Function modules that load data in `shared/lib`, used from hooks |
+| Shared state | Context with `useReducer`, or a small library such as Zustand |
+| Model or domain | Pure TypeScript functions, no React |
+| Heavy loading (3D) | `React.lazy` and `Suspense` |
 
-### Carpetas
+### Folders
 
 ```
 tea/
-├── docs/                          decisiones, fuentes y reglas citadas
-├── pipeline/                      Python, se ejecuta antes de la demo
-│   ├── download/                  NASA POWER, GIBS, suelo y cultivos
-│   ├── summarize/                 resumen por temporada y zona
-│   ├── explain/                   explicaciones con plantillas o modelo
-│   ├── schema/                    contrato JSON entre pipeline y web
+├── docs/                          decisions, sources and cited rules
+├── pipeline/                      Python, runs before the demo
+│   ├── download/                  NASA POWER, GIBS, soil and crops
+│   ├── summarize/                 summary by season and zone
+│   ├── explain/                   explanations from templates or a model
+│   ├── schema/                    JSON contract between pipeline and web
 │   └── requirements.txt
-└── web/                           React, Vite y TypeScript
-    ├── public/data/               JSON que escribe el pipeline
-    ├── api/                       opcional: función serverless para preguntas a la IA
+└── web/                           React, Vite and TypeScript
+    ├── public/data/               JSON written by the pipeline
+    ├── api/                       optional: serverless function for live AI questions
     └── src/
-        ├── app/                   App.tsx y proveedores de contexto
+        ├── app/                   App.tsx and context providers
         ├── features/
-        │   ├── landing/           una sección por archivo
-        │   ├── map/               mapa y línea de tiempo
-        │   ├── rotations/         reglas puras (rules.ts, compare.ts), hooks, componentes y pruebas
-        │   └── evidence/          panel de evidencia y etiquetas de origen
-        ├── shared/                components, hooks y lib (carga de datos, utilidades)
-        └── styles/                variables de la paleta y estilos globales
+        │   ├── landing/           one section per file
+        │   ├── map/               map and timeline
+        │   ├── rotations/         pure rules (rules.ts, compare.ts), hooks, components and tests
+        │   └── evidence/          evidence panel and origin labels
+        ├── shared/                components, hooks and lib (data loading, utilities)
+        └── styles/                palette variables and global styles
 ```
 
-`priorities/` y `globe/` (3D opcional con carga diferida) se crean solo si llegan a existir. `web/api/` aparece solo si se hacen preguntas a la IA en vivo. Sin Docker: la web se instala con `npm install` y el pipeline con un entorno virtual y `requirements.txt`.
+`priorities/` and `globe/` (optional 3D with lazy loading) are created only if they come to exist. `web/api/` appears only if live AI questions are added. No Docker: the web app installs with `npm install` and the pipeline with a virtual environment and `requirements.txt`.
 
-### Capas y dependencias
+### Layers and dependencies
 
-| Capa | En TEA |
+| Layer | In TEA-8 |
 |---|---|
-| Dominio | Reglas puras en `features/rotations/` (`rules.ts`, `compare.ts`) |
-| Aplicación | Hooks (`useRotations`, `useTimeline`) |
-| Infraestructura | `shared/lib` (carga de datos), `pipeline/` y `web/api/` |
-| Presentación | Componentes de cada feature |
+| Domain | Pure rules in `features/rotations/` (`rules.ts`, `compare.ts`) |
+| Application | Hooks (`useRotations`, `useTimeline`) |
+| Infrastructure | `shared/lib` (data loading), `pipeline/` and `web/api/` |
+| Presentation | Each feature's components |
 
-Las dependencias van en un solo sentido: componentes usan hooks, hooks usan reglas y carga de datos, y las reglas no importan nada de React, de `fetch` ni de archivos.
+Dependencies go in one direction only: components use hooks, hooks use rules and data loading, and rules import nothing from React, from `fetch`, or from files.
 
-Si el proyecto crece, nace `server/` con `domain/`, `services/`, `repositories/` y `api/`, y `shared/lib` pasa a llamar a esa API. Es un cambio pequeño porque la frontera con los datos ya está aislada.
+If the project grows, a `server/` folder is born with `domain/`, `services/`, `repositories/` and `api/`, and `shared/lib` starts calling that API. It is a small change because the boundary with the data is already isolated.
 
-### Librerías de React a evaluar
+### React libraries to evaluate
 
-Se conocen por nombre y no se han probado: react-leaflet (mapa), react-three-fiber (3D) y un globo en React como react-globe.gl. Revisar la licencia de cada una antes de elegir. Por ejemplo, otro proyecto documentó que react-leaflet 5 usa una licencia no estándar.
+Known by name and not tested: react-leaflet (map), react-three-fiber (3D) and a React globe such as react-globe.gl. Check each one's license before choosing. For example, another project documented that react-leaflet 5 uses a non-standard license.
 
-## Opcional: planeta giratorio
+## Optional: rotating planet
 
-Idea de pantalla de entrada: un globo terráqueo que gira, se hace zoom hacia la región y se entra al mapa de la finca. Solo se hace si sobra tiempo el domingo. El mapa plano es la base y no depende de esto.
+Idea for an entry screen: a spinning globe that zooms toward the region and enters the farm map. Only done if time remains on Sunday. The flat map is the base and does not depend on this.
 
-Opciones a evaluar (no probadas ni comparadas todavía; comprobar peso, licencia y facilidad antes de elegir):
+Options to evaluate (not tested or compared yet; check weight, license and ease before choosing):
 
-| Opción | Idea |
+| Option | Idea |
 |---|---|
-| globe.gl (basada en three.js) | Globo interactivo con pocas líneas de código. |
-| CesiumJS | Globo 3D completo y muy potente, pero pesado para este alcance. |
-| three.js directo | Máximo control, más trabajo. |
-| Imagen o video corto de un globo girando | Alternativa mínima: sin 3D en vivo, solo un recurso visual en la portada. |
+| globe.gl (built on three.js) | Interactive globe in few lines of code. |
+| CesiumJS | A full 3D globe, very powerful, but heavy for this scope. |
+| three.js directly | Maximum control, more work. |
+| Short image or video of a spinning globe | Minimal alternative: no live 3D, just a visual asset on the cover. |
 
-Criterio de decisión: si tarda más de unas horas en funcionar, se descarta.
+Decision rule: if it takes more than a few hours to work, drop it.
 
-## Prueba de viabilidad del mapa
+## Map feasibility test
 
-Primera tarea técnica, de unos 30 minutos: un mapa de Leaflet con una capa satelital de NASA (NDVI) y un control de fecha.
+First technical task, about 30 minutes: a Leaflet map with a NASA satellite layer (NDVI) and a date control.
 
-- NASA GIBS (la fuente de Worldview) podría servir capas como mosaicos con fecha. Hay que verificar que funciona en Leaflet, que no pide cuenta y qué capas de vegetación ofrece.
-- Si funciona: se muestran imágenes reales de NASA sin descargar archivos, y el comparador de antes y después es sencillo.
-- Si no funciona: plan de respaldo, preparar los datos en Python y guardarlos como imágenes pequeñas o JSON.
+- NASA GIBS (the source behind Worldview) could serve layers as dated tiles. Verify that it works in Leaflet, that it needs no account, and which vegetation layers it offers.
+- If it works: real NASA images are shown without downloading files, and a before-and-after comparer is simple.
+- If it does not: fallback plan, prepare the data in Python and save it as small images or JSON.
 
-## Referencias técnicas de proyectos ganadores (2025)
+## Technical references from winning projects (2025)
 
-Observado en sus sitios públicos. Solo como referencia de técnicas, no se reutiliza su código.
+Observed on their public sites. Only a reference for techniques; their code is not reused.
 
-- Queñaris (Local Impact): aplicación de una sola página con Vite, Leaflet y lectura de archivos GeoTIFF en el navegador. Secciones de mapa NDVI, análisis histórico y análisis por zona.
-- Henry's Farm Adventures, de Zumorroda-X (Art & Technology): juego 2D con Phaser, imágenes Landsat antes y después, NDVI y datos del US Drought Monitor.
-- Twisters (Best Use of Technology): web app con APIs de NASA y Gemini.
+- Queñaris (Local Impact): a single-page app with Vite, Leaflet and in-browser reading of GeoTIFF files. NDVI map, historical analysis and zone analysis sections.
+- Henry's Farm Adventures, by Zumorroda-X (Art & Technology): a 2D game with Phaser, before-and-after Landsat images, NDVI and US Drought Monitor data.
+- Twisters (Best Use of Technology): a web app with NASA APIs and Gemini.
 
-## Decisiones tomadas
+## Decisions made
 
-| Tema | Decisión |
+| Topic | Decision |
 |---|---|
-| Reto | Field Shift: Adapting Farms with NASA Data (dificultad Advanced/Intermediate) |
-| Modalidad | Participación individual |
-| Zona | McLean County, Illinois (EE. UU.) |
-| Caso principal | Verano 2023 (sequía moderada reciente) |
-| Contraste | Verano 2012 (sequía extrema) |
-| Punto de caso A (maíz en 2023) | -88.6594, 40.2840. Suelo Osco |
-| Punto de caso B (maíz en 2012) | -88.6735, 40.6954. Suelo Chenoa |
-| Procesamiento de datos | Python, antes de la demo |
-| Interfaz | React con Vite y Leaflet, página estática |
-| Explicaciones | Plantillas por código, con modelo opcional |
+| Challenge | Field Shift: Adapting Farms with NASA Data (difficulty Advanced/Intermediate) |
+| Mode | Individual participation |
+| Zone | McLean County, Illinois (USA) |
+| Main case | Summer 2023 (recent moderate drought) |
+| Contrast | Summer 2012 (extreme drought) |
+| Case point A (corn in 2023) | -88.6594, 40.2840. Osco soil |
+| Case point B (corn in 2012) | -88.6735, 40.6954. Chenoa soil |
+| Data processing | Python, before the demo |
+| Interface | React with Vite and Leaflet, static page |
+| Explanations | Code templates, with an optional model |
 
-Motivo de la zona: los datos de suelo (USDA) y de cultivos por año (CropScape) que recomienda el reto son de EE. UU. McLean fue el candidato donde los tres servicios respondieron con datos útiles.
+Reason for the zone: the soil data (USDA) and crops-by-year data (CropScape) that the challenge recommends are from the US. McLean was the candidate where all three services returned useful data.
 
-## Datos verificados (noviembre de 2026)
+## Verified data (November 2026)
 
-| Dato | Fuente | Estado |
+| Data | Source | Status |
 |---|---|---|
-| Lluvia, temperatura y humedad de zona de raíces, mensual | NASA POWER (API) | Funciona sin cuenta. Datos hasta septiembre de 2026 |
-| Mosaicos satelitales por fecha (NDVI MODIS y VIIRS, lluvia IMERG) | NASA GIBS (WMTS) | Funciona. Permite CORS (`access-control-allow-origin: *`). NDVI MODIS cada 16 días desde 2000 |
-| Suelo por coordenada | USDA Soil Data Access (SSURGO) | Funciona sin cuenta |
-| Cultivo por año y coordenada | CropScape (CDL) | Funciona hasta 2025. Pide coordenadas en metros, proyección Albers EPSG:5070 |
+| Rainfall, temperature and root-zone wetness, monthly | NASA POWER (API) | Works without an account. Data through September 2026 |
+| Dated satellite tiles (MODIS and VIIRS NDVI, IMERG rainfall) | NASA GIBS (WMTS) | Works. Allows CORS (`access-control-allow-origin: *`). MODIS NDVI every 16 days since 2000 |
+| Soil by coordinate | USDA Soil Data Access (SSURGO) | Works without an account |
+| Crop by year and coordinate | CropScape (CDL) | Works through 2025. Needs coordinates in meters, Albers projection EPSG:5070 |
 
-Notas:
-- GIBS no ofrece humedad de suelo de SMAP, solo capas de temperatura de brillo. La humedad de raíz sale de NASA POWER (`GWETROOT`).
-- NASA POWER usa una cuadrícula de unos 50 km: representa la zona, no la parcela.
-- Los servicios se probaron con consultas puntuales. La carga continua de varias capas en una demo no se probó.
+Notes:
+- GIBS does not offer SMAP soil moisture, only brightness temperature layers. Root wetness comes from NASA POWER (`GWETROOT`).
+- NASA POWER uses a grid of about 50 km: it represents the area, not the plot.
+- The services were tested with single queries. Continuous loading of several layers during a demo was not tested.
 
-## Hallazgos de McLean County
+## McLean County findings
 
-Muestra: 30 puntos al azar dentro del condado (verificados con el API de la FCC, código 17113). 23 son campos de cultivo (maíz o soya en al menos 12 de 16 años, 2008 a 2023).
+Sample: 30 random points inside the county (verified with the FCC API, code 17113). 23 are cropland (corn or soybeans in at least 12 of 16 years, 2008 to 2023).
 
-Transiciones de un año al siguiente entre campos de cultivo (n = 338):
+Year-to-year transitions among cropland fields (n = 338):
 
-| Transición | Porcentaje |
+| Transition | Share |
 |---|---|
-| Maíz a soya | 45,6 % |
-| Soya a maíz | 45,3 % |
-| Maíz a maíz | 7,1 % |
-| Soya a soya | 2,1 % |
+| Corn to soybeans | 45.6% |
+| Soybeans to corn | 45.3% |
+| Corn to corn | 7.1% |
+| Soybeans to soybeans | 2.1% |
 
-- La rotación actual de la zona es la alternancia maíz-soya.
-- No apareció trigo, alfalfa, heno ni otros cultivos en esos campos. Las rotaciones alternativas serán hipotéticas y deben apoyarse en fuentes agronómicas citadas.
-- En 2012, 14 de 23 campos tenían maíz (61 %, intervalo aproximado 41 % a 78 %).
+- The current rotation in the area is corn-soybean alternation.
+- No wheat, alfalfa, hay or other crops appeared in those fields. Alternative rotations will be hypothetical and must rest on cited agronomic sources.
+- In 2012, 14 of 23 fields had corn (61%, approximate interval 41% to 78%).
 
-Clima de verano (junio a agosto) en el punto del caso A, NASA POWER:
+Summer climate (June to August) at case point A, NASA POWER:
 
-| Año | Humedad de raíz | Desvío frente a 2001-2023 |
+| Year | Root wetness | Deviation vs 2001-2023 |
 |---|---|---|
-| 2012 | 0,51 | -1,98 |
-| 2013 | 0,73 | +1,02 |
-| 2022 | 0,61 | -0,59 |
-| 2023 | 0,56 | -1,22 |
-| 2024 | 0,62 | -0,41 |
-| 2025 | 0,61 | -0,59 |
-| 2026 | 0,66 | +0,04 |
+| 2012 | 0.51 | -1.98 |
+| 2013 | 0.73 | +1.02 |
+| 2022 | 0.61 | -0.59 |
+| 2023 | 0.56 | -1.22 |
+| 2024 | 0.62 | -0.41 |
+| 2025 | 0.61 | -0.59 |
+| 2026 | 0.66 | +0.04 |
 
-- 2012 fue el verano más seco de 2001 a 2023. Con 2012 excluido de la base, su desvío es -2,23 (intervalo de remuestreo al 95 %: -3,06 a -1,77).
-- Lluvia de verano 2012: 1,77 mm/día. Temperatura media de verano: 25,6 °C en 2012 y 21,9 °C en 2013.
+- 2012 was the driest summer from 2001 to 2023. With 2012 excluded from the baseline, its deviation is -2.23 (95% resampling interval: -3.06 to -1.77).
+- Summer 2012 rainfall: 1.77 mm/day. Mean summer temperature: 25.6 °C in 2012 and 21.9 °C in 2013.
 
-Suelos de los puntos de caso (capa superior):
+Soils at the case points (top layer):
 
-| Punto | Suelo | Drenaje | Grupo hidrológico | Materia orgánica | Agua disponible |
+| Point | Soil | Drainage | Hydrologic group | Organic matter | Available water |
 |---|---|---|---|---|---|
-| A (-88.6594, 40.2840) | Osco, 90 % | Bien drenado | B | 3,5 % | 0,23 |
-| B (-88.6735, 40.6954) | Chenoa, 94 % | Algo pobremente drenado | C/D | 4,3 % | 0,17 |
+| A (-88.6594, 40.2840) | Osco, 90% | Well drained | B | 3.5% | 0.23 |
+| B (-88.6735, 40.6954) | Chenoa, 94% | Somewhat poorly drained | C/D | 4.3% | 0.17 |
 
-Historial de cultivos en los puntos:
-- A: alterna cada año. Maíz en 2023, soya en 2012.
-- B: alterna cada año. Maíz en 2012, 2022 y 2024. Soya en 2013, 2023 y 2025.
+Crop history at the points:
+- A: alternates every year. Corn in 2023, soybeans in 2012.
+- B: alternates every year. Corn in 2012, 2022 and 2024. Soybeans in 2013, 2023 and 2025.
 
-Límites de esta prueba:
-- No hay rendimientos. La comparación retrospectiva mide estrés y exposición, no resultados.
-- CropScape es una clasificación con error propio, no verificado aquí.
-- Son 30 puntos (23 de cultivo): una muestra, no un censo.
+Limits of this test:
+- There are no yields. The retrospective comparison measures stress and exposure, not outcomes.
+- CropScape is a classification with its own error, not verified here.
+- 30 points (23 cropland): a sample, not a census.
 
-## Por definir
+## To define
 
-- [x] Región concreta de la finca: McLean County, Illinois.
-- [x] Fuente de datos de suelo: USDA Soil Data Access (SSURGO).
-- [ ] Clave gratuita de NASS QuickStats, para traer rendimientos de maíz y soya por año.
-- [ ] Fuentes agronómicas citables para las rotaciones alternativas (por ejemplo trigo o cultivo de cobertura).
-- [ ] Criterios de evaluación y reglas sobre trabajo previo: no aparecieron en la página del reto ni en los recursos.
-- [ ] Modelo para las explicaciones: Ollama local o API (confirmar permiso y crédito si es el plan de la empresa).
-- [ ] Si se incluye el comparador de imágenes antes y después.
-- [ ] Nombre completo o significado de TEA, si lo tiene.
+- [x] Specific farm region: McLean County, Illinois.
+- [x] Soil data source: USDA Soil Data Access (SSURGO).
+- [x] Evaluation criteria and submission rules: see [docs/hackathon-requirements.md](docs/hackathon-requirements.md).
+- [ ] Free NASS QuickStats key, to bring corn and soybean yields by year.
+- [ ] Citable agronomic sources for the alternative rotations (for example wheat or a cover crop).
+- [ ] Rules on prior work: no explicit rule found; the Participant Terms and Conditions are still unread.
+- [ ] Model for the explanations: local Ollama or an API (confirm permission and credit if it is the employer's plan).
+- [ ] Whether to include the before-and-after image comparer.
+- [ ] Optional: add the GPM/IMERG layer to the map once the base map works.
+- [ ] Full name or meaning of TEA-8, if it has one.
 
-## Antes del sábado
+## Before Saturday
 
-- [ ] Crear cuenta gratuita de NASA Earthdata.
-- [ ] Comprobar que se pueden descargar datos reales de la región (NASA POWER como mínimo).
-- [ ] Prueba de viabilidad del mapa con una capa NASA en Leaflet (ver sección arriba).
-- [ ] Definir los 6 cultivos y sus reglas con fuentes.
-- [ ] Armar el equipo y repartir roles: frontend, datos geoespaciales, agronomía, diseño y pitch.
-- [ ] Revisar las reglas del hackathon sobre trabajo previo y equipos.
-- [ ] Si se usa una API de modelo: llave propia con límite de gasto, nunca dentro del código de la página.
+- [ ] Create a free NASA Earthdata account.
+- [ ] Check that real data for the region can be downloaded (NASA POWER at minimum).
+- [ ] Map feasibility test with a NASA layer in Leaflet (see section above).
+- [ ] Define the 6 crops and their rules with sources.
+- [ ] Build the team and split roles: frontend, geospatial data, agronomy, design and pitch.
+- [ ] Review the hackathon rules on prior work and teams.
+- [ ] If a model API is used: own key with a spending limit, never inside the page code.
 
-## Riesgos
+## Risks
 
-- Reto de dificultad intermedia a avanzada. Un solo caso bien hecho vale más que varias funciones a medias.
-- Si no se consiguen datos reales de la región a tiempo, el proyecto pierde fuerza. Plan de respaldo: NASA POWER más imágenes ya publicadas.
-- Los puntajes de rotación deben apoyarse en fuentes. Si no, no resisten una pregunta de un juez científico.
-- Muchos equipos harán una herramienta parecida. La diferencia tiene que verse en la demo.
+- The challenge is intermediate to advanced. One well-done case is worth more than several half-done features.
+- If real data for the region is not obtained in time, the project loses strength. Fallback: NASA POWER plus already published images.
+- Rotation scores must rest on sources. Otherwise they will not survive a question from a scientific judge.
+- Many teams will build a similar tool. The difference has to show in the demo.
 
-## Identidad visual (borrador)
+## Visual identity (draft)
 
-- Símbolo: una gerbera roja de pétalos finos con centro amarillo, dentro de un anillo dividido en tres segmentos (las tres rotaciones) y con un punto de órbita (el satélite).
-- Paleta: verde azulado oscuro, ocre y rojo como acento.
-- Divisa propuesta: "Evidence before advice".
-- Debe ser una obra original. Las imágenes de referencia sirven solo para estilo y colores.
+- Symbol: a red gerbera with thin petals and a yellow center, inside a ring divided into three segments (the three rotations) and with an orbit dot (the satellite).
+- Palette: dark teal, ochre and red as the accent.
+- Proposed motto: "Evidence before advice".
+- It must be original work. Reference images are for style and color only.
+- If an AI image tool is used, the image needs a visible watermark (see CONTRIBUTING).
 
-## Criterios de evaluación de referencia
+## Reference evaluation criteria
 
-Los premios globales de Space Apps incluyen Best Use of Data, Best Use of Science, Best Use of Technology, Galactic Impact y Local Impact, entre otros. El reto pide, de forma opcional, comparar al menos tres rotaciones y explicar evidencia, lagunas y riesgos.
+Space Apps global awards include Best Use of Data, Best Use of Science, Best Use of Technology, Galactic Impact and Local Impact, among others. The challenge optionally asks to compare at least three rotations and explain evidence, gaps and risks.
 
-## Referencias
+## References
 
-- Página del reto: https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/
-- Premios: https://www.spaceappschallenge.org/awards/
-- Prototipo visual: https://claude.ai/artifact/NLB1N4QrmmBsEjgVkZcPhC (privado)
+- Challenge page: https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/
+- Awards: https://www.spaceappschallenge.org/awards/
+- Visual prototype: https://claude.ai/artifact/NLB1N4QrmmBsEjgVkZcPhC (private)
