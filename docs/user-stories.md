@@ -31,7 +31,7 @@ Updated November 14, 2026.
 | Story | Status |
 |---|---|
 | DEP-1 to DEP-9 | Done |
-| DEP-10 Web connected to the backend | Configured (`VITE_API_URL` in Vercel). The question box and the fallback were not tested in a browser |
+| DEP-10 Web connected to the backend | Checked in Chrome on `tea-8.vercel.app` on 2026-11-14 (after #51): changing the year updated the headline and the year tab (2012, 2005, 2023); the three rotations opened; Field, Compare (3 rows), What is missing and Limits (4 items) showed; no sideways scroll at desktop width. A real question ("How dry was summer 2012?") was answered with 3 verified claims and 1 claim marked "Not verified" (2 of 3 checks: the answer gave 23.0 °C for 2012, the data says 25.6 °C). The failure fallback was tested against a local stub API, not production (#50). Not checked: a real phone, a private window, the FortiGuard block (DEP-12) |
 | DEP-11 Verification on every pull request | Done: web, api and pipeline jobs. Making them required on `main` is a repository setting |
 | DEP-12 Public access verified | Pending: FortiGuard request and a private-window check |
 
