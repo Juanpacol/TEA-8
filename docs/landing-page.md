@@ -35,7 +35,7 @@ How the 2025 winners present and sell their project, what is adopted in TEA-8 an
 ### 1. Hero
 - Goal: say in one sentence what TEA-8 does and that it does not replace the farmer.
 - Headline draft: "TEA-8 doesn't tell farmers what to plant. It shows them what the data says."
-- Subtitle (one line, with a figure): "In 2012, summer soil wetness in McLean County, Illinois fell to 0.51 against an average of 0.66." Verify the figure before publishing. Source: NASA POWER, root-zone wetness, June to August.
+- Subtitle (one line, with a figure): "In 2012, summer soil wetness in McLean County, Illinois fell to 0.51 against an average of 0.65 for 2001-2023." Verified against the data file on Nov 14, 2026 (the page computes it from the data). Source: NASA POWER, root-zone wetness, June to August.
 - Button: "Open the tool", which scrolls to section 5.
 - Image: a botanical illustration of corn and another of soybean, large, with a feathered edge.
 
