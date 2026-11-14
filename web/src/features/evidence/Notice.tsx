@@ -7,8 +7,15 @@ export function Notice() {
   const english = t('data.englishNote')
   return (
     <aside className="notice" role="note">
-      <strong>{t('notice.strong')}</strong> {t('notice.rest')}
-      {english && <span className="notice__language"> {english}</span>}
+      <span className="notice__icon" aria-hidden="true">
+        i
+      </span>
+      <div className="notice__body">
+        <p className="notice__main">
+          <strong>{t('notice.strong')}</strong> {t('notice.rest')}
+        </p>
+        {english && <p className="notice__language">{english}</p>}
+      </div>
     </aside>
   )
 }

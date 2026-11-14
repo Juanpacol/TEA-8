@@ -10,7 +10,9 @@ export function ToolPage() {
   return (
     <main style={{ maxWidth: 1200, margin: '0 auto', padding: '0 var(--space-3)' }}>
       <p style={{ margin: 'var(--space-4) 0 var(--space-3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <a href="#/">&larr; TEA-8</a>
+        <a href="#/" className="tool-back">
+          <span aria-hidden="true">&larr;</span> TEA-8
+        </a>
         <LanguageSwitch />
       </p>
       <ToolSection state={state} />
