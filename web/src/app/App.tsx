@@ -1,5 +1,6 @@
 import {
   CallToAction,
+  Connector,
   Footer,
   Hero,
   HowItWorks,
@@ -20,9 +21,11 @@ export function App() {
     <>
       <Hero />
       <Intro driest={state.status === 'ready' ? driestSummer(state.data.seasons) : null} />
-      <main style={{ maxWidth: 820, margin: '0 auto', padding: '0 var(--space-3)' }}>
+      <Connector>
         <Problem />
         <HowItWorks />
+      </Connector>
+      <main style={{ maxWidth: 820, margin: '0 auto', padding: '0 var(--space-3)' }}>
         <WontTell />
         <ToolSection state={state} />
         <Sources />

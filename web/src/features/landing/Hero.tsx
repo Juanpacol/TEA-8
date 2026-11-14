@@ -3,13 +3,12 @@ import { useReveal } from '../../shared/hooks/useReveal.ts'
 import './landing.css'
 
 export function Hero() {
-  const { first, second } = useParallax<HTMLDivElement, HTMLDivElement>()
+  const { first } = useParallax<HTMLDivElement, HTMLDivElement>()
   const { ref, visible } = useReveal<HTMLDivElement>()
 
   return (
     <header className="hero">
-      <div ref={first} className="hero__art hero__art--right" aria-hidden="true" />
-      <div ref={second} className="hero__art hero__art--left" aria-hidden="true" />
+      <div ref={first} className="hero__art hero__art--left" aria-hidden="true" />
       <div className="hero__fade" aria-hidden="true" />
       <div ref={ref} className={`hero__content reveal${visible ? ' reveal--visible' : ''}`}>
         <h1 className="hero__name">TEA-8</h1>
