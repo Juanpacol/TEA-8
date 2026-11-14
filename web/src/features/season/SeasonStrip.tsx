@@ -27,7 +27,7 @@ export function SeasonStrip({ year, season, pointLabel, baseline, afterBaseline 
             <summary>{t('season.sources')}</summary>
             <ul>
               {[season.rainfall, season.temperature, season.root_wetness, season.root_wetness_deviation].map((figure) => (
-                <li key={figure.parameter}>
+                <li key={`${figure.parameter} ${figure.unit}`}>
                   {t('season.sourceLine', { parameter: figure.parameter, source: figure.source, date: figure.queried_on })}
                 </li>
               ))}
