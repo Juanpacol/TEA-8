@@ -4,13 +4,13 @@ import './map.css'
 
 type Props = { year: number; onChange: (year: number) => void; dryYears?: number[] }
 
-const SPAN = NDVI_LAST_YEAR - NDVI_FIRST_YEAR
-
 /** Picks the summer: one step back or forward, or a slide, with the dry summers marked on the track. */
 export function YearControl({ year, onChange, dryYears = [] }: Props) {
   const { t } = useI18n()
-  const marks = dryYears.filter((y) => y >= NDVI_FIRST_YEAR && y <= NDVI_LAST_YEAR)
-  const step = (by: number) => onChange(Math.min(NDVI_LAST_YEAR, Math.max(NDVI_FIRST_YEAR, year + by)))
+  const last = NDVI_LAST_YEAR
+  const span = last - NDVI_FIRST_YEAR
+  const marks = dryYears.filter((y) => y >= NDVI_FIRST_YEAR && y <= last)
+  const step = (by: number) => onChange(Math.min(last, Math.max(NDVI_FIRST_YEAR, year + by)))
 
   return (
     <div className="year-control">
@@ -24,7 +24,7 @@ export function YearControl({ year, onChange, dryYears = [] }: Props) {
           <input
             type="range"
             min={NDVI_FIRST_YEAR}
-            max={NDVI_LAST_YEAR}
+            max={last}
             value={year}
             aria-label={t('year.label')}
             aria-valuetext={t('year.valuetext', { year })}
@@ -38,17 +38,17 @@ export function YearControl({ year, onChange, dryYears = [] }: Props) {
                 tabIndex={-1}
                 className="year-control__mark"
                 title={`${y}: ${t('year.dry')}`}
-                style={{ left: `calc(8px + (100% - 16px) * ${(y - NDVI_FIRST_YEAR) / SPAN})` }}
+                style={{ left: `calc(8px + (100% - 16px) * ${(y - NDVI_FIRST_YEAR) / span})` }}
                 onClick={() => onChange(y)}
               />
             ))}
           </div>
           <div className="year-control__ends" aria-hidden="true">
             <span>{NDVI_FIRST_YEAR}</span>
-            <span>{NDVI_LAST_YEAR}</span>
+            <span>{last}</span>
           </div>
         </div>
-        <button type="button" className="year-control__step" aria-label={t('year.next')} disabled={year >= NDVI_LAST_YEAR} onClick={() => step(1)}>
+        <button type="button" className="year-control__step" aria-label={t('year.next')} disabled={year >= last} onClick={() => step(1)}>
           ›
         </button>
       </div>
