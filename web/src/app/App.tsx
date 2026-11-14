@@ -2,10 +2,12 @@ import {
   CallToAction,
   Connector,
   Footer,
+  FooterConnector,
   Hero,
   HowItWorks,
   Intro,
   Problem,
+  Reveal,
   Sources,
   WhyItHoldsUp,
   WontTell,
@@ -22,17 +24,31 @@ export function App() {
       <Hero />
       <Intro driest={state.status === 'ready' ? driestSummer(state.data.seasons) : null} />
       <Connector>
-        <Problem />
-        <HowItWorks />
+        <Reveal>
+          <Problem />
+        </Reveal>
+        <Reveal>
+          <HowItWorks />
+        </Reveal>
       </Connector>
       <main style={{ maxWidth: 820, margin: '0 auto', padding: '0 var(--space-3)' }}>
-        <WontTell />
+        <Reveal>
+          <WontTell />
+        </Reveal>
         <ToolSection state={state} />
-        <Sources />
-        <WhyItHoldsUp />
-        <CallToAction />
-        <Footer />
+        <Reveal>
+          <Sources />
+        </Reveal>
       </main>
+      <FooterConnector>
+        <Reveal>
+          <WhyItHoldsUp />
+        </Reveal>
+        <Reveal>
+          <CallToAction />
+        </Reveal>
+        <Footer />
+      </FooterConnector>
     </>
   )
 }
