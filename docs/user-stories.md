@@ -392,6 +392,72 @@ As a visitor, I want the tool to stay usable when the question service fails.
 
 Visual work on the landing and the palette continues after step 5. TL-7 stays optional.
 
+## Audit set, fourth set
+
+Updated November 14, 2026, from an audit of production (`tea-8.vercel.app`), the repository and the tests. The submission closes Sunday, November 15, 11:59 p.m. Stories are ordered by priority: P0 blocks the submission, P1 raises the score, P2 only if time remains, P3 after the hackathon.
+
+### Audit findings
+
+| Finding | Evidence |
+|---|---|
+| The landing video returns 404 | `web/public/demo/` holds only the poster; `/demo/tea8-demo.mp4` is 404 in production |
+| README says "no project code yet" and promises features that do not exist | README status line, rainfall scenario control, farm story, priorities, Ollama |
+| Production is behind | `feat/i18n` is 11 commits ahead of `main`; PR #61 is open |
+| No LICENSE file | Repository root |
+| Two landing images are over 300 KB | `eclipse.webp` 448 KB, `moon.webp` 412 KB (LP-8) |
+| CG-2 does not exist | No exposure calculation in `pipeline/`; the NASA statement is the same for all three rotations |
+| The map opened empty | Fixed by MAP-1 |
+| Not tested in a real browser | Phone, private window, `/ask` failure in production, FortiGuard |
+| Only `web` is a required check on `main` | Branch protection |
+
+### P0. Blocks the submission
+
+**REL-1. Merge the pending work**
+- `feat/i18n` and `feat/map-default-ndvi` reach `main` through pull requests; a decision is recorded on PR #61.
+
+**FIX-1. Landing video**
+- Either `/demo/tea8-demo.mp4` loads in production, or the video section is removed. No broken player.
+
+**DOC-1. README and license**
+- The README states the real status, stack and scope, with nothing that does not exist.
+- A LICENSE file is added.
+
+**MAP-1. Map shows NASA data by default** (closes TL-2) Done on `feat/map-default-ndvi`.
+- Opens on the detailed map with the vegetation layer and legend on.
+- Two backgrounds are offered. The compare-years control is visible without a menu.
+
+**CG-9 / CG-10 / DEP-12. Checks in a real browser**
+- Phone or 360 px, private window, `/ask` failure in production, FortiGuard request. The result goes in the deployment status table.
+
+### P1. Raises the score
+
+**CG-2. Exposure of each rotation** (see the third set)
+- Blocked until the summer-crop calendar source is read. If it is not found, the column says "no data" and Limits says why.
+
+**CG-3. Years outside the baseline**
+- For 2024 to 2026 the tool says the year is outside the 2001-2023 baseline.
+
+**GLO-1. Short glossary**
+- NDVI, root-zone wetness, satellite against field measurement and uncertainty, each in one or two plain sentences, inside the tool.
+
+**SUB-1. Submission material**
+- A video of 30 seconds or less, or at most 7 slides. English text. Form fields, references and the AI-use statement filled in. Done by the owner; the script and English text are drafted.
+
+### P2. If time remains
+
+**TL-7. Farmer priorities**: see the second set.
+**MAP-2. NDVI anomaly**: the map can show the year's NDVI against the 2001-2023 mean with a diverging scale, and the legend says so.
+**SCA-1. Region outside the code**
+- County outline, reference towns, baseline years and example questions come from the data file or `pipeline/region.json`.
+- The README has a "How to add a region" section.
+**UI-1. Interface polish**
+- Tabs fit one line in Spanish. Controls are at least 40 px high. Landing images are under 300 KB. The tool loads apart from the landing.
+
+### P3. After the hackathon
+
+**SCA-2. Second county** with a region selector. Until it runs, nobody can claim the project scales.
+**CI-1. Required checks**: `api` and `pipeline` become required on `main`.
+
 ## Worktrees
 
 | Worktree | Branch | Folders it touches | Stories |
