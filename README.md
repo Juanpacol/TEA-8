@@ -90,7 +90,7 @@ tea/
 └── web/                           React, Vite and TypeScript
     ├── public/data/               JSON written by the pipeline
     └── src/
-        ├── app/                   App.tsx and context providers
+        ├── app/                   App.tsx and the sections that combine several features (app/tool/)
         ├── features/
         │   ├── landing/           one section per file
         │   ├── map/               map and timeline
