@@ -3,6 +3,7 @@ import { AskPanel } from '../../features/ask/index.ts'
 import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
 import { BaseControl, CompareControl, DEFAULT_BASE, Glossary, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
+import { PriorityPicker, orderTabs, type Priority } from '../../features/priorities/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, rotationName, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, isAfterBaseline, seasonOf } from '../../features/season/index.ts'
@@ -18,6 +19,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
   const [showVegetation, setShowVegetation] = useState(true)
+  const [priority, setPriority] = useState<Priority | null>(null)
   const [place, setPlace] = useState<Place | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
   const point = data.region.case_points[0]
@@ -62,11 +64,13 @@ function Workspace({ data }: { data: TEA8DataFile }) {
           <span className="step-tag">{t('step.2')}</span>
           <h3 className="workspace__question">{t('tool.question')}</h3>
           <RotationPicker summaries={summaries} selectedId={selectedId} onSelect={select} />
+          <PriorityPicker value={priority} onChange={setPriority} />
           <span className="step-tag">{t('step.3')}</span>
           {selected && (
             <Tabs
+              key={priority ?? 'none'}
               label={t('tool.tabsLabel', { name: rotationName(t, selected) })}
-              tabs={[
+              tabs={orderTabs([
                 {
                   id: 'year',
                   label: String(year),
@@ -105,7 +109,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                 },
                 { id: 'ask', label: t('tab.ask'), content: <AskPanel rotation={selected} /> },
                 { id: 'limits', label: t('tab.limits'), content: <Limits limits={data.limits ?? []} /> },
-              ]}
+              ], priority)}
             />
           )}
         </div>
