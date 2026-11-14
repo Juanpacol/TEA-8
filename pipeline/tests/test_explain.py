@@ -2,7 +2,7 @@ import json
 import unittest
 from pathlib import Path
 
-from pipeline.explain.templates import driest_summer, explain
+from pipeline.explain.templates import driest_summer, explain, exposure_evidence
 
 ROOT = Path(__file__).resolve().parents[2]
 ORIGINS = {"nasa_data", "platform_calculation", "model_text", "citation", "citation_to_verify"}
@@ -40,6 +40,22 @@ class ExplainTest(unittest.TestCase):
     def test_unknown_seasons_are_skipped(self):
         self.assertEqual(driest_summer(self.seasons)["year"], 2012)
         self.assertIsNone(driest_summer([season(2012, None)]))
+
+class ExposureEvidenceTest(unittest.TestCase):
+    share = {"value": 80.4, "unit": "percent", "source": "TEA-8 calculation", "parameter": "p", "queried_on": "2026-11-14"}
+
+    def test_sentence_names_dry_summers_and_says_it_is_not_yield(self):
+        seasons = [{"year": 2012, "dry": True}, {"year": 2013, "dry": False}, {"year": 2024, "dry": True}]
+        [statement] = exposure_evidence({"summer_field_share": self.share}, seasons)
+        self.assertEqual(statement["origin"], "platform_calculation")
+        self.assertIn("1 dry summers of 2001-2023 (2012)", statement["text"])
+        self.assertIn("80%", statement["text"])
+        self.assertIn("not yield", statement["text"])
+
+    def test_nothing_is_said_without_a_figure_or_dry_summers(self):
+        self.assertEqual(exposure_evidence({}, [{"year": 2012, "dry": True}]), [])
+        self.assertEqual(exposure_evidence({"summer_field_share": self.share}, [{"year": 2012, "dry": False}]), [])
+
 
 
 if __name__ == "__main__":

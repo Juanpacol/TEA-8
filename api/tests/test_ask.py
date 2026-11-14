@@ -182,3 +182,11 @@ class ClientDeadlineTest(unittest.TestCase):
         with self.assertRaises(LLMError) as ctx:
             client.complete_json([], {})
         self.assertEqual((ctx.exception.status, seen), (504, [20, 4]))
+
+
+class ExposureEvidenceTest(unittest.TestCase):
+    def test_every_rotation_has_an_exposure_entry(self):
+        for rotation in DATA["rotations"]:
+            entry = BUNDLE[f"exposure.{rotation['id']}"]
+            self.assertIn(str(rotation["summer_field_share"]["value"]), entry["text"])
+            self.assertIn("not yield", entry["text"])

@@ -1,0 +1,20 @@
+{
+  "source": {
+    "citation": "USDA NASS, Agricultural Handbook 628, \"Usual Planting and Harvesting Dates for U.S. Field Crops\", December 1997, Illinois rows (page read at https://esmis.nal.usda.gov/usda-esmis/files/vm40xr56k/9p290c614/j9602330g/planting-12-05-1997.html, Nov 14 2026)",
+    "queried_on": "2026-11-14",
+    "rule": "A crop counts as in the field from the first day of its most active planting period to the last day of its most active harvest period. The handbook is the 1997 edition; practices have moved since."
+  },
+  "crops": {
+    "corn": {"handbook_crop": "Corn, for Grain", "in_field_from": "04-30", "in_field_until": "11-03", "planted_previous_year": false},
+    "soybeans": {"handbook_crop": "Soybeans", "in_field_from": "05-15", "in_field_until": "10-19", "planted_previous_year": false},
+    "small grain": {
+      "handbook_crop": "Wheat, Winter", "in_field_from": "10-13", "in_field_until": "07-08", "planted_previous_year": true,
+      "assumption": "For the summer calculation the small grain is counted as winter wheat, the same assumption as in the rotation itself."
+    },
+    "grain sorghum": {"handbook_crop": "Sorghum for Grain", "in_field_from": "06-02", "in_field_until": "11-03", "planted_previous_year": false},
+    "oat/clover": {
+      "handbook_crop": "Oats, Spring", "in_field_from": "04-08", "in_field_until": "08-03", "planted_previous_year": false,
+      "assumption": "For the summer calculation the oat/clover year is counted as spring oats: the handbook has no row for clover."
+    }
+  }
+}

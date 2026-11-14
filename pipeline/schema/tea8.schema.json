@@ -358,6 +358,10 @@
             "$ref": "#/$defs/rule"
           }
         },
+        "summer_field_share": {
+          "$ref": "#/$defs/figure",
+          "description": "Share of June to August days with a crop in the field, averaged over the years of the cycle, from USDA NASS usual planting and harvesting dates. Exposure, not yield."
+        },
         "explanation": {
           "type": "object",
           "additionalProperties": false,

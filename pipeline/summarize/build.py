@@ -17,12 +17,14 @@ from jsonschema import Draft202012Validator
 from pipeline.explain.templates import explain
 from pipeline.download.power import RAW_DIR, START_YEAR, summer_mean
 from pipeline.points import CASE_POINTS
+from pipeline.rotations.exposure import rotation_summer_share
 from pipeline.region import REGION
 from pipeline.summarize.yields import build_yields
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "pipeline" / "schema" / "tea8.schema.json"
 ROTATIONS = ROOT / "pipeline" / "rotations" / "rotations.json"
+CALENDAR = ROOT / "pipeline" / "rotations" / "calendar.json"
 OUTPUT = ROOT / "web" / "public" / "data" / "summary.json"
 API_COPY = ROOT / "api" / "data" / "summary.json"  # the api image carries its own copy
 BASELINE_YEARS = range(REGION["baseline_years"][0], REGION["baseline_years"][1] + 1)
@@ -101,8 +103,14 @@ def build_case_points(crops: dict, soil: dict) -> list:
 
 def build_rotations(seasons: list) -> list:
     rotations = json.loads(ROTATIONS.read_text(encoding="utf-8"))["rotations"]
+    calendar = json.loads(CALENDAR.read_text(encoding="utf-8"))
     for rotation in rotations:
-        rotation["explanation"] = explain(rotation, seasons, rotations)
+        share = rotation_summer_share(rotation["sequence"], calendar["crops"])
+        rotation["summer_field_share"] = figure(
+            round(share * 100, 1), "percent of June-August days with a crop in the field", "TEA-8 calculation",
+            "USDA NASS Handbook 628 usual planting and harvesting dates, Illinois (1997)", calendar["source"]["queried_on"])
+        assumptions = [calendar["crops"][c]["assumption"] for c in rotation["sequence"] if "assumption" in calendar["crops"][c]]
+        rotation["explanation"] = explain(rotation, seasons, rotations, assumptions)
     return rotations
 
 
