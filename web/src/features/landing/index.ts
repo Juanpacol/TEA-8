@@ -1,4 +1,5 @@
 export { CallToAction } from './CallToAction.tsx'
+export { Connector } from './Connector.tsx'
 export { Footer } from './Footer.tsx'
 export { Hero } from './Hero.tsx'
 export { HowItWorks } from './HowItWorks.tsx'
