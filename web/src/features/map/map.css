@@ -90,3 +90,78 @@
 .legend__caption summary {
   cursor: pointer;
 }
+
+.map__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 450;
+  width: 2px;
+  background: var(--text);
+  pointer-events: none;
+}
+
+.map__year {
+  position: absolute;
+  top: var(--space-2);
+  z-index: 450;
+  padding: 0 var(--space-2);
+  background: var(--surface-raised);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.map__year--left {
+  left: 3.5rem;
+}
+
+.map__year--right {
+  right: var(--space-2);
+}
+
+.map__split {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.6rem;
+  z-index: 460;
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.map-compare {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.map-compare select {
+  padding: 0.2rem var(--space-2);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font: inherit;
+}
+
+.legend__cell {
+  margin: var(--space-1) 0 0;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+.legend__dash {
+  display: inline-block;
+  width: 1.4rem;
+  height: 0.7rem;
+  margin-right: var(--space-1);
+  border: 2px dashed var(--ochre);
+  vertical-align: middle;
+}

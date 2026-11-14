@@ -8,10 +8,14 @@ export function MapLegend({ year }: { year: number }) {
   return (
     <figure className="legend">
       <div className="legend__row">
-        <span>Bare or sparse</span>
+        <span>Less vegetation</span>
         <div className="legend__bar" style={{ backgroundImage: GRADIENT }} role="img" aria-label="NDVI color scale, from pale (0) to dark green (1)" />
-        <span>Dense green</span>
+        <span>More vegetation</span>
       </div>
+      <p className="legend__cell">
+        <span className="legend__dash" aria-hidden="true" /> Dashed box: the area the climate figures describe, about 50 km
+        across. Both points are inside it.
+      </p>
       <figcaption className="legend__caption">
         <details>
           <summary>About this image</summary>
