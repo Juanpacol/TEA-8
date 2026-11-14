@@ -1,25 +1,27 @@
 .picker {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-1);
 }
 
 .picker__option {
-  display: grid;
-  gap: 2px;
-  padding: var(--space-2) var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
+  padding: 0.4rem var(--space-3);
   background: var(--surface-raised);
   border: 2px solid var(--border);
   border-radius: var(--radius);
   color: var(--text-soft);
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-align: left;
   cursor: pointer;
 }
 
 .picker__option strong {
   color: var(--text);
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .picker__option[aria-checked='true'] {

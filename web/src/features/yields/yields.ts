@@ -76,8 +76,3 @@ export function summerVerdict(dry: boolean | null | undefined): string {
   if (dry === false) return 'not a dry summer'
   return 'a summer with no wetness data'
 }
-
-export function signed(value: number): string {
-  const text = Math.abs(value).toFixed(1)
-  return `${value < 0 ? '−' : '+'}${text}%`
-}
