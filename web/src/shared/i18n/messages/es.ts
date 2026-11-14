@@ -186,6 +186,8 @@ export const es: Record<MessageKey, string> = {
   'compare.note':
     'Qué hizo cada cultivo en {year} frente a su rendimiento habitual, con cifras del condado. No es un resultado de la rotación.',
   'compare.noData': 'esta herramienta no tiene datos del condado',
+  'compare.exposure': 'Cultivo en el campo en verano: cerca del {n}% de los días de junio a agosto',
+  'outcome.exposure': 'En un verano seco como este, esta rotación mantiene un cultivo en el campo cerca del {n}% de los días de junio a agosto (fechas usuales de siembra y cosecha del USDA, 1997). Mide exposición, no rendimiento.',
   'compare.gaps': 'Lo que no sabemos: {n}',
 
   'origin.key': 'Qué significan las etiquetas',

@@ -29,6 +29,9 @@ export function CompareTable({ data, year, selectedId, onSelect }: Props) {
                 </li>
               ))}
             </ul>
+            {rotation.summer_field_share?.value != null && (
+              <span className="compare__gaps">{t('compare.exposure', { n: Math.round(rotation.summer_field_share.value) })}</span>
+            )}
             <span className="compare__gaps">{t('compare.gaps', { n: rotation.explanation.gaps.length })}</span>
           </li>
         ))}

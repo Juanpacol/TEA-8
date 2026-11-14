@@ -100,6 +100,7 @@ export interface Rotation {
    */
   sequence: [string, ...string[]];
   rules: Rule[];
+  summer_field_share?: Figure1;
   explanation: {
     why: Statement[];
     evidence: Statement[];
@@ -119,6 +120,16 @@ export interface Rule {
    * Marks a read source that cautions against the rotation. It is shown under risks, not as supporting evidence.
    */
   kind?: "risk";
+}
+/**
+ * A number with its provenance. value is null when the data is unknown; it is never filled with zero.
+ */
+export interface Figure1 {
+  value: number | null;
+  unit: string;
+  source: string;
+  parameter: string;
+  queried_on: string;
 }
 /**
  * One sentence of an explanation with its origin label.
