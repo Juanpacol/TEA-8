@@ -385,6 +385,50 @@
   color: var(--text-soft);
 }
 
+/* Demo: a silent loop of the tool in a window frame, like a screen recording. */
+.demo {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-4) 0;
+  text-align: center;
+}
+
+.demo__frame {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.demo__bar {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.demo__bar span {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.demo__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg);
+  object-fit: cover;
+}
+
+.demo__note {
+  margin: 0;
+  color: var(--text-soft);
+}
+
 /* Footer connector: the ending of the page. A faint ghost word sits behind the text. Pictures can be added later. */
 .footer-connector {
   position: relative;

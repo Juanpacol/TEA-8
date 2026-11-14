@@ -1,6 +1,7 @@
 import {
   CallToAction,
   Connector,
+  Demo,
   Footer,
   FooterConnector,
   Hero,
@@ -14,9 +15,10 @@ import {
   driestSummer,
 } from '../features/landing/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
-import { ToolSection } from './tool/ToolSection.tsx'
+import { useRoute } from '../shared/hooks/useRoute.ts'
+import { ToolPage } from './ToolPage.tsx'
 
-export function App() {
+function Landing() {
   const state = useData()
 
   return (
@@ -35,7 +37,9 @@ export function App() {
         <Reveal>
           <WontTell />
         </Reveal>
-        <ToolSection state={state} />
+        <Reveal>
+          <Demo />
+        </Reveal>
         <Reveal>
           <Sources />
         </Reveal>
@@ -51,4 +55,8 @@ export function App() {
       </FooterConnector>
     </>
   )
+}
+
+export function App() {
+  return useRoute() === 'tool' ? <ToolPage /> : <Landing />
 }
