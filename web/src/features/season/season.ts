@@ -20,6 +20,18 @@ export function seasonHeadline(t: Translate, season: Season | undefined, year: n
   return comparison === null ? t('season.plain', { year }) : t('season.was', { year, comparison })
 }
 
+/** The last year of a baseline written as "2001-2023", or null when the text has no such range. */
+export function baselineEnd(baseline: string | undefined): number | null {
+  const match = baseline?.match(/^(\d{4})-(\d{4})$/)
+  return match ? Number(match[2]) : null
+}
+
+/** True when a summer comes after the baseline: it is compared with that period but did not help define it. */
+export function isAfterBaseline(baseline: string | undefined, year: number): boolean {
+  const end = baselineEnd(baseline)
+  return end !== null && year > end
+}
+
 const CLOSE_TO_USUAL = 0.5
 
 /** How a summer compares with the 2001-2023 mean, in words. */

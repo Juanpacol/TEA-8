@@ -219,6 +219,9 @@
 }
 
 .tool-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
   color: var(--text-soft);
   font-size: 0.9rem;
   font-weight: 600;
@@ -270,4 +273,16 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0.02em;
+}
+
+/* "Where this comes from" and similar disclosures: tall enough to tap with a finger. */
+.tool-section summary {
+  padding-block: 0.7rem;
+}
+
+/* Leaflet draws its zoom buttons at 30 px; a thumb needs more. */
+.tool-section .leaflet-bar a {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
 }

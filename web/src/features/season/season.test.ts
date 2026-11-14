@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Figure, Season } from '../../shared/lib/data-types.ts'
-import { describeDeviation, formatFigure, seasonHeadline, seasonOf } from './season.ts'
+import { baselineEnd, describeDeviation, formatFigure, isAfterBaseline, seasonHeadline, seasonOf } from './season.ts'
 import { translator } from '../../shared/i18n/index.ts'
 const t = translator('en')
 
@@ -53,5 +53,19 @@ describe('seasonHeadline', () => {
   it('says how the summer compares, and admits a missing year', () => {
     expect(seasonHeadline(t, season(2012), 2012)).toBe('Summer 2012 was drier than average.')
     expect(seasonHeadline(t, undefined, 1990)).toBe('There is no climate data for 1990.')
+  })
+})
+
+describe('baseline', () => {
+  it('reads the last year of a range', () => {
+    expect(baselineEnd('2001-2023')).toBe(2023)
+    expect(baselineEnd('whenever')).toBeNull()
+    expect(baselineEnd(undefined)).toBeNull()
+  })
+
+  it('flags only the years after the baseline', () => {
+    expect(isAfterBaseline('2001-2023', 2023)).toBe(false)
+    expect(isAfterBaseline('2001-2023', 2024)).toBe(true)
+    expect(isAfterBaseline(undefined, 2026)).toBe(false)
   })
 })

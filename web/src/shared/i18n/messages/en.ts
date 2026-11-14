@@ -125,6 +125,7 @@ export const en = {
   'season.sources': 'Where these numbers come from',
   'season.sourceLine': '{parameter}: {source}, queried {date}',
   'season.gridNote': '{point}, June to August. One value for a grid cell of about 50 km: it describes the area, not a plot.',
+  'season.afterBaseline': 'Summer {year} comes after the {baseline} baseline. It is compared with that period but was not used to define it, and no county yield may be published for it yet.',
   'season.none': 'There is no climate data for {year}.',
   'season.plain': 'Summer {year}.',
   'season.was': 'Summer {year} was {comparison}.',

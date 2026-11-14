@@ -5,7 +5,7 @@ import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../
 import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, rotationName, useRotations } from '../../features/rotations/index.ts'
-import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
+import { SeasonStrip, isAfterBaseline, seasonOf } from '../../features/season/index.ts'
 import { pointName, useI18n } from '../../shared/i18n/index.ts'
 import { Tabs } from '../../shared/components/index.ts'
 import type { useData } from '../../shared/hooks/useData.ts'
@@ -29,7 +29,13 @@ function Workspace({ data }: { data: TEA8DataFile }) {
       <div className="workspace">
         <header className="workspace__top">
           <YearControl year={year} onChange={setYear} dryYears={data.seasons.filter((s) => s.dry === true).map((s) => s.year)} />
-          <SeasonStrip year={year} season={seasonOf(data.seasons, year)} pointLabel={pointName(t, point.label)} />
+          <SeasonStrip
+            year={year}
+            season={seasonOf(data.seasons, year)}
+            pointLabel={pointName(t, point.label)}
+            baseline={data.dry_summer_rule?.baseline}
+            afterBaseline={isAfterBaseline(data.dry_summer_rule?.baseline, year)}
+          />
         </header>
 
         <div className="workspace__map">
