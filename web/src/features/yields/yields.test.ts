@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { TEA8DataFile, YieldRecord } from '../../shared/lib/data-types.ts'
-import { dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, signed, summerVerdict } from './yields.ts'
+import { dryRange, outcomesFor, barShares, percentFromUsual, plainChange, plainUnit, signed, summerVerdict, toneOf } from './yields.ts'
 
 const fig = (value: number | null) => ({ value, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' })
 
@@ -37,6 +37,23 @@ describe('yields helpers', () => {
     expect(percentFromUsual(0.2)).toBe('on the usual yield')
     expect(plainUnit('bu/acre')).toBe('bushels per acre')
     expect(plainUnit('x')).toBe('x')
+  })
+
+  it('colors the bar by how far below usual it is, and never flags more than usual', () => {
+    expect(toneOf(-44)).toBe('much-less')
+    expect(toneOf(-15)).toBe('much-less')
+    expect(toneOf(-8)).toBe('less')
+    expect(toneOf(-4)).toBe('usual')
+    expect(toneOf(30)).toBe('usual')
+    expect(toneOf(null)).toBe('usual')
+  })
+
+  it('sizes the bar against the usual yield and keeps it inside its track', () => {
+    expect(barShares(130, 100).fill).toBe(1)
+    expect(barShares(200, 100).fill).toBe(1)
+    expect(barShares(0, 100).fill).toBe(0)
+    expect(barShares(100, 100).fill).toBeCloseTo(barShares(100, 100).usual)
+    expect(barShares(50, 0).fill).toBe(0)
   })
 
   it('finds the yield of each crop and says why one is missing', () => {

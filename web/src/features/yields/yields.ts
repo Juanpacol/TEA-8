@@ -28,6 +28,23 @@ export function plainChange(percent: number | null): string {
   return `${size >= FAR_FROM_USUAL ? 'much' : 'a little'} ${percent < 0 ? 'less' : 'more'} than usual`
 }
 
+export type Tone = 'usual' | 'less' | 'much-less'
+
+/** How far from usual a change is, for the color of its bar. More than usual counts as usual: nothing to flag. */
+export function toneOf(percent: number | null): Tone {
+  if (percent === null || percent > -NEAR_USUAL) return 'usual'
+  return percent <= -FAR_FROM_USUAL ? 'much-less' : 'less'
+}
+
+/** The longest bar stands for this many times the usual yield. */
+const BAR_SCALE = 1.3
+
+/** Where the bar ends and where the usual yield sits, both as a fraction of the bar's width. */
+export function barShares(yieldValue: number, expected: number): { fill: number; usual: number } {
+  const fill = expected > 0 ? Math.min(Math.max(yieldValue / expected / BAR_SCALE, 0), 1) : 0
+  return { fill, usual: 1 / BAR_SCALE }
+}
+
 /** The same change as a figure: "44% below usual", "3% above usual". */
 export function percentFromUsual(percent: number): string {
   const size = Math.round(Math.abs(percent))
