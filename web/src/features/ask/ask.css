@@ -1,28 +1,194 @@
+.ask {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.ask__language {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface-raised);
+  border-radius: 10px;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
 .ask__form {
   display: grid;
   gap: var(--space-2);
 }
 
-.ask__form textarea {
-  padding: var(--space-2);
+.ask__label {
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+/* The box and its send button read as one control, like a chat. */
+.ask__composer {
+  position: relative;
+}
+
+.ask__composer textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 0.8rem 3.25rem 0.8rem 1rem;
   background: var(--bg);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 16px;
   font: inherit;
-  resize: vertical;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  resize: none;
+  transition: border-color 200ms ease;
 }
 
-.ask__form .btn {
-  justify-self: start;
+.ask__composer textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.ask__send {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.55rem;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  background: var(--accent);
+  border: 0;
+  border-radius: 50%;
+  color: var(--bg);
+  cursor: pointer;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.ask__send:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.ask__send:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Suggested questions: one full-width row each, so they line up. */
+.ask__examples {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ask__example {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0.6rem 0.9rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+
+.ask__example:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text);
+  background: var(--surface-raised);
+}
+
+.ask__example:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.ask__example span:last-child {
+  color: var(--accent);
+}
+
+.ask__loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+}
+
+.ask__dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.ask__dots i {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: ask-dot 1.1s ease-in-out infinite;
+}
+
+.ask__dots i:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ask__dots i:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes ask-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask__dots i {
+    animation: none;
+  }
 }
 
 .ask__result {
-  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  animation: ask-in 240ms ease-out;
+}
+
+@keyframes ask-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
 .ask__answer {
-  margin: 0 0 var(--space-3);
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .ask__claims {
@@ -30,37 +196,53 @@
   padding: 0;
   list-style: none;
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
+/* One supporting statement: a small status mark, its origin tags, the text, and how it was checked. */
 .claim {
-  padding: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-left-width: 4px;
-  border-radius: var(--radius);
+  border-radius: 12px;
 }
 
 .claim--verified {
-  border-left-color: var(--origin-citation);
+  border-left: 3px solid var(--origin-citation);
 }
 
 .claim--unverified {
-  border-left-color: var(--red);
+  border-left: 3px solid var(--red);
 }
 
 .claim__status {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.claim--verified .claim__status {
+  color: var(--origin-citation);
+}
+
+.claim--unverified .claim__status {
+  color: var(--red);
 }
 
 .claim__text {
-  margin: var(--space-2) 0 0;
+  margin: var(--space-1) 0 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .claim__checks {
   margin-top: var(--space-2);
   color: var(--text-soft);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+}
+
+.claim__checks summary {
+  cursor: pointer;
 }
 
 .claim__checks ul {
@@ -74,21 +256,12 @@
 }
 
 .ask__notice {
-  margin: var(--space-3) 0 0;
-  color: var(--text-soft);
-  font-size: 0.85rem;
-}
-
-.ask__examples {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
   margin: 0;
-  padding: 0;
-  list-style: none;
+  color: var(--text-soft);
+  font-size: 0.8rem;
 }
 
 .ask__nodata {
-  margin: 0 0 var(--space-3);
+  margin: 0;
   color: var(--ochre);
 }
