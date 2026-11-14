@@ -1,9 +1,9 @@
 /* TEA-8 palette: night-sky blue, teal and ochre accents, red for alerts. Components use only these variables. */
 :root {
-  --bg: #07101c;
-  --surface: #0e1b2e;
-  --surface-raised: #16273d;
-  --border: #223650;
+  --bg: #0c1124;
+  --surface: #131a33;
+  --surface-raised: #1b2442;
+  --border: #29345a;
 
   --text: #eaf2f8;
   --text-soft: #9bb0c4;
