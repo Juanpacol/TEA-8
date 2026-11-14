@@ -33,6 +33,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </header>
 
         <div className="workspace__map">
+          <span className="step-tag">{t('step.1')}</span>
           <p className="map-hint">{t('tool.where')}</p>
           <WhereAmI onSelect={setPlace} />
           <FieldCards
@@ -54,8 +55,10 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </div>
 
         <div className="workspace__side">
+          <span className="step-tag">{t('step.2')}</span>
           <h3 className="workspace__question">{t('tool.question')}</h3>
           <RotationPicker summaries={summaries} selectedId={selectedId} onSelect={select} />
+          <span className="step-tag">{t('step.3')}</span>
           {selected && (
             <Tabs
               label={t('tool.tabsLabel', { name: rotationName(t, selected) })}
