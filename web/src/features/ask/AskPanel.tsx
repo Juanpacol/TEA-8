@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Button, OriginLabel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
 import { ClaimView } from './ClaimView.tsx'
@@ -17,6 +17,12 @@ const EXAMPLES = [
 export function AskPanel({ rotation }: { rotation: Rotation }) {
   const [question, setQuestion] = useState('')
   const { state, ask } = useAsk(rotation.id)
+  const outcome = useRef<HTMLDivElement>(null)
+
+  // The result sits under the form, below the fold of the side panel: bring it into view.
+  useEffect(() => {
+    if (state.status === 'answered' || state.status === 'failed') outcome.current?.scrollIntoView({ block: 'nearest' })
+  }, [state])
 
   function submit(event: FormEvent) {
     event.preventDefault()
@@ -54,6 +60,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
         </Button>
       </form>
 
+      <div ref={outcome}>
       {state.status === 'answered' && (
         <div className="ask__result" aria-live="polite">
           {!state.response.answered && (
@@ -100,6 +107,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
           </ul>
         </div>
       )}
+      </div>
     </div>
   )
 }
