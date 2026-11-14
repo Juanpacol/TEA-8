@@ -1,0 +1,49 @@
+.season {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.season__row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) 2fr;
+  gap: var(--space-2);
+}
+
+.season dt {
+  color: var(--text-soft);
+}
+
+.season dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.season__note {
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+.season__source {
+  display: block;
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.season__unknown {
+  color: var(--ochre);
+}
+
+.season__caveat {
+  margin: var(--space-3) 0 0;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .season__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
