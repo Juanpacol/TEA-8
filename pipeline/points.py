@@ -1,6 +1,5 @@
-"""Case points in McLean County, Illinois (see README, "Decisions made")."""
+"""Case points of the region (see pipeline/region.json)."""
 
-CASE_POINTS = {
-    "point-a": {"label": "Point A", "lon": -88.6594, "lat": 40.2840},
-    "point-b": {"label": "Point B", "lon": -88.6735, "lat": 40.6954},
-}
+from pipeline.region import REGION
+
+CASE_POINTS = REGION["case_points"]

@@ -17,6 +17,7 @@ from jsonschema import Draft202012Validator
 from pipeline.explain.templates import explain
 from pipeline.download.power import RAW_DIR, START_YEAR, summer_mean
 from pipeline.points import CASE_POINTS
+from pipeline.region import REGION
 from pipeline.summarize.yields import build_yields
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,8 +25,8 @@ SCHEMA = ROOT / "pipeline" / "schema" / "tea8.schema.json"
 ROTATIONS = ROOT / "pipeline" / "rotations" / "rotations.json"
 OUTPUT = ROOT / "web" / "public" / "data" / "summary.json"
 API_COPY = ROOT / "api" / "data" / "summary.json"  # the api image carries its own copy
-BASELINE_YEARS = range(2001, 2024)
-CLIMATE_POINT = "point-a"
+BASELINE_YEARS = range(REGION["baseline_years"][0], REGION["baseline_years"][1] + 1)
+CLIMATE_POINT = REGION["climate_point"]
 DRY_THRESHOLD = -1.0  # standard deviations of summer root-zone wetness; a project choice, see DRY_RULE
 DRY_RULE = {
     "threshold": DRY_THRESHOLD,
@@ -112,7 +113,7 @@ def build() -> dict:
         "schema_version": "1",
         "simulated": False,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "region": {"name": "McLean County", "state": "Illinois",
+        "region": {"name": REGION["name"], "state": REGION["state"],
                    "case_points": build_case_points(load("crops.json"), load("soil.json"))},
         "dry_summer_rule": DRY_RULE,
         "seasons": seasons,
