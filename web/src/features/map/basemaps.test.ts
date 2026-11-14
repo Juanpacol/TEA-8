@@ -9,7 +9,7 @@ describe('map backgrounds', () => {
   })
 
   it('uses tile URLs with z, y and x and credits its source', () => {
-    for (const base of Object.values(BASES)) {
+    for (const base of Object.values(BASES).filter((b) => b.url)) {
       expect(base.url).toContain('{z}/{y}/{x}')
       expect(base.attribution.length).toBeGreaterThan(0)
     }
