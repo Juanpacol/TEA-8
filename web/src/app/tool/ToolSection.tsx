@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
-import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, YearControl, type BaseId } from '../../features/map/index.ts'
+import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, YearControl, type BaseId, type Place } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
@@ -16,6 +16,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
   const [showVegetation, setShowVegetation] = useState(true)
+  const [place, setPlace] = useState<Place | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
   const point = data.region.case_points[0]
 
@@ -29,9 +30,15 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </header>
 
         <div className="workspace__map">
-          <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} base={base} showVegetation={showVegetation} />
-          <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
-          <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
+          <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} base={base} showVegetation={showVegetation} selected={place} onSelect={setPlace} />
+          <p className="map-hint">Click anywhere on the map, or on a point, to see what we know about that spot.</p>
+          <div className="map-toolbar">
+            <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
+            <details className="map-more">
+              <summary>More options</summary>
+              <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
+            </details>
+          </div>
           <MapLegend year={year} />
         </div>
 
@@ -61,7 +68,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                 {
                   id: 'field',
                   label: 'Field',
-                  content: <FieldPanel points={data.region.case_points} year={year} onSelectYear={setYear} />,
+                  content: <FieldPanel points={data.region.case_points} year={year} onSelectYear={setYear} place={place} onShowOnMap={setPlace} />,
                 },
                 {
                   id: 'compare',

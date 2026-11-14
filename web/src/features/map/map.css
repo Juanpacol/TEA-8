@@ -201,3 +201,97 @@
   color: var(--text);
   font-size: 0.8rem;
 }
+
+/* One compact row of map controls, so the map keeps its height. */
+.map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.map-toolbar .base-control {
+  margin: 0;
+  flex: 0 1 18rem;
+}
+
+.map-toolbar .seg__item {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.map-toolbar .base-control__toggle {
+  margin: 0;
+}
+
+.legend {
+  margin: var(--space-1) 0 0;
+}
+
+.legend__key {
+  margin: var(--space-1) 0 0;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+.legend__caption p {
+  margin: var(--space-1) 0;
+}
+
+.place-card {
+  position: absolute;
+  left: var(--space-2);
+  bottom: 2rem;
+  z-index: 490;
+  max-width: min(22rem, calc(100% - 2 * var(--space-2)));
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-raised);
+  border: 1px solid var(--ochre);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.place-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.place-card__close {
+  padding: 0 var(--space-1);
+  background: none;
+  border: 0;
+  color: var(--text-soft);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.place-card__close:focus-visible {
+  outline: 2px solid var(--accent);
+}
+
+.place-card__coords {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.place-card ul {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-3);
+}
+
+.map-hint {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.map-more summary {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  cursor: pointer;
+}

@@ -1,16 +1,31 @@
 import type { CasePoint } from '../../shared/lib/data-types.ts'
+import { describePlace, type Place } from '../map/index.ts'
 import { alternatesEveryYear, cropLetter, cropOfYear, distinctCrops } from './field.ts'
 import './field.css'
 
-type Props = { points: CasePoint[]; year: number; onSelectYear: (year: number) => void }
+type Props = {
+  points: CasePoint[]
+  year: number
+  onSelectYear: (year: number) => void
+  /** The spot chosen on the map, so its nearest case point is marked here. */
+  place: Place | null
+  onShowOnMap: (place: Place) => void
+}
 
 /** The soil and the crops grown at each case point, so the comparison shows what it assumes. */
-export function FieldPanel({ points, year, onSelectYear }: Props) {
+export function FieldPanel({ points, year, onSelectYear, place, onShowOnMap }: Props) {
+  const chosenId = place ? describePlace(place, points, year).pointId : null
   return (
     <div className="field">
       {points.map((point) => (
         <section key={point.id} className="field__point" aria-label={point.label}>
-          <h4 className="field__title">{point.label}</h4>
+          <h4 className="field__title">
+            {point.label}
+            {point.id === chosenId && <span className="field__chosen"> (chosen on the map)</span>}
+          </h4>
+          <button type="button" className="field__show" onClick={() => onShowOnMap({ lat: point.lat, lon: point.lon })}>
+            Show {point.label} on the map
+          </button>
           <p className="field__soil">
             {point.soil.name}, {point.soil.drainage.toLowerCase()}, hydrologic group {point.soil.hydrologic_group}.
           </p>

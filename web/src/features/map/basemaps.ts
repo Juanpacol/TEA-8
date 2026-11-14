@@ -26,7 +26,7 @@ export const BASES: Record<BaseId, Base> = {
   },
   aerial: {
     id: 'aerial',
-    label: 'Aerial',
+    label: 'Satellite',
     url: `${USGS}/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}`,
     maxNativeZoom: 16,
     attribution: `Aerial photo: ${USGS_CREDIT}`,
@@ -34,7 +34,7 @@ export const BASES: Record<BaseId, Base> = {
   },
   vegetation: {
     id: 'vegetation',
-    label: 'Vegetation only',
+    label: 'Plants only',
     url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg',
     maxNativeZoom: 8,
     attribution: 'Imagery: NASA GIBS (Blue Marble)',

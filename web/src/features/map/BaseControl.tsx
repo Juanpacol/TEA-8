@@ -22,7 +22,7 @@ export function BaseControl({ value, onChange, showVegetation, onShowVegetation 
       />
       <label className="base-control__toggle">
         <input type="checkbox" checked={showVegetation} onChange={(event) => onShowVegetation(event.target.checked)} />
-        Show vegetation colors
+        Show plant colors (green)
       </label>
     </div>
   )

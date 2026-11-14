@@ -83,3 +83,25 @@
   color: var(--text-soft);
   font-size: 0.7rem;
 }
+
+.field__chosen {
+  color: var(--ochre);
+  font-weight: 400;
+}
+
+.field__show {
+  justify-self: start;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.field__show:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

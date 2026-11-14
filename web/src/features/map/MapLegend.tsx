@@ -9,20 +9,26 @@ export function MapLegend({ year }: { year: number }) {
   return (
     <figure className="legend">
       <div className="legend__row">
-        <span>Less vegetation</span>
+        <span>Fewer plants</span>
         <div className="legend__bar" style={{ backgroundImage: GRADIENT }} role="img" aria-label="NDVI color scale, from pale (0) to dark green (1)" />
-        <span>More vegetation</span>
+        <span>More plants</span>
       </div>
-      <p className="legend__cell">
-        Green shows how much vegetation there was in mid-July (NASA satellite). Dashed box:{' '}
-        <span className="legend__dash" aria-hidden="true" /> the area the climate figures describe, about 50 km across.
-        Solid line: <span className="legend__line" aria-hidden="true" /> {COUNTY_NAME}, the only area with project data.
+      <p className="legend__key">
+        <span className="legend__dash" aria-hidden="true" /> area the weather numbers describe <span className="legend__line" aria-hidden="true" />{' '}
+        {COUNTY_NAME}
       </p>
       <figcaption className="legend__caption">
         <details>
-          <summary>About this image</summary>
-          Vegetation index (NDVI, 0 to 1), {year}: the NASA MODIS Terra 16-day composite that includes July 20, close to
-          the peak of the growing season. Each pixel covers about 250 m. Source: NASA GIBS.
+          <summary>About this map</summary>
+          <p>
+            Green shows how much vegetation there was in mid-July (NASA satellite). The dashed box is the area the climate
+            figures describe, about 50 km across. The solid line is {COUNTY_NAME}, the only area with project data. Click the
+            map to see what the data says about that spot.
+          </p>
+          <p>
+            Vegetation index (NDVI, 0 to 1), {year}: the NASA MODIS Terra 16-day composite that includes July 20, close to the
+            peak of the growing season. Each pixel covers about 250 m. Source: NASA GIBS.
+          </p>
         </details>
       </figcaption>
     </figure>
