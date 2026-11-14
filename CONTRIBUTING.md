@@ -83,6 +83,7 @@ The submission requires describing how SI tools were used. It is logged here fro
 | Tool | What it was used for | Where it shows |
 |---|---|---|
 | Claude (AI assistant) | Research on the challenge and sources, tests of the data APIs, text drafts, folder structure proposal | README, CONTRIBUTING, data tests |
+| Muse Spark (Meta Model API) | Answers questions at runtime through `api/`; each claim is checked against the data by code | `api/`, `/ask` responses |
 | (add) | | |
 
 Rule: whatever an AI tool generates is reviewed and understood before use, and the person who signs the project answers for it.
@@ -105,3 +106,5 @@ To copy into the "References" field of the submission. Status "to verify" means 
 | NASA Worldview, https://worldview.earthdata.nasa.gov/ | Interface design reference | Style reference, no code reused |
 | Space Apps 2025 winning projects (Queñaris, Henry's Farm Adventures, Twisters) | Technique reference | Style reference, no code reused |
 | Ether landing page (author's earlier hackathon project) | Layout and section structure | Style reference, no code or images reused |
+| Ether citation verifier (author's earlier hackathon project, MIT) | Idea of a keyed evidence bundle and a deterministic check of each claim | Technique reference, code written from scratch |
+| Muse Spark, Meta Model API, https://api.meta.ai/v1 | Language model for `/ask` | Verified working Nov 14, 2026 |

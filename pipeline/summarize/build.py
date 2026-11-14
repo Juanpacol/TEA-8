@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "pipeline" / "schema" / "tea8.schema.json"
 ROTATIONS = ROOT / "pipeline" / "rotations" / "rotations.json"
 OUTPUT = ROOT / "web" / "public" / "data" / "summary.json"
+API_COPY = ROOT / "api" / "data" / "summary.json"  # the api image carries its own copy
 BASELINE_YEARS = range(2001, 2024)
 CLIMATE_POINT = "point-a"
 
@@ -120,7 +121,10 @@ def main() -> None:
         print("/".join(map(str, e.absolute_path)), e.message)
     if errors:
         raise SystemExit(1)
-    OUTPUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    text = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+    for target in (OUTPUT, API_COPY):
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(text, encoding="utf-8")
     s2012 = next(s for s in data["seasons"] if s["year"] == 2012)
     print(f"wrote {OUTPUT.name}; 2012 wetness {s2012['root_wetness']['value']}, "
           f"deviation {s2012['root_wetness_deviation']['value']}")

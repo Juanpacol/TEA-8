@@ -1,1 +1,3 @@
 pipeline/output/
+api/.env
+.env

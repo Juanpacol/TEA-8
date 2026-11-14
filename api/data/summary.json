@@ -1,0 +1,1281 @@
+{
+  "schema_version": "1",
+  "simulated": false,
+  "generated_at": "2026-11-14T15:20:27Z",
+  "region": {
+    "name": "McLean County",
+    "state": "Illinois",
+    "case_points": [
+      {
+        "id": "point-a",
+        "label": "Point A",
+        "lon": -88.6594,
+        "lat": 40.284,
+        "soil": {
+          "name": "Osco",
+          "drainage": "Well drained",
+          "hydrologic_group": "B",
+          "organic_matter": {
+            "value": 3.5,
+            "unit": "%",
+            "source": "USDA Soil Data Access (SSURGO)",
+            "parameter": "om_r",
+            "queried_on": "2026-11-14"
+          },
+          "available_water": {
+            "value": 0.23,
+            "unit": "cm/cm",
+            "source": "USDA Soil Data Access (SSURGO)",
+            "parameter": "awc_r",
+            "queried_on": "2026-11-14"
+          }
+        },
+        "crop_history": [
+          {
+            "year": 2008,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2009,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2010,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2011,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2012,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2013,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2014,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2015,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2016,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2017,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2018,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2019,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2020,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2021,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2022,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2023,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          }
+        ]
+      },
+      {
+        "id": "point-b",
+        "label": "Point B",
+        "lon": -88.6735,
+        "lat": 40.6954,
+        "soil": {
+          "name": "Chenoa",
+          "drainage": "Somewhat poorly drained",
+          "hydrologic_group": "C/D",
+          "organic_matter": {
+            "value": 4.3,
+            "unit": "%",
+            "source": "USDA Soil Data Access (SSURGO)",
+            "parameter": "om_r",
+            "queried_on": "2026-11-14"
+          },
+          "available_water": {
+            "value": 0.17,
+            "unit": "cm/cm",
+            "source": "USDA Soil Data Access (SSURGO)",
+            "parameter": "awc_r",
+            "queried_on": "2026-11-14"
+          }
+        },
+        "crop_history": [
+          {
+            "year": 2008,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2009,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2010,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2011,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2012,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2013,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2014,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2015,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2016,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2017,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2018,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2019,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2020,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2021,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2022,
+            "crop": "Corn",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          },
+          {
+            "year": 2023,
+            "crop": "Soybeans",
+            "source": "CropScape (CDL)",
+            "queried_on": "2026-11-14"
+          }
+        ]
+      }
+    ]
+  },
+  "seasons": [
+    {
+      "year": 2001,
+      "root_wetness": {
+        "value": 0.59,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.81,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 2.91,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.0,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2002,
+      "root_wetness": {
+        "value": 0.67,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 0.26,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.55,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.3,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2003,
+      "root_wetness": {
+        "value": 0.58,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.95,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.9,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.5,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2004,
+      "root_wetness": {
+        "value": 0.62,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.41,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.21,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 21.4,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2005,
+      "root_wetness": {
+        "value": 0.54,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -1.53,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 2.07,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 24.8,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2006,
+      "root_wetness": {
+        "value": 0.58,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -1.04,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.04,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.3,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2007,
+      "root_wetness": {
+        "value": 0.62,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.46,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.23,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.1,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2008,
+      "root_wetness": {
+        "value": 0.73,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 1.07,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.77,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.0,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2009,
+      "root_wetness": {
+        "value": 0.79,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 1.78,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.99,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 20.9,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2010,
+      "root_wetness": {
+        "value": 0.77,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 1.56,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 4.19,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 24.0,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2011,
+      "root_wetness": {
+        "value": 0.69,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 0.53,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 2.73,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.9,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2012,
+      "root_wetness": {
+        "value": 0.51,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -1.98,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 1.77,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 25.6,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2013,
+      "root_wetness": {
+        "value": 0.73,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 1.02,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 2.0,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 21.9,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2014,
+      "root_wetness": {
+        "value": 0.64,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.23,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 4.21,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.1,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2015,
+      "root_wetness": {
+        "value": 0.74,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 1.16,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 4.83,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.0,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2016,
+      "root_wetness": {
+        "value": 0.68,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 0.4,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 5.05,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.3,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2017,
+      "root_wetness": {
+        "value": 0.63,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.28,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.04,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.4,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2018,
+      "root_wetness": {
+        "value": 0.63,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.28,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 4.0,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.5,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2019,
+      "root_wetness": {
+        "value": 0.75,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 1.33,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 2.83,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.5,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2020,
+      "root_wetness": {
+        "value": 0.69,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 0.53,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 2.95,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 22.9,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2021,
+      "root_wetness": {
+        "value": 0.66,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 0.13,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 4.43,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.2,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2022,
+      "root_wetness": {
+        "value": 0.61,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.59,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.03,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.3,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2023,
+      "root_wetness": {
+        "value": 0.56,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -1.22,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.03,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.2,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2024,
+      "root_wetness": {
+        "value": 0.62,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.41,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.39,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.1,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2025,
+      "root_wetness": {
+        "value": 0.61,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": -0.59,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 3.53,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.8,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2026,
+      "root_wetness": {
+        "value": 0.66,
+        "unit": "fraction",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "root_wetness_deviation": {
+        "value": 0.04,
+        "unit": "standard deviations vs 2001-2023",
+        "source": "NASA POWER",
+        "parameter": "GWETROOT",
+        "queried_on": "2026-11-14"
+      },
+      "rainfall": {
+        "value": 5.53,
+        "unit": "mm/day",
+        "source": "NASA POWER",
+        "parameter": "PRECTOTCORR",
+        "queried_on": "2026-11-14"
+      },
+      "temperature": {
+        "value": 23.1,
+        "unit": "°C",
+        "source": "NASA POWER",
+        "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      }
+    }
+  ],
+  "rotations": [
+    {
+      "id": "corn-soybean",
+      "name": "Corn-soybean (current)",
+      "is_current": true,
+      "hypothetical": false,
+      "sequence": [
+        "corn",
+        "soybeans"
+      ],
+      "rules": [
+        {
+          "id": "r-current-1",
+          "origin": "platform_calculation",
+          "text": "At both case points the crop alternated between corn and soybeans every year from 2008 to 2023, so this is the rotation already in use."
+        }
+      ],
+      "explanation": {
+        "why": [
+          {
+            "text": "At both case points the crop alternated between corn and soybeans every year from 2008 to 2023, so this is the rotation already in use.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "evidence": [
+          {
+            "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
+            "origin": "nasa_data"
+          }
+        ],
+        "gaps": [
+          {
+            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "NASA POWER is a grid of about 50 km: it represents the area, not the plot.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "risks": [
+          {
+            "text": "In the cited Illinois model, rotations with two crops carried a higher risk of low corn yields in dry weather than rotations with three.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "three-crop",
+      "name": "Corn-soybean-small grain (hypothetical)",
+      "is_current": false,
+      "hypothetical": true,
+      "sequence": [
+        "corn",
+        "soybeans",
+        "small grain"
+      ],
+      "rules": [
+        {
+          "id": "r-three-1",
+          "origin": "citation",
+          "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)",
+          "text": "In a model of over 2.2 million field-years in Illinois and Minnesota, moving from a 2-crop to a 3-crop rotation lowered the modeled risk of low corn yields in dry weather. In nearly all Illinois counties, over 90% of fields showed reduced risk."
+        },
+        {
+          "id": "r-three-2",
+          "origin": "citation",
+          "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)",
+          "text": "In neighboring Logan County, Illinois, the median reduction was about 5 percentage points in the probability of low corn yields in dry conditions."
+        },
+        {
+          "id": "r-three-3",
+          "origin": "platform_calculation",
+          "text": "The study measures how many crops a rotation has, not a specific third crop. Choosing a small grain such as wheat is our assumption and needs local review."
+        }
+      ],
+      "explanation": {
+        "why": [
+          {
+            "text": "In a model of over 2.2 million field-years in Illinois and Minnesota, moving from a 2-crop to a 3-crop rotation lowered the modeled risk of low corn yields in dry weather. In nearly all Illinois counties, over 90% of fields showed reduced risk.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ],
+        "evidence": [
+          {
+            "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
+            "origin": "nasa_data"
+          },
+          {
+            "text": "In neighboring Logan County, Illinois, the median reduction was about 5 percentage points in the probability of low corn yields in dry conditions.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ],
+        "gaps": [
+          {
+            "text": "The study measures how many crops a rotation has, not a specific third crop. Choosing a small grain such as wheat is our assumption and needs local review.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "This rotation is hypothetical: it does not exist in the observed fields.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "NASA POWER is a grid of about 50 km: it represents the area, not the plot.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "risks": [
+          {
+            "text": "A local agronomist should review this rotation before it is considered.",
+            "origin": "platform_calculation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "four-crop",
+      "name": "Four-year rotation with oat/clover (hypothetical)",
+      "is_current": false,
+      "hypothetical": true,
+      "sequence": [
+        "corn",
+        "soybeans",
+        "grain sorghum",
+        "oat/clover"
+      ],
+      "rules": [
+        {
+          "id": "r-four-1",
+          "origin": "citation",
+          "citation": "CropWatch, University of Nebraska-Lincoln, \"More diverse crop rotations improve yield, yield stability and soil health\" (https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health, read Nov 14 2026)",
+          "text": "In a long-term Nebraska trial, fertilized corn yielded 29% more in two-year rotations and up to 48% more in four-year rotations than continuous corn. These comparisons are against continuous cropping, not against corn-soybean."
+        },
+        {
+          "id": "r-four-2",
+          "origin": "citation",
+          "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)",
+          "text": "Across 11 long-term experiments, diverse rotations reduced corn yield losses by 14 to 90% in drought years in half of them, as reported by this study citing earlier work."
+        },
+        {
+          "id": "r-four-3",
+          "origin": "platform_calculation",
+          "text": "The Nebraska trial is a single site under no-till, and the clover was a winter cover crop in only one of four years. Grain sorghum is not grown in the observed McLean fields."
+        },
+        {
+          "id": "r-four-4",
+          "origin": "citation_to_verify",
+          "citation": "American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 (could not be opened)",
+          "text": "A reported Illinois study cautions that some grass cover crops can slightly lower corn yield. This source has not been read yet."
+        }
+      ],
+      "explanation": {
+        "why": [
+          {
+            "text": "In a long-term Nebraska trial, fertilized corn yielded 29% more in two-year rotations and up to 48% more in four-year rotations than continuous corn. These comparisons are against continuous cropping, not against corn-soybean.",
+            "origin": "citation",
+            "citation": "CropWatch, University of Nebraska-Lincoln, \"More diverse crop rotations improve yield, yield stability and soil health\" (https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health, read Nov 14 2026)"
+          }
+        ],
+        "evidence": [
+          {
+            "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
+            "origin": "nasa_data"
+          },
+          {
+            "text": "Across 11 long-term experiments, diverse rotations reduced corn yield losses by 14 to 90% in drought years in half of them, as reported by this study citing earlier work.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ],
+        "gaps": [
+          {
+            "text": "The Nebraska trial is a single site under no-till, and the clover was a winter cover crop in only one of four years. Grain sorghum is not grown in the observed McLean fields.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "This rotation is hypothetical: it does not exist in the observed fields.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "NASA POWER is a grid of about 50 km: it represents the area, not the plot.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "risks": [
+          {
+            "text": "A reported Illinois study cautions that some grass cover crops can slightly lower corn yield. This source has not been read yet.",
+            "origin": "citation_to_verify",
+            "citation": "American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 (could not be opened)"
+          },
+          {
+            "text": "A local agronomist should review this rotation before it is considered.",
+            "origin": "platform_calculation"
+          }
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
+    "Climate figures are for point A only and summarize June to August.",
+    "There are no yields: comparisons measure stress and exposure, not outcomes.",
+    "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies."
+  ]
+}
