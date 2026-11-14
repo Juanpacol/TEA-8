@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
-import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
+import { BaseControl, CompareControl, DEFAULT_BASE, Glossary, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, rotationName, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, isAfterBaseline, seasonOf } from '../../features/season/index.ts'
@@ -55,6 +55,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
           </div>
           {showVegetation && <MapLegend year={year} />}
+          <Glossary />
         </div>
 
         <div className="workspace__side">
