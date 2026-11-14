@@ -1,8 +1,36 @@
 import type { Rotation, TEA8DataFile } from '../../shared/lib/data-types.ts'
-import { dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict } from './yields.ts'
+import type { CropOutcome } from './yields.ts'
+import { barShares, dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict, toneOf } from './yields.ts'
 import './yields.css'
 
 type Props = { data: TEA8DataFile; rotation: Rotation; year: number }
+
+/** One crop: what it did against usual in words, a bar against the usual yield, and the figures. */
+function CropRow({ outcome }: { outcome: Extract<CropOutcome, { kind: 'yield' }> }) {
+  const { record, crop } = outcome
+  const actual = record.yield.value ?? 0
+  const usual = record.expected.value ?? 0
+  const { fill, usual: usualAt } = barShares(actual, usual)
+  const change = record.change_vs_trend.value
+  return (
+    <li className="crop-row">
+      <p className="crop-row__head">
+        <strong>{crop}</strong> {plainChange(change)}
+      </p>
+      <div
+        className={`crop-row__bar crop-row__bar--${toneOf(change)}`}
+        role="img"
+        aria-label={`${crop}: ${Math.round(actual)} against ${Math.round(usual)} usually`}
+      >
+        <span className="crop-row__fill" style={{ width: `${fill * 100}%` }} />
+        <span className="crop-row__usual" style={{ left: `${usualAt * 100}%` }} />
+      </div>
+      <p className="crop-row__figures">
+        {Math.round(actual)} {plainUnit(record.yield.unit)}, against about {Math.round(usual)} usually
+      </p>
+    </li>
+  )
+}
 
 /** What the county yields say about the chosen summer for the crops of the chosen rotation. */
 export function YearOutcome({ data, rotation, year }: Props) {
@@ -21,10 +49,7 @@ export function YearOutcome({ data, rotation, year }: Props) {
       <ul className="outcome__list">
         {outcomes.map((outcome) =>
           outcome.kind === 'yield' ? (
-            <li key={outcome.crop}>
-              <strong>{outcome.crop}</strong>: {plainChange(outcome.record.change_vs_trend.value)}. {Math.round(outcome.record.yield.value ?? 0)}{' '}
-              {plainUnit(outcome.record.yield.unit)} against about {Math.round(outcome.record.expected.value ?? 0)} usually.
-            </li>
+            <CropRow key={outcome.crop} outcome={outcome} />
           ) : (
             <li key={outcome.crop} className="outcome__none">
               <strong>{outcome.crop}</strong>{' '}
@@ -33,6 +58,9 @@ export function YearOutcome({ data, rotation, year }: Props) {
           ),
         )}
       </ul>
+      {outcomes.some((outcome) => outcome.kind === 'yield') && (
+        <p className="outcome__range">The white mark on each bar is the usual yield.</p>
+      )}
       {ranges.map((range) => (
         <p key={range.crop} className="outcome__range">
           In the {range.count} dry summers since 2001, {range.crop} went from {percentFromUsual(range.lowest)} to{' '}

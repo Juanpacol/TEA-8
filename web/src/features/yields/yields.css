@@ -34,3 +34,48 @@
 .outcome__how summary {
   cursor: pointer;
 }
+
+.crop-row {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.crop-row__head,
+.crop-row__figures {
+  margin: 0;
+}
+
+.crop-row__figures {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.crop-row__bar {
+  position: relative;
+  height: 0.7rem;
+  background: var(--surface-raised);
+  border-radius: 999px;
+}
+
+.crop-row__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.crop-row__bar--less .crop-row__fill {
+  background: var(--ochre);
+}
+
+.crop-row__bar--much-less .crop-row__fill {
+  background: var(--red);
+}
+
+.crop-row__usual {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  background: var(--text);
+}
