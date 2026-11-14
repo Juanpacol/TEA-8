@@ -1,0 +1,116 @@
+{
+  "schema_version": "1",
+  "simulated": true,
+  "generated_at": "2026-11-14T12:00:00Z",
+  "region": {
+    "name": "McLean County",
+    "state": "Illinois",
+    "case_points": [
+      {
+        "id": "point-a",
+        "label": "Point A",
+        "lon": -88.6594,
+        "lat": 40.284,
+        "soil": {
+          "name": "Osco",
+          "drainage": "Well drained",
+          "hydrologic_group": "B",
+          "organic_matter": { "value": 3.5, "unit": "%", "source": "USDA Soil Data Access (SSURGO)", "parameter": "om_r", "queried_on": "2026-11-14" },
+          "available_water": { "value": 0.23, "unit": "cm/cm", "source": "USDA Soil Data Access (SSURGO)", "parameter": "awc_r", "queried_on": "2026-11-14" }
+        },
+        "crop_history": [
+          { "year": 2012, "crop": "soybeans", "source": "CropScape (CDL)", "queried_on": "2026-11-14" },
+          { "year": 2023, "crop": "corn", "source": "CropScape (CDL)", "queried_on": "2026-11-14" }
+        ]
+      },
+      {
+        "id": "point-b",
+        "label": "Point B",
+        "lon": -88.6735,
+        "lat": 40.6954,
+        "soil": {
+          "name": "Chenoa",
+          "drainage": "Somewhat poorly drained",
+          "hydrologic_group": "C/D",
+          "organic_matter": { "value": 4.3, "unit": "%", "source": "USDA Soil Data Access (SSURGO)", "parameter": "om_r", "queried_on": "2026-11-14" },
+          "available_water": { "value": 0.17, "unit": "cm/cm", "source": "USDA Soil Data Access (SSURGO)", "parameter": "awc_r", "queried_on": "2026-11-14" }
+        },
+        "crop_history": [
+          { "year": 2012, "crop": "corn", "source": "CropScape (CDL)", "queried_on": "2026-11-14" },
+          { "year": 2023, "crop": "soybeans", "source": "CropScape (CDL)", "queried_on": "2026-11-14" }
+        ]
+      }
+    ]
+  },
+  "seasons": [
+    {
+      "year": 2012,
+      "root_wetness": { "value": 0.51, "unit": "fraction", "source": "NASA POWER", "parameter": "GWETROOT", "queried_on": "2026-11-14" },
+      "root_wetness_deviation": { "value": -1.98, "unit": "standard deviations vs 2001-2023", "source": "NASA POWER", "parameter": "GWETROOT", "queried_on": "2026-11-14" },
+      "rainfall": { "value": 1.77, "unit": "mm/day", "source": "NASA POWER", "parameter": "PRECTOTCORR", "queried_on": "2026-11-14" },
+      "temperature": { "value": 25.6, "unit": "°C", "source": "NASA POWER", "parameter": "T2M", "queried_on": "2026-11-14" }
+    },
+    {
+      "year": 2023,
+      "root_wetness": { "value": 0.56, "unit": "fraction", "source": "NASA POWER", "parameter": "GWETROOT", "queried_on": "2026-11-14" },
+      "root_wetness_deviation": { "value": -1.22, "unit": "standard deviations vs 2001-2023", "source": "NASA POWER", "parameter": "GWETROOT", "queried_on": "2026-11-14" },
+      "rainfall": { "value": null, "unit": "mm/day", "source": "NASA POWER", "parameter": "PRECTOTCORR", "queried_on": "2026-11-14" },
+      "temperature": { "value": null, "unit": "°C", "source": "NASA POWER", "parameter": "T2M", "queried_on": "2026-11-14" }
+    }
+  ],
+  "rotations": [
+    {
+      "id": "corn-soybean",
+      "name": "Corn-soybean (current)",
+      "is_current": true,
+      "hypothetical": false,
+      "sequence": ["corn", "soybeans"],
+      "rules": [
+        { "id": "r-current-1", "text": "[Sample] Alternation observed in 2008-2023 crop history.", "origin": "nasa_data" }
+      ],
+      "explanation": {
+        "why": [{ "text": "[Sample] This is the rotation already used in the area.", "origin": "platform_calculation" }],
+        "evidence": [{ "text": "[Sample] Root-zone wetness in summer 2012 was 0.51.", "origin": "nasa_data" }],
+        "gaps": [{ "text": "[Sample] No yield data is included.", "origin": "platform_calculation" }],
+        "risks": [{ "text": "[Sample] Both crops are sensitive to summer drought.", "origin": "citation_to_verify", "citation": "To verify" }]
+      }
+    },
+    {
+      "id": "alternative-1",
+      "name": "Alternative 1 (placeholder)",
+      "is_current": false,
+      "hypothetical": true,
+      "sequence": ["corn", "soybeans", "wheat"],
+      "rules": [
+        { "id": "r-alt1-1", "text": "[Sample] Placeholder rule, no source read yet.", "origin": "citation_to_verify", "citation": "To verify" }
+      ],
+      "explanation": {
+        "why": [{ "text": "[Sample] Placeholder explanation.", "origin": "model_text" }],
+        "evidence": [],
+        "gaps": [{ "text": "[Sample] This rotation does not exist in the observed fields.", "origin": "platform_calculation" }],
+        "risks": [{ "text": "[Sample] Needs local agronomic review.", "origin": "platform_calculation" }]
+      }
+    },
+    {
+      "id": "alternative-2",
+      "name": "Alternative 2 (placeholder)",
+      "is_current": false,
+      "hypothetical": true,
+      "sequence": ["corn", "soybeans", "cover crop"],
+      "rules": [
+        { "id": "r-alt2-1", "text": "[Sample] Placeholder rule, no source read yet.", "origin": "citation_to_verify", "citation": "To verify" }
+      ],
+      "explanation": {
+        "why": [{ "text": "[Sample] Placeholder explanation.", "origin": "model_text" }],
+        "evidence": [],
+        "gaps": [{ "text": "[Sample] This rotation does not exist in the observed fields.", "origin": "platform_calculation" }],
+        "risks": [{ "text": "[Sample] Needs local agronomic review.", "origin": "platform_calculation" }]
+      }
+    }
+  ],
+  "limits": [
+    "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
+    "There are no yields: comparisons measure stress and exposure, not outcomes.",
+    "This file is simulated sample data."
+  ]
+}
