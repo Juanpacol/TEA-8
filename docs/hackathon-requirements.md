@@ -1,61 +1,68 @@
-# Requisitos del hackathon
+# Hackathon requirements
 
-Referencia de lo que exige NASA Space Apps 2026. Leído en las páginas oficiales el 14 de noviembre de 2026. Si algo cambia en el sitio oficial, el sitio manda. Las reglas de trabajo del proyecto están en [../CONTRIBUTING.md](../CONTRIBUTING.md).
+Reference for what NASA Space Apps 2026 requires. Read on the official pages on November 14, 2026. If anything changes on the official site, the site wins. The project's working rules are in [../CONTRIBUTING.md](../CONTRIBUTING.md).
 
-## Fechas
-- Evento: sábado 14 y domingo 15 de noviembre de 2026.
-- Entrega: antes del **domingo 15 de noviembre, 11:59 p.m., hora local del evento local** del equipo. Si el equipo está en el Universal Event, se usa la hora local del dueño del equipo.
-- Nominados, finalistas y menciones: diciembre de 2026. Ganadores globales: enero de 2027.
+## Dates
+- Event: Saturday, November 14 and Sunday, November 15, 2026.
+- Submission opens Saturday, November 14 at 9:00 a.m. (the "Project" tab appears only from that time).
+- Submission deadline: before **Sunday, November 15, 11:59 p.m., local time of the team's Local Event**. If the team is in the Universal Event, the Team Owner's local time is used.
+- Nominees, finalists and honorable mentions: December 2026. Global winners: January 2027.
 
-## Equipo
-- Un equipo de un solo miembro es válido en un **evento local**.
-- En el **Universal Event** hacen falta al menos 2 personas para ser elegible a la evaluación global.
-- Máximo 6 miembros. Solo se puede estar en un equipo y trabajar en un reto.
-- Todos los miembros deben estar registrados en el mismo evento, sin lista de espera, y aparecer en la pestaña "Members" del equipo.
-- No se pueden añadir miembros después de cerrar la entrega.
-- [ ] Confirmar que el equipo está inscrito en un evento local y no en el Universal.
+## Team
+- A single-member team is valid at a **Local Event**.
+- At the **Universal Event**, at least 2 people are needed to be eligible for global judging.
+- Maximum 6 members. A person can be on only one team and work on one challenge.
+- All members must be registered for the same event, not waitlisted, and appear on the team's "Members" tab.
+- Members cannot be added after submission closes.
+- [ ] Confirm the team is registered at a Local Event and not the Universal Event.
 
-## Entrega obligatoria
-Leído en la Guía de entrega y la Guía de evaluación el 14 de noviembre de 2026. La entrega abre el sábado 14 a las 9:00 a.m. (la pestaña "Project" aparece solo desde esa hora).
+## Required submission
+Read in the Project Submission Guide and the Judging Guide on November 14, 2026.
 
-Campos del formulario (todos obligatorios): Project Name, High-Level Project Summary, Link to Project Demo, Link to Final Project, Detailed Project Description, Use of Super Intelligence (SI), NASA Data, Space Agency Partner Data and Other References.
+Form fields (all required): Project Name, High-Level Project Summary, Link to Project Demo, Link to Final Project, Detailed Project Description, Use of Super Intelligence (SI), NASA Data, Space Agency Partner Data and Other References.
 
-- [ ] Responder a uno de los retos oficiales (Field Shift).
-- [ ] Demo: video de **30 segundos o menos** o presentación de **máximo 7 diapositivas** (portada e introducción incluidas). **Quien excede estos límites no es elegible para la evaluación global.** Las diapositivas deben incluir nombre del equipo, nombres de los miembros y el reto elegido, además de una imagen del proyecto, la experiencia de usuario y cómo los datos NASA hacen posible la solución.
-- [ ] Alojar demo y proyecto fuera del sitio (YouTube, Drive, GitHub, etc.) con enlace **público, sin contraseña ni registro**. Probarlo en una ventana privada. Si los jueces no pueden abrirlo, no se evalúa.
-- [ ] La página del proyecto acepta imágenes JPG, PNG o GIF de hasta 10 MB. No acepta videos ni documentos.
-- [ ] Todo el texto de la página y de los materiales enlazados **en inglés**. Un video puede estar en otro idioma, pero con subtítulos en inglés. Las diapositivas, en inglés.
-- [ ] Usar **al menos un dato o recurso de la NASA**: es requisito para optar a un premio global.
-- [ ] Sin imágenes, video, audio ni semejanza de **menores de 18 años**.
-- [ ] Marcar la casilla de términos: "I have read and understand the project submission requirements ... and I agree to the Participant Terms and Conditions and Privacy Policy."
-- [ ] Marcar la casilla de **trabajo original**: el proyecto es trabajo original del equipo y **todo recurso externo (código, texto, imágenes, aunque sea libre) está en "References"**; no se usan materiales con derechos sin permiso.
-- [ ] Pulsar **"Submit for Judging"** antes del domingo 15 de noviembre, 11:59 p.m. hora local. "Save Progress" no envía. Se puede reenviar las veces que se quiera; solo cuenta la última versión guardada. Lo guardado o enviado después del plazo no es elegible.
-- [ ] Recomendado, no obligatorio: pedir la clasificación de filtro web de FortiGuard para el sitio publicado, para evitar bloqueos al evaluar (categoría "web-based application", empresa "N/A").
-- [ ] Revisión de NASA sobre restricciones de financiamiento con China; se decide con la información del solicitante.
+- [ ] Respond to one of the official challenges (Field Shift).
+- [ ] Demo: a video of **30 seconds or less**, or a presentation of **at most 7 slides** (title and intro slides included). **Going over these limits makes the project ineligible for global judging.** Slides must include the team name, member names and the chosen challenge, plus an image of the project, the user experience and how NASA data makes the solution possible.
+- [ ] Host the demo and the project outside the site (YouTube, Drive, GitHub, etc.) with a **public link, no password or registration**. Test it in a private window. If judges cannot open it, it is not evaluated.
+- [ ] The project page accepts JPG, PNG or GIF images up to 10 MB. It does not accept videos or documents.
+- [ ] All text on the page and in linked materials **in English**. A video may be in another language, but with English subtitles. Slides must be in English.
+- [ ] Use **at least one NASA data set or resource**: required to be eligible for a global award.
+- [ ] No images, video, audio or likeness of **people under 18**.
+- [ ] Check the terms box: "I have read and understand the project submission requirements ... and I agree to the Participant Terms and Conditions and Privacy Policy."
+- [ ] Check the **original work** box: the project is the team's original work and **every external resource (code, text, images, even if free) is listed in "References"**; no materials are used without permission.
+- [ ] Click **"Submit for Judging"** before Sunday, November 15, 11:59 p.m. local time. "Save Progress" does not submit. The project can be resubmitted as many times as wanted; only the last saved version counts. Anything saved or submitted after the deadline is not eligible.
+- [ ] Recommended, not required: request FortiGuard web filter classification for the published site, to avoid blocks during judging (category "web-based application", company "N/A").
+- [ ] NASA review of China funding restrictions; decided from the applicant's information.
 
-## Criterios de evaluación (puntúan de 1 a 5 en cada nivel)
-| Criterio | Qué se evalúa |
+## Evaluation criteria (scored 1 to 5 at every level)
+| Criterion | What is evaluated |
 |---|---|
-| Impact | Problema real que se atiende y alcance del efecto |
-| Creativity | Originalidad y mejora significativa sobre lo existente |
-| Validity | Base científica y viabilidad técnica, funcional o lógica |
-| Relevance | Responde directamente al reto e integra los datos de la NASA como parte central |
-| Presentation | Comunicación clara y bien contada de reto, solución e importancia |
+| Impact | A real problem addressed and the reach of the effect |
+| Creativity | Originality and a meaningful improvement over what exists |
+| Validity | Scientific basis and technical, functional or logical feasibility |
+| Relevance | Directly answers the challenge and integrates NASA data as a core component |
+| Presentation | Clear, well-told communication of the challenge, solution and significance |
 
-Premios globales: Best Use of Science, Best Use of Data, Best Use of Technology, Galactic Impact, Best Mission Concept, Most Inspirational, Best Use of Storytelling, Global Connection, Art & Technology y Local Impact.
+Global awards: Best Use of Science, Best Use of Data, Best Use of Technology, Galactic Impact, Best Mission Concept, Most Inspirational, Best Storytelling, Global Connection, Art & Technology and Local Impact.
 
-## Pendiente de leer
-- [ ] Términos y Condiciones del participante. No se encontró una regla explícita sobre trabajo previo al evento; la exigencia visible es la declaración de originalidad y la lista de referencias.
+## Challenge notes (Field Shift)
+Read on the challenge page on November 14, 2026.
+- The goal is a supportive decision tool that "does not replace farmer judgment or local agricultural expertise".
+- Comparing at least three rotation strategies, including the existing one, is optional but suggested. For each: why it was suggested, what evidence supports it, benefits, information gaps and risks that need local review.
+- Suggested but optional: let farmers enter their own priorities or constraints (water, equipment, market); explain terms such as NDVI and soil moisture; explain how satellite observations differ from ground measurements; explain uncertainty.
 
-## Lista antes de enviar
+## Still to read
+- [ ] Participant Terms and Conditions. No explicit rule about work done before the event was found; the visible requirement is the originality declaration and the references list.
 
-- [ ] El equipo está inscrito en un evento local y aparece en "Members".
-- [ ] La página de entrega está completa y en inglés.
-- [ ] La demo (diapositivas o video) cumple el formato y el límite de la guía.
-- [ ] Hay descripción del uso de SI/IA.
-- [ ] El campo "References" lista todo recurso externo de la sección 4 de CONTRIBUTING.md.
-- [ ] Las dos casillas (términos y trabajo original) están marcadas.
-- [ ] El sitio publicado abre y funciona con datos reales.
-- [ ] Los límites de los datos están declarados.
-- [ ] No hay claves ni credenciales en el repositorio.
-- [ ] Se pulsó "Submit for Judging" antes del domingo 15 de noviembre, 11:59 p.m. hora local.
+## Pre-submit checklist
+
+- [ ] The team is registered at a Local Event and appears under "Members".
+- [ ] The submission page is complete and in English.
+- [ ] The demo (slides or video) meets the format and the guide's limit.
+- [ ] The SI/AI use description is filled in.
+- [ ] The "References" field lists every external resource from section 4 of CONTRIBUTING.md.
+- [ ] Both boxes (terms and original work) are checked.
+- [ ] The published site opens and works with real data.
+- [ ] Data limits are declared.
+- [ ] There are no keys or credentials in the repository.
+- [ ] "Submit for Judging" was clicked before Sunday, November 15, 11:59 p.m. local time.

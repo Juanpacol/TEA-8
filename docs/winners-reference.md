@@ -1,72 +1,72 @@
-# Referencia de ganadores: cómo presentan y venden su proyecto
+# Winners reference: how they present and sell their project
 
-Documento de consulta para escribir el cuerpo de la landing page, la página de entrega, el video y el pitch. Se actualiza si se revisan más proyectos.
+A reference for writing the landing page body, the submission page, the video and the pitch. Updated if more projects are reviewed.
 
-Relacionado: [landing-page.md](landing-page.md) define la estructura y el diseño de la página. [../CONTRIBUTING.md](../CONTRIBUTING.md) define los requisitos de entrega.
+Related: [landing-page.md](landing-page.md) defines the page structure and design. [../CONTRIBUTING.md](../CONTRIBUTING.md) defines the working rules and [hackathon-requirements.md](hackathon-requirements.md) the submission requirements.
 
-## Qué se observó en los ganadores de 2025
+## What was observed in the 2025 winners
 
-Observado en las páginas de proyecto de siete de los diez ganadores globales de Space Apps 2025 (Astro Sweepers, Gaia+LEO, HerCode Space, PureFlow, Resonant Exoplanets, SpaceGenes+, Zumorroda-X) más Queñaris y Twisters, leídas el 13 de noviembre de 2026. No se revisó el contenido de sus videos ni de todos sus sitios. Photonic Odyssey no se leyó.
+Observed on the project pages of seven of the ten Space Apps 2025 global winners (Astro Sweepers, Gaia+LEO, HerCode Space, PureFlow, Resonant Exoplanets, SpaceGenes+, Zumorroda-X) plus Queñaris and Twisters, read on November 13, 2026. The content of their videos and of all their sites was not reviewed. Photonic Odyssey was not read.
 
-### Estructura de la página de proyecto
-Todos siguen el orden de la plantilla de entrega de Space Apps:
+### Project page structure
+All follow the order of the Space Apps submission template:
 1. Summary
-2. Project Demonstration (enlace a un video, casi siempre YouTube o Drive)
-3. Project (enlace al sitio publicado)
+2. Project Demonstration (link to a video, almost always YouTube or Drive)
+3. Project (link to the published site)
 4. Project Details
 5. Use of Artificial Intelligence
 6. NASA Data
 7. Space Agency Partner and Other Data
 
-Casi todos enlazan también un repositorio de GitHub. Lo que cambia entre ellos es lo que ponen en Summary y en Project Details.
+Almost all also link a GitHub repository. What differs is what they put in Summary and Project Details.
 
-### Cómo escriben el Summary
-- Empiezan nombrando **qué es y qué produce**, en una frase: "interactive systems engineering platform", "interactive dashboard", "compliance-and-insight platform", "mixed-integer optimization framework".
-- Añaden un **diferenciador explícito**. PureFlow: "more than a layout tool; it is a survival simulator".
-- Incluyen **datos concretos** (nombre del conjunto de datos, genes, potencia de los módulos) y no descripciones vagas.
-- Los proyectos de narrativa abren con un gancho: HerCode Space, "we wanted the Sun to tell its own story".
-- Zumorroda-X y Queñaris anclan la historia en **personas y lugares reales** (agricultores en Pakistán, India, Egipto; la crisis de agua de Arequipa).
+### How they write the Summary
+- They start by naming **what it is and what it produces**, in one sentence: "interactive systems engineering platform", "interactive dashboard", "compliance-and-insight platform", "mixed-integer optimization framework".
+- They add an **explicit differentiator**. PureFlow: "more than a layout tool; it is a survival simulator".
+- They include **concrete data** (data set name, genes, module power) rather than vague descriptions.
+- Narrative projects open with a hook: HerCode Space, "we wanted the Sun to tell its own story".
+- Zumorroda-X and Queñaris anchor the story in **real people and places** (farmers in Pakistan, India, Egypt; the Arequipa water crisis).
 
-### Extensión y secciones de detalle
-- Lo habitual son 3.600 a 6.400 caracteres.
-- Astro Sweepers escribió unos 16.600 y añadió secciones de **modelo de negocio, beneficios y metas, hoja de ruta futura** y un ángulo institucional. Vende el proyecto como algo viable más allá del hackathon.
-- Los demás se centran en descripción, cómo funciona y datos usados.
+### Length and detail sections
+- The usual length is 3,600 to 6,400 characters.
+- Astro Sweepers wrote about 16,600 and added sections on **business model, benefits and goals, future roadmap** and an institutional angle. It sells the project as viable beyond the hackathon.
+- The others focus on description, how it works and data used.
 
-### Otros patrones
-- **Declaración de uso de IA** presente en todos. Algunos nombran herramientas concretas: SpaceGenes+ enlaza Bolt, Lovable y Framer, y Twisters menciona Lovable, Builder.io y Figma. Una interfaz pulida con herramientas de construcción asistida es normal entre los ganadores si se declara.
-- **Lista de datos NASA** y de **otras fuentes** separadas.
-- Un ganador (SpaceGenes+) se presenta como proyecto de una sola persona, de diseño UX.
+### Other patterns
+- A **statement on AI use** is present in all of them. Some name specific tools: SpaceGenes+ links Bolt, Lovable and Framer, and Twisters mentions Lovable, Builder.io and Figma. A polished interface built with assisted tools is normal among winners if declared.
+- **NASA data list** and **other sources** kept separate.
+- One winner (SpaceGenes+) presents as a one-person UX design project.
 
-## Lo que se adopta en TEA-8
+## What is adopted in TEA-8
 
-1. **Summary con la fórmula "convierte X en Y con prueba de Z".** Borrador: "TEA-8 turns NASA climate data and USDA soil and crop records into a side-by-side comparison of three crop rotations, with the source of every statement shown."
-2. **Un diferenciador de una línea**, al estilo de PureFlow: "Not a recommender. A tool that shows what the data can and can't say."
-3. **Datos concretos** en el texto: McLean County, 2023 y 2012, fuentes con nombre, la cifra de humedad. Nada de descripciones genéricas.
-4. **Una historia con lugar y año reales** (la sequía de 2012, la de 2023), como Zumorroda-X y Queñaris.
-5. **Sección de futuro**, como Astro Sweepers: más regiones, rendimientos reales con NASS QuickStats, cultivos alternativos con ensayos locales. Se escribe solo lo que sea creíble.
-6. **Demo en video y sitio publicado**, además del repositorio.
-7. **Declaración de IA y lista de datos** completas y separadas en NASA y otras fuentes.
+1. **A Summary with the formula "turns X into Y with proof of Z".** Draft: "TEA-8 turns NASA climate data and USDA soil and crop records into a side-by-side comparison of three crop rotations, with the source of every statement shown."
+2. **A one-line differentiator**, PureFlow style: "Not a recommender. A tool that shows what the data can and can't say."
+3. **Concrete data** in the text: McLean County, 2023 and 2012, named sources, the wetness figure. No generic descriptions.
+4. **A story with a real place and year** (the 2012 drought, the 2023 one), like Zumorroda-X and Queñaris.
+5. **A future section**, like Astro Sweepers: more regions, real yields with NASS QuickStats, alternative crops with local trials. Only what is credible is written.
+6. **A video demo and a published site**, as well as the repository.
+7. **A complete SI statement and data lists**, split into NASA and other sources.
 
-## Plantilla para la página de entrega de TEA-8
+## Template for the TEA-8 submission page
 
-| Campo | Contenido planeado |
+| Field | Planned content |
 |---|---|
-| Summary | Tres frases: qué es, para quién, qué lo distingue, con un dato |
-| Project Demonstration | Video o diapositivas (confirmar el límite en la guía de entrega) |
-| Project | Enlace al sitio publicado |
-| Project Details | El problema, qué hace, cómo funciona, datos usados, límites, futuro |
-| Use of AI | Herramientas y para qué, según CONTRIBUTING |
+| Summary | Three sentences: what it is, who it is for, what sets it apart, with one figure |
+| Project Demonstration | Video of 30 seconds or less, or at most 7 slides (see hackathon-requirements.md) |
+| Project | Link to the published site |
+| Project Details | The problem, what it does, how it works, data used, limits, future |
+| Use of SI | Tools and what for, per CONTRIBUTING |
 | NASA Data | POWER, GIBS |
-| Other Data | USDA Soil Data Access, CropScape, QuickStats si llega la clave |
-| References | Todo recurso externo, según CONTRIBUTING |
+| Other Data | USDA Soil Data Access, CropScape, QuickStats if the key arrives |
+| References | Every external resource, per CONTRIBUTING |
 
-## Cómo usar este documento al escribir
+## How to use this document when writing
 
-- [ ] El Summary tiene la fórmula "convierte X en Y con prueba de Z" y un dato concreto.
-- [ ] Hay una línea que diga qué distingue a TEA-8 de una herramienta de recomendación común.
-- [ ] La historia usa un lugar y un año reales (McLean County, 2012 y 2023).
-- [ ] Cada cifra tiene fuente y se verificó contra ella.
-- [ ] Hay sección de futuro, con lo que sea creíble.
-- [ ] El video y el sitio publicado funcionan y están enlazados.
-- [ ] La declaración de IA y las listas de datos están completas.
-- [ ] Todo está en inglés en la página de entrega y en los materiales enlazados.
+- [ ] The Summary uses the formula "turns X into Y with proof of Z" and one concrete figure.
+- [ ] One line says what distinguishes TEA-8 from an ordinary recommendation tool.
+- [ ] The story uses a real place and year (McLean County, 2012 and 2023).
+- [ ] Every figure has a source and was checked against it.
+- [ ] There is a future section, with whatever is credible.
+- [ ] The video and the published site work and are linked.
+- [ ] The SI statement and the data lists are complete.
+- [ ] Everything is in English on the submission page and in linked materials.

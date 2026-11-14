@@ -1,123 +1,123 @@
-# Landing page de TEA-8
+# TEA-8 landing page
 
-Documento vivo. Describe cómo se divide la página comercial del proyecto, qué dice cada sección y qué falta. Se actualiza con cada versión.
+A living document. It describes how the project's commercial page is divided, what each section says and what is missing. Updated with each version.
 
-La página va en inglés, porque la entrega del hackathon exige inglés en todo material enlazado. Este documento está en español para el equipo.
+The page itself is in English, because the hackathon submission requires English in all linked material.
 
-## Principios
+## Principles
 
-1. Una sola página, sin login ni cuentas.
-2. Cada sección responde una pregunta del visitante, en este orden: qué problema hay, qué hace TEA-8, cómo funciona, por qué confiar, cómo se ve.
-3. Ninguna afirmación sin respaldo: lo que la página diga, la herramienta lo hace de verdad y los números salen de las fuentes verificadas.
-4. La página apoya a la herramienta y no la reemplaza. La herramienta es la sección más importante.
+1. A single page, no login or accounts.
+2. Each section answers a visitor's question, in this order: what is the problem, what does TEA-8 do, how does it work, why trust it, how does it look.
+3. No claim without backing: what the page says, the tool really does, and the numbers come from verified sources.
+4. The page supports the tool and does not replace it. The tool is the most important section.
 
-## Referencia de estructura
+## Structure reference
 
-La estructura se inspira en la landing de Ether, un proyecto anterior del autor para otro hackathon. Se toma la manera de dividir las secciones. El texto, las imágenes y el código son nuevos y no se copian. Ether se anota como referencia de estilo en "References" al enviar.
+The structure is inspired by the Ether landing page, an earlier project by the author for another hackathon. The way sections are divided is taken. The text, images and code are new and are not copied. Ether is noted as a style reference in "References" at submission.
 
-| Sección en Ether | Pregunta que responde | Equivalente en TEA-8 |
+| Section in Ether | Question it answers | Equivalent in TEA-8 |
 |---|---|---|
-| Hero | ¿De qué trata esto? | Hero |
-| Problema y solución | ¿Por qué importa? | The problem |
-| Cómo funciona (4 pasos) | ¿Qué hace por dentro? | How it works |
-| Seguridad ("sabemos cuándo no confiar en nosotros") | ¿Hasta dónde llega y hasta dónde no? | What it won't tell you |
-| Demostración | ¿Cómo se ve? | The tool |
-| Código abierto | ¿Puedo revisarlo? | Sources and code |
-| Diferenciadores | ¿Por qué aguanta fuera de una demo? | Why it holds up |
-| Llamado a la acción | ¿Qué hago ahora? | Call to action |
+| Hero | What is this about? | Hero |
+| Problem and solution | Why does it matter? | The problem |
+| How it works (4 steps) | What does it do inside? | How it works |
+| Safety ("we know when not to trust ourselves") | How far does it go, and where does it stop? | What it won't tell you |
+| Demo | How does it look? | The tool |
+| Open source | Can I inspect it? | Sources and code |
+| Differentiators | Why does it hold up outside a demo? | Why it holds up |
+| Call to action | What do I do now? | Call to action |
 
-## Referencia de ganadores
+## Winners reference
 
-Cómo presentan y venden su proyecto los ganadores de 2025, qué se adopta en TEA-8 y la plantilla de la página de entrega: ver [winners-reference.md](winners-reference.md).
+How the 2025 winners present and sell their project, what is adopted in TEA-8 and the submission page template: see [winners-reference.md](winners-reference.md).
 
-## Secciones
+## Sections
 
 ### 1. Hero
-- Objetivo: decir en una frase qué hace TEA-8 y que no reemplaza al agricultor.
-- Borrador de titular: "TEA-8 doesn't tell farmers what to plant. It shows them what the data says."
-- Subtítulo (una línea, con dato): "In 2012, summer soil wetness in McLean County, Illinois fell to 0.51 against an average of 0.66." Verificar el dato antes de publicar. Fuente: NASA POWER, humedad de zona de raíces, junio a agosto.
-- Botón: "Open the tool", que baja a la sección 5.
-- Imagen: ilustración botánica de maíz y otra de soya, grandes, con borde difuminado.
+- Goal: say in one sentence what TEA-8 does and that it does not replace the farmer.
+- Headline draft: "TEA-8 doesn't tell farmers what to plant. It shows them what the data says."
+- Subtitle (one line, with a figure): "In 2012, summer soil wetness in McLean County, Illinois fell to 0.51 against an average of 0.66." Verify the figure before publishing. Source: NASA POWER, root-zone wetness, June to August.
+- Button: "Open the tool", which scrolls to section 5.
+- Image: a botanical illustration of corn and another of soybean, large, with a feathered edge.
 
 ### 2. The problem
-- Objetivo: situar el problema con un número real.
-- Contenido: una cifra grande y dos frases. Ejemplo de estructura: "Corn and soybeans alternate on about 91% of year-to-year changes in the McLean County fields we sampled." Fuente: CropScape, 23 campos, 2008 a 2023. Aclarar que es una muestra.
-- Idea que transmite: una región con dos cultivos alternados y pocas opciones de diversificar.
+- Goal: place the problem with a real number.
+- Content: one big figure and two sentences. Example structure: "Corn and soybeans alternate on about 91% of year-to-year changes in the McLean County fields we sampled." Source: CropScape, 23 fields, 2008 to 2023. Make clear it is a sample.
+- Idea it conveys: a region with two alternating crops and few options to diversify.
 
 ### 3. How it works
-- Cuatro pasos, cada uno con una frase corta. Borrador:
+- Four steps, each with one short sentence. Draft:
   1. Reads the weather and the soil: NASA POWER, USDA soil survey.
   2. Looks at what grew: CropScape history by year.
   3. Compares three rotations, including the current one.
   4. Shows its work: every statement tagged with its source.
-- Los números de paso van con baja opacidad, como en la referencia de estilo.
+- Step numbers use low opacity, as in the style reference.
 
 ### 4. What it won't tell you
-- Objetivo: la sección de honestidad. Es lo que más diferencia al proyecto.
-- Contenido, en lista con marcas: no da un puntaje final ni una "mejor opción"; las rotaciones alternativas son hipotéticas y se apoyan en fuentes citadas; los datos de clima son de una cuadrícula de unos 50 km, no de una parcela; sin rendimientos reales, la comparación mide estrés y exposición, no resultados.
-- Solo se declara lo que sea cierto al momento de publicar. Si cambia, se actualiza.
+- Goal: the honesty section. It is what most differentiates the project.
+- Content, as a checked list: it gives no final score and no "best option"; alternative rotations are hypothetical and rest on cited sources; climate data comes from a grid of about 50 km, not a plot; without real yields, the comparison measures stress and exposure, not outcomes.
+- Only what is true at publication time is declared. If it changes, it is updated.
 
 ### 5. The tool
-- Es la sección principal: mapa con control de año, tres tarjetas de rotación, panel de evidencia y aviso fijo.
-- Se muestra en un panel oscuro con la paleta definida, dentro de la página clara. Es el único contraste fuerte de la página.
-- Nota bajo el panel: dato de origen y aviso "A prototype built for the NASA Space Apps Challenge, not agronomic advice."
+- The main section: a map with a year control, three rotation cards, an evidence panel and a fixed notice.
+- Shown in a dark panel with the defined palette, inside the light page. It is the only strong contrast on the page.
+- Note under the panel: data origin and the notice "A prototype built for the NASA Space Apps Challenge, not agronomic advice."
 
 ### 6. Sources and code
-- Lista de fuentes con enlace: NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape.
-- Enlace al repositorio público.
-- Declaración de uso de SI/IA, en una línea y con enlace a CONTRIBUTING.
+- List of sources with links: NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape.
+- Link to the public repository.
+- SI/AI use statement, in one line and with a link to CONTRIBUTING.
 
 ### 7. Why it holds up
-- Tres a cuatro puntos, cada uno con una prueba concreta en la herramienta:
+- Three to four points, each with concrete proof in the tool:
   - Says when it isn't sure.
   - Every claim shows its source.
   - Built on open, public data.
   - Doesn't need a login or a server to run.
-- Cada punto se mantiene solo si es verdad en el producto final.
+- Each point stays only if it is true in the final product.
 
 ### 8. Call to action
-- "Try the tool", enlace al repositorio y a la página del equipo en Space Apps.
-- Nombre del autor y contacto, a decidir.
+- "Try the tool", a link to the repository and to the team page on Space Apps.
+- Author name and contact, to be decided.
 
-### Pie de página
-- Créditos de datos de NASA y USDA.
-- Lista corta de referencias de imágenes con su licencia.
-- Aviso: "Created for the NASA Space Apps Challenge." Revisar la guía de marca de Space Apps antes de usar su logo.
+### Footer
+- NASA and USDA data credits.
+- A short list of image references with their licenses.
+- Notice: "Created for the NASA Space Apps Challenge." Check the Space Apps brand guidelines before using their logo.
 
-## Diseño visual
+## Visual design
 
-Decisión pendiente de confirmar: página clara y suave, con la herramienta en un panel oscuro.
+Decision still to confirm: a light, soft page, with the tool in a dark panel.
 
-- Fondo de página: un tono claro y cálido, similar al de la referencia. Las imágenes deben fundirse con él.
-- Imágenes: máscara de gradiente radial para desvanecer los bordes, filtro en escala de grises o tinte suave, opacidad parcial en las decorativas.
-- Profundidad: capas superpuestas con las imágenes detrás del texto. No es 3D real. Si se quiere un efecto de paralaje, es un añadido opcional.
-- Tipografía: un tipo con serifa para los titulares, uno condensado para las etiquetas y uno de texto para lectura. Se eligen y se prueban antes de fijarlas.
-- Movimiento: aparición suave por sección. Respetar `prefers-reduced-motion`. Máximo tres animaciones en la herramienta.
-- Panel de la herramienta: paleta oscura de TEA-8 (ver README).
+- Page background: a light, warm tone, similar to the reference. Images should blend into it.
+- Images: radial gradient mask to fade the edges, a grayscale or soft tint filter, partial opacity on decorative ones.
+- Depth: overlapping layers with images behind the text. It is not real 3D. If a parallax effect is wanted, it is an optional add-on.
+- Typography: a serif for headlines, a condensed face for labels and a text face for reading. Chosen and tested before fixing them.
+- Motion: soft appearance per section. Respect `prefers-reduced-motion`. At most three animations in the tool.
+- Tool panel: TEA-8 dark palette (see README).
 
-## Imágenes por conseguir
+## Images to obtain
 
-Cada imagen se verifica antes de usarla: licencia, autor y enlace de origen. Se anota en "References".
+Each image is verified before use: license, author and source link. Noted in "References".
 
-| Imagen | Uso | Estado |
+| Image | Use | Status |
 |---|---|---|
-| Ilustración botánica de maíz | Hero y sección 2 | Por buscar |
-| Ilustración botánica de soya | Hero y sección 2 | Por buscar |
-| Perfil de suelo o raíces | Sección 3 | Por buscar |
-| Imagen satelital de NASA de la zona (NDVI o color real) | Sección 5 y fondo | Por buscar |
-| Ícono del proyecto (gerbera roja en anillo) | Cabecera y pie | Por generar |
+| Botanical illustration of corn | Hero and section 2 | To find |
+| Botanical illustration of soybean | Hero and section 2 | To find |
+| Soil profile or roots | Section 3 | To find |
+| NASA satellite image of the area (NDVI or true color) | Section 5 and background | To find |
+| Project icon (red gerbera in a ring) | Header and footer | To create (visible watermark if made with an AI image tool) |
 
-## Estado y registro de versiones
+## Status and version log
 
-| Versión | Fecha | Cambio |
+| Version | Date | Change |
 |---|---|---|
-| 0.1 | 13 nov 2026 | Estructura y borradores de texto. Sin código. |
+| 0.1 | Nov 13, 2026 | Structure and text drafts. No code. |
 
-Pendiente:
-- [ ] Confirmar el contenido de cada sección con los datos finales.
-- [ ] Verificar cada cifra citada contra la fuente.
-- [ ] Conseguir y verificar las imágenes.
-- [ ] Decidir tipografías.
-- [ ] Construir primero la versión mínima: hero, dos imágenes con máscara y la herramienta.
-- [ ] Revisar legibilidad en móvil y en pantallas pequeñas.
-- [ ] Añadir las referencias a CONTRIBUTING.
+To do:
+- [ ] Confirm the content of each section with final data.
+- [ ] Verify each cited figure against its source.
+- [ ] Obtain and verify the images.
+- [ ] Decide typefaces.
+- [ ] Build the minimal version first: hero, two images with a mask, and the tool.
+- [ ] Check legibility on mobile and small screens.
+- [ ] Add the references to CONTRIBUTING.

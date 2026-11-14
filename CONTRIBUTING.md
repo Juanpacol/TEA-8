@@ -1,97 +1,100 @@
-# Guía de trabajo de TEA
+# TEA-8 working guide
 
-Este documento reúne los requisitos del hackathon y las reglas del proyecto. Se leyó en las páginas oficiales el 13 de noviembre de 2026. Si algo cambia en el sitio oficial, el sitio manda.
+This document holds the project's working rules. The hackathon requirements live in [docs/hackathon-requirements.md](docs/hackathon-requirements.md). If anything changes on the official site, the site wins.
 
-Páginas de referencia:
-- Preguntas frecuentes: https://www.spaceappschallenge.org/resources/participant-faqs/
-- Guía de evaluación y premios: https://www.spaceappschallenge.org/resources/judging-awards-guide/
-- Guía de entrega del proyecto: https://www.spaceappschallenge.org/resources/project-submission-guide/
-- Guía de formación de equipos: https://www.spaceappschallenge.org/resources/team-formation-guide/
-- Reto: https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/
+Reference pages:
+- Participant FAQs: https://www.spaceappschallenge.org/resources/participant-faqs/
+- Judging and awards guide: https://www.spaceappschallenge.org/resources/judging-awards-guide/
+- Project submission guide: https://www.spaceappschallenge.org/resources/project-submission-guide/
+- Team formation guide: https://www.spaceappschallenge.org/resources/team-formation-guide/
+- Challenge: https://www.spaceappschallenge.org/2026/challenges/adapting-farms-with-nasa-data/
 
-## 1. Requisitos del hackathon
+## 1. Hackathon requirements
 
-Plazos, formulario, formato de la demo, criterios de evaluación y lista antes de enviar: ver [docs/hackathon-requirements.md](docs/hackathon-requirements.md).
+Deadlines, form, demo format, evaluation criteria and the pre-submit checklist: see [docs/hackathon-requirements.md](docs/hackathon-requirements.md).
 
-### Reglas sobre el uso de SI (IA)
-- Se permite usar herramientas de SI como apoyo. **No deben usarse para idear cómo resolver el reto.** La idea de la solución debe ser del equipo.
-- Lo generado **no puede usar ni modificar marcas NASA** (logos, banderas, identificadores de misiones).
-- Se debe indicar dónde y cómo se usó: **imágenes y video** generados, con **marca de agua visible**; **audio**, con aviso en el texto descriptivo y los metadatos; **código y datos**, con aviso en el texto descriptivo y los metadatos.
-- La respuesta del campo "Use of SI" es solo para recopilar datos y no la ven los jueces. Sí ven las marcas de agua, textos y metadatos dentro del proyecto, y evalúan originalidad, intención y ejecución.
-- Consecuencia práctica: el ícono hecho con una herramienta de imágenes lleva marca de agua visible, o se hace a mano. Los archivos de código escritos con asistencia llevan un aviso (comentario de cabecera o nota en el README).
+### Rules on the use of SI (AI)
+- SI tools may be used as support. **They must not be used to come up with how to solve the challenge.** The idea for the solution must be the team's.
+- Generated content **may not use or modify NASA branding** (logos, flags, mission identifiers).
+- Where and how SI was used must be indicated: generated **images and video** carry a **visible watermark**; **audio**, a notice in the descriptive text and metadata; **code and data**, a notice in the descriptive text and metadata.
+- The answer in the "Use of SI" field is for data collection only and judges do not see it. They do see the watermarks, texts and metadata inside the project, and they evaluate originality, intent and execution.
+- In practice: an icon made with an image tool carries a visible watermark, or is made by hand. Code files written with assistance carry a notice (header comment or a README note).
 
-## 2. Reglas del proyecto
+## 2. Project rules
 
-### Alcance
-- Un caso bien hecho: McLean County, Illinois. Casos: verano 2023 (reciente) y 2012 (contraste extremo).
-- Tres rotaciones por comparación: la actual (maíz-soya) y dos alternativas.
-- No se añaden funciones por aparentar. Lo opcional (globo 3D, comparador antes y después) solo se hace si sobra tiempo y no toca el núcleo.
+### Scope
+- One case done well: McLean County, Illinois. Cases: summer 2023 (recent) and 2012 (extreme contrast).
+- Three rotations per comparison: the current one (corn-soybean) and two alternatives.
+- No features are added just for show. Optional items (3D globe, before-and-after comparer) are done only if time remains and they do not touch the core.
 
-### Datos
-- Solo se usan fuentes verificadas: NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape.
-- Cada número que se muestra lleva su fuente, el parámetro y la fecha de consulta.
-- Los datos faltantes no se rellenan con ceros ni se inventan. Lo desconocido se muestra como desconocido.
-- Los datos simulados se etiquetan siempre como simulados.
-- NASA POWER es una cuadrícula gruesa (unos 50 km). No se presenta como medición de una parcela.
-- Los límites conocidos se declaran en la interfaz y en la entrega (ver README).
+### Data
+- Only verified sources are used: NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape.
+- Every number shown carries its source, the parameter and the query date.
+- Missing data is not filled with zeros or invented. The unknown is shown as unknown.
+- Simulated data is always labeled as simulated.
+- NASA POWER is a coarse grid (about 50 km). It is not presented as a plot measurement.
+- Known limits are declared in the interface and in the submission (see README).
 
-### Evidencia y citas
-- No hay puntaje final ni "mejor opción": la decisión es del agricultor.
-- Cada frase indica su origen: dato NASA, cálculo de la plataforma, texto del modelo o cita por verificar.
-- Las rotaciones alternativas son **hipotéticas**, porque no existen en los campos observados. Se apoyan en fuentes citadas y se dice así.
-- No se cita una fuente sin haberla abierto y leído. Las fuentes de la sección 4 están marcadas por verificar.
-- Si una fuente contradice la recomendación (por ejemplo, coberturas con gramíneas que bajan algo el rendimiento del maíz), se muestra.
+### Evidence and citations
+- There is no final score and no "best option": the decision belongs to the farmer.
+- Every statement indicates its origin: NASA data, a platform calculation, model text, or a citation still to be verified.
+- Alternative rotations are **hypothetical**, because they do not exist in the observed fields. They rest on cited sources, and this is stated.
+- A source is not cited without having been opened and read. The sources in section 4 are marked "to verify".
+- If a source contradicts the recommendation (for example, grass cover crops that slightly lower corn yield), it is shown.
 
-### Código
-- Python solo para preparar datos antes de la demo (`pipeline/`). La página (`web/`) es estática.
-- React con Vite. Carpetas por funcionalidad en `web/src/features/`.
-- Componentes solo pintan. La lógica con estado y efectos va en hooks. Las reglas de rotación van en `features/rotations/` (`rules.ts`, `compare.ts`) como funciones puras, sin React.
-- Cada funcionalidad expone solo lo necesario mediante su `index.ts`.
-- Todo lo 3D, si se hace, va en `features/globe/` con carga diferida.
-- Las dependencias van en un solo sentido: componentes, hooks, reglas. Las reglas no importan React, `fetch` ni archivos.
-- Sin Docker. La IA en vivo, si se hace, va en una función serverless en `web/api/`; las explicaciones pregeneradas son la base. La clave de API va en variables de entorno, nunca en el repositorio.
-- TypeScript recomendado para datos y props.
-- Pruebas junto a cada archivo, primero en las reglas y en la validación de cifras y citas.
-- Sin carpetas ni capas "por si acaso".
-- Revisar la licencia de cada librería antes de usarla. Ejemplo: react-leaflet 5 se reportó bajo una licencia no estándar.
+### Code
+- Python only to prepare data before the demo (`pipeline/`). The page (`web/`) is static.
+- React with Vite. Folders by feature in `web/src/features/`.
+- Components only render. Logic with state and effects goes in hooks. Rotation rules go in `features/rotations/` (`rules.ts`, `compare.ts`) as pure functions, without React.
+- Each feature exposes only what is needed through its `index.ts`.
+- Anything 3D, if done, goes in `features/globe/` with lazy loading.
+- Dependencies go in one direction: components, hooks, rules. Rules do not import React, `fetch` or files.
+- No Docker. Live AI, if done, goes in a serverless function in `web/api/`; pre-generated explanations are the base. The API key goes in environment variables, never in the repository.
+- TypeScript recommended for data and props.
+- Tests next to each file, first on the rules and on the validation of figures and citations.
+- No folders or layers "just in case".
+- Check each library's license before using it. Example: react-leaflet 5 was reported under a non-standard license.
 
-### Originalidad y derechos
-- No se copia código de otros proyectos, ni del hackathon de Meta ni de los ganadores. Se toman técnicas e ideas.
-- Todo recurso externo (código, librería, imagen, texto) se anota en la sección 4 para pasarlo al campo "References".
-- El ícono es una obra original. Las imágenes de referencia sirven solo de inspiración de estilo.
-- No se suben claves de API ni credenciales. Las claves van en variables de entorno y fuera del repositorio.
-- El repositorio es público: no se publica nada que no deba ser público.
+### Originality and rights
+- No code is copied from other projects, neither from the Meta hackathon nor from the winners. Techniques and ideas are taken.
+- Every external resource (code, library, image, text) is noted in section 4 to pass to the "References" field.
+- The icon is original work. Reference images serve only as style inspiration.
+- API keys and credentials are never committed. Keys go in environment variables and stay out of the repository.
+- The repository is public: nothing is published that should not be public.
 
-### Flujo de trabajo
-- Commits pequeños, con mensaje que diga qué cambia y por qué.
-- Antes de subir (push), revisar que no haya claves, datos personales ni archivos pesados.
-- Los resultados de pruebas de datos se guardan en el README con sus límites.
+### Workflow
+- `main` is protected: changes arrive only through pull requests, merged with **rebase and merge**. Work on a branch, push it, open a PR.
+- Small commits, with a message that says what changes and why.
+- Before pushing, check that there are no keys, personal data or heavy files.
+- Data test results are saved in the README with their limits.
+- All documentation, code comments and commit messages are written in English.
 
-## 3. Registro de uso de SI/IA
+## 3. SI/AI usage log
 
-La entrega exige describir cómo se usaron herramientas de SI. Se anota aquí desde el inicio para no reconstruirlo al final.
+The submission requires describing how SI tools were used. It is logged here from the start so it does not have to be reconstructed at the end.
 
-| Herramienta | Para qué se usó | Dónde se nota |
+| Tool | What it was used for | Where it shows |
 |---|---|---|
-| Claude (asistente de IA) | Investigación de reto y fuentes, pruebas de las APIs de datos, borradores de texto, propuesta de estructura de carpetas | README, CONTRIBUTING, pruebas de datos |
-| (añadir) | | |
+| Claude (AI assistant) | Research on the challenge and sources, tests of the data APIs, text drafts, folder structure proposal | README, CONTRIBUTING, data tests |
+| (add) | | |
 
-Regla: lo que genere una herramienta de IA se revisa y se entiende antes de usarlo, y la persona que firma el proyecto responde por ello.
+Rule: whatever an AI tool generates is reviewed and understood before use, and the person who signs the project answers for it.
 
-## 4. Registro de referencias externas
+## 4. External references log
 
-Para copiar al campo "References" de la entrega. Estado "por verificar" significa que la fuente salió de una búsqueda y todavía no se abrió completa.
+To copy into the "References" field of the submission. Status "to verify" means the source came from a search and has not been fully opened yet.
 
-| Recurso | Uso | Estado |
+| Resource | Use | Status |
 |---|---|---|
-| NASA POWER, https://power.larc.nasa.gov/ | Clima y humedad de zona de raíces | Verificado como accesible |
-| NASA GIBS (Worldview), https://gibs.earthdata.nasa.gov | Mosaicos satelitales por fecha | Verificado como accesible |
-| USDA Soil Data Access (SSURGO) | Suelo por coordenada | Verificado como accesible |
-| USDA CropScape (CDL), https://nassgeodata.gmu.edu/CropScape/ | Cultivo por año | Verificado como accesible |
-| CropWatch, Universidad de Nebraska: rotaciones diversas, https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health | Rotaciones alternativas | Por verificar |
-| Ensayo de largo plazo del USDA en Nebraska, https://par.nsf.gov/servlets/purl/10554940 | Estabilidad frente a sequía | Por verificar |
-| American Society of Agronomy, estudio de coberturas en Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 | Advertencia sobre coberturas | Por verificar |
-| Illinois NREC en Field Advisor, https://fieldadvisor.org/refining-cover-crop-recommendations-for-corn-soybean-rotations-based-on-species-and-timing/ | Guía de coberturas | Por verificar |
-| Top Crop Manager, trigo en rotaciones (Ontario), https://www.topcropmanager.com/complex-crop-rotations-19018/ | Evidencia de otra región | Por verificar |
-| NASA Worldview, https://worldview.earthdata.nasa.gov/ | Referencia de diseño de interfaz | Referencia de estilo, sin código reutilizado |
-| Proyectos ganadores de Space Apps 2025 (Queñaris, Henry's Farm Adventures, Twisters) | Referencia de técnicas | Referencia de estilo, sin código reutilizado |
+| NASA POWER, https://power.larc.nasa.gov/ | Climate and root-zone wetness | Verified accessible |
+| NASA GIBS (Worldview), https://gibs.earthdata.nasa.gov | Dated satellite tiles | Verified accessible |
+| USDA Soil Data Access (SSURGO) | Soil by coordinate | Verified accessible |
+| USDA CropScape (CDL), https://nassgeodata.gmu.edu/CropScape/ | Crop by year | Verified accessible |
+| CropWatch, University of Nebraska: diverse rotations, https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health | Alternative rotations | To verify |
+| Long-term USDA trial in Nebraska, https://par.nsf.gov/servlets/purl/10554940 | Stability under drought | To verify |
+| American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 | Caution on cover crops | To verify |
+| Illinois NREC on Field Advisor, https://fieldadvisor.org/refining-cover-crop-recommendations-for-corn-soybean-rotations-based-on-species-and-timing/ | Cover crop guidance | To verify |
+| Top Crop Manager, wheat in rotations (Ontario), https://www.topcropmanager.com/complex-crop-rotations-19018/ | Evidence from another region | To verify |
+| NASA Worldview, https://worldview.earthdata.nasa.gov/ | Interface design reference | Style reference, no code reused |
+| Space Apps 2025 winning projects (Queñaris, Henry's Farm Adventures, Twisters) | Technique reference | Style reference, no code reused |
+| Ether landing page (author's earlier hackathon project) | Layout and section structure | Style reference, no code or images reused |
