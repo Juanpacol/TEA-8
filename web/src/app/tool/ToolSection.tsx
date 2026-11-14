@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { EvidencePanel, Limits, Notice } from '../../features/evidence/index.ts'
-import { MapView, YearControl } from '../../features/map/index.ts'
+import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
 import { RotationList, useRotations } from '../../features/rotations/index.ts'
 import { Panel } from '../../shared/components/index.ts'
 import type { useData } from '../../shared/hooks/useData.ts'
@@ -28,6 +28,7 @@ function Tool({ data }: { data: TEA8DataFile }) {
       <Panel title="Vegetation from space (NDVI)">
         <YearControl year={year} onChange={setYear} />
         <MapView points={data.region.case_points} year={year} />
+        <MapLegend year={year} />
       </Panel>
       <Rotations data={data} />
       <Limits limits={data.limits ?? []} simulated={data.simulated} />
