@@ -239,8 +239,7 @@
   }
 
   .connector__art {
-    width: 100%;
-    opacity: 0.3;
+    opacity: 0.35;
   }
 }
 
@@ -272,17 +271,30 @@
   right: 0;
   bottom: 0;
   z-index: 0;
-  width: 62%;
-  background: url('./assets/sky.webp') right top / cover no-repeat;
+  aspect-ratio: 9 / 16;
+  max-width: 70%;
+  /* satellite at the top, the Earth at its sunrise at the bottom: the section goes from space to the ground */
+  background: url('./assets/satellite.webp') center bottom / cover no-repeat;
   mix-blend-mode: screen;
-  filter: brightness(1.6) saturate(1.15);
-  opacity: 0.6;
+  filter: saturate(0.85);
+  opacity: 0.75;
   pointer-events: none;
   will-change: transform;
   transform: translateY(var(--parallax, 0px));
-  mask-image: linear-gradient(0deg, transparent, #000 35%, #000 82%, transparent), linear-gradient(90deg, transparent, #000 45%);
+  mask-image: linear-gradient(0deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(90deg, transparent, #000 40%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
+}
+
+/* melts the bottom of the picture into the page colour so the Earth does not end on a hard line */
+.connector::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 0;
+  height: 16%;
+  background: linear-gradient(180deg, transparent, var(--bg));
+  pointer-events: none;
 }
 
 .connector__content {
@@ -290,7 +302,8 @@
   z-index: 1;
   max-width: 820px;
   margin: 0 auto;
-  padding: 0 var(--space-3) var(--space-5);
+  /* room under the last step so the Earth can show before it fades out */
+  padding: 0 var(--space-3) calc(var(--space-5) * 3);
 }
 
 .connector__content h2,
