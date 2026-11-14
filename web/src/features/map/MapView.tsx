@@ -140,13 +140,12 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     if (!instance) return
     const next = BASES[base]
     background.current?.remove()
-    background.current = L.tileLayer(next.url, {
-      maxNativeZoom: next.maxNativeZoom,
-      maxZoom: 14,
-      attribution: next.attribution,
-    })
-      .addTo(instance)
-      .bringToBack()
+    background.current = next.url
+      ? L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: 14, attribution: next.attribution })
+          .addTo(instance)
+          .bringToBack()
+      : null
+    instance.getContainer().classList.toggle('map--simple', !next.url)
     const opacity = showVegetation ? next.ndviOpacity : 0
     ndvi.current?.setOpacity(opacity)
     other.current?.setOpacity(opacity)

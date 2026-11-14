@@ -1,11 +1,12 @@
 /** Backgrounds under the vegetation layer. USGS services are public domain and need no account. */
 const USGS = 'https://basemap.nationalmap.gov/arcgis/rest/services'
 
-export type BaseId = 'map' | 'aerial' | 'vegetation'
+export type BaseId = 'simple' | 'map' | 'aerial' | 'vegetation'
 
 export type Base = {
   id: BaseId
   label: string
+  /** Empty for the plain background, which draws no tiles. */
   url: string
   maxNativeZoom: number
   attribution: string
@@ -16,6 +17,14 @@ export type Base = {
 const USGS_CREDIT = '<a href="https://www.usgs.gov/programs/national-geospatial-program/national-map">USGS The National Map</a>'
 
 export const BASES: Record<BaseId, Base> = {
+  simple: {
+    id: 'simple',
+    label: 'Simple',
+    url: '',
+    maxNativeZoom: 0,
+    attribution: '',
+    ndviOpacity: 0,
+  },
   map: {
     id: 'map',
     label: 'Map',
@@ -42,5 +51,5 @@ export const BASES: Record<BaseId, Base> = {
   },
 }
 
-export const BASE_ORDER: BaseId[] = ['map', 'aerial', 'vegetation']
+export const BASE_ORDER: BaseId[] = ['simple', 'map', 'aerial', 'vegetation']
 export const DEFAULT_BASE: BaseId = 'map'
