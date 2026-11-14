@@ -31,6 +31,11 @@ export interface TEA8DataFile {
    * Known data limits, shown in the interface.
    */
   limits?: string[];
+  dry_summer_rule?: DrySummerRule;
+  /**
+   * County yields of corn and soybeans, 2001 onward.
+   */
+  yields?: YieldRecord[];
 }
 export interface Region {
   name: string;
@@ -75,6 +80,10 @@ export interface Season {
   root_wetness_deviation: Figure;
   rainfall: Figure;
   temperature: Figure;
+  /**
+   * True when the summer is dry under dry_summer_rule. null when the root-zone wetness is unknown.
+   */
+  dry?: boolean | null;
 }
 export interface Rotation {
   id: string;
@@ -121,4 +130,23 @@ export interface Statement {
    * Source reference, when the origin is a citation.
    */
   citation?: string;
+}
+/**
+ * How a summer is marked dry. One number, written down so that it can be questioned.
+ */
+export interface DrySummerRule {
+  threshold: number;
+  unit: string;
+  baseline: string;
+  rationale: string;
+}
+/**
+ * County yield of one crop in one year, with the yield expected from the trend of the non-dry summers and the change against it.
+ */
+export interface YieldRecord {
+  year: number;
+  crop: "corn" | "soybeans";
+  yield: Figure;
+  expected: Figure;
+  change_vs_trend: Figure;
 }

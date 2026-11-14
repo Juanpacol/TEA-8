@@ -5,81 +5,193 @@
   "description": "Contract between pipeline/ (writer) and web/ (reader). Changed only from the backend worktree, through a pull request.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "simulated", "generated_at", "region", "seasons", "rotations"],
+  "required": [
+    "schema_version",
+    "simulated",
+    "generated_at",
+    "region",
+    "seasons",
+    "rotations"
+  ],
   "properties": {
-    "schema_version": { "const": "1" },
+    "schema_version": {
+      "const": "1"
+    },
     "simulated": {
       "type": "boolean",
       "description": "True when the file holds illustrative data. The interface must label it as simulated."
     },
-    "generated_at": { "type": "string", "format": "date-time" },
-    "region": { "$ref": "#/$defs/region" },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "region": {
+      "$ref": "#/$defs/region"
+    },
     "seasons": {
       "type": "array",
       "description": "Summer (June to August) climate summary per year, at the case points.",
-      "items": { "$ref": "#/$defs/season" }
+      "items": {
+        "$ref": "#/$defs/season"
+      }
     },
     "rotations": {
       "type": "array",
       "description": "Three rotations: the current one and two alternatives.",
       "minItems": 3,
       "maxItems": 3,
-      "items": { "$ref": "#/$defs/rotation" }
+      "items": {
+        "$ref": "#/$defs/rotation"
+      }
     },
     "limits": {
       "type": "array",
       "description": "Known data limits, shown in the interface.",
-      "items": { "type": "string", "minLength": 1 }
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "dry_summer_rule": {
+      "$ref": "#/$defs/dry_summer_rule"
+    },
+    "yields": {
+      "type": "array",
+      "description": "County yields of corn and soybeans, 2001 onward.",
+      "items": {
+        "$ref": "#/$defs/yield_record"
+      }
     }
   },
   "$defs": {
     "origin": {
-      "enum": ["nasa_data", "platform_calculation", "model_text", "citation", "citation_to_verify"],
+      "enum": [
+        "nasa_data",
+        "platform_calculation",
+        "model_text",
+        "citation",
+        "citation_to_verify"
+      ],
       "description": "Where a statement or figure comes from. 'citation' is a source that was opened and read; 'citation_to_verify' is one that was not. Every statement carries one."
     },
     "figure": {
       "type": "object",
       "description": "A number with its provenance. value is null when the data is unknown; it is never filled with zero.",
       "additionalProperties": false,
-      "required": ["value", "unit", "source", "parameter", "queried_on"],
+      "required": [
+        "value",
+        "unit",
+        "source",
+        "parameter",
+        "queried_on"
+      ],
       "properties": {
-        "value": { "type": ["number", "null"] },
-        "unit": { "type": "string" },
-        "source": { "type": "string", "minLength": 1, "examples": ["NASA POWER"] },
-        "parameter": { "type": "string", "minLength": 1, "examples": ["GWETROOT"] },
-        "queried_on": { "type": "string", "format": "date" }
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "examples": [
+            "NASA POWER"
+          ]
+        },
+        "parameter": {
+          "type": "string",
+          "minLength": 1,
+          "examples": [
+            "GWETROOT"
+          ]
+        },
+        "queried_on": {
+          "type": "string",
+          "format": "date"
+        }
       }
     },
     "statement": {
       "type": "object",
       "description": "One sentence of an explanation with its origin label.",
       "additionalProperties": false,
-      "required": ["text", "origin"],
+      "required": [
+        "text",
+        "origin"
+      ],
       "properties": {
-        "text": { "type": "string", "minLength": 1 },
-        "origin": { "$ref": "#/$defs/origin" },
-        "citation": { "type": "string", "description": "Source reference, when the origin is a citation." }
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "citation": {
+          "type": "string",
+          "description": "Source reference, when the origin is a citation."
+        }
       }
     },
     "case_point": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "label", "lon", "lat", "soil", "crop_history"],
+      "required": [
+        "id",
+        "label",
+        "lon",
+        "lat",
+        "soil",
+        "crop_history"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-        "label": { "type": "string" },
-        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
-        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "label": {
+          "type": "string"
+        },
+        "lon": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        },
+        "lat": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
         "soil": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["name", "drainage", "hydrologic_group", "organic_matter", "available_water"],
+          "required": [
+            "name",
+            "drainage",
+            "hydrologic_group",
+            "organic_matter",
+            "available_water"
+          ],
           "properties": {
-            "name": { "type": "string" },
-            "drainage": { "type": "string" },
-            "hydrologic_group": { "type": "string" },
-            "organic_matter": { "$ref": "#/$defs/figure" },
-            "available_water": { "$ref": "#/$defs/figure" }
+            "name": {
+              "type": "string"
+            },
+            "drainage": {
+              "type": "string"
+            },
+            "hydrologic_group": {
+              "type": "string"
+            },
+            "organic_matter": {
+              "$ref": "#/$defs/figure"
+            },
+            "available_water": {
+              "$ref": "#/$defs/figure"
+            }
           }
         },
         "crop_history": {
@@ -87,12 +199,29 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["year", "crop", "source", "queried_on"],
+            "required": [
+              "year",
+              "crop",
+              "source",
+              "queried_on"
+            ],
             "properties": {
-              "year": { "type": "integer" },
-              "crop": { "type": ["string", "null"] },
-              "source": { "type": "string" },
-              "queried_on": { "type": "string", "format": "date" }
+              "year": {
+                "type": "integer"
+              },
+              "crop": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "source": {
+                "type": "string"
+              },
+              "queried_on": {
+                "type": "string",
+                "format": "date"
+              }
             }
           }
         }
@@ -101,46 +230,116 @@
     "region": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "state", "case_points"],
+      "required": [
+        "name",
+        "state",
+        "case_points"
+      ],
       "properties": {
-        "name": { "type": "string" },
-        "state": { "type": "string" },
-        "case_points": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/case_point" } }
+        "name": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "case_points": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/case_point"
+          }
+        }
       }
     },
     "season": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["year", "root_wetness", "root_wetness_deviation", "rainfall", "temperature"],
+      "required": [
+        "year",
+        "root_wetness",
+        "root_wetness_deviation",
+        "rainfall",
+        "temperature"
+      ],
       "properties": {
-        "year": { "type": "integer" },
-        "root_wetness": { "$ref": "#/$defs/figure" },
-        "root_wetness_deviation": { "$ref": "#/$defs/figure" },
-        "rainfall": { "$ref": "#/$defs/figure" },
-        "temperature": { "$ref": "#/$defs/figure" }
+        "year": {
+          "type": "integer"
+        },
+        "root_wetness": {
+          "$ref": "#/$defs/figure"
+        },
+        "root_wetness_deviation": {
+          "$ref": "#/$defs/figure"
+        },
+        "rainfall": {
+          "$ref": "#/$defs/figure"
+        },
+        "temperature": {
+          "$ref": "#/$defs/figure"
+        },
+        "dry": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "True when the summer is dry under dry_summer_rule. null when the root-zone wetness is unknown."
+        }
       }
     },
     "rule": {
       "type": "object",
       "description": "A visible, cited rule behind a rotation. Rules are computed by the pipeline; the web app only displays them.",
       "additionalProperties": false,
-      "required": ["id", "text", "origin"],
+      "required": [
+        "id",
+        "text",
+        "origin"
+      ],
       "properties": {
-        "id": { "type": "string" },
-        "text": { "type": "string", "minLength": 1 },
-        "origin": { "$ref": "#/$defs/origin" },
-        "citation": { "type": "string" },
-        "kind": { "enum": ["risk"], "description": "Marks a read source that cautions against the rotation. It is shown under risks, not as supporting evidence." }
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "citation": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "risk"
+          ],
+          "description": "Marks a read source that cautions against the rotation. It is shown under risks, not as supporting evidence."
+        }
       }
     },
     "rotation": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "is_current", "hypothetical", "sequence", "rules", "explanation"],
+      "required": [
+        "id",
+        "name",
+        "is_current",
+        "hypothetical",
+        "sequence",
+        "rules",
+        "explanation"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-        "name": { "type": "string" },
-        "is_current": { "type": "boolean" },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "is_current": {
+          "type": "boolean"
+        },
         "hypothetical": {
           "type": "boolean",
           "description": "True for alternatives that do not exist in the observed fields."
@@ -149,19 +348,109 @@
           "type": "array",
           "description": "Crops in order, one per year of the cycle.",
           "minItems": 1,
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rule"
+          }
+        },
         "explanation": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["why", "evidence", "gaps", "risks"],
+          "required": [
+            "why",
+            "evidence",
+            "gaps",
+            "risks"
+          ],
           "properties": {
-            "why": { "type": "array", "items": { "$ref": "#/$defs/statement" } },
-            "evidence": { "type": "array", "items": { "$ref": "#/$defs/statement" } },
-            "gaps": { "type": "array", "items": { "$ref": "#/$defs/statement" } },
-            "risks": { "type": "array", "items": { "$ref": "#/$defs/statement" } }
+            "why": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            },
+            "gaps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            },
+            "risks": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/statement"
+              }
+            }
           }
+        }
+      }
+    },
+    "yield_record": {
+      "type": "object",
+      "description": "County yield of one crop in one year, with the yield expected from the trend of the non-dry summers and the change against it.",
+      "additionalProperties": false,
+      "required": [
+        "year",
+        "crop",
+        "yield",
+        "expected",
+        "change_vs_trend"
+      ],
+      "properties": {
+        "year": {
+          "type": "integer"
+        },
+        "crop": {
+          "enum": [
+            "corn",
+            "soybeans"
+          ]
+        },
+        "yield": {
+          "$ref": "#/$defs/figure"
+        },
+        "expected": {
+          "$ref": "#/$defs/figure"
+        },
+        "change_vs_trend": {
+          "$ref": "#/$defs/figure"
+        }
+      }
+    },
+    "dry_summer_rule": {
+      "type": "object",
+      "description": "How a summer is marked dry. One number, written down so that it can be questioned.",
+      "additionalProperties": false,
+      "required": [
+        "threshold",
+        "unit",
+        "baseline",
+        "rationale"
+      ],
+      "properties": {
+        "threshold": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "baseline": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }

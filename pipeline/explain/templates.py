@@ -6,7 +6,7 @@ the rotations: the decision belongs to the farmer.
 """
 
 NASA_POWER_GRID = "NASA POWER is a grid of about 50 km: it represents the area, not the plot."
-NO_YIELDS = "No yield data is included: the climate comparison measures stress and exposure, not outcomes."
+NO_YIELDS = "No yield data exists for this rotation: county yields cover corn and soybeans as a whole, so the comparison measures stress and exposure, not outcomes."
 LOCAL_REVIEW = "A local agronomist should review this rotation before it is considered."
 
 
