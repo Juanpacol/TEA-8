@@ -14,6 +14,7 @@ export function YearControl({ year, onChange }: Props) {
         min={NDVI_FIRST_YEAR}
         max={NDVI_LAST_YEAR}
         value={year}
+        aria-valuetext={`Summer ${year}`}
         onChange={(event) => onChange(Number(event.target.value))}
       />
     </label>

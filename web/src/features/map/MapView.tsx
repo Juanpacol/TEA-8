@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASE_TILE_URL, ndviTileUrl } from './gibs.ts'
 import './map.css'
@@ -12,6 +12,7 @@ export function MapView({ points, year }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
   const ndvi = useRef<L.TileLayer | null>(null)
+  const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
 
   useEffect(() => {
     if (!container.current) return
@@ -30,8 +31,12 @@ export function MapView({ points, year }: Props) {
       opacity: 0.85,
       attribution: 'NDVI: NASA GIBS, MODIS Terra 16-day',
     }).addTo(instance)
+    ndvi.current.on('loading', () => setStatus('loading'))
+    ndvi.current.on('load', () => setStatus((current) => (current === 'failed' ? current : 'ready')))
+    ndvi.current.on('tileerror', () => setStatus('failed'))
+    const markerColor = getComputedStyle(document.documentElement).getPropertyValue('--ochre').trim() || 'currentColor'
     for (const point of points) {
-      L.circleMarker([point.lat, point.lon], { radius: 7, color: '#d9a441', weight: 2, fillOpacity: 0.3 })
+      L.circleMarker([point.lat, point.lon], { radius: 7, color: markerColor, weight: 2, fillOpacity: 0.3 })
         .bindTooltip(point.label, { permanent: true, direction: 'right' })
         .addTo(instance)
     }
@@ -46,8 +51,23 @@ export function MapView({ points, year }: Props) {
   }, [points])
 
   useEffect(() => {
+    setStatus('loading')
     ndvi.current?.setUrl(ndviTileUrl(year))
   }, [year])
 
-  return <div ref={container} className="map" role="img" aria-label={`NDVI vegetation map for ${year}`} />
+  return (
+    <div className="map-frame">
+      <div ref={container} className="map" role="img" aria-label={`NDVI vegetation map for ${year}`} />
+      {status === 'loading' && (
+        <p className="map__status" role="status">
+          Loading NASA imagery for {year}…
+        </p>
+      )}
+      {status === 'failed' && (
+        <p className="map__status map__status--failed" role="status">
+          Some NASA imagery for {year} could not be loaded. The rest of the tool still works.
+        </p>
+      )}
+    </div>
+  )
 }

@@ -14,3 +14,66 @@
   width: 100%;
   accent-color: var(--accent);
 }
+
+.map-frame {
+  position: relative;
+}
+
+.map__status {
+  position: absolute;
+  left: var(--space-2);
+  bottom: var(--space-2);
+  z-index: 500;
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.map__status--failed {
+  border-color: var(--ochre);
+  color: var(--ochre);
+}
+
+.legend {
+  margin: var(--space-3) 0 0;
+}
+
+.legend__meaning {
+  margin: 0 0 var(--space-2);
+}
+
+.legend__bar {
+  height: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.legend__ticks {
+  position: relative;
+  height: 1.2rem;
+  margin-top: var(--space-1);
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+.legend__ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.legend__ticks span:first-child {
+  transform: none;
+}
+
+.legend__ticks span:last-child {
+  transform: translateX(-100%);
+}
+
+.legend__caption {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
