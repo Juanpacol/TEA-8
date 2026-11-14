@@ -7,6 +7,7 @@ from collections import defaultdict, deque
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+from ask.budget import DailyBudget
 from ask.llm import MuseSparkClient
 from ask.service import handle_ask
 
@@ -52,6 +53,7 @@ MAX_BODY_BYTES = 4096
 
 DATA = json.loads((Path(__file__).parent / "data" / "summary.json").read_text(encoding="utf-8"))
 LLM = MuseSparkClient(os.environ.get("META_MODEL_API_KEY"), os.environ.get("META_MODEL_ID", "muse-spark-1.3"))
+BUDGET = DailyBudget(int(os.environ.get("DAILY_ASK_LIMIT", "300")))
 
 
 def client_ip(forwarded_for, fallback):
@@ -130,7 +132,7 @@ class Handler(BaseHTTPRequestHandler):
             length = -1
         if length < 0 or length > MAX_BODY_BYTES:
             return self._json(413, {"error": {"code": "BAD_REQUEST", "message": "request too large"}})
-        status, payload = handle_ask(self.rfile.read(length), DATA, LLM)
+        status, payload = handle_ask(self.rfile.read(length), DATA, LLM, BUDGET)
         self._json(status, payload)
 
 
