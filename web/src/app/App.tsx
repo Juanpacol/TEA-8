@@ -16,10 +16,12 @@ import {
 } from '../features/landing/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
+import { useSmoothScroll } from '../shared/hooks/useSmoothScroll.ts'
 import { ToolPage } from './ToolPage.tsx'
 
 function Landing() {
   const state = useData()
+  useSmoothScroll()
 
   return (
     <>
