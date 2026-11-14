@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASES, type BaseId } from './basemaps.ts'
 import { pointLabel } from './cell.ts'
+import { loadSoilZones, soilFamily } from './soil-zones.ts'
 import { COUNTY_NAME, COUNTY_OUTLINE, REFERENCE_TOWNS, insideCounty } from './county.ts'
 import { ndviTileUrl } from './gibs.ts'
-import { describePlace, formatCoords, type Place } from './selection.ts'
+import { describePlace, formatCoords, pointAt, type Place } from './selection.ts'
 import './map.css'
 
 type Props = {
@@ -31,11 +32,14 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const other = useRef<L.TileLayer | null>(null)
   const markers = useRef<{ point: CasePoint; marker: L.CircleMarker }[]>([])
   const ring = useRef<L.CircleMarker | null>(null)
+  const zones = useRef<L.FeatureGroup | null>(null)
+  const countyBounds = useRef<L.LatLngBounds | null>(null)
   const pick = useRef(onSelect)
   pick.current = onSelect
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   const [split, setSplit] = useState(50)
   const [outside, setOutside] = useState(false)
+  const [zoneNote, setZoneNote] = useState<string | null>(null)
   const splitNow = useRef(split)
   splitNow.current = split
 
@@ -83,7 +87,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       attribution: 'County: US Census Bureau',
     }).addTo(instance)
     // Show the whole county, with room around it.
-    instance.fitBounds(county.getBounds(), { padding: [30, 30] })
+    countyBounds.current = county.getBounds()
+    instance.fitBounds(countyBounds.current, { padding: [30, 30] })
     const checkCenter = () => {
       const center = instance.getCenter()
       setOutside(!insideCounty(center.lat, center.lng))
@@ -182,6 +187,49 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     else marker.remove()
   }, [selected])
 
+  // Choosing a field zooms in and draws the soil zones around it, each with its real outline.
+  useEffect(() => {
+    const instance = map.current
+    if (!instance) return
+    zones.current?.remove()
+    zones.current = null
+    setZoneNote(null)
+    const markerColor = getComputedStyle(document.documentElement).getPropertyValue('--ochre').trim() || '#d9a441'
+    const point = selected ? pointAt(selected, points) : null
+    if (!point) {
+      if (countyBounds.current && selected === null) instance.fitBounds(countyBounds.current, { padding: [30, 30] })
+      return
+    }
+    let stale = false
+    loadSoilZones().then((file) => {
+      const list = file.points[point.id]?.zones
+      if (stale || !list || !map.current) return
+      const own = soilFamily(list.find((zone) => zone.holds_point)?.name ?? '')
+      const group = L.featureGroup()
+      // Draw the zone that holds the point last, so it sits on top.
+      for (const zone of [...list].sort((a, b) => Number(a.holds_point) - Number(b.holds_point))) {
+        const same = soilFamily(zone.name) === own
+        L.polygon(
+          zone.ring.map(([lon, lat]) => [lat, lon] as [number, number]),
+          zone.holds_point
+            ? { color: '#fff', weight: 3, fillColor: markerColor, fillOpacity: 0.7 }
+            : same
+              ? { color: markerColor, weight: 1, fillColor: markerColor, fillOpacity: 0.5 }
+              : { color: '#8a97b4', weight: 1, fillColor: '#8a97b4', fillOpacity: 0.18 },
+        )
+          .bindTooltip(zone.holds_point ? `${zone.name} (this field)` : zone.name, { sticky: true })
+          .addTo(group)
+      }
+      setZoneNote(`Orange: ${own}, same soil as the point. Gray: other soils. Hover for names.`)
+      group.addTo(map.current)
+      zones.current = group
+      map.current.fitBounds(group.getBounds(), { padding: [20, 20] })
+    })
+    return () => {
+      stale = true
+    }
+  }, [selected, points])
+
   useEffect(clip, [split])
 
   return (
@@ -213,6 +261,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
           />
         </>
       )}
+      {zoneNote && <p className="map__zones">{zoneNote}</p>}
       {outside && (
         <p className="map__outside" role="status">
           This view is outside {COUNTY_NAME}. TEA-8 has climate, soil and crop data only for {COUNTY_NAME}; elsewhere you see
