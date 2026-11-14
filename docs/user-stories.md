@@ -307,6 +307,91 @@ As the project owner, I want proof that the deployed tool works end to end.
 
 Order: TL-1 first, then TL-2 to TL-6 in any order, then TL-8, TL-9, TL-10. TL-7 only if time remains.
 
+## Core integration, third set
+
+Updated November 14, 2026. Everything is deployed and connected: real data in `web/public/data/summary.json`, the tool at `#/tool`, and `/ask` answering from Cloud Run. This set closes the gap between what is connected and what the project claims. It comes before any further visual work.
+
+### Where the project stands
+
+The claim is: compare crop rotations with NASA and USDA data, and show the evidence without deciding for the farmer. Checked against the production data file on November 14, 2026:
+
+| What the claim needs | What exists today |
+|---|---|
+| NASA data feeds the comparison | The NASA statement is the same sentence (summer 2012) for all three rotations. Only the cited studies differ |
+| The chosen year matters | The year changes the headline and the map, not the rotations |
+| The field is described | Soil (SSURGO) and crop history (CropScape, 2008 to 2023) are in the file and in `/ask`, but no screen shows them |
+| Rotations can be compared | One rotation is shown at a time |
+| Every statement is backed | One risk of the four-year rotation says "This source has not been read yet" |
+| It works for a visitor | The happy path works. Failure of `/ask`, phones and keyboard were not tested in a real browser |
+
+### Goal 1. NASA data feeds the comparison
+
+**CG-1. Dry summers, defined**
+As a farmer, I want to know which summers count as dry and why.
+- The pipeline marks each summer from 2001 to 2023 as dry or not, from the NASA POWER root-zone wetness deviation already in the file.
+- The threshold is one number, written in the data file with the reason for it. With -1 standard deviation the dry summers are 2005, 2006, 2012 and 2023.
+- The schema, the sample file and the validator are updated in the same pull request.
+
+**CG-2. Exposure of each rotation**
+As a farmer, I want one figure per rotation that comes from the data, not from a study.
+- For each rotation the pipeline computes how much of the rotation has a summer crop in the field from June to August, and combines it with the dry summers of CG-1.
+- Which crops count as summer crops comes from a cited crop calendar. The citation is read before it is used.
+- The statement is tagged `platform_calculation` and says it measures exposure, not yield.
+- A test covers the calculation with a small made-up example.
+
+**CG-3. The year changes what the rotations show**
+As a farmer, I want the year I pick to matter.
+- For the chosen year the tool says whether that summer was dry and shows the CG-2 figure of the selected rotation next to it.
+- For 2024 to 2026, outside the baseline, the tool says so instead of guessing.
+
+### Goal 2. The field is visible
+
+**CG-4. Soil of each case point**
+As a farmer, I want to see the soil the comparison assumes.
+- The tool shows, per case point: soil name, drainage, organic matter and available water, each with its source and origin label.
+
+**CG-5. Crop history**
+As a farmer, I want proof of what was grown.
+- The tool shows the crop of each year from 2008 to 2023 for each case point, as one strip of years.
+- Clicking a year in the strip selects that year.
+
+### Goal 3. No unbacked statement in production
+
+**CG-6. Sources read or removed**
+As a judge, I want every statement to rest on something that was read.
+- The statement tagged `citation_to_verify` is either read and re-tagged, or removed.
+- The validator fails if the production file contains `citation_to_verify`.
+
+### Goal 4. Rotations side by side
+
+**CG-7. Compare view**
+As a farmer, I want the three rotations in one view.
+- One table: crops, in use or hypothetical, the CG-2 figure, number of open gaps. No score and no ranking.
+- On a phone the table scrolls inside its own box.
+
+### Goal 5. Proof that it works
+
+**CG-8. `/ask` failure**
+As a visitor, I want the tool to stay usable when the question service fails.
+- With the API unreachable, at the daily limit and busy, the question box shows its message and the rest of the tool works. Checked locally against a wrong API address, not against production.
+
+**CG-9. Small screens and keyboard** (closes TL-9)
+- No horizontal scroll at 360 px, the map does not trap the finger, visible focus and labels on every control.
+
+**CG-10. Browser check in production** (closes TL-10 and DEP-10)
+- In `tea-8.vercel.app`: change the year, open each rotation, read the soil and the history, ask one question.
+- The result is written in the deployment status table.
+
+### Order
+
+1. CG-6 (small, removes a visible defect).
+2. CG-1, then CG-2 (backend worktree: pipeline and schema).
+3. CG-4 and CG-5 (tool worktree, in parallel with step 2: the data is already in the file).
+4. CG-3, then CG-7 (need CG-2).
+5. CG-8, CG-9, CG-10.
+
+Visual work on the landing and the palette continues after step 5. TL-7 stays optional.
+
 ## Worktrees
 
 | Worktree | Branch | Folders it touches | Stories |
@@ -329,4 +414,5 @@ Coordination points:
 
 ## Open decisions
 
-- None open. The AI API is Muse Spark (Meta Model API), its key lives in Secret Manager, and Google Cloud billing is enabled.
+- CG-1: the dry-summer threshold (proposed: -1 standard deviation of root-zone wetness) and CG-2: the crop calendar source.
+- The AI API is Muse Spark (Meta Model API), its key lives in Secret Manager, and Google Cloud billing is enabled.
