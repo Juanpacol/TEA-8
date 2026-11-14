@@ -26,7 +26,7 @@ function Landing() {
   return (
     <>
       <Hero />
-      <Intro driest={state.status === 'ready' ? driestSummer(state.data.seasons) : null} />
+      <Intro driest={state.status === 'ready' ? driestSummer(state.data.seasons, state.data.dry_summer_rule?.baseline) : null} />
       <Connector>
         <Reveal>
           <Problem />

@@ -59,6 +59,21 @@ npm test && npm run lint && npm run build     # checks, as in CI
 
 Without `VITE_API_URL` (see `web/.env.example`) the question box falls back to the pre-generated explanations. The data pipeline is in [pipeline/README.md](pipeline/README.md).
 
+## How to add a region
+
+Only McLean County has been run. What a second region needs, and what is still fixed in the code:
+
+| Change | Where |
+|---|---|
+| Region name, baseline years, climate point and case points | `pipeline/region.json` and `pipeline/points.py` |
+| County or state yields | CSVs in `pipeline/inputs/`, read by `pipeline/summarize/yields.py` |
+| Crop windows for the summer exposure | `pipeline/rotations/calendar.json` (the values are Illinois, USDA NASS 1997) |
+| Rotations and their cited rules | `pipeline/rotations/rotations.json` (the studies are mostly Midwest) |
+| Regenerate the data file | the commands in [pipeline/README.md](pipeline/README.md), then commit both copies of `summary.json` |
+| **Still in the web code:** county outline, reference towns and map limits | `web/src/features/map/` (`mclean-county.json`, `county.ts`, `MapView.tsx`, `soil-zones.json`) |
+
+The baseline years, the first year shown and the example questions already come from the data file. Until a second county runs end to end, the project does not claim that it scales.
+
 ## Out of scope
 
 - ECOSTRESS, GRACE, GEDI and SRTM.

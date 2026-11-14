@@ -1,5 +1,6 @@
 // Pure helpers: pick the season of a year and describe it in words. No React, no fetch.
 import type { Translate } from '../../shared/i18n/index.ts'
+import { baselineRange } from '../../shared/lib/baseline.ts'
 import type { Figure, Season } from '../../shared/lib/data-types.ts'
 
 export function seasonOf(seasons: readonly Season[], year: number): Season | undefined {
@@ -22,8 +23,7 @@ export function seasonHeadline(t: Translate, season: Season | undefined, year: n
 
 /** The last year of a baseline written as "2001-2023", or null when the text has no such range. */
 export function baselineEnd(baseline: string | undefined): number | null {
-  const match = baseline?.match(/^(\d{4})-(\d{4})$/)
-  return match ? Number(match[2]) : null
+  return baselineRange(baseline)?.[1] ?? null
 }
 
 /** True when a summer comes after the baseline: it is compared with that period but did not help define it. */

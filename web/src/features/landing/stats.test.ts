@@ -34,3 +34,11 @@ describe('driestSummer', () => {
     expect(driestSummer([season(2012, null)])).toBeNull()
   })
 })
+
+describe('driestSummer with the data file baseline', () => {
+  it('uses the range the file declares', () => {
+    const seasons = [season(2005, 0.4), season(2012, 0.5), season(2013, 0.7)]
+    expect(driestSummer(seasons, '2010-2013')?.year).toBe(2012)
+    expect(driestSummer(seasons)?.year).toBe(2005)
+  })
+})
