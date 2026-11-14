@@ -5,7 +5,7 @@ export function CallToAction() {
   return (
     <section className="section section--center">
       <h2>See what the data says</h2>
-      <a href="#tool">
+      <a href="#/tool">
         <Button>Try the tool</Button>
       </a>
       <p>

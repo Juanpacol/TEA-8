@@ -17,7 +17,7 @@ export function Intro({ driest }: { driest: DriestSummer | null }) {
             {driest.wetness.toFixed(2)}, against an average of {driest.baselineMean.toFixed(2)} for 2001-2023 (NASA POWER).
           </p>
         )}
-        <a href="#tool">
+        <a href="#/tool">
           <Button>Open the tool</Button>
         </a>
       </div>
