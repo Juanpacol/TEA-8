@@ -4,7 +4,7 @@ import { FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
 import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
-import { RotationPicker, useRotations } from '../../features/rotations/index.ts'
+import { CompareTable, RotationPicker, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
 import { Tabs } from '../../shared/components/index.ts'
 import type { useData } from '../../shared/hooks/useData.ts'
@@ -33,11 +33,15 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         <div className="workspace__side">
           <h3 className="workspace__question">What could you plant?</h3>
           <RotationPicker summaries={summaries} selectedId={selectedId} onSelect={select} />
-          {selected && <YearOutcome data={data} rotation={selected} year={year} />}
           {selected && (
             <Tabs
               label={`About ${selected.name}`}
               tabs={[
+                {
+                  id: 'year',
+                  label: String(year),
+                  content: <YearOutcome data={data} rotation={selected} year={year} />,
+                },
                 {
                   id: 'why',
                   label: 'Why',
@@ -53,6 +57,11 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                   id: 'field',
                   label: 'Field',
                   content: <FieldPanel points={data.region.case_points} year={year} onSelectYear={setYear} />,
+                },
+                {
+                  id: 'compare',
+                  label: 'Compare',
+                  content: <CompareTable data={data} year={year} selectedId={selectedId} onSelect={select} />,
                 },
                 {
                   id: 'missing',
