@@ -31,7 +31,7 @@ TEA apoya la decisión y no la reemplaza. No da un puntaje final ni una "mejor o
 | Preparación de datos | Python (xarray, rasterio, pandas) | Se ejecuta antes de la demo. Descarga, recorta a una región y guarda JSON. |
 | Interfaz | React con Vite | Si el tiempo aprieta, HTML y JavaScript simples. |
 | Mapa | Leaflet | |
-| Datos NASA | NASA POWER, SMAP, GPM, NDVI (MODIS o Landsat) | Una sola región. Guardados como archivos estáticos. |
+| Datos NASA | NASA POWER, GIBS (NDVI de MODIS). SMAP y GPM solo si llegan a usarse | Una sola región. Guardados como archivos estáticos. |
 | Reglas de rotación | Código propio, tabla de unos 6 cultivos | Con fuentes citadas. |
 | Explicaciones | Plantillas por código, mejoradas con un modelo | Opciones: Ollama local o una API. Se generan antes de la demo. |
 | Publicación | Vercel o Firebase Hosting | Página estática. Sin servidor ni base de datos. |
