@@ -54,6 +54,14 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     if (!container.current) return
     const instance = L.map(container.current, {
       zoomControl: true,
+      // Scrolling the page must not zoom the map by accident; the zoom buttons and a double click still work.
+      scrollWheelZoom: false,
+      minZoom: 8,
+      // Keeps the view around the county, so nobody gets lost in the rest of the country.
+      maxBounds: [
+        [39.4, -90.4],
+        [41.6, -87.4],
+      ],
       // On a touch screen one finger scrolls the page; the map moves with two fingers or the zoom buttons.
       dragging: !L.Browser.mobile,
     }).setView([points[0].lat + 0.2, points[0].lon], 9)
