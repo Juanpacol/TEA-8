@@ -14,26 +14,45 @@ Rules baked into the schema:
 - There are exactly three rotations. Alternatives have `hypothetical: true`.
 - **The pipeline computes the rotations and their rules.** The web app only displays and compares what the file contains. Rotation logic in `web/` (`rules.ts`, `compare.ts`) works on the data in this file and does not decide agronomy.
 
-## `/ask` (draft, finalized in BE-7)
+## `/ask`
 
 `POST /ask`
 
 Request:
 ```json
-{ "question": "string, at most 500 characters", "rotation_id": "optional rotation id" }
+{ "question": "string, 1 to 500 characters", "rotation_id": "optional rotation id" }
 ```
 
-Response:
+Response (200):
 ```json
 {
   "answered": true,
-  "answer": "string",
-  "origin": "model_text",
-  "sources": ["ids or names of the data the answer used"]
+  "answer": "the verified claims joined; the fixed sentence 'The project data does not cover this question.' when none",
+  "claims": [
+    {
+      "text": "Summer 2012 root-zone wetness was 0.51.",
+      "evidence_keys": ["season.2012.root_wetness"],
+      "origins": ["nasa_data"],
+      "citations": [],
+      "checks": [
+        { "name": "cites_evidence", "passed": true },
+        { "name": "keys_exist", "passed": true },
+        { "name": "numbers_match", "passed": true }
+      ],
+      "verified": true
+    }
+  ],
+  "notice": "This tool supports, and does not replace, local agricultural expertise.",
+  "prompt_version": "ask-v1"
 }
 ```
 
-When the project data does not cover the question, the service returns `"answered": false` and an `answer` that says it does not know. The web app falls back to the pre-generated explanations when the call fails or is slow.
+- The model may cite only keys of the evidence bundle built from the data file (`season.<year>.<figure>`, `soil.<point>.*`, `crop.<point>.<year>`, `rotation.<id>`, `rule.<id>`, `limit.<n>`).
+- A claim is `verified` only when it cites at least one key, every key exists and every number in the claim appears in the cited evidence. The `checks` show that process and the web app displays them. Unverified claims are shown flagged, never hidden, and are left out of `answer`.
+- `answered` is false when the data does not cover the question or no claim could be verified.
+- Wording that names a best option, gives a final score or tells the farmer what to plant is rejected; the model gets one retry.
+- Errors: `{ "error": { "code", "message" } }` with 400 (bad request), 502 (model failed or broke the rules), 503 (no API key) or 504 (timeout). The web app falls back to the pre-generated explanations on any error or slow answer.
+- The service reads its own copy of the data, `api/data/summary.json`, written by `pipeline/summarize/build.py` together with the web copy.
 
 ## Ownership
 
