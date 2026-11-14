@@ -1,0 +1,80 @@
+.ask__form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ask__form textarea {
+  padding: var(--space-2);
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font: inherit;
+  resize: vertical;
+}
+
+.ask__form .btn {
+  justify-self: start;
+}
+
+.ask__result {
+  margin-top: var(--space-3);
+}
+
+.ask__answer {
+  margin: 0 0 var(--space-3);
+}
+
+.ask__claims {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.claim {
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+}
+
+.claim--verified {
+  border-left-color: var(--origin-citation);
+}
+
+.claim--unverified {
+  border-left-color: var(--red);
+}
+
+.claim__status {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.claim__text {
+  margin: var(--space-2) 0 0;
+}
+
+.claim__checks {
+  margin-top: var(--space-2);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.claim__checks ul {
+  margin: var(--space-1) 0;
+  padding-left: var(--space-3);
+}
+
+.ask__failed {
+  margin: 0 0 var(--space-2);
+  color: var(--ochre);
+}
+
+.ask__notice {
+  margin: var(--space-3) 0 0;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
