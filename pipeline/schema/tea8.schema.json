@@ -129,7 +129,8 @@
         "id": { "type": "string" },
         "text": { "type": "string", "minLength": 1 },
         "origin": { "$ref": "#/$defs/origin" },
-        "citation": { "type": "string" }
+        "citation": { "type": "string" },
+        "kind": { "enum": ["risk"], "description": "Marks a read source that cautions against the rotation. It is shown under risks, not as supporting evidence." }
       }
     },
     "rotation": {

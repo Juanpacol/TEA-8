@@ -40,7 +40,7 @@ def climate_evidence(seasons):
 
 def explain(rotation, seasons, all_rotations):
     rules = rotation["rules"]
-    cited = [r for r in rules if r["origin"] == "citation"]
+    cited = [r for r in rules if r["origin"] == "citation" and r.get("kind") != "risk"]
     explanation = {"why": [], "evidence": climate_evidence(seasons), "gaps": [], "risks": []}
 
     if rotation["is_current"]:
@@ -56,7 +56,7 @@ def explain(rotation, seasons, all_rotations):
         explanation["gaps"] += [from_rule(r) for r in rules if r["origin"] == "platform_calculation"]
         explanation["gaps"].append(statement("This rotation is hypothetical: it does not exist in the observed fields.",
                                              "platform_calculation"))
-        explanation["risks"] += [from_rule(r) for r in rules if r["origin"] == "citation_to_verify"]
+        explanation["risks"] += [from_rule(r) for r in rules if r.get("kind") == "risk"]
         explanation["risks"].append(statement(LOCAL_REVIEW, "platform_calculation"))
 
     explanation["gaps"] += [statement(NO_YIELDS, "platform_calculation"), statement(NASA_POWER_GRID, "platform_calculation")]

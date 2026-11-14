@@ -100,9 +100,10 @@
         },
         {
           "id": "r-four-4",
-          "origin": "citation_to_verify",
-          "citation": "American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 (could not be opened)",
-          "text": "A reported Illinois study cautions that some grass cover crops can slightly lower corn yield. This source has not been read yet."
+          "origin": "citation",
+          "kind": "risk",
+          "citation": "University of Illinois, College of ACES, \"Advanced model and field data add up to better cover crop management\" (article read at https://aces.illinois.edu/node/1338, Nov 14 2026)",
+          "text": "In a crop model for the Midwest, non-legume cover crops such as annual ryegrass and cereal rye reduced corn yield by 0.9 to 6.9%, and competition for water was stronger in dry years. The legume hairy vetch did not reduce corn yield under high nitrogen."
         }
       ]
     }
