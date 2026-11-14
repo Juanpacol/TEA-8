@@ -9,16 +9,16 @@ const POINTS = [
 
 export function WhyItHoldsUp() {
   return (
-    <section className="section">
+    <section className="differentiators">
       <h2>Why it holds up</h2>
-      <dl className="points">
+      <div className="differentiators__grid">
         {POINTS.map(([title, text]) => (
-          <div key={title}>
-            <dt>{title}</dt>
-            <dd>{text}</dd>
+          <div key={title} className="differentiators__card">
+            <h3>{title}</h3>
+            <p>{text}</p>
           </div>
         ))}
-      </dl>
+      </div>
     </section>
   )
 }

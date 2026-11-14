@@ -7,9 +7,9 @@ import {
   Hero,
   HowItWorks,
   Intro,
+  OpenSource,
   Problem,
   Reveal,
-  Sources,
   WhyItHoldsUp,
   WontTell,
   driestSummer,
@@ -41,7 +41,7 @@ function Landing() {
           <Demo />
         </Reveal>
         <Reveal>
-          <Sources />
+          <OpenSource />
         </Reveal>
       </main>
       <FooterConnector>

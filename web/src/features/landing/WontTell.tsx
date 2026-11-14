@@ -10,13 +10,16 @@ const LIMITS = [
 
 export function WontTell() {
   return (
-    <section className="section">
+    <section className="safety">
       <h2>What it won&rsquo;t tell you</h2>
-      <ul className="checklist">
-        {LIMITS.map((limit) => (
-          <li key={limit}>{limit}</li>
-        ))}
-      </ul>
+      <p className="safety__tagline">And we say so.</p>
+      <div className="safety__card">
+        <ul className="checklist">
+          {LIMITS.map((limit) => (
+            <li key={limit}>{limit}</li>
+          ))}
+        </ul>
+      </div>
     </section>
   )
 }
