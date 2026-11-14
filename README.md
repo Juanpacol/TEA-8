@@ -1,57 +1,70 @@
 # TEA-8
 
-A decision-support tool that compares crop rotations using NASA data and shows the evidence behind every statement.
+A decision-support tool that compares crop rotations using NASA and USDA data and shows the evidence behind every statement.
 
 **Challenge:** Field Shift: Adapting Farms with NASA Data (NASA Space Apps 2026).
 **Dates:** Saturday and Sunday of the hackathon (November 14-15, 2026).
-**Status:** proposal. There is a visual prototype with illustrative data. There is no project code yet.
+**Live:** https://tea-8.vercel.app (the tool is at `#/tool`).
+**Status:** working prototype for McLean County, Illinois. Real NASA and USDA data, deployed. Not agronomic advice.
 
-## Idea
+## What it does
 
-The farmer enters a location and their priorities (save water, income, soil health). TEA-8 compares three rotations, including the one already in use, and for each one shows:
+The farmer picks a summer (2001 to 2026) and one of three rotations, including the one already in use. The tool shows:
 
-- why it is suggested,
-- what evidence supports it,
-- what we do not know,
-- which risks a local expert should review.
+- how that summer compared with 2001-2023 (NASA POWER rainfall, temperature and root-zone wetness), and whether it counts as dry under a written rule;
+- a map of NASA satellite vegetation (NASA GIBS, MODIS NDVI) for that year, with a second year to compare against;
+- what the county corn and soybean yields (USDA NASS) did in that summer against their trend;
+- the soil of two case points (USDA SSURGO) and the crop of each year from 2008 to 2023 (CropScape);
+- for each rotation: why it is suggested, the evidence, what we do not know and which risks a local expert should review;
+- a question box. Answers come from a language model and every claim is checked by code against the data; a claim that fails the check is shown flagged.
+
+An optional priority (water, soil or income) changes which panel opens first and says what the data can and cannot tell about it. It never ranks or scores the rotations.
 
 TEA-8 supports the decision and does not replace it. It gives no final score and no "best option".
 
 ## What sets it apart
 
-- Every statement shows its origin: NASA data, a platform calculation, model text, or a citation still to be verified.
-- The bars for each rotation come from visible, cited rules, not from invented numbers.
-- A map with a timeline and a rainfall scenario control makes the change between dry and wet years visible.
-- A real farm story opens the demo.
+- Every statement shows its origin: NASA data, a platform calculation, model text, or a citation that was read.
+- The rotations rest on cited studies, not on invented numbers.
+- It says what it does not know: the limits are on screen, not only at the bottom.
+- Public data only, no account and no field data needed.
+
+## What it does not do
+
+- It has no prices, costs or returns.
+- Yields are county averages for corn and soybeans. They say nothing about one field or one rotation, so comparisons measure stress and exposure, not outcomes.
+- The alternative rotations are hypothetical and rest on studies, mostly from the Midwest.
+- It was built and checked for McLean County only. A second county has not been run.
+- Nobody has compared its answers with an agronomist's, and no farmer has used it.
+
+See [docs/alternatives.md](docs/alternatives.md) and [docs/user-stories.md](docs/user-stories.md).
 
 ## Stack
 
 | Layer | Technology | Notes |
 |---|---|---|
-| Data preparation | Python (xarray, rasterio, pandas) | Runs before the demo. Downloads, clips to one region and saves JSON. |
-| Interface | React with Vite | If time runs short, plain HTML and JavaScript. |
-| Map | Leaflet | |
-| NASA data | NASA POWER, GIBS (MODIS NDVI). SMAP and GPM only if they end up being used | One region. Saved as static files. |
-| Rotation rules | Own code, a table of about 6 crops | With cited sources. |
-| Explanations | Code templates, improved with a model | Options: local Ollama or an API. Generated before the demo. |
-| Hosting | Vercel (web) and Google Cloud Run (`api/`) | Static page plus a small service for AI questions. No database. See [docs/user-stories.md](docs/user-stories.md). |
+| Data preparation | Python (standard library plus jsonschema) | Runs before the demo. Downloads, summarizes and writes one validated JSON file. |
+| Interface | React, Vite and TypeScript | Static page, English and Spanish. |
+| Map | Leaflet | NASA GIBS NDVI tiles over USGS base maps. |
+| NASA and USDA data | NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape, USDA NASS | Saved as static files. No live queries to them during use. |
+| Questions | `api/` on Google Cloud Run | The model is Muse Spark (Meta Model API). The key lives in Secret Manager. If the service fails, the pre-generated explanations are shown. |
+| Hosting | Vercel (web) and Cloud Run (`api/`) | See [docs/infrastructure.md](docs/infrastructure.md). |
 
-## Minimum scope (MVP)
+## Run it
 
-- One region.
-- Two or three NASA sources.
-- Three fixed rotations, including the current one.
-- A hand-made crop table.
-- Each rotation with evidence, gaps and risks.
-- Map with year and rainfall controls.
-- A fixed notice: it supports, and does not replace, a local expert.
+```
+cd web && npm install && npm run dev          # the tool at http://localhost:5173/#/tool
+npm test && npm run lint && npm run build     # checks, as in CI
+```
+
+Without `VITE_API_URL` (see `web/.env.example`) the question box falls back to the pre-generated explanations. The data pipeline is in [pipeline/README.md](pipeline/README.md).
 
 ## Out of scope
 
 - ECOSTRESS, GRACE, GEDI and SRTM.
 - Authentication and a database.
 - User history and multiple regions.
-- Live queries to the data APIs (NASA, USDA) during the demo. AI questions are live, with pre-generated explanations as the fallback.
+- Live queries to the data APIs (NASA, USDA) during use.
 
 ## Architecture and folder structure
 
@@ -95,6 +108,7 @@ tea/
         │   ├── landing/           one section per file
         │   ├── map/               map and timeline
 │   ├── season/            season headline and figures for the chosen year
+│   ├── priorities/        optional farmer priority: what opens first, never a ranking
 │   ├── field/             soil and crop history of each case point
         │   ├── ask/               question box and verified answers
         │   ├── rotations/         pure rules (rules.ts, compare.ts), hooks, components and tests
@@ -103,7 +117,7 @@ tea/
         └── styles/                palette variables and global styles
 ```
 
-`priorities/` and `globe/` (optional 3D with lazy loading) are created only if they come to exist. No Docker for local work: the web app installs with `npm install` and the pipeline with a virtual environment and `requirements.txt`. How `api/` is packaged for Cloud Run is decided in DEP-5.
+`globe/` (optional 3D with lazy loading) is created only if it comes to exist. No Docker for local work: the web app installs with `npm install` and the pipeline with a virtual environment and `requirements.txt`. How `api/` is packaged for Cloud Run is decided in DEP-5.
 
 ### Layers and dependencies
 
