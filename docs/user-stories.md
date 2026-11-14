@@ -24,6 +24,17 @@ Two stories must be merged into `main` first, because all three layers depend on
 
 With the sample file, the frontend can advance without waiting for real data.
 
+## Deployment status
+
+Updated November 14, 2026.
+
+| Story | Status |
+|---|---|
+| DEP-1 to DEP-9 | Done |
+| DEP-10 Web connected to the backend | Configured (`VITE_API_URL` in Vercel). The question box and the fallback were not tested in a browser |
+| DEP-11 Verification on every pull request | Done: web, api and pipeline jobs. Making them required on `main` is a repository setting |
+| DEP-12 Public access verified | Pending: FortiGuard request and a private-window check |
+
 ## Deployment layer
 
 ### Web (Vercel)
@@ -191,5 +202,4 @@ Coordination points:
 
 ## Open decisions
 
-- Which AI API to use.
-- Google Cloud billing must be enabled by the project owner.
+- None open. The AI API is Muse Spark (Meta Model API), its key lives in Secret Manager, and Google Cloud billing is enabled.

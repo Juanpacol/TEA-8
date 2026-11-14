@@ -11,13 +11,13 @@ GitHub (main)
                            (Docker build, push to Artifact Registry, deploy)
 ```
 
-- **Web:** Vercel. Not connected yet (DEP-2).
+- **Web:** Vercel project `tea-8`, connected to this repository. Production: https://tea-8.vercel.app (public, from `main`). Every pull request gets a preview URL; previews require a Vercel login. `VITE_API_URL` points the web app to the API.
 - **API:** Google Cloud Run, project `tea-8-hackathon`, region `us-central1`.
 - **Images:** Artifact Registry repository `tea-api`, keeping the 2 most recent images.
-- **Secrets:** Secret Manager (none stored yet).
-- **Deploys:** the workflow `.github/workflows/deploy-api.yml` runs on merge to `main` when `api/` changes. CI for the web app is `.github/workflows/ci.yml`.
+- **Secrets:** Secret Manager holds `meta-model-api-key`. The deploy workflow injects it into Cloud Run as `META_MODEL_API_KEY`.
+- **Deploys:** the workflow `.github/workflows/deploy-api.yml` runs on merge to `main` when `api/` changes. CI (`.github/workflows/ci.yml`) runs the web, api and pipeline checks on every pull request.
 
-Cloud Run settings: max 1 instance, min 0, 1 vCPU, 256 MiB, concurrency 20, 30 s timeout.
+Cloud Run settings: max 1 instance, min 0, 1 vCPU, 256 MiB, concurrency 20, 30 s timeout. The API allows requests only from `https://tea-8.vercel.app` (CORS) and limits requests per client, overall and per day.
 
 ## How GitHub gets permission (no stored keys)
 
@@ -36,6 +36,5 @@ curl https://tea-api-p7nky5zeba-uc.a.run.app/health   # should return {"status":
 
 ## Still to do
 
-- DEP-2 and DEP-3: connect the repository to Vercel.
-- DEP-8: store the AI API key in Secret Manager.
-- DEP-9: CORS and rate limiting on the API.
+- DEP-12: request the FortiGuard web filter classification for the site and open it in a private window.
+- Preview deployments cannot call `/ask`: CORS only allows the production domain. Add the preview domain to `ALLOWED_ORIGINS` if previews need it.
