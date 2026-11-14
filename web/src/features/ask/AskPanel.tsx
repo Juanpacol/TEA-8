@@ -7,6 +7,12 @@ import './ask.css'
 
 const MAX_LENGTH = 500
 
+const EXAMPLES = [
+  'How dry was summer 2012?',
+  'How did summer 2023 compare with the 2001-2023 average?',
+  'Which rotation will give me the best yield?',
+]
+
 /** Ask a question about the data. If the service fails or is slow, the pre-generated explanation is shown instead. */
 export function AskPanel({ rotation }: { rotation: Rotation }) {
   const [question, setQuestion] = useState('')
@@ -15,6 +21,11 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
   function submit(event: FormEvent) {
     event.preventDefault()
     if (question.trim()) void ask(question.trim())
+  }
+
+  function askExample(example: string) {
+    setQuestion(example)
+    void ask(example)
   }
 
   return (
@@ -29,6 +40,15 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
           placeholder="For example: how dry was summer 2012?"
           onChange={(event) => setQuestion(event.target.value)}
         />
+        <ul className="ask__examples" aria-label="Example questions">
+          {EXAMPLES.map((example) => (
+            <li key={example}>
+              <Button type="button" variant="ghost" disabled={state.status === 'loading'} onClick={() => askExample(example)}>
+                {example}
+              </Button>
+            </li>
+          ))}
+        </ul>
         <Button type="submit" disabled={state.status === 'loading' || !question.trim()}>
           {state.status === 'loading' ? 'Checking the data…' : 'Ask'}
         </Button>
@@ -36,7 +56,13 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
 
       {state.status === 'answered' && (
         <div className="ask__result" aria-live="polite">
-          <p className="ask__answer">{state.response.answer}</p>
+          {!state.response.answered && (
+            <p className="ask__nodata">
+              The project data does not cover this question, so TEA-8 will not guess. Try asking about rainfall,
+              temperature or soil wetness of a summer between 2001 and 2023.
+            </p>
+          )}
+          {state.response.answered && <p className="ask__answer">{state.response.answer}</p>}
           {state.response.claims.length > 0 && (
             <ul className="ask__claims">
               {state.response.claims.map((claim) => (
@@ -48,7 +74,19 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
         </div>
       )}
 
-      {state.status === 'failed' && (
+      {state.status === 'failed' && state.kind === 'daily_limit' && (
+        <p className="ask__failed" role="status">
+          The daily limit of questions was reached. Try again tomorrow; the explanations above need no questions.
+        </p>
+      )}
+
+      {state.status === 'failed' && state.kind === 'busy' && (
+        <p className="ask__failed" role="status">
+          Too many questions in a short time. Wait a minute and ask again.
+        </p>
+      )}
+
+      {state.status === 'failed' && state.kind === 'unavailable' && (
         <div className="ask__result" aria-live="polite">
           <p className="ask__failed">
             The question service did not answer. Showing the pre-generated explanation of {rotation.name} instead.

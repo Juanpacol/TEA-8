@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { askQuestion } from './askApi.ts'
+import { AskFailure, askQuestion, failureFromStatus } from './askApi.ts'
 
 const good = { answered: true, answer: 'ok', claims: [], notice: 'n', prompt_version: 'ask-v1' }
 
@@ -35,5 +35,19 @@ describe('askQuestion', () => {
   it('gives up when the service is too slow', async () => {
     stubFetch((_url, init) => new Promise((_resolve, reject) => init?.signal?.addEventListener('abort', () => reject(new Error('aborted')))))
     await expect(askQuestion('q', undefined, { baseUrl: 'https://api.test', timeoutMs: 20 })).rejects.toThrow(/aborted/)
+  })
+
+  it('tells the daily cap apart from the per-visitor rate limit', async () => {
+    stubFetch(async () => new Response(JSON.stringify({ error: { code: 'DAILY_LIMIT', message: 'x' } }), { status: 429 }))
+    await expect(askQuestion('q', undefined, { baseUrl: 'https://api.test' })).rejects.toMatchObject({ kind: 'daily_limit' })
+    stubFetch(async () => new Response(JSON.stringify({ error: 'too many requests' }), { status: 429 }))
+    await expect(askQuestion('q', undefined, { baseUrl: 'https://api.test' })).rejects.toMatchObject({ kind: 'busy' })
+  })
+
+  it('reports a server error, a timeout and a missing service as unavailable', async () => {
+    stubFetch(async () => new Response('not json', { status: 502 }))
+    await expect(askQuestion('q', undefined, { baseUrl: 'https://api.test' })).rejects.toMatchObject({ kind: 'unavailable' })
+    expect(failureFromStatus(400, null)).toBeInstanceOf(AskFailure)
+    expect(failureFromStatus(400, null).kind).toBe('unavailable')
   })
 })
