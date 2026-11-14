@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { pointSummary, powerCell } from './cell.ts'
+import { translator } from '../../shared/i18n/index.ts'
+const t = translator('en')
 
 const figure = { value: 1, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' }
 const pointA: CasePoint = {
@@ -25,10 +27,10 @@ describe('climate grid cell', () => {
 
 describe('point label', () => {
   it('names the soil and the crop of the year', () => {
-    expect(pointSummary(pointA, 2012)).toBe('Point A: Osco soil, soybeans in 2012')
+    expect(pointSummary(t, pointA, 2012)).toBe('Point A: Osco soil, soybeans in 2012')
   })
 
   it('says when the year has no crop record', () => {
-    expect(pointSummary(pointA, 2003)).toBe('Point A: Osco soil, no crop record for 2003')
+    expect(pointSummary(t, pointA, 2003)).toBe('Point A: Osco soil, no crop record for 2003')
   })
 })

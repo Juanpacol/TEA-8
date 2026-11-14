@@ -4,14 +4,16 @@ import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
 import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
-import { CompareTable, RotationPicker, useRotations } from '../../features/rotations/index.ts'
+import { CompareTable, RotationPicker, rotationName, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
+import { pointName, useI18n } from '../../shared/i18n/index.ts'
 import { Tabs } from '../../shared/components/index.ts'
 import type { useData } from '../../shared/hooks/useData.ts'
 import type { TEA8DataFile } from '../../shared/lib/data-types.ts'
 import './tool.css'
 
 function Workspace({ data }: { data: TEA8DataFile }) {
+  const { t } = useI18n()
   const [year, setYear] = useState(2023)
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
@@ -27,11 +29,11 @@ function Workspace({ data }: { data: TEA8DataFile }) {
       <div className="workspace">
         <header className="workspace__top">
           <YearControl year={year} onChange={setYear} />
-          <SeasonStrip year={year} season={seasonOf(data.seasons, year)} pointLabel={point.label} />
+          <SeasonStrip year={year} season={seasonOf(data.seasons, year)} pointLabel={pointName(t, point.label)} />
         </header>
 
         <div className="workspace__map">
-          <p className="map-hint">Start here: tell us where you are, or pick an example field.</p>
+          <p className="map-hint">{t('tool.where')}</p>
           <WhereAmI onSelect={setPlace} />
           <FieldCards
             points={data.region.case_points}
@@ -40,11 +42,11 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             onSelect={(p) => setPlace({ lat: p.lat, lon: p.lon })}
           />
           <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} base={base} showVegetation={showVegetation} selected={place} onSelect={setPlace} />
-          <p className="map-hint map-hint--small">Or click the map to see what we know about any spot.</p>
+          <p className="map-hint map-hint--small">{t('tool.mapHint')}</p>
           <div className="map-toolbar">
             <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
             <details className="map-more">
-              <summary>More options</summary>
+              <summary>{t('tool.moreOptions')}</summary>
               <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
             </details>
           </div>
@@ -52,11 +54,11 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </div>
 
         <div className="workspace__side">
-          <h3 className="workspace__question">What could you plant?</h3>
+          <h3 className="workspace__question">{t('tool.question')}</h3>
           <RotationPicker summaries={summaries} selectedId={selectedId} onSelect={select} />
           {selected && (
             <Tabs
-              label={`About ${selected.name}`}
+              label={t('tool.tabsLabel', { name: rotationName(t, selected) })}
               tabs={[
                 {
                   id: 'year',
@@ -65,37 +67,37 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                 },
                 {
                   id: 'why',
-                  label: 'Why',
+                  label: t('tab.why'),
                   content: (
                     <div key={selected.id} className="fade-in">
-                      <EvidenceSection title="Why it is shown" statements={selected.explanation.why} />
-                      <EvidenceSection title="Evidence" statements={selected.explanation.evidence} />
+                      <EvidenceSection title={t('evidence.whyTitle')} statements={selected.explanation.why} />
+                      <EvidenceSection title={t('evidence.evidenceTitle')} statements={selected.explanation.evidence} />
                       <OriginKey />
                     </div>
                   ),
                 },
                 {
                   id: 'field',
-                  label: 'Soil and crops',
+                  label: t('tab.field'),
                   content: <FieldPanel points={data.region.case_points} year={year} onSelectYear={setYear} place={place} onShowOnMap={setPlace} />,
                 },
                 {
                   id: 'compare',
-                  label: 'Compare',
+                  label: t('tab.compare'),
                   content: <CompareTable data={data} year={year} selectedId={selectedId} onSelect={select} />,
                 },
                 {
                   id: 'missing',
-                  label: `Not known (${selected.explanation.gaps.length + selected.explanation.risks.length})`,
+                  label: t('tab.missing', { n: selected.explanation.gaps.length + selected.explanation.risks.length }),
                   content: (
                     <div key={selected.id} className="fade-in">
-                      <EvidenceSection title="What we do not know" statements={selected.explanation.gaps} />
-                      <EvidenceSection title="Risks for a local expert to review" statements={selected.explanation.risks} />
+                      <EvidenceSection title={t('evidence.gapsTitle')} statements={selected.explanation.gaps} />
+                      <EvidenceSection title={t('evidence.risksTitle')} statements={selected.explanation.risks} />
                     </div>
                   ),
                 },
-                { id: 'ask', label: 'Ask', content: <AskPanel rotation={selected} /> },
-                { id: 'limits', label: 'Limits', content: <Limits limits={data.limits ?? []} /> },
+                { id: 'ask', label: t('tab.ask'), content: <AskPanel rotation={selected} /> },
+                { id: 'limits', label: t('tab.limits'), content: <Limits limits={data.limits ?? []} /> },
               ]}
             />
           )}
@@ -107,11 +109,12 @@ function Workspace({ data }: { data: TEA8DataFile }) {
 
 /** The tool section of the page: one workspace that fits a screen, so nobody has to scroll to use it. */
 export function ToolSection({ state }: { state: ReturnType<typeof useData> }) {
+  const { t } = useI18n()
   return (
-    <section id="tool" className="tool-section" aria-label="The tool">
+    <section id="tool" className="tool-section" aria-label={t('tool.sectionLabel')}>
       <Notice />
-      {state.status === 'loading' && <p>Loading data…</p>}
-      {state.status === 'error' && <p>Data unavailable: {state.message}</p>}
+      {state.status === 'loading' && <p>{t('tool.loading')}</p>}
+      {state.status === 'error' && <p>{t('tool.error', { message: state.message })}</p>}
       {state.status === 'ready' && <Workspace data={state.data} />}
     </section>
   )

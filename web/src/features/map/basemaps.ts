@@ -1,3 +1,5 @@
+import type { MessageKey } from '../../shared/i18n/index.ts'
+
 /** Backgrounds under the vegetation layer. USGS services are public domain and need no account. */
 const USGS = 'https://basemap.nationalmap.gov/arcgis/rest/services'
 
@@ -5,7 +7,8 @@ export type BaseId = 'simple' | 'map' | 'aerial' | 'vegetation'
 
 export type Base = {
   id: BaseId
-  label: string
+  /** Message key of the name shown on the control. */
+  label: MessageKey
   /** Empty for the plain background, which draws no tiles. */
   url: string
   maxNativeZoom: number
@@ -19,7 +22,7 @@ const USGS_CREDIT = '<a href="https://www.usgs.gov/programs/national-geospatial-
 export const BASES: Record<BaseId, Base> = {
   simple: {
     id: 'simple',
-    label: 'Simple',
+    label: 'base.simple',
     url: '',
     maxNativeZoom: 0,
     attribution: '',
@@ -27,7 +30,7 @@ export const BASES: Record<BaseId, Base> = {
   },
   map: {
     id: 'map',
-    label: 'Map',
+    label: 'base.map',
     url: `${USGS}/USGSTopo/MapServer/tile/{z}/{y}/{x}`,
     maxNativeZoom: 16,
     attribution: `Map: ${USGS_CREDIT}`,
@@ -35,7 +38,7 @@ export const BASES: Record<BaseId, Base> = {
   },
   aerial: {
     id: 'aerial',
-    label: 'Satellite',
+    label: 'base.aerial',
     url: `${USGS}/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}`,
     maxNativeZoom: 16,
     attribution: `Aerial photo: ${USGS_CREDIT}`,
@@ -43,7 +46,7 @@ export const BASES: Record<BaseId, Base> = {
   },
   vegetation: {
     id: 'vegetation',
-    label: 'Plants only',
+    label: 'base.vegetation',
     url: 'https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg',
     maxNativeZoom: 8,
     attribution: 'Imagery: NASA GIBS (Blue Marble)',

@@ -1,3 +1,4 @@
+import { cropName, pointName, useI18n } from '../../shared/i18n/index.ts'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { describePlace, type Place } from '../map/index.ts'
 import { alternatesEveryYear, cropLetter, cropOfYear, distinctCrops } from './field.ts'
@@ -14,35 +15,36 @@ type Props = {
 
 /** The soil and the crops grown at each case point, so the comparison shows what it assumes. */
 export function FieldPanel({ points, year, onSelectYear, place, onShowOnMap }: Props) {
-  const chosenId = place ? describePlace(place, points, year).pointId : null
+  const { t } = useI18n()
+  const chosenId = place ? describePlace(t, place, points, year).pointId : null
   return (
     <div className="field">
       {points.map((point) => (
-        <section key={point.id} className="field__point" aria-label={point.label}>
+        <section key={point.id} className="field__point" aria-label={pointName(t, point.label)}>
           <h4 className="field__title">
-            {point.label}
-            {point.id === chosenId && <span className="field__chosen"> (chosen on the map)</span>}
+            {pointName(t, point.label)}
+            {point.id === chosenId && <span className="field__chosen"> {t('field.chosen')}</span>}
           </h4>
           <button type="button" className="field__show" onClick={() => onShowOnMap({ lat: point.lat, lon: point.lon })}>
-            Show {point.label} on the map
+            {t('field.show', { label: pointName(t, point.label) })}
           </button>
           <p className="field__soil">
-            {point.soil.name}, {point.soil.drainage.toLowerCase()}, hydrologic group {point.soil.hydrologic_group}.
+            {t('field.soilLine', { name: point.soil.name, drainage: point.soil.drainage.toLowerCase(), group: point.soil.hydrologic_group })}
           </p>
           <ul className="field__figures">
             <li>
-              Organic matter {point.soil.organic_matter.value ?? 'no data'} {point.soil.organic_matter.unit}
+              {t('field.organic', { value: point.soil.organic_matter.value ?? t('field.noData'), unit: point.soil.organic_matter.unit })}
             </li>
             <li>
-              Available water {point.soil.available_water.value ?? 'no data'} {point.soil.available_water.unit}
+              {t('field.water', { value: point.soil.available_water.value ?? t('field.noData'), unit: point.soil.available_water.unit })}
             </li>
           </ul>
           <p className="field__source">
-            {point.soil.organic_matter.source}, queried {point.soil.organic_matter.queried_on}.
+            {t('field.queried', { source: point.soil.organic_matter.source, date: point.soil.organic_matter.queried_on })}
           </p>
 
           <p className="field__subtitle">
-            Crop each year{alternatesEveryYear(point) ? ': it alternated every year' : ''}. Pick a year to show its summer.
+            {t('field.cropEach', { alternated: alternatesEveryYear(point) ? t('field.alternated') : '' })}
           </p>
           <ol className="field__years">
             {[...point.crop_history]
@@ -55,7 +57,7 @@ export function FieldPanel({ points, year, onSelectYear, place, onShowOnMap }: P
                       type="button"
                       className="field__year"
                       aria-pressed={y === year}
-                      aria-label={`${y}: ${crop ?? 'no data'}. Show this summer.`}
+                      aria-label={t('field.yearAria', { year: y, crop: crop ? cropName(t, crop) : t('field.noData') })}
                       onClick={() => onSelectYear(y)}
                     >
                       <span className="field__letter" data-crop={crop ?? ''}>
@@ -68,10 +70,10 @@ export function FieldPanel({ points, year, onSelectYear, place, onShowOnMap }: P
               })}
           </ol>
           <p className="field__legend">
-            {distinctCrops(point).map((crop) => `${cropLetter(crop)} ${crop.toLowerCase()}`).join(' · ')}. Years 2008 to 2023.
+            {distinctCrops(point).map((crop) => `${cropLetter(crop)} ${cropName(t, crop)}`).join(' · ')}. {t('field.years')}
           </p>
           <p className="field__source">
-            {point.crop_history[0]?.source}, queried {point.crop_history[0]?.queried_on}. One pixel at the point, not the whole field.
+            {t('field.onePixel', { source: point.crop_history[0]?.source ?? '', date: point.crop_history[0]?.queried_on ?? '' })}
           </p>
         </section>
       ))}

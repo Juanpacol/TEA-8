@@ -1,22 +1,18 @@
+import { useI18n } from '../../shared/i18n/index.ts'
 import './landing.css'
 
-const LIMITS = [
-  'It gives no final score and no "best option".',
-  'Alternative rotations are hypothetical and rest on cited studies.',
-  'Climate data comes from a grid of about 50 km, not from a plot.',
-  'Satellite and model data are estimates seen from above, not measurements taken in the field.',
-  'Without real yields, the comparison measures stress and exposure, not outcomes.',
-]
+const LIMITS = ['wont.1', 'wont.2', 'wont.3', 'wont.4', 'wont.5'] as const
 
 export function WontTell() {
+  const { t } = useI18n()
   return (
     <section className="safety">
-      <h2>What it won&rsquo;t tell you</h2>
-      <p className="safety__tagline">And we say so.</p>
+      <h2>{t('wont.title')}</h2>
+      <p className="safety__tagline">{t('wont.tagline')}</p>
       <div className="safety__card">
         <ul className="checklist">
           {LIMITS.map((limit) => (
-            <li key={limit}>{limit}</li>
+            <li key={limit}>{t(limit)}</li>
           ))}
         </ul>
       </div>

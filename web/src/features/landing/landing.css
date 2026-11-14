@@ -616,3 +616,10 @@ a {
   font-weight: 500;
   font-size: 1.5rem;
 }
+
+.hero__lang {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+}

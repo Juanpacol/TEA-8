@@ -1,4 +1,5 @@
 // Pure helpers: pick the season of a year and describe it in words. No React, no fetch.
+import type { Translate } from '../../shared/i18n/index.ts'
 import type { Figure, Season } from '../../shared/lib/data-types.ts'
 
 export function seasonOf(seasons: readonly Season[], year: number): Season | undefined {
@@ -13,17 +14,17 @@ export function formatFigure(figure: Figure): string | null {
 }
 
 /** One sentence a farmer can read first: how the summer was compared with the usual one. */
-export function seasonHeadline(season: Season | undefined, year: number): string {
-  if (season === undefined) return `There is no climate data for ${year}.`
-  const comparison = describeDeviation(season.root_wetness_deviation.value)
-  return comparison === null ? `Summer ${year}.` : `Summer ${year} was ${comparison}.`
+export function seasonHeadline(t: Translate, season: Season | undefined, year: number): string {
+  if (season === undefined) return t('season.none', { year })
+  const comparison = describeDeviation(t, season.root_wetness_deviation.value)
+  return comparison === null ? t('season.plain', { year }) : t('season.was', { year, comparison })
 }
 
 const CLOSE_TO_USUAL = 0.5
 
 /** How a summer compares with the 2001-2023 mean, in words. */
-export function describeDeviation(deviation: number | null): string | null {
+export function describeDeviation(t: Translate, deviation: number | null): string | null {
   if (deviation === null) return null
-  if (Math.abs(deviation) < CLOSE_TO_USUAL) return 'close to average'
-  return deviation < 0 ? 'drier than average' : 'wetter than average'
+  if (Math.abs(deviation) < CLOSE_TO_USUAL) return t('season.close')
+  return t(deviation < 0 ? 'season.drier' : 'season.wetter')
 }

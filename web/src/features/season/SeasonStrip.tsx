@@ -1,3 +1,4 @@
+import { useI18n } from '../../shared/i18n/index.ts'
 import type { Season } from '../../shared/lib/data-types.ts'
 import { formatFigure, seasonHeadline } from './season.ts'
 import './season.css'
@@ -6,26 +7,28 @@ type Props = { year: number; season: Season | undefined; pointLabel: string }
 
 /** One sentence and three figures for the summer on the map. The sources are one click away. */
 export function SeasonStrip({ year, season, pointLabel }: Props) {
+  const { t } = useI18n()
+  const none = t('field.noData')
   return (
     <div className="season-strip">
-      <p className="season__headline">{seasonHeadline(season, year)}</p>
+      <p className="season__headline">{seasonHeadline(t, season, year)}</p>
       {season !== undefined && (
         <>
           <p className="season-strip__numbers">
-            Rain {formatFigure(season.rainfall) ?? 'no data'} · Temperature {formatFigure(season.temperature) ?? 'no data'} · Soil
-            moisture {formatFigure(season.root_wetness) ?? 'no data'} (0 dry, 1 wet)
+            {t('season.rain')} {formatFigure(season.rainfall) ?? none} · {t('season.temp')} {formatFigure(season.temperature) ?? none} ·{' '}
+            {t('season.moisture')} {formatFigure(season.root_wetness) ?? none} {t('season.moistureScale')}
           </p>
           <details className="season-strip__sources">
-            <summary>Where these numbers come from</summary>
+            <summary>{t('season.sources')}</summary>
             <ul>
               {[season.rainfall, season.temperature, season.root_wetness, season.root_wetness_deviation].map((figure) => (
                 <li key={figure.parameter}>
-                  {figure.parameter}: {figure.source}, queried {figure.queried_on}
+                  {t('season.sourceLine', { parameter: figure.parameter, source: figure.source, date: figure.queried_on })}
                 </li>
               ))}
             </ul>
             <p>
-              {pointLabel}, June to August. One value for a grid cell of about 50 km: it describes the area, not a plot.
+              {t('season.gridNote', { point: pointLabel })}
             </p>
           </details>
         </>

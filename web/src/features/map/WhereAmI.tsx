@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useI18n } from '../../shared/i18n/index.ts'
 import { REFERENCE_TOWNS } from './county.ts'
 import type { Place } from './selection.ts'
 import './map.css'
@@ -7,20 +8,21 @@ type Props = { onSelect: (place: Place) => void }
 
 /** Two ways to say where you are without reading a map: the closest town, or the device location. */
 export function WhereAmI({ onSelect }: Props) {
+  const { t } = useI18n()
   const [note, setNote] = useState('')
 
   function useMyLocation() {
     if (!('geolocation' in navigator)) {
-      setNote('This browser cannot share your location. Pick the closest town instead.')
+      setNote(t('where.noGeo'))
       return
     }
-    setNote('Looking for your location...')
+    setNote(t('where.searching'))
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setNote('')
         onSelect({ lat: position.coords.latitude, lon: position.coords.longitude })
       },
-      () => setNote('We could not get your location. Pick the closest town instead.'),
+      () => setNote(t('where.failed')),
       { timeout: 10000 },
     )
   }
@@ -28,7 +30,7 @@ export function WhereAmI({ onSelect }: Props) {
   return (
     <div className="where">
       <label className="where__town">
-        Closest town
+        {t('where.town')}
         <select
           value=""
           onChange={(event) => {
@@ -36,7 +38,7 @@ export function WhereAmI({ onSelect }: Props) {
             if (town) onSelect({ lat: town.lat, lon: town.lon })
           }}
         >
-          <option value="">Choose...</option>
+          <option value="">{t('where.choose')}</option>
           {REFERENCE_TOWNS.map((town) => (
             <option key={town.name} value={town.name}>
               {town.name}
@@ -45,7 +47,7 @@ export function WhereAmI({ onSelect }: Props) {
         </select>
       </label>
       <button type="button" className="where__locate" onClick={useMyLocation}>
-        Use my location
+        {t('where.locate')}
       </button>
       {note && (
         <p className="where__note" role="status">

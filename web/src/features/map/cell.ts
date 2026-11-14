@@ -1,3 +1,4 @@
+import { cropName, pointName, type Translate } from '../../shared/i18n/index.ts'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 
 /**
@@ -23,14 +24,17 @@ export function powerCell(lat: number, lon: number): Cell {
 }
 
 /** The label of a case point on the map: its soil and the crop recorded for the year. */
-export function pointSummary(point: CasePoint, year: number): string {
+export function pointSummary(t: Translate, point: CasePoint, year: number): string {
   const crop = point.crop_history.find((entry) => entry.year === year)?.crop
-  const cropText = crop ? `${crop.toLowerCase()} in ${year}` : `no crop record for ${year}`
-  return `${point.label}: ${point.soil.name} soil, ${cropText}`
+  const label = pointName(t, point.label)
+  return crop
+    ? t('point.summary', { label, soil: point.soil.name, crop: cropName(t, crop), year })
+    : t('point.summaryNoCrop', { label, soil: point.soil.name, year })
 }
 
 /** The short label on a point of the map: its name and the crop recorded for the year. */
-export function pointLabel(point: CasePoint, year: number): string {
+export function pointLabel(t: Translate, point: CasePoint, year: number): string {
   const crop = point.crop_history.find((entry) => entry.year === year)?.crop
-  return `${point.label}: ${crop ? crop.toLowerCase() : 'no crop record'}`
+  const label = pointName(t, point.label)
+  return crop ? t('point.label', { label, crop: cropName(t, crop) }) : t('point.labelNoCrop', { label })
 }

@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { powerCell } from './cell.ts'
 import { describePlace, distanceKm, formatCoords, insideCell, pointAt } from './selection.ts'
+import { translator } from '../../shared/i18n/index.ts'
+const t = translator('en')
 
 const figure = { value: 1, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' }
 function point(id: string, label: string, lat: number, lon: number, soil: string, crop: string): CasePoint {
@@ -28,7 +30,7 @@ describe('place helpers', () => {
   })
 
   it('writes coordinates with hemispheres', () => {
-    expect(formatCoords({ lat: 40.7, lon: -88.65 })).toBe('40.70°N, 88.65°W')
+    expect(formatCoords(t, { lat: 40.7, lon: -88.65 })).toBe('40.70°N, 88.65°W')
   })
 
   it('knows when a spot is inside the climate cell', () => {
@@ -40,14 +42,14 @@ describe('place helpers', () => {
 
 describe('describePlace', () => {
   it('shows a case point with its soil and crop when the click is on it', () => {
-    const info = describePlace({ lat: 40.2845, lon: -88.6597 }, [A, B], 2023)
+    const info = describePlace(t, { lat: 40.2845, lon: -88.6597 }, [A, B], 2023)
     expect(info.title).toBe('Point A')
     expect(info.pointId).toBe('point-a')
     expect(info.lines[0]).toBe('Point A: Osco soil, corn in 2023')
   })
 
   it('says soil and crops are known only at the case points when the click is elsewhere', () => {
-    const info = describePlace({ lat: 40.5, lon: -88.7 }, [A, B], 2023)
+    const info = describePlace(t, { lat: 40.5, lon: -88.7 }, [A, B], 2023)
     expect(info.title).toContain('Chosen spot')
     expect(info.lines[0]).toContain('only have soil and crop data at two example fields')
     expect(info.lines[0]).toContain('The closest is Point')
@@ -56,7 +58,7 @@ describe('describePlace', () => {
   })
 
   it('says there is no climate and no project data outside the cell and the county', () => {
-    const info = describePlace({ lat: 40.1164, lon: -88.2434 }, [A, B], 2023)
+    const info = describePlace(t, { lat: 40.1164, lon: -88.2434 }, [A, B], 2023)
     expect(info.lines[1]).toContain('no numbers here')
     expect(info.lines[2]).toBe('Outside McLean County: this tool has no data here.')
   })

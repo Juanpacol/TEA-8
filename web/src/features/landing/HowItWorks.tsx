@@ -1,20 +1,17 @@
+import { useI18n } from '../../shared/i18n/index.ts'
 import './landing.css'
 
-const STEPS = [
-  'Reads the weather and the soil: NASA POWER and the USDA soil survey.',
-  'Looks at what grew: CropScape history, year by year.',
-  'Compares three rotations, including the one in use today.',
-  'Shows its work: every statement is tagged with its source.',
-]
+const STEPS = ['how.1', 'how.2', 'how.3', 'how.4'] as const
 
 export function HowItWorks() {
+  const { t } = useI18n()
   return (
     <section className="section how">
       <div className="how__orbit" aria-hidden="true" />
-      <h2>How it works</h2>
+      <h2>{t('how.title')}</h2>
       <ol className="steps">
         {STEPS.map((step) => (
-          <li key={step}>{step}</li>
+          <li key={step}>{t(step)}</li>
         ))}
       </ol>
     </section>

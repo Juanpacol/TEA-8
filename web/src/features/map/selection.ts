@@ -1,6 +1,7 @@
+import { pointName, type Translate } from '../../shared/i18n/index.ts'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { pointSummary, powerCell, type Cell } from './cell.ts'
-import { COUNTY_NAME, insideCounty } from './county.ts'
+import { insideCounty } from './county.ts'
 
 export type Place = { lat: number; lon: number }
 
@@ -19,9 +20,9 @@ export function insideCell(place: Place, cell: Cell): boolean {
   return place.lat >= cell.south && place.lat <= cell.north && place.lon >= cell.west && place.lon <= cell.east
 }
 
-export function formatCoords(place: Place): string {
-  const lat = `${Math.abs(place.lat).toFixed(2)}°${place.lat >= 0 ? 'N' : 'S'}`
-  const lon = `${Math.abs(place.lon).toFixed(2)}°${place.lon >= 0 ? 'E' : 'W'}`
+export function formatCoords(t: Translate, place: Place): string {
+  const lat = `${Math.abs(place.lat).toFixed(2)}°${t(place.lat >= 0 ? 'dir.n' : 'dir.s')}`
+  const lon = `${Math.abs(place.lon).toFixed(2)}°${t(place.lon >= 0 ? 'dir.e' : 'dir.w')}`
   return `${lat}, ${lon}`
 }
 
@@ -38,7 +39,7 @@ export type PlaceInfo = {
 }
 
 /** What the project data says about a spot the user picked on the map, and what it does not. */
-export function describePlace(place: Place, points: CasePoint[], year: number): PlaceInfo {
+export function describePlace(t: Translate, place: Place, points: CasePoint[], year: number): PlaceInfo {
   const cell = powerCell(points[0].lat, points[0].lon)
   const ranked = points
     .map((point) => ({ point, km: distanceKm(place, point) }))
@@ -47,19 +48,16 @@ export function describePlace(place: Place, points: CasePoint[], year: number): 
   const isPoint = km <= SNAP_KM
 
   const lines: string[] = []
+  const county = t('county.name')
   if (isPoint) {
-    lines.push(pointSummary(point, year))
+    lines.push(pointSummary(t, point, year))
   } else {
-    lines.push(
-      `We only have soil and crop data at two example fields. The closest is ${point.label}, about ${Math.round(km)} km away (${pointSummary(point, year).replace(`${point.label}: `, '')}).`,
-    )
+    const label = pointName(t, point.label)
+    const summary = pointSummary(t, point, year).replace(`${label}: `, '')
+    lines.push(t('place.far', { point: label, km: Math.round(km), summary }))
   }
-  lines.push(
-    insideCell(place, cell)
-      ? 'Weather: the numbers at the top of the page apply here (they cover this whole area, about 50 km across).'
-      : 'Weather: no numbers here, this spot is outside the 50 km area they cover.',
-  )
-  lines.push(insideCounty(place.lat, place.lon) ? `Inside ${COUNTY_NAME}.` : `Outside ${COUNTY_NAME}: this tool has no data here.`)
+  lines.push(t(insideCell(place, cell) ? 'place.weatherHere' : 'place.weatherNone'))
+  lines.push(t(insideCounty(place.lat, place.lon) ? 'place.inside' : 'place.outside', { county }))
 
-  return { title: isPoint ? point.label : 'Chosen spot', pointId: point.id, lines }
+  return { title: isPoint ? pointName(t, point.label) : t('place.title'), pointId: point.id, lines }
 }

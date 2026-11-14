@@ -1,3 +1,4 @@
+import { useI18n } from '../../shared/i18n/index.ts'
 import './evidence.css'
 
 type Props = { limits: string[] }
@@ -15,5 +16,6 @@ export function Limits({ limits }: Props) {
 
 /** Shown outside the tabs whenever the data file is simulated, so it can never be missed. */
 export function SimulatedNotice() {
-  return <p className="limits__simulated">This file holds simulated data.</p>
+  const { t } = useI18n()
+  return <p className="limits__simulated">{t('sim.notice')}</p>
 }

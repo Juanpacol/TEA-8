@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useI18n } from '../../shared/i18n/index.ts'
 import { OriginLabel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
 import { splitCitation } from './citation.ts'
@@ -11,12 +12,13 @@ type Statement = Rotation['explanation']['why'][number]
 const VISIBLE = 3
 
 export function EvidenceSection({ title, statements, collapsed = false }: { title: string; statements: Statement[]; collapsed?: boolean }) {
+  const { t } = useI18n()
   const [all, setAll] = useState(false)
   const shown = all ? statements : statements.slice(0, VISIBLE)
   const body = (
     <>
       {statements.length === 0 ? (
-        <p className="evidence__empty">Nothing recorded.</p>
+        <p className="evidence__empty">{t('evidence.empty')}</p>
       ) : (
         <ul className="evidence__list">
           {shown.map((statement) => {
@@ -35,7 +37,7 @@ export function EvidenceSection({ title, statements, collapsed = false }: { titl
                 </p>
                 {statement.citation && (
                   <details className="evidence__citation">
-                    <summary>Source</summary>
+                    <summary>{t('evidence.source')}</summary>
                     {splitCitation(statement.citation).map((part, index) =>
                       part.kind === 'link' ? (
                         <a key={index} href={part.value} target="_blank" rel="noopener noreferrer">
@@ -54,7 +56,7 @@ export function EvidenceSection({ title, statements, collapsed = false }: { titl
       )}
       {statements.length > VISIBLE && (
         <button type="button" className="evidence__more" onClick={() => setAll(!all)}>
-          {all ? 'Show fewer' : `Show ${statements.length - VISIBLE} more`}
+          {all ? t('evidence.fewer') : t('evidence.more', { n: statements.length - VISIBLE })}
         </button>
       )}
     </>

@@ -1,3 +1,4 @@
+import { cropName, pointName, useI18n } from '../../shared/i18n/index.ts'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { cropOfYear } from './field.ts'
 import './field.css'
@@ -12,8 +13,9 @@ type Props = {
 
 /** Big buttons to pick an example field: the quickest way in, no map reading needed. */
 export function FieldCards({ points, year, selectedId, onSelect }: Props) {
+  const { t } = useI18n()
   return (
-    <div className="field-cards" role="group" aria-label="Pick an example field">
+    <div className="field-cards" role="group" aria-label={t('field.pick')}>
       {points.map((point) => {
         const crop = cropOfYear(point, year)
         return (
@@ -24,9 +26,9 @@ export function FieldCards({ points, year, selectedId, onSelect }: Props) {
             aria-pressed={point.id === selectedId}
             onClick={() => onSelect(point)}
           >
-            <strong>{point.label}</strong>
-            <span>{point.soil.name} soil</span>
-            <span>{crop ? `${crop} in ${year}` : `No crop record for ${year}`}</span>
+            <strong>{pointName(t, point.label)}</strong>
+            <span>{t('field.soil', { soil: point.soil.name })}</span>
+            <span>{crop ? t('field.cropIn', { crop: cropName(t, crop), year }) : t('field.noCrop', { year })}</span>
           </button>
         )
       })}
