@@ -5,7 +5,8 @@ export function plural(count: number, one: string, many: string): string {
 
 type Labelled = { isCurrent: boolean; sequence: readonly string[] }
 
-/** A short name for a segment: "Current", or the length of the cycle ("3-year"). */
-export function shortLabel(summary: Labelled): string {
-  return summary.isCurrent ? 'Current' : `${summary.sequence.length}-year`
+/** A rotation named by its crops, in order: "Corn + soybeans". */
+export function rotationName(summary: Labelled): string {
+  const crops = summary.sequence.join(' + ')
+  return crops.charAt(0).toUpperCase() + crops.slice(1)
 }

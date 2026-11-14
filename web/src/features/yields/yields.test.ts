@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { TEA8DataFile, YieldRecord } from '../../shared/lib/data-types.ts'
-import { describeChange, dryRange, outcomesFor, signed, summerVerdict } from './yields.ts'
+import { dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, signed, summerVerdict } from './yields.ts'
 
 const fig = (value: number | null) => ({ value, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' })
 
@@ -16,11 +16,27 @@ const data = {
 } as unknown as TEA8DataFile
 
 describe('yields helpers', () => {
-  it('describes the change in words', () => {
-    expect(describeChange(-43.8)).toBe('44% below its trend')
-    expect(describeChange(3.4)).toBe('3% above its trend')
-    expect(describeChange(0.2)).toBe('on its trend')
-    expect(describeChange(null)).toBe('no trend comparison')
+  it('describes the change in words a farmer uses', () => {
+    expect(plainChange(-43.8)).toBe('much less than usual')
+    expect(plainChange(-8)).toBe('a little less than usual')
+    expect(plainChange(7)).toBe('a little more than usual')
+    expect(plainChange(20)).toBe('much more than usual')
+    expect(plainChange(3.4)).toBe('about the usual yield')
+    expect(plainChange(-4.9)).toBe('about the usual yield')
+    expect(plainChange(null)).toBe('no comparison available')
+  })
+
+  it('puts the thresholds on the boundary: 5 is a little, 15 is much', () => {
+    expect(plainChange(5)).toBe('a little more than usual')
+    expect(plainChange(-15)).toBe('much less than usual')
+  })
+
+  it('writes the change as a figure and spells out the unit', () => {
+    expect(percentFromUsual(-43.8)).toBe('44% below usual')
+    expect(percentFromUsual(3.4)).toBe('3% above usual')
+    expect(percentFromUsual(0.2)).toBe('on the usual yield')
+    expect(plainUnit('bu/acre')).toBe('bushels per acre')
+    expect(plainUnit('x')).toBe('x')
   })
 
   it('finds the yield of each crop and says why one is missing', () => {

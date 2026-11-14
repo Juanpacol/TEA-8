@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { plural, shortLabel } from './labels.ts'
+import { plural, rotationName } from './labels.ts'
 
 describe('plural', () => {
   it('uses the singular only for one', () => {
@@ -9,10 +9,9 @@ describe('plural', () => {
   })
 })
 
-describe('shortLabel', () => {
-  it('names the current rotation and the cycle length of an alternative', () => {
-    expect(shortLabel({ isCurrent: true, sequence: ['corn', 'soybeans'] })).toBe('Current')
-    expect(shortLabel({ isCurrent: false, sequence: ['corn', 'soybeans', 'small grain'] })).toBe('3-year')
-    expect(shortLabel({ isCurrent: false, sequence: ['a', 'b', 'c', 'd'] })).toBe('4-year')
+describe('rotationName', () => {
+  it('names a rotation by its crops in order', () => {
+    expect(rotationName({ isCurrent: true, sequence: ['corn', 'soybeans'] })).toBe('Corn + soybeans')
+    expect(rotationName({ isCurrent: false, sequence: ['corn', 'soybeans', 'small grain'] })).toBe('Corn + soybeans + small grain')
   })
 })
