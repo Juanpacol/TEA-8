@@ -34,7 +34,7 @@ TEA-8 supports the decision and does not replace it. It gives no final score and
 | NASA data | NASA POWER, GIBS (MODIS NDVI). SMAP and GPM only if they end up being used | One region. Saved as static files. |
 | Rotation rules | Own code, a table of about 6 crops | With cited sources. |
 | Explanations | Code templates, improved with a model | Options: local Ollama or an API. Generated before the demo. |
-| Hosting | Vercel or Firebase Hosting | Static page. No server or database. |
+| Hosting | Vercel (web) and Google Cloud Run (`api/`) | Static page plus a small service for AI questions. No database. See [docs/user-stories.md](docs/user-stories.md). |
 
 ## Minimum scope (MVP)
 
@@ -51,7 +51,7 @@ TEA-8 supports the decision and does not replace it. It gives no final score and
 - ECOSTRESS, GRACE, GEDI and SRTM.
 - Authentication and a database.
 - User history and multiple regions.
-- Live API queries during the demo.
+- Live queries to the data APIs (NASA, USDA) during the demo. AI questions are live, with pre-generated explanations as the fallback.
 
 ## Architecture and folder structure
 
@@ -86,9 +86,9 @@ tea/
 │   ├── explain/                   explanations from templates or a model
 │   ├── schema/                    JSON contract between pipeline and web
 │   └── requirements.txt
+├── api/                           small service for AI questions, deployed on Cloud Run
 └── web/                           React, Vite and TypeScript
     ├── public/data/               JSON written by the pipeline
-    ├── api/                       optional: serverless function for live AI questions
     └── src/
         ├── app/                   App.tsx and context providers
         ├── features/
@@ -100,7 +100,7 @@ tea/
         └── styles/                palette variables and global styles
 ```
 
-`priorities/` and `globe/` (optional 3D with lazy loading) are created only if they come to exist. `web/api/` appears only if live AI questions are added. No Docker: the web app installs with `npm install` and the pipeline with a virtual environment and `requirements.txt`.
+`priorities/` and `globe/` (optional 3D with lazy loading) are created only if they come to exist. No Docker for local work: the web app installs with `npm install` and the pipeline with a virtual environment and `requirements.txt`. How `api/` is packaged for Cloud Run is decided in DEP-5.
 
 ### Layers and dependencies
 
@@ -108,7 +108,7 @@ tea/
 |---|---|
 | Domain | Pure rules in `features/rotations/` (`rules.ts`, `compare.ts`) |
 | Application | Hooks (`useRotations`, `useTimeline`) |
-| Infrastructure | `shared/lib` (data loading), `pipeline/` and `web/api/` |
+| Infrastructure | `shared/lib` (data loading), `pipeline/` and `api/` |
 | Presentation | Each feature's components |
 
 Dependencies go in one direction only: components use hooks, hooks use rules and data loading, and rules import nothing from React, from `fetch`, or from files.
