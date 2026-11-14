@@ -76,7 +76,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                 },
                 {
                   id: 'field',
-                  label: 'Field',
+                  label: 'Soil and crops',
                   content: <FieldPanel points={data.region.case_points} year={year} onSelectYear={setYear} place={place} onShowOnMap={setPlace} />,
                 },
                 {
@@ -86,7 +86,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                 },
                 {
                   id: 'missing',
-                  label: `What is missing (${selected.explanation.gaps.length + selected.explanation.risks.length})`,
+                  label: `Not known (${selected.explanation.gaps.length + selected.explanation.risks.length})`,
                   content: (
                     <div key={selected.id} className="fade-in">
                       <EvidenceSection title="What we do not know" statements={selected.explanation.gaps} />
