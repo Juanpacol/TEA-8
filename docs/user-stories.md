@@ -249,7 +249,7 @@ Order: LP-1, LP-2, then LP-3 to LP-7 in any order, then LP-8, LP-9, LP-10.
 
 **TL-1. Tool section in its own folder**
 As a developer, I want the tool composed outside `App.tsx` so the two worktrees do not edit the same file.
-- The `Tool` and `Rotations` compositions move from `app/App.tsx` to `features/tool/`.
+- The `Tool` and `Rotations` compositions move from `app/App.tsx` to `app/tool/`. They live in `app/`, not in a feature, because they import from several features and a feature never imports from another feature.
 - `App.tsx` only places the landing sections and the tool.
 - The page renders the same as before.
 
@@ -314,7 +314,7 @@ Order: TL-1 first, then TL-2 to TL-6 in any order, then TL-8, TL-9, TL-10. TL-7 
 | `tea-deploy` | `chore/deploy` | `.github/`, Vercel and Cloud Run configuration | DEP-2 to DEP-12 |
 | `tea-backend` | `feat/pipeline` | `pipeline/`, `api/` | BE-2 to BE-7 |
 | `tea-frontend` | one branch per story | `web/src/features/landing/` | LP-1 to LP-10 |
-| `tea-frontend-tool` | one branch per story | `web/src/features/map/`, `rotations/`, `evidence/`, `ask/`, `tool/` | TL-1 to TL-10 |
+| `tea-frontend-tool` | one branch per story | `web/src/features/map/`, `rotations/`, `evidence/`, `ask/` and `web/src/app/tool/` | TL-1 to TL-10 |
 
 Rules to avoid conflicts:
 - Each worktree touches only its own folders.

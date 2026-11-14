@@ -47,7 +47,7 @@ Deadlines, form, demo format, evaluation criteria and the pre-submit checklist: 
 - React with Vite. Folders by feature in `web/src/features/`.
 - Components only render. Logic with state and effects goes in hooks. Rotation rules go in `features/rotations/` (`rules.ts`, `compare.ts`) as pure functions, without React.
 - Each feature exposes only what is needed through its `index.ts`.
-- A feature never imports from another feature. What two features need (a component, a type, a hook) lives in `shared/`. Check: `grep -rnE "from '\.\./(landing|map|rotations|evidence|ask|tool)/" web/src/features` finds nothing outside tests.
+- A feature never imports from another feature. What two features need (a component, a type, a hook) lives in `shared/`. Pages that combine several features are composed in `app/`. Check: `grep -rnE "from '\.\./(landing|map|rotations|evidence|ask)/" web/src/features` finds nothing outside tests.
 - Anything 3D, if done, goes in `features/globe/` with lazy loading.
 - Dependencies go in one direction: components, hooks, rules. Rules do not import React, `fetch` or files.
 - Live AI questions go through the `api/` service on Google Cloud Run; pre-generated explanations are the fallback. The API key lives in Secret Manager, never in the repository or in the web app.
