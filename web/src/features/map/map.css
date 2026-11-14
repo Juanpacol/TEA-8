@@ -1,0 +1,16 @@
+.map {
+  height: 420px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.year-control {
+  display: grid;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+}
+
+.year-control input {
+  width: 100%;
+  accent-color: var(--accent);
+}

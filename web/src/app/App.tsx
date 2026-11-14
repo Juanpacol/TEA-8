@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { Limits, Notice } from '../features/evidence/index.ts'
+import { MapView, YearControl } from '../features/map/index.ts'
 import { Panel } from '../shared/components/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
 
 export function App() {
   const state = useData()
+  const [year, setYear] = useState(2023)
 
   return (
     <main
@@ -25,6 +28,12 @@ export function App() {
             `${state.data.region.name}, ${state.data.region.state}: ${state.data.seasons.length} seasons, ${state.data.rotations.length} rotations.`}
         </p>
       </Panel>
+      {state.status === 'ready' && (
+        <Panel title="Vegetation from space (NDVI)">
+          <YearControl year={year} onChange={setYear} />
+          <MapView points={state.data.region.case_points} year={year} />
+        </Panel>
+      )}
       {state.status === 'ready' && <Limits limits={state.data.limits ?? []} simulated={state.data.simulated} />}
     </main>
   )
