@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { EvidencePanel, Limits, Notice } from '../../features/evidence/index.ts'
 import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
@@ -11,12 +11,23 @@ import './tool.css'
 
 function Rotations({ data }: { data: TEA8DataFile }) {
   const { summaries, selectedId, selected, select } = useRotations(data)
+  const evidence = useRef<HTMLDivElement>(null)
+
+  function choose(id: string) {
+    select(id)
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    evidence.current?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+    evidence.current?.focus({ preventScroll: true })
+  }
+
   return (
     <>
       <Panel title="Three rotations, side by side">
-        <RotationList summaries={summaries} selectedId={selectedId} onSelect={select} />
+        <RotationList summaries={summaries} selectedId={selectedId} onSelect={choose} />
       </Panel>
-      {selected && <EvidencePanel rotation={selected} />}
+      <div ref={evidence} tabIndex={-1} className="tool-section__evidence">
+        {selected && <EvidencePanel rotation={selected} />}
+      </div>
       {selected && <AskPanel rotation={selected} />}
     </>
   )

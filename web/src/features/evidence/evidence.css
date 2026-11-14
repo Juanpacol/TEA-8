@@ -47,3 +47,42 @@
   color: var(--text-soft);
   font-size: 0.85rem;
 }
+
+.origin-key {
+  margin-bottom: var(--space-3);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+.origin-key summary {
+  cursor: pointer;
+}
+
+.origin-key dl {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+}
+
+.origin-key__row {
+  display: grid;
+  grid-template-columns: minmax(10rem, max-content) 1fr;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.origin-key dd {
+  margin: 0;
+}
+
+.evidence__citation a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+  .origin-key__row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+}

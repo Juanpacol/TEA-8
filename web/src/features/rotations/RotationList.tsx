@@ -7,7 +7,11 @@ type Props = { summaries: RotationSummary[]; selectedId: string; onSelect: (id: 
 /** The rotations side by side. There is no ranking and no "best" marker. */
 export function RotationList({ summaries, selectedId, onSelect }: Props) {
   return (
-    <div className="rotations">
+    <>
+      <p className="rotations__note">
+        The counts only tell how much each rotation has behind it. They are not a score: a larger number is not better or worse.
+      </p>
+      <div className="rotations">
       {summaries.map((summary) => (
         <RotationCard
           key={summary.id}
@@ -16,6 +20,7 @@ export function RotationList({ summaries, selectedId, onSelect }: Props) {
           onSelect={() => onSelect(summary.id)}
         />
       ))}
-    </div>
+      </div>
+    </>
   )
 }
