@@ -77,3 +77,13 @@
 .season-strip__sources p {
   margin: 0;
 }
+
+.season-strip__baseline {
+  margin: 0 0 var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface);
+  border-left: 3px solid var(--ochre);
+  border-radius: 8px;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}

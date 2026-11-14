@@ -127,6 +127,7 @@ export const es: Record<MessageKey, string> = {
   'season.sources': 'De dónde salen estas cifras',
   'season.sourceLine': '{parameter}: {source}, consultado el {date}',
   'season.gridNote': '{point}, de junio a agosto. Un valor para una celda de unos 50 km: describe la zona, no una parcela.',
+  'season.afterBaseline': 'El verano {year} es posterior al período base {baseline}. Se compara con ese período pero no se usó para definirlo, y puede que aún no haya rendimiento del condado publicado.',
   'season.none': 'No hay datos de clima para {year}.',
   'season.plain': 'Verano de {year}.',
   'season.was': 'El verano de {year} fue {comparison}.',
