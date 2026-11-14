@@ -1,4 +1,5 @@
 export { Button } from './Button.tsx'
 export { Card } from './Card.tsx'
+export { ORIGIN_ORDER, originInfo } from './origin.ts'
 export { OriginLabel } from './OriginLabel.tsx'
 export { Panel } from './Panel.tsx'

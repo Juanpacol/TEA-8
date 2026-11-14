@@ -1,5 +1,7 @@
 import { OriginLabel, Panel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
+import { splitCitation } from './citation.ts'
+import { OriginKey } from './OriginKey.tsx'
 import './evidence.css'
 
 type Statement = Rotation['explanation']['why'][number]
@@ -18,7 +20,15 @@ function Section({ title, statements }: { title: string; statements: Statement[]
               {statement.citation && (
                 <details className="evidence__citation">
                   <summary>Source</summary>
-                  {statement.citation}
+                  {splitCitation(statement.citation).map((part, index) =>
+                    part.kind === 'link' ? (
+                      <a key={index} href={part.value} target="_blank" rel="noopener noreferrer">
+                        {part.value}
+                      </a>
+                    ) : (
+                      <span key={index}>{part.value}</span>
+                    ),
+                  )}
                 </details>
               )}
             </li>
@@ -34,6 +44,7 @@ export function EvidencePanel({ rotation }: { rotation: Rotation }) {
   const { why, evidence, gaps, risks } = rotation.explanation
   return (
     <Panel title={`Evidence: ${rotation.name}`}>
+      <OriginKey />
       <Section title="Why it is shown" statements={why} />
       <Section title="Evidence" statements={evidence} />
       <Section title="What we do not know" statements={gaps} />

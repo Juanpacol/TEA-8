@@ -45,3 +45,13 @@
   color: var(--text-soft);
   font-size: 0.9rem;
 }
+
+.rotation__tag--hypothetical {
+  color: var(--ochre);
+}
+
+.rotations__note {
+  margin: 0 0 var(--space-3);
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
