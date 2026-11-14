@@ -247,6 +247,25 @@
   font-weight: 700;
 }
 
+/* A generative orbit trace behind the steps: the data travelling. */
+.how {
+  position: relative;
+  isolation: isolate;
+}
+
+.how__orbit {
+  position: absolute;
+  top: 50%;
+  right: -12%;
+  z-index: -1;
+  width: 72%;
+  aspect-ratio: 780 / 580;
+  transform: translateY(-50%);
+  background: url('./assets/orbit.webp') center / contain no-repeat;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .steps {
   margin: 0;
   padding-left: var(--space-4);
