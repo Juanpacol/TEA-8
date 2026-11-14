@@ -1,0 +1,29 @@
+/* TEA-8 palette: dark teal, ochre, red accent. Components use only these variables. */
+:root {
+  --bg: #0b1412;
+  --surface: #12201d;
+  --surface-raised: #1a2d29;
+  --border: #284039;
+
+  --text: #eaf2ef;
+  --text-soft: #93a8a1;
+
+  --accent: #4fc3cd;
+  --ochre: #d9a441;
+  --red: #d8453f;
+
+  /* Origin labels (evidence panel) */
+  --origin-nasa: var(--accent);
+  --origin-platform: var(--ochre);
+  --origin-model: #a98ad6;
+  --origin-citation: #7bc47f;
+  --origin-unverified: var(--red);
+
+  --radius: 10px;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --font: system-ui, sans-serif;
+}
