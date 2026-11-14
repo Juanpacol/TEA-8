@@ -97,10 +97,10 @@ To copy into the "References" field of the submission. Status "to verify" means 
 | NASA GIBS (Worldview), https://gibs.earthdata.nasa.gov | Dated satellite tiles | Verified accessible |
 | USDA Soil Data Access (SSURGO) | Soil by coordinate | Verified accessible |
 | USDA CropScape (CDL), https://nassgeodata.gmu.edu/CropScape/ | Crop by year | Verified accessible |
-| CropWatch, University of Nebraska: diverse rotations, https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health | Alternative rotations | To verify |
-| Long-term USDA trial in Nebraska, https://par.nsf.gov/servlets/purl/10554940 | Stability under drought | To verify |
-| American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 | Caution on cover crops | To verify |
-| Illinois NREC on Field Advisor, https://fieldadvisor.org/refining-cover-crop-recommendations-for-corn-soybean-rotations-based-on-species-and-timing/ | Cover crop guidance | To verify |
+| CropWatch, University of Nebraska: diverse rotations, https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health | Alternative rotations | Verified: read in full on Nov 14, 2026 |
+| Manski, Socolar et al., "Diversified crop rotations mitigate agricultural losses from dry weather", https://par.nsf.gov/servlets/purl/10554940 | Risk of low corn yields in dry weather, Illinois | Verified: read in full on Nov 14, 2026 |
+| American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 | Caution on cover crops | To verify (blocked by the site, could not be opened) |
+| Illinois NREC on Field Advisor, https://fieldadvisor.org/refining-cover-crop-recommendations-for-corn-soybean-rotations-based-on-species-and-timing/ | Cover crop guidance | To verify (blocked by the site, could not be opened) |
 | Top Crop Manager, wheat in rotations (Ontario), https://www.topcropmanager.com/complex-crop-rotations-19018/ | Evidence from another region | To verify |
 | NASA Worldview, https://worldview.earthdata.nasa.gov/ | Interface design reference | Style reference, no code reused |
 | Space Apps 2025 winning projects (Queñaris, Henry's Farm Adventures, Twisters) | Technique reference | Style reference, no code reused |

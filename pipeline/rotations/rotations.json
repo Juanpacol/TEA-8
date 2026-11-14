@@ -1,0 +1,110 @@
+{
+  "crops": [
+    {
+      "name": "corn",
+      "observed_in_mclean": true
+    },
+    {
+      "name": "soybeans",
+      "observed_in_mclean": true
+    },
+    {
+      "name": "small grain",
+      "observed_in_mclean": false
+    },
+    {
+      "name": "grain sorghum",
+      "observed_in_mclean": false
+    },
+    {
+      "name": "oat/clover",
+      "observed_in_mclean": false
+    }
+  ],
+  "rotations": [
+    {
+      "id": "corn-soybean",
+      "name": "Corn-soybean (current)",
+      "is_current": true,
+      "hypothetical": false,
+      "sequence": [
+        "corn",
+        "soybeans"
+      ],
+      "rules": [
+        {
+          "id": "r-current-1",
+          "origin": "platform_calculation",
+          "text": "At both case points the crop alternated between corn and soybeans every year from 2008 to 2023, so this is the rotation already in use."
+        }
+      ]
+    },
+    {
+      "id": "three-crop",
+      "name": "Corn-soybean-small grain (hypothetical)",
+      "is_current": false,
+      "hypothetical": true,
+      "sequence": [
+        "corn",
+        "soybeans",
+        "small grain"
+      ],
+      "rules": [
+        {
+          "id": "r-three-1",
+          "origin": "citation",
+          "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)",
+          "text": "In a model of over 2.2 million field-years in Illinois and Minnesota, moving from a 2-crop to a 3-crop rotation lowered the modeled risk of low corn yields in dry weather. In nearly all Illinois counties, over 90% of fields showed reduced risk."
+        },
+        {
+          "id": "r-three-2",
+          "origin": "citation",
+          "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)",
+          "text": "In neighboring Logan County, Illinois, the median reduction was about 5 percentage points in the probability of low corn yields in dry conditions."
+        },
+        {
+          "id": "r-three-3",
+          "origin": "platform_calculation",
+          "text": "The study measures how many crops a rotation has, not a specific third crop. Choosing a small grain such as wheat is our assumption and needs local review."
+        }
+      ]
+    },
+    {
+      "id": "four-crop",
+      "name": "Four-year rotation with oat/clover (hypothetical)",
+      "is_current": false,
+      "hypothetical": true,
+      "sequence": [
+        "corn",
+        "soybeans",
+        "grain sorghum",
+        "oat/clover"
+      ],
+      "rules": [
+        {
+          "id": "r-four-1",
+          "origin": "citation",
+          "citation": "CropWatch, University of Nebraska-Lincoln, \"More diverse crop rotations improve yield, yield stability and soil health\" (https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health, read Nov 14 2026)",
+          "text": "In a long-term Nebraska trial, fertilized corn yielded 29% more in two-year rotations and up to 48% more in four-year rotations than continuous corn. These comparisons are against continuous cropping, not against corn-soybean."
+        },
+        {
+          "id": "r-four-2",
+          "origin": "citation",
+          "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)",
+          "text": "Across 11 long-term experiments, diverse rotations reduced corn yield losses by 14 to 90% in drought years in half of them, as reported by this study citing earlier work."
+        },
+        {
+          "id": "r-four-3",
+          "origin": "platform_calculation",
+          "text": "The Nebraska trial is a single site under no-till, and the clover was a winter cover crop in only one of four years. Grain sorghum is not grown in the observed McLean fields."
+        },
+        {
+          "id": "r-four-4",
+          "origin": "citation_to_verify",
+          "citation": "American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 (could not be opened)",
+          "text": "A reported Illinois study cautions that some grass cover crops can slightly lower corn yield. This source has not been read yet."
+        }
+      ]
+    }
+  ]
+}
