@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
-import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
+import { CompareControl, MapLegend, MapView, YearControl } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
@@ -13,6 +13,7 @@ import './tool.css'
 
 function Workspace({ data }: { data: TEA8DataFile }) {
   const [year, setYear] = useState(2023)
+  const [compareYear, setCompareYear] = useState<number | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
   const point = data.region.case_points[0]
 
@@ -26,7 +27,8 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </header>
 
         <div className="workspace__map">
-          <MapView points={data.region.case_points} year={year} />
+          <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} />
+          <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
           <MapLegend year={year} />
         </div>
 
