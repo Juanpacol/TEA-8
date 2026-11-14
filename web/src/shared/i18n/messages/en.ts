@@ -16,7 +16,6 @@ export const en = {
   'step.3': '3 · WHY',
   'tool.where': 'Start here: tell us where you are, or pick an example field.',
   'tool.mapHint': 'Or click the map to see what we know about any spot.',
-  'tool.moreOptions': 'More options',
   'tool.question': 'What could you plant?',
   'tool.tabsLabel': 'About {name}',
   'tab.why': 'Why',

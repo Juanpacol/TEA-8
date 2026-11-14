@@ -2,10 +2,11 @@ import { describe, expect, it } from 'vitest'
 import { BASES, BASE_ORDER, DEFAULT_BASE } from './basemaps.ts'
 
 describe('map backgrounds', () => {
-  it('lists every background once and defaults to the plain one', () => {
+  it('offers each background once, only defined ones, and defaults to the detailed map', () => {
     expect(new Set(BASE_ORDER).size).toBe(BASE_ORDER.length)
-    expect(BASE_ORDER).toEqual(Object.keys(BASES))
-    expect(DEFAULT_BASE).toBe('simple')
+    for (const id of BASE_ORDER) expect(Object.keys(BASES)).toContain(id)
+    expect(DEFAULT_BASE).toBe('map')
+    expect(BASE_ORDER).toContain(DEFAULT_BASE)
   })
 
   it('uses tile URLs with z, y and x and credits its source', () => {
