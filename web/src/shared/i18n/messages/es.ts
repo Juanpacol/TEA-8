@@ -245,7 +245,6 @@ export const es: Record<MessageKey, string> = {
   'wont.4': 'Los datos de satélite y de modelos son estimaciones vistas desde arriba, no mediciones hechas en el campo.',
   'wont.5': 'Sin rendimientos reales, la comparación mide estrés y exposición, no resultados.',
   'demo.title': 'Véalo en acción',
-  'demo.aria': 'Video sin sonido de la herramienta: cambiar el año en el mapa, elegir una rotación, leer su evidencia y hacer una pregunta',
   'demo.note': 'Un prototipo creado para el NASA Space Apps Challenge; no es asesoría agronómica.',
   'open.title': 'Código abierto, datos abiertos',
   'open.text': 'Cada número viene de servicios públicos de la NASA y el USDA, y el código es público: cualquiera puede comprobar de dónde sale una cifra o cuestionarla.',
