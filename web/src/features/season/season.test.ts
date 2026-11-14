@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { Figure, Season } from '../../shared/lib/data-types.ts'
 import { describeDeviation, formatFigure, seasonHeadline, seasonOf } from './season.ts'
+import { translator } from '../../shared/i18n/index.ts'
+const t = translator('en')
 
 const figure = (value: number | null, unit: string): Figure => ({
   value,
@@ -40,16 +42,16 @@ describe('formatFigure', () => {
 
 describe('describeDeviation', () => {
   it('names the direction and calls small differences usual', () => {
-    expect(describeDeviation(-1.98)).toBe('drier than average')
-    expect(describeDeviation(1.2)).toBe('wetter than average')
-    expect(describeDeviation(0.04)).toBe('close to average')
-    expect(describeDeviation(null)).toBeNull()
+    expect(describeDeviation(t, -1.98)).toBe('drier than average')
+    expect(describeDeviation(t, 1.2)).toBe('wetter than average')
+    expect(describeDeviation(t, 0.04)).toBe('close to average')
+    expect(describeDeviation(t, null)).toBeNull()
   })
 })
 
 describe('seasonHeadline', () => {
   it('says how the summer compares, and admits a missing year', () => {
-    expect(seasonHeadline(season(2012), 2012)).toBe('Summer 2012 was drier than average.')
-    expect(seasonHeadline(undefined, 1990)).toBe('There is no climate data for 1990.')
+    expect(seasonHeadline(t, season(2012), 2012)).toBe('Summer 2012 was drier than average.')
+    expect(seasonHeadline(t, undefined, 1990)).toBe('There is no climate data for 1990.')
   })
 })

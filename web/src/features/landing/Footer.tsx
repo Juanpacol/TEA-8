@@ -1,3 +1,4 @@
+import { useI18n } from '../../shared/i18n/index.ts'
 import './landing.css'
 
 const SOURCES = [
@@ -8,10 +9,11 @@ const SOURCES = [
 ]
 
 export function Footer() {
+  const { t } = useI18n()
   return (
     <footer className="footer">
       <p>
-        Data:{' '}
+        {t('footer.data')}{' '}
         {SOURCES.map((source, index) => (
           <span key={source.name}>
             {index > 0 && ' · '}
@@ -20,7 +22,7 @@ export function Footer() {
         ))}
         .
       </p>
-      <p>A prototype created for the NASA Space Apps Challenge, not agronomic advice.</p>
+      <p>{t('footer.prototype')}</p>
     </footer>
   )
 }

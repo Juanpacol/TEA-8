@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { TEA8DataFile, YieldRecord } from '../../shared/lib/data-types.ts'
 import { dryRange, outcomesFor, barShares, percentFromUsual, plainChange, plainUnit, summerVerdict, toneOf } from './yields.ts'
+import { translator } from '../../shared/i18n/index.ts'
+const t = translator('en')
 
 const fig = (value: number | null) => ({ value, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' })
 
@@ -17,26 +19,26 @@ const data = {
 
 describe('yields helpers', () => {
   it('describes the change in words a farmer uses', () => {
-    expect(plainChange(-43.8)).toBe('much less than usual')
-    expect(plainChange(-8)).toBe('a little less than usual')
-    expect(plainChange(7)).toBe('a little more than usual')
-    expect(plainChange(20)).toBe('much more than usual')
-    expect(plainChange(3.4)).toBe('about the usual yield')
-    expect(plainChange(-4.9)).toBe('about the usual yield')
-    expect(plainChange(null)).toBe('no comparison available')
+    expect(plainChange(t, -43.8)).toBe('much less than usual')
+    expect(plainChange(t, -8)).toBe('a little less than usual')
+    expect(plainChange(t, 7)).toBe('a little more than usual')
+    expect(plainChange(t, 20)).toBe('much more than usual')
+    expect(plainChange(t, 3.4)).toBe('about the usual yield')
+    expect(plainChange(t, -4.9)).toBe('about the usual yield')
+    expect(plainChange(t, null)).toBe('no comparison available')
   })
 
   it('puts the thresholds on the boundary: 5 is a little, 15 is much', () => {
-    expect(plainChange(5)).toBe('a little more than usual')
-    expect(plainChange(-15)).toBe('much less than usual')
+    expect(plainChange(t, 5)).toBe('a little more than usual')
+    expect(plainChange(t, -15)).toBe('much less than usual')
   })
 
   it('writes the change as a figure and spells out the unit', () => {
-    expect(percentFromUsual(-43.8)).toBe('44% below usual')
-    expect(percentFromUsual(3.4)).toBe('3% above usual')
-    expect(percentFromUsual(0.2)).toBe('on the usual yield')
-    expect(plainUnit('bu/acre')).toBe('bushels per acre')
-    expect(plainUnit('x')).toBe('x')
+    expect(percentFromUsual(t, -43.8)).toBe('44% below usual')
+    expect(percentFromUsual(t, 3.4)).toBe('3% above usual')
+    expect(percentFromUsual(t, 0.2)).toBe('on the usual yield')
+    expect(plainUnit(t, 'bu/acre')).toBe('bushels per acre')
+    expect(plainUnit(t, 'x')).toBe('x')
   })
 
   it('colors the bar by how far below usual it is, and never flags more than usual', () => {
@@ -70,9 +72,9 @@ describe('yields helpers', () => {
   })
 
   it('names the verdict for a summer', () => {
-    expect(summerVerdict(true)).toBe('a dry summer')
-    expect(summerVerdict(false)).toBe('not a dry summer')
-    expect(summerVerdict(null)).toBe('a summer with no wetness data')
-    expect(summerVerdict(undefined)).toBe('a summer with no wetness data')
+    expect(summerVerdict(t, true)).toBe('a dry summer')
+    expect(summerVerdict(t, false)).toBe('not a dry summer')
+    expect(summerVerdict(t, null)).toBe('a summer with no wetness data')
+    expect(summerVerdict(t, undefined)).toBe('a summer with no wetness data')
   })
 })

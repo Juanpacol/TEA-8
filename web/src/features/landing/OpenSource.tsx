@@ -1,21 +1,22 @@
+import { useI18n } from '../../shared/i18n/index.ts'
 import './landing.css'
 
 const REPO = 'https://github.com/Juanpacol/TEA-8'
 
 export function OpenSource() {
+  const { t } = useI18n()
+  const [before, after] = t('open.note', { link: '\u0000' }).split('\u0000')
   return (
     <section className="open-source">
-      <h2>Open code, open data</h2>
-      <p>
-        Every number comes from public NASA and USDA services, and the code is public, so anyone can check where a
-        figure comes from or challenge it.
-      </p>
+      <h2>{t('open.title')}</h2>
+      <p>{t('open.text')}</p>
       <a className="outline-link" href={REPO}>
-        View the repository
+        {t('open.repo')}
       </a>
       <p className="open-source__note">
-        AI assistants helped write the code and the text; how and where is logged in{' '}
-        <a href={`${REPO}/blob/main/CONTRIBUTING.md`}>CONTRIBUTING.md</a>.
+        {before}
+        <a href={`${REPO}/blob/main/CONTRIBUTING.md`}>CONTRIBUTING.md</a>
+        {after}
       </p>
     </section>
   )

@@ -1,3 +1,4 @@
+import type { Translate } from '../../shared/i18n/index.ts'
 import type { Rotation, TEA8DataFile, YieldRecord } from '../../shared/lib/data-types.ts'
 
 export type CropOutcome =
@@ -21,11 +22,13 @@ export const NEAR_USUAL = 5
 export const FAR_FROM_USUAL = 15
 
 /** The change against the trend in words a farmer uses: "a little less than usual", "much more than usual". */
-export function plainChange(percent: number | null): string {
-  if (percent === null) return 'no comparison available'
+export function plainChange(t: Translate, percent: number | null): string {
+  if (percent === null) return t('yield.none')
   const size = Math.abs(percent)
-  if (size < NEAR_USUAL) return 'about the usual yield'
-  return `${size >= FAR_FROM_USUAL ? 'much' : 'a little'} ${percent < 0 ? 'less' : 'more'} than usual`
+  if (size < NEAR_USUAL) return t('yield.about')
+  const much = size >= FAR_FROM_USUAL
+  if (percent < 0) return t(much ? 'yield.muchLess' : 'yield.littleLess')
+  return t(much ? 'yield.muchMore' : 'yield.littleMore')
 }
 
 export type Tone = 'usual' | 'less' | 'much-less'
@@ -46,15 +49,15 @@ export function barShares(yieldValue: number, expected: number): { fill: number;
 }
 
 /** The same change as a figure: "44% below usual", "3% above usual". */
-export function percentFromUsual(percent: number): string {
+export function percentFromUsual(t: Translate, percent: number): string {
   const size = Math.round(Math.abs(percent))
-  if (size === 0) return 'on the usual yield'
-  return `${size}% ${percent < 0 ? 'below' : 'above'} usual`
+  if (size === 0) return t('pct.on')
+  return t(percent < 0 ? 'pct.below' : 'pct.above', { n: size })
 }
 
 /** Spells out the unit the data file abbreviates. */
-export function plainUnit(unit: string): string {
-  return unit === 'bu/acre' ? 'bushels per acre' : unit
+export function plainUnit(t: Translate, unit: string): string {
+  return unit === 'bu/acre' ? t('unit.bushels') : unit
 }
 
 export type DryRange = { crop: string; count: number; lowest: number; highest: number }
@@ -71,8 +74,8 @@ export function dryRange(data: TEA8DataFile, crop: string): DryRange | null {
 }
 
 /** The sentence that says whether the summer of a year was dry under the written rule. */
-export function summerVerdict(dry: boolean | null | undefined): string {
-  if (dry === true) return 'a dry summer'
-  if (dry === false) return 'not a dry summer'
-  return 'a summer with no wetness data'
+export function summerVerdict(t: Translate, dry: boolean | null | undefined): string {
+  if (dry === true) return t('summer.dry')
+  if (dry === false) return t('summer.notDry')
+  return t('summer.noData')
 }

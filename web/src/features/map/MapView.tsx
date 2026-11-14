@@ -1,11 +1,12 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useEffect, useRef, useState } from 'react'
+import { useI18n } from '../../shared/i18n/index.ts'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASES, type BaseId } from './basemaps.ts'
 import { pointLabel } from './cell.ts'
 import { loadSoilZones, soilFamily } from './soil-zones.ts'
-import { COUNTY_NAME, COUNTY_OUTLINE, REFERENCE_TOWNS, insideCounty } from './county.ts'
+import { COUNTY_OUTLINE, REFERENCE_TOWNS, insideCounty } from './county.ts'
 import { ndviTileUrl } from './gibs.ts'
 import { describePlace, formatCoords, pointAt, type Place } from './selection.ts'
 import './map.css'
@@ -24,6 +25,9 @@ const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
 
 /** Satellite vegetation (NASA GIBS NDVI) over the case area, for one year, optionally next to another year. */
 export function MapView({ points, year, compareYear, base, showVegetation, selected, onSelect }: Props) {
+  const { t } = useI18n()
+  const tRef = useRef(t)
+  tRef.current = t
   const container = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
   const background = useRef<L.TileLayer | null>(null)
@@ -39,7 +43,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   const [split, setSplit] = useState(50)
   const [outside, setOutside] = useState(false)
-  const [zoneNote, setZoneNote] = useState<string | null>(null)
+  const [zoneSoil, setZoneSoil] = useState<string | null>(null)
   const splitNow = useRef(split)
   splitNow.current = split
 
@@ -96,7 +100,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     instance.on('moveend', checkCenter)
     markers.current = points.map((point) => {
       const marker = L.circleMarker([point.lat, point.lon], { radius: 10, color: markerColor, weight: 3, fillColor: markerColor, fillOpacity: 0.85 })
-        .bindTooltip(pointLabel(point, year), { permanent: true, direction: 'right' })
+        .bindTooltip(pointLabel(tRef.current, point, year), { permanent: true, direction: 'right' })
         .addTo(instance)
       marker.on('click', (event) => {
         L.DomEvent.stopPropagation(event)
@@ -130,8 +134,11 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   useEffect(() => {
     setStatus('loading')
     ndvi.current?.setUrl(ndviTileUrl(year))
-    for (const { point, marker } of markers.current) marker.setTooltipContent(pointLabel(point, year))
   }, [year])
+
+  useEffect(() => {
+    for (const { point, marker } of markers.current) marker.setTooltipContent(pointLabel(t, point, year))
+  }, [year, t])
 
   useEffect(() => {
     const instance = map.current
@@ -193,7 +200,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     if (!instance) return
     zones.current?.remove()
     zones.current = null
-    setZoneNote(null)
+    setZoneSoil(null)
     const markerColor = getComputedStyle(document.documentElement).getPropertyValue('--ochre').trim() || '#d9a441'
     const point = selected ? pointAt(selected, points) : null
     if (!point) {
@@ -217,10 +224,10 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
               ? { color: markerColor, weight: 1, fillColor: markerColor, fillOpacity: 0.5 }
               : { color: '#8a97b4', weight: 1, fillColor: '#8a97b4', fillOpacity: 0.18 },
         )
-          .bindTooltip(zone.holds_point ? `${zone.name} (this field)` : zone.name, { sticky: true })
+          .bindTooltip(zone.holds_point ? tRef.current('map.thisField', { name: zone.name }) : zone.name, { sticky: true })
           .addTo(group)
       }
-      setZoneNote(`Orange: ${own}, same soil as the point. Gray: other soils. Hover for names.`)
+      setZoneSoil(own)
       group.addTo(map.current)
       zones.current = group
       map.current.fitBounds(group.getBounds(), { padding: [20, 20] })
@@ -239,11 +246,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
         ref={container}
         className="map"
         role="img"
-        aria-label={
-          compareYear === null
-            ? `NDVI vegetation map for ${year}`
-            : `NDVI vegetation map: ${year} on the left, ${compareYear} on the right`
-        }
+        aria-label={compareYear === null ? t('map.ariaOne', { year }) : t('map.ariaCompare', { year, other: compareYear })}
       />
       {compareYear !== null && (
         <>
@@ -256,26 +259,25 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
             min={5}
             max={95}
             value={split}
-            aria-label={`Divider between ${year} and ${compareYear}`}
+            aria-label={t('map.divider', { year, other: compareYear })}
             onChange={(event) => setSplit(Number(event.target.value))}
           />
         </>
       )}
-      {zoneNote && <p className="map__zones">{zoneNote}</p>}
+      {zoneSoil && <p className="map__zones">{t('map.zoneNote', { soil: zoneSoil })}</p>}
       {outside && (
         <p className="map__outside" role="status">
-          This view is outside {COUNTY_NAME}. TEA-8 has climate, soil and crop data only for {COUNTY_NAME}; elsewhere you see
-          the map and the vegetation only.
+          {t('map.outside', { county: t('county.name') })}
         </p>
       )}
       {status === 'loading' && (
         <p className="map__status" role="status">
-          Loading NASA imagery for {year}…
+          {t('map.loading', { year })}
         </p>
       )}
       {status === 'failed' && (
         <p className="map__status map__status--failed" role="status">
-          Some NASA imagery for {year} could not be loaded. The rest of the tool still works.
+          {t('map.failed', { year })}
         </p>
       )}
     </div>
@@ -287,16 +289,17 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
 }
 
 function PlaceCard({ place, points, year, onClose }: { place: Place; points: CasePoint[]; year: number; onClose: () => void }) {
-  const info = describePlace(place, points, year)
+  const { t } = useI18n()
+  const info = describePlace(t, place, points, year)
   return (
-    <aside className="place-card" aria-label="About the chosen spot">
+    <aside className="place-card" aria-label={t('place.aria')}>
       <div className="place-card__head">
         <strong>{info.title}</strong>
-        <button type="button" className="place-card__close" aria-label="Close" onClick={onClose}>
+        <button type="button" className="place-card__close" aria-label={t('place.close')} onClick={onClose}>
           ×
         </button>
       </div>
-      <p className="place-card__coords">{formatCoords(place)}</p>
+      <p className="place-card__coords">{formatCoords(t, place)}</p>
       <ul>
         {info.lines.map((line) => (
           <li key={line}>{line}</li>

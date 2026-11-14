@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { capitalize, plural, rotationName } from './labels.ts'
+import { plural, rotationName } from './labels.ts'
+import { capitalize, translator } from '../../shared/i18n/index.ts'
+const t = translator('en')
 
 describe('plural', () => {
   it('uses the singular only for one', () => {
@@ -11,8 +13,8 @@ describe('plural', () => {
 
 describe('rotationName', () => {
   it('names a rotation by its crops in order', () => {
-    expect(rotationName({ isCurrent: true, sequence: ['corn', 'soybeans'] })).toBe('Corn + soybeans')
-    expect(rotationName({ isCurrent: false, sequence: ['corn', 'soybeans', 'small grain'] })).toBe('Corn + soybeans + small grain')
+    expect(rotationName(t, { sequence: ['corn', 'soybeans'] })).toBe('Corn + soybeans')
+    expect(rotationName(t, { sequence: ['corn', 'soybeans', 'small grain'] })).toBe('Corn + soybeans + small grain')
   })
 })
 

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useI18n } from '../../shared/i18n/index.ts'
 import { Button, OriginLabel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
+import { rotationName } from '../rotations/labels.ts'
 import { ClaimView } from './ClaimView.tsx'
 import { useAsk } from './useAsk.ts'
 import './ask.css'
@@ -15,6 +17,8 @@ const EXAMPLES = [
 
 /** Ask a question about the data. If the service fails or is slow, the pre-generated explanation is shown instead. */
 export function AskPanel({ rotation }: { rotation: Rotation }) {
+  const { t } = useI18n()
+  const english = t('ask.englishOnly')
   const [question, setQuestion] = useState('')
   const { state, ask } = useAsk(rotation.id)
   const outcome = useRef<HTMLDivElement>(null)
@@ -37,16 +41,17 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
   return (
     <div className="ask">
       <form className="ask__form" onSubmit={submit}>
-        <label htmlFor="question">Your question</label>
+        {english && <p className="ask__language">{english}</p>}
+        <label htmlFor="question">{t('ask.question')}</label>
         <textarea
           id="question"
           value={question}
           maxLength={MAX_LENGTH}
           rows={2}
-          placeholder="For example: how dry was summer 2012?"
+          placeholder={t('ask.placeholder')}
           onChange={(event) => setQuestion(event.target.value)}
         />
-        <ul className="ask__examples" aria-label="Example questions">
+        <ul className="ask__examples" aria-label={t('ask.examplesAria')}>
           {EXAMPLES.map((example) => (
             <li key={example}>
               <Button type="button" variant="ghost" disabled={state.status === 'loading'} onClick={() => askExample(example)}>
@@ -56,7 +61,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
           ))}
         </ul>
         <Button type="submit" disabled={state.status === 'loading' || !question.trim()}>
-          {state.status === 'loading' ? 'Checking the data…' : 'Ask'}
+          {state.status === 'loading' ? t('ask.loading') : t('ask.send')}
         </Button>
       </form>
 
@@ -65,8 +70,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
         <div className="ask__result" aria-live="polite">
           {!state.response.answered && (
             <p className="ask__nodata">
-              The project data does not cover this question, so TEA-8 will not guess. Try asking about rainfall,
-              temperature or soil wetness of a summer between 2001 and 2023.
+              {t('ask.nodata')}
             </p>
           )}
           {state.response.answered && <p className="ask__answer">{state.response.answer}</p>}
@@ -83,20 +87,20 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
 
       {state.status === 'failed' && state.kind === 'daily_limit' && (
         <p className="ask__failed" role="status">
-          The daily limit of questions was reached. Try again tomorrow; the explanations above need no questions.
+          {t('ask.daily')}
         </p>
       )}
 
       {state.status === 'failed' && state.kind === 'busy' && (
         <p className="ask__failed" role="status">
-          Too many questions in a short time. Wait a minute and ask again.
+          {t('ask.busy')}
         </p>
       )}
 
       {state.status === 'failed' && state.kind === 'unavailable' && (
         <div className="ask__result" aria-live="polite">
           <p className="ask__failed">
-            The question service did not answer. Showing the pre-generated explanation of {rotation.name} instead.
+            {t('ask.unavailable', { name: rotationName(t, rotation) })}
           </p>
           <ul className="ask__claims">
             {rotation.explanation.why.map((statement) => (
