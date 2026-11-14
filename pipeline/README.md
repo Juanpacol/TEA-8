@@ -12,6 +12,7 @@ pip install -r pipeline/requirements.txt
 
 python -m pipeline.download.power       # NASA POWER climate, both case points
 python -m pipeline.download.soil        # USDA SSURGO soil
+python -m pipeline.download.soil_zones  # soil zone outlines around each point (map)
 python -m pipeline.download.cropscape   # CropScape crop history (slow: 32 queries)
 python -m pipeline.summarize.build      # validates and writes the data file
 ```
