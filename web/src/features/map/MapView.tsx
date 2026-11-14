@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASES, type BaseId } from './basemaps.ts'
 import { pointSummary, powerCell } from './cell.ts'
-import { COUNTY_NAME, COUNTY_OUTLINE, insideCounty } from './county.ts'
+import { COUNTY_NAME, COUNTY_OUTLINE, REFERENCE_TOWNS, insideCounty } from './county.ts'
 import { ndviTileUrl } from './gibs.ts'
 import { describePlace, formatCoords, type Place } from './selection.ts'
 import './map.css'
@@ -26,6 +26,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const container = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
   const background = useRef<L.TileLayer | null>(null)
+  const towns = useRef<L.LayerGroup | null>(null)
   const ndvi = useRef<L.TileLayer | null>(null)
   const other = useRef<L.TileLayer | null>(null)
   const markers = useRef<{ point: CasePoint; marker: L.CircleMarker }[]>([])
@@ -146,6 +147,19 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
           .bringToBack()
       : null
     instance.getContainer().classList.toggle('map--simple', !next.url)
+    towns.current?.remove()
+    towns.current = null
+    if (!next.url) {
+      towns.current = L.layerGroup(
+        REFERENCE_TOWNS.map((town) =>
+          L.marker([town.lat, town.lon], {
+            interactive: false,
+            keyboard: false,
+            icon: L.divIcon({ className: 'map-town', html: `<span>${town.name}</span>`, iconSize: [0, 0] }),
+          }),
+        ),
+      ).addTo(instance)
+    }
     const opacity = showVegetation ? next.ndviOpacity : 0
     ndvi.current?.setOpacity(opacity)
     other.current?.setOpacity(opacity)
@@ -164,6 +178,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   useEffect(clip, [split])
 
   return (
+    <>
     <div className="map-frame">
       <div
         ref={container}
@@ -191,9 +206,6 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
           />
         </>
       )}
-      {selected && (
-        <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />
-      )}
       {outside && (
         <p className="map__outside" role="status">
           This view is outside {COUNTY_NAME}. TEA-8 has climate, soil and crop data only for {COUNTY_NAME}; elsewhere you see
@@ -211,6 +223,10 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
         </p>
       )}
     </div>
+    {selected && (
+      <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />
+    )}
+    </>
   )
 }
 
