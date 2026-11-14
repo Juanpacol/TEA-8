@@ -23,11 +23,66 @@
 }
 
 .year-control__track input {
+  appearance: none;
   display: block;
   width: 100%;
   height: 16px;
   margin: 0;
-  accent-color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+}
+
+/* A thin track, filled up to the chosen year, and a thumb with a soft ring that is easy to grab. */
+.year-control__track input::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(to right, var(--accent) var(--fill), var(--surface-raised) var(--fill));
+  border-radius: 999px;
+}
+
+.year-control__track input::-moz-range-track {
+  height: 4px;
+  background: var(--surface-raised);
+  border-radius: 999px;
+}
+
+.year-control__track input::-moz-range-progress {
+  height: 4px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.year-control__track input::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgb(79 195 205 / 0.3);
+  transition: box-shadow 200ms ease;
+}
+
+.year-control__track input::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgb(79 195 205 / 0.3);
+}
+
+.year-control__track input:hover::-webkit-slider-thumb,
+.year-control__track input:active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 6px rgb(79 195 205 / 0.25);
+}
+
+.year-control__track input:focus-visible {
+  outline: none;
+}
+
+.year-control__track input:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 6px rgb(79 195 205 / 0.45);
 }
 
 .year-control__marks {
