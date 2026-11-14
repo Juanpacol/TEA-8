@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
-  "simulated": true,
-  "generated_at": "2026-11-14T15:09:16Z",
+  "simulated": false,
+  "generated_at": "2026-11-14T15:10:23Z",
   "region": {
     "name": "McLean County",
     "state": "Illinois",
@@ -1080,10 +1080,35 @@
         }
       ],
       "explanation": {
-        "why": [],
-        "evidence": [],
-        "gaps": [],
-        "risks": []
+        "why": [
+          {
+            "text": "At both case points the crop alternated between corn and soybeans every year from 2008 to 2023, so this is the rotation already in use.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "evidence": [
+          {
+            "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
+            "origin": "nasa_data"
+          }
+        ],
+        "gaps": [
+          {
+            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "NASA POWER is a grid of about 50 km: it represents the area, not the plot.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "risks": [
+          {
+            "text": "In the cited Illinois model, rotations with two crops carried a higher risk of low corn yields in dry weather than rotations with three.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ]
       }
     },
     {
@@ -1116,10 +1141,48 @@
         }
       ],
       "explanation": {
-        "why": [],
-        "evidence": [],
-        "gaps": [],
-        "risks": []
+        "why": [
+          {
+            "text": "In a model of over 2.2 million field-years in Illinois and Minnesota, moving from a 2-crop to a 3-crop rotation lowered the modeled risk of low corn yields in dry weather. In nearly all Illinois counties, over 90% of fields showed reduced risk.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ],
+        "evidence": [
+          {
+            "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
+            "origin": "nasa_data"
+          },
+          {
+            "text": "In neighboring Logan County, Illinois, the median reduction was about 5 percentage points in the probability of low corn yields in dry conditions.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ],
+        "gaps": [
+          {
+            "text": "The study measures how many crops a rotation has, not a specific third crop. Choosing a small grain such as wheat is our assumption and needs local review.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "This rotation is hypothetical: it does not exist in the observed fields.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "NASA POWER is a grid of about 50 km: it represents the area, not the plot.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "risks": [
+          {
+            "text": "A local agronomist should review this rotation before it is considered.",
+            "origin": "platform_calculation"
+          }
+        ]
       }
     },
     {
@@ -1159,10 +1222,53 @@
         }
       ],
       "explanation": {
-        "why": [],
-        "evidence": [],
-        "gaps": [],
-        "risks": []
+        "why": [
+          {
+            "text": "In a long-term Nebraska trial, fertilized corn yielded 29% more in two-year rotations and up to 48% more in four-year rotations than continuous corn. These comparisons are against continuous cropping, not against corn-soybean.",
+            "origin": "citation",
+            "citation": "CropWatch, University of Nebraska-Lincoln, \"More diverse crop rotations improve yield, yield stability and soil health\" (https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health, read Nov 14 2026)"
+          }
+        ],
+        "evidence": [
+          {
+            "text": "The driest summer of 2001-2023 at the case area was 2012: root-zone wetness 0.51, -1.98 standard deviations from the 2001-2023 mean (NASA POWER, GWETROOT, queried 2026-11-14).",
+            "origin": "nasa_data"
+          },
+          {
+            "text": "Across 11 long-term experiments, diverse rotations reduced corn yield losses by 14 to 90% in drought years in half of them, as reported by this study citing earlier work.",
+            "origin": "citation",
+            "citation": "Manski, Socolar et al., \"Diversified crop rotations mitigate agricultural losses from dry weather\" (manuscript read at https://par.nsf.gov/servlets/purl/10554940, Nov 14 2026)"
+          }
+        ],
+        "gaps": [
+          {
+            "text": "The Nebraska trial is a single site under no-till, and the clover was a winter cover crop in only one of four years. Grain sorghum is not grown in the observed McLean fields.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "This rotation is hypothetical: it does not exist in the observed fields.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "origin": "platform_calculation"
+          },
+          {
+            "text": "NASA POWER is a grid of about 50 km: it represents the area, not the plot.",
+            "origin": "platform_calculation"
+          }
+        ],
+        "risks": [
+          {
+            "text": "A reported Illinois study cautions that some grass cover crops can slightly lower corn yield. This source has not been read yet.",
+            "origin": "citation_to_verify",
+            "citation": "American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 (could not be opened)"
+          },
+          {
+            "text": "A local agronomist should review this rotation before it is considered.",
+            "origin": "platform_calculation"
+          }
+        ]
       }
     }
   ],
@@ -1170,7 +1276,6 @@
     "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
     "Climate figures are for point A only and summarize June to August.",
     "There are no yields: comparisons measure stress and exposure, not outcomes.",
-    "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies.",
-    "Rotation explanations are not generated yet."
+    "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies."
   ]
 }
