@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { compareRotations } from './compare.ts'
-import { addedCrops, isSourceRead, isSourceToVerify, type Rotation } from './rules.ts'
+import type { Rotation } from '../../shared/lib/rotation.ts'
+import { addedCrops, isSourceRead, isSourceToVerify } from './rules.ts'
 
 function rotation(id: string, sequence: Rotation['sequence'], overrides: Partial<Rotation> = {}): Rotation {
   return {

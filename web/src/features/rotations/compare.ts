@@ -1,6 +1,7 @@
 // Pure comparison of rotations. It gives no score and no ranking: the decision
 // belongs to the farmer.
-import { addedCrops, isSourceRead, isSourceToVerify, type Rotation } from './rules.ts'
+import type { Rotation } from '../../shared/lib/rotation.ts'
+import { addedCrops, isSourceRead, isSourceToVerify } from './rules.ts'
 
 export type RotationSummary = {
   id: string

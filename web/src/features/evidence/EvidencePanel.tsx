@@ -1,6 +1,5 @@
-import { Panel } from '../../shared/components/index.ts'
-import type { Rotation } from '../rotations/rules.ts'
-import { OriginLabel } from './OriginLabel.tsx'
+import { OriginLabel, Panel } from '../../shared/components/index.ts'
+import type { Rotation } from '../../shared/lib/rotation.ts'
 import './evidence.css'
 
 type Statement = Rotation['explanation']['why'][number]

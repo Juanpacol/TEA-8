@@ -1,6 +1,6 @@
-import type { Origin } from '../../shared/lib/data-types.ts'
+import type { Origin } from '../lib/data-types.ts'
 import { originInfo } from './origin.ts'
-import './evidence.css'
+import './origin.css'
 
 export function OriginLabel({ origin }: { origin: Origin }) {
   const { label, className } = originInfo(origin)

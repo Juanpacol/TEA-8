@@ -1,4 +1,4 @@
-import type { Origin } from '../../shared/lib/data-types.ts'
+import type { Origin } from '../lib/data-types.ts'
 
 type OriginInfo = { label: string; className: string }
 
