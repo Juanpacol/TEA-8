@@ -240,11 +240,6 @@
 }
 
 .place-card {
-  position: absolute;
-  left: var(--space-2);
-  bottom: 2rem;
-  z-index: 490;
-  max-width: min(22rem, calc(100% - 2 * var(--space-2)));
   padding: var(--space-2) var(--space-3);
   background: var(--surface-raised);
   border: 1px solid var(--ochre);
@@ -304,4 +299,23 @@
 /* Plain background: just the county and the points, no roads or names. */
 .map.map--simple {
   background: var(--surface);
+}
+
+.map-town span {
+  display: inline-block;
+  transform: translate(-50%, 6px);
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.map-town::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-soft);
 }
