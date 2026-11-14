@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "types": "json2ts -i ../pipeline/schema/tea8.schema.json -o src/shared/lib/data-types.ts --no-additionalProperties --bannerComment \"/* Generated from pipeline/schema/tea8.schema.json by npm run types. Do not edit. */\""
+    "types": "json2ts -i ../pipeline/schema/tea8.schema.json -o src/shared/lib/data-types.ts --no-additionalProperties --bannerComment \"/* Generated from pipeline/schema/tea8.schema.json by npm run types. Do not edit. */\"",
+    "test": "vitest run"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
@@ -24,6 +25,7 @@
     "json-schema-to-typescript": "^16.0.0",
     "oxlint": "^1.90.0",
     "typescript": "~7.0.2",
-    "vite": "^8.3.6"
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
   }
 }
