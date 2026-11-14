@@ -3,6 +3,7 @@ import { AskPanel } from '../../features/ask/index.ts'
 import { FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
 import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
+import { YearOutcome } from '../../features/yields/index.ts'
 import { RotationPicker, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
 import { Tabs } from '../../shared/components/index.ts'
@@ -32,6 +33,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         <div className="workspace__side">
           <h3 className="workspace__question">What could you plant?</h3>
           <RotationPicker summaries={summaries} selectedId={selectedId} onSelect={select} />
+          {selected && <YearOutcome data={data} rotation={selected} year={year} />}
           {selected && (
             <Tabs
               label={`About ${selected.name}`}

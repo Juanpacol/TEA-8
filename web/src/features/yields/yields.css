@@ -1,0 +1,36 @@
+.outcome {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.outcome__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.outcome__list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.outcome__list strong {
+  text-transform: capitalize;
+}
+
+.outcome__none {
+  color: var(--text-soft);
+}
+
+.outcome__range,
+.outcome__how {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.outcome__how summary {
+  cursor: pointer;
+}
