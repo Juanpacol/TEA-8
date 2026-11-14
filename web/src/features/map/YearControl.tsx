@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
 import { NDVI_FIRST_YEAR, NDVI_LAST_YEAR } from './gibs.ts'
 import './map.css'
@@ -28,6 +29,7 @@ export function YearControl({ year, onChange, dryYears = [] }: Props) {
             value={year}
             aria-label={t('year.label')}
             aria-valuetext={t('year.valuetext', { year })}
+            style={{ '--fill': `${((year - NDVI_FIRST_YEAR) / span) * 100}%` } as CSSProperties}
             onChange={(event) => onChange(Number(event.target.value))}
           />
           <div className="year-control__marks" aria-hidden="true">
