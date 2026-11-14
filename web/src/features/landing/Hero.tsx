@@ -1,3 +1,4 @@
+import { useDepth } from '../../shared/hooks/useDepth.ts'
 import { useParallax } from '../../shared/hooks/useParallax.ts'
 import { useReveal } from '../../shared/hooks/useReveal.ts'
 import './landing.css'
@@ -5,9 +6,10 @@ import './landing.css'
 export function Hero() {
   const { first, second } = useParallax<HTMLDivElement, HTMLDivElement>()
   const { ref, visible } = useReveal<HTMLDivElement>()
+  const depth = useDepth<HTMLElement>()
 
   return (
-    <header className="hero">
+    <header ref={depth} className="hero">
       <div ref={first} className="hero__art hero__art--right" aria-hidden="true" />
       <div ref={second} className="hero__art hero__art--left" aria-hidden="true" />
       <div className="hero__fade" aria-hidden="true" />

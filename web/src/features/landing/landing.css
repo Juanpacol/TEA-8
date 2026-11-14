@@ -7,6 +7,7 @@
   place-items: center;
   min-height: 80svh;
   background: var(--bg);
+  perspective: 900px;
 }
 
 .hero__art {
@@ -17,7 +18,9 @@
   background-repeat: no-repeat;
   pointer-events: none;
   will-change: transform;
-  transform: translateY(var(--parallax, 0px));
+  transform: translateY(var(--parallax, 0px)) translate3d(calc(var(--depth-x, 0) * var(--shift, 0px) * -1), calc(var(--depth-y, 0) * var(--shift, 0px) * -1), var(--lift, 0px))
+    rotateY(calc(var(--depth-x, 0) * var(--turn, 0deg))) rotateX(calc(var(--depth-y, 0) * var(--turn, 0deg) * -1));
+  transition: filter 0.4s ease;
 }
 
 /* The whole photo, not a cut-out: `screen` turns its near-black sky into the page colour, and the masks soften the edges. */
@@ -25,6 +28,9 @@
   right: 0;
   aspect-ratio: 2 / 3;
   max-width: 70%;
+  --shift: 4px;
+  --lift: 0px;
+  --turn: 0.3deg;
   background-image: url('./assets/sky.webp');
   background-size: cover;
   background-position: center;
@@ -43,6 +49,9 @@
   height: 92%;
   aspect-ratio: 900 / 1600;
   max-width: 50%;
+  --shift: 9px;
+  --lift: 8px;
+  --turn: 0.6deg;
   background-image: url('./assets/moon.webp');
   background-size: contain;
   background-position: left center;
@@ -276,6 +285,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  perspective: 1100px;
 }
 
 .connector__art {
@@ -293,7 +303,11 @@
   opacity: 0.75;
   pointer-events: none;
   will-change: transform;
-  transform: translateY(var(--parallax, 0px));
+  --shift: 7px;
+  --lift: 6px;
+  --turn: 0.5deg;
+  transform: translateY(var(--parallax, 0px)) translate3d(calc(var(--depth-x, 0) * var(--shift) * -1), calc(var(--depth-y, 0) * var(--shift) * -1), var(--lift))
+    rotateY(calc(var(--depth-x, 0) * var(--turn))) rotateX(calc(var(--depth-y, 0) * var(--turn) * -1));
   mask-image: linear-gradient(0deg, transparent, #000 12%, #000 88%, transparent), linear-gradient(90deg, transparent, #000 40%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
