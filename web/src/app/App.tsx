@@ -1,12 +1,18 @@
 import { Panel } from '../shared/components/index.ts'
+import { useData } from '../shared/hooks/useData.ts'
 
 export function App() {
+  const state = useData()
+
   return (
     <main style={{ maxWidth: 720, margin: '0 auto', padding: 'var(--space-5) var(--space-3)' }}>
       <h1 style={{ color: 'var(--accent)' }}>TEA-8</h1>
       <Panel title="Evidence before advice">
         <p style={{ color: 'var(--text-soft)', margin: 0 }}>
-          A decision-support tool that compares crop rotations using NASA data.
+          {state.status === 'loading' && 'Loading data…'}
+          {state.status === 'error' && `Data unavailable: ${state.message}`}
+          {state.status === 'ready' &&
+            `${state.data.region.name}, ${state.data.region.state}: ${state.data.seasons.length} seasons, ${state.data.rotations.length} rotations.`}
         </p>
       </Panel>
     </main>
