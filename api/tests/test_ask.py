@@ -124,3 +124,49 @@ class AskTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BudgetAndTimeTest(unittest.TestCase):
+    def test_daily_budget_stops_the_model_and_resets_next_day(self):
+        from datetime import datetime, timedelta, timezone
+        from ask.budget import DailyBudget
+
+        now = [datetime(2026, 11, 14, tzinfo=timezone.utc)]
+        budget = DailyBudget(2, clock=lambda: now[0])
+        self.assertEqual([budget.try_acquire() for _ in range(3)], [True, True, False])
+        now[0] += timedelta(days=1)
+        self.assertTrue(budget.try_acquire())
+
+    def test_question_over_the_limit_never_reaches_the_model(self):
+        class Spent:
+            def try_acquire(self):
+                return False
+
+        llm = FakeLLM()
+        status, body = handle_ask(b'{"question": "q"}', DATA, llm, Spent())
+        self.assertEqual((status, body["error"]["code"], llm.calls), (429, "DAILY_LIMIT", 0))
+
+    def test_no_second_model_call_when_the_first_was_slow(self):
+        bad = {"answered": True, "claims": [claim("This is the best rotation.", "rotation.three-crop")]}
+        llm, ticks = FakeLLM(bad, bad), iter([0, 20])
+        with self.assertRaises(AskError):
+            ask("q", None, DATA, llm, clock=lambda: next(ticks))
+        self.assertEqual(llm.calls, 1)
+
+
+class ClientDeadlineTest(unittest.TestCase):
+    def test_gives_up_before_the_total_time_runs_out(self):
+        import urllib.error
+        from ask.llm import MuseSparkClient
+
+        now, seen = [0.0], []
+
+        def opener(request, timeout):
+            seen.append(timeout)
+            now[0] += 20
+            raise urllib.error.URLError("slow")
+
+        client = MuseSparkClient("k", opener=opener, clock=lambda: now[0], backoff=0)
+        with self.assertRaises(LLMError) as ctx:
+            client.complete_json([], {})
+        self.assertEqual((ctx.exception.status, seen), (504, [20, 4]))

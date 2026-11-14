@@ -21,10 +21,12 @@ class LLMError(Exception):
 
 class MuseSparkClient:
     def __init__(self, api_key, model="muse-spark-1.3", reasoning_effort="low",
-                 max_completion_tokens=2048, timeout=45, backoff=0.5, opener=urllib.request.urlopen):
+                 max_completion_tokens=2048, timeout=20, total_seconds=24, backoff=0.5,
+                 opener=urllib.request.urlopen, clock=time.monotonic):
         self._api_key, self._model = api_key, model
         self._effort, self._max_tokens = reasoning_effort, max_completion_tokens
-        self._timeout, self._backoff, self._open = timeout, backoff, opener
+        self._timeout, self._total, self._backoff = timeout, total_seconds, backoff
+        self._open, self._clock = opener, clock
 
     def complete_json(self, messages, schema, name="answer"):
         if not self._api_key:
@@ -47,9 +49,13 @@ class MuseSparkClient:
         request = urllib.request.Request(
             BASE_URL, json.dumps(payload).encode(), method="POST",
             headers={"Authorization": f"Bearer {self._api_key}", "Content-Type": "application/json"})
+        started = self._clock()
         for attempt in range(2):
+            remaining = self._total - (self._clock() - started)
+            if remaining < 1:
+                raise LLMError("LLM_TIMEOUT", "Muse Spark request timed out", 504)
             try:
-                with self._open(request, timeout=self._timeout) as response:
+                with self._open(request, timeout=min(self._timeout, remaining)) as response:
                     return json.load(response)
             except urllib.error.HTTPError as exc:
                 if exc.code in (401, 403):

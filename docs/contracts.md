@@ -51,7 +51,7 @@ Response (200):
 - A claim is `verified` only when it cites at least one key, every key exists and every number in the claim appears in the cited evidence. The `checks` show that process and the web app displays them. Unverified claims are shown flagged, never hidden, and are left out of `answer`.
 - `answered` is false when the data does not cover the question or no claim could be verified.
 - Wording that names a best option, gives a final score or tells the farmer what to plant is rejected; the model gets one retry.
-- Errors: `{ "error": { "code", "message" } }` with 400 (bad request), 502 (model failed or broke the rules), 503 (no API key) or 504 (timeout). The web app falls back to the pre-generated explanations on any error or slow answer.
+- Errors: `{ "error": { "code", "message" } }` with 400 (bad request), 429 (`DAILY_LIMIT`: the cap of questions per day, `DAILY_ASK_LIMIT`, default 300, was reached), 502 (model failed or broke the rules), 503 (no API key) or 504 (timeout, 24 s in total). The web app falls back to the pre-generated explanations on any error or slow answer.
 - The service reads its own copy of the data, `api/data/summary.json`, written by `pipeline/summarize/build.py` together with the web copy.
 
 ## Ownership
