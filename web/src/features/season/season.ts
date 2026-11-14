@@ -12,6 +12,13 @@ export function formatFigure(figure: Figure): string | null {
   return `${figure.value}${unit ? (unit.startsWith('°') ? '' : ' ') + unit : ''}`
 }
 
+/** One sentence a farmer can read first: how the summer was compared with the usual one. */
+export function seasonHeadline(season: Season | undefined, year: number): string {
+  if (season === undefined) return `There is no climate data for ${year}.`
+  const comparison = describeDeviation(season.root_wetness_deviation.value)
+  return comparison === null ? `Summer ${year}.` : `Summer ${year} was ${comparison}.`
+}
+
 const CLOSE_TO_USUAL = 0.5
 
 /** How a summer compares with the 2001-2023 mean, in words. */

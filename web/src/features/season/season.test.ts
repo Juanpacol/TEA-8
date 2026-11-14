@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Figure, Season } from '../../shared/lib/data-types.ts'
-import { describeDeviation, formatFigure, seasonOf } from './season.ts'
+import { describeDeviation, formatFigure, seasonHeadline, seasonOf } from './season.ts'
 
 const figure = (value: number | null, unit: string): Figure => ({
   value,
@@ -44,5 +44,12 @@ describe('describeDeviation', () => {
     expect(describeDeviation(1.2)).toBe('wetter than average')
     expect(describeDeviation(0.04)).toBe('close to average')
     expect(describeDeviation(null)).toBeNull()
+  })
+})
+
+describe('seasonHeadline', () => {
+  it('says how the summer compares, and admits a missing year', () => {
+    expect(seasonHeadline(season(2012), 2012)).toBe('Summer 2012 was drier than average.')
+    expect(seasonHeadline(undefined, 1990)).toBe('There is no climate data for 1990.')
   })
 })

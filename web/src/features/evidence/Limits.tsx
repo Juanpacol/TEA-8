@@ -1,18 +1,19 @@
-import { Panel } from '../../shared/components/index.ts'
 import './evidence.css'
 
-type Props = { limits: string[]; simulated: boolean }
+type Props = { limits: string[] }
 
 /** What the data cannot tell the farmer. */
-export function Limits({ limits, simulated }: Props) {
+export function Limits({ limits }: Props) {
   return (
-    <Panel title="What this data cannot tell you">
-      {simulated && <p className="limits__simulated">This file holds simulated data.</p>}
-      <ul className="limits">
-        {limits.map((limit) => (
-          <li key={limit}>{limit}</li>
-        ))}
-      </ul>
-    </Panel>
+    <ul className="limits">
+      {limits.map((limit) => (
+        <li key={limit}>{limit}</li>
+      ))}
+    </ul>
   )
+}
+
+/** Shown outside the tabs whenever the data file is simulated, so it can never be missed. */
+export function SimulatedNotice() {
+  return <p className="limits__simulated">This file holds simulated data.</p>
 }

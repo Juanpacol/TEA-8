@@ -1,57 +1,50 @@
-.rotations {
+.picker {
   display: grid;
   gap: var(--space-3);
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
-.rotation {
+.picker__detail {
   display: grid;
   gap: var(--space-2);
-  align-content: start;
+  animation: picker-in 240ms ease-out;
 }
 
-.rotation h3 {
+.picker__name {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.15rem;
 }
 
-.rotation__tag,
-.rotation__added {
-  margin: 0;
-  color: var(--text-soft);
-  font-size: 0.9rem;
-}
-
-.rotation__sequence {
+.picker__sequence {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1);
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.rotation__sequence li {
-  padding: 0 var(--space-2);
-  border: 1px solid var(--ochre);
+.picker__sequence li {
+  padding: 2px 0.75rem;
+  background: var(--surface-raised);
   border-radius: 999px;
-  color: var(--ochre);
   font-size: 0.85rem;
 }
 
-.rotation__counts {
+.picker__tag {
   margin: 0;
-  padding-left: var(--space-3);
   color: var(--text-soft);
   font-size: 0.9rem;
 }
 
-.rotation__tag--hypothetical {
-  color: var(--ochre);
+@keyframes picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
-.rotations__note {
-  margin: 0 0 var(--space-3);
-  color: var(--text-soft);
-  font-size: 0.9rem;
+@media (prefers-reduced-motion: reduce) {
+  .picker__detail {
+    animation: none;
+  }
 }

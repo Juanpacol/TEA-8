@@ -1,8 +1,187 @@
+/*
+ * The tool: a calm, light surface inside the page. The tokens below are scoped to this section,
+ * so the page palette in styles/tokens.css can change without touching the tool.
+ */
 .tool-section {
+  --seg-track: var(--surface-raised);
+  --seg-thumb: var(--accent);
+  --seg-on: var(--bg);
+  --card-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-4);
+  color: var(--text);
 }
 
-.tool-section__evidence:focus {
-  outline: none;
+.tool-section .notice {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--ochre);
+  border-radius: 999px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.tool-section .notice strong {
+  color: var(--text);
+}
+
+/* One screen: the map on the left, the choice and its reasons on the right. Only the reasons scroll, inside their own box. */
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: var(--space-4);
+  height: clamp(560px, calc(100vh - 8rem), 820px);
+}
+
+.workspace__top {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr minmax(14rem, 20rem);
+  gap: var(--space-5);
+  align-items: end;
+}
+
+.workspace__top .year-control {
+  order: 2;
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.workspace__top .year-control strong {
+  display: block;
+  color: var(--ochre);
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+}
+
+.workspace__top .year-control input {
+  accent-color: var(--accent);
+}
+
+.workspace__top .season-strip {
+  order: 1;
+}
+
+.workspace__top .season__headline {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.workspace__map {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 0;
+}
+
+.workspace__map .map-frame {
+  flex: 1;
+  min-height: 0;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.workspace__map .map {
+  height: 100%;
+  border: 0;
+  border-radius: 20px;
+}
+
+.workspace__map .legend {
+  margin: 0;
+}
+
+.workspace__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.workspace__question {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 650;
+  color: var(--text);
+}
+
+/* Buttons: pill-shaped, with a soft press. */
+.tool-section .btn {
+  border-radius: 999px;
+  transition: background-color 160ms ease, transform 120ms ease, opacity 160ms ease;
+}
+
+.tool-section .btn--ghost {
+  border-color: var(--border);
+}
+
+.tool-section .btn--ghost:hover:not(:disabled) {
+  background: var(--surface-raised);
+}
+
+.tool-section .btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.tool-section textarea {
+  border-radius: 14px;
+}
+
+@media (max-width: 860px) {
+  .workspace {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .workspace__top {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .workspace__top .year-control {
+    order: 0;
+  }
+
+  .workspace__map .map {
+    height: 260px;
+  }
+
+  .workspace__side .tabs__panel {
+    overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tool-section .btn {
+    transition: none;
+  }
+}
+
+.fade-in {
+  animation: fade-in 240ms ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
 }

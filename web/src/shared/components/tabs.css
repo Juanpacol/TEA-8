@@ -1,0 +1,31 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+  flex: 1;
+}
+
+.tabs__panel {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  animation: tabs-in 240ms ease-out;
+}
+
+.tabs__panel[hidden] {
+  display: none;
+}
+
+@keyframes tabs-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs__panel {
+    animation: none;
+  }
+}
