@@ -2,23 +2,27 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useEffect, useRef, useState } from 'react'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
+import { BASES, type BaseId } from './basemaps.ts'
 import { pointSummary, powerCell } from './cell.ts'
-import { BASE_TILE_URL, ndviTileUrl } from './gibs.ts'
+import { COUNTY_NAME, COUNTY_OUTLINE, insideCounty } from './county.ts'
+import { ndviTileUrl } from './gibs.ts'
 import './map.css'
 
-type Props = { points: CasePoint[]; year: number; compareYear: number | null }
+type Props = { points: CasePoint[]; year: number; compareYear: number | null; base: BaseId; showVegetation: boolean }
 
-const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 12, opacity: 0.85 }
+const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
 
 /** Satellite vegetation (NASA GIBS NDVI) over the case area, for one year, optionally next to another year. */
-export function MapView({ points, year, compareYear }: Props) {
+export function MapView({ points, year, compareYear, base, showVegetation }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
+  const background = useRef<L.TileLayer | null>(null)
   const ndvi = useRef<L.TileLayer | null>(null)
   const other = useRef<L.TileLayer | null>(null)
   const markers = useRef<{ point: CasePoint; marker: L.CircleMarker }[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   const [split, setSplit] = useState(50)
+  const [outside, setOutside] = useState(false)
   const splitNow = useRef(split)
   splitNow.current = split
 
@@ -40,13 +44,9 @@ export function MapView({ points, year, compareYear }: Props) {
       // On a touch screen one finger scrolls the page; the map moves with two fingers or the zoom buttons.
       dragging: !L.Browser.mobile,
     }).setView([points[0].lat + 0.2, points[0].lon], 9)
-    L.tileLayer(BASE_TILE_URL, {
-      maxNativeZoom: 8,
-      maxZoom: 12,
-      attribution: 'Imagery: NASA GIBS (Blue Marble)',
-    }).addTo(instance)
     ndvi.current = L.tileLayer(ndviTileUrl(year), {
       ...NDVI_OPTIONS,
+      opacity: showVegetation ? BASES[base].ndviOpacity : 0,
       attribution: 'NDVI: NASA GIBS, MODIS Terra 16-day',
     }).addTo(instance)
     ndvi.current.on('loading', () => setStatus('loading'))
@@ -63,6 +63,16 @@ export function MapView({ points, year, compareYear }: Props) {
       ],
       { color: markerColor, weight: 2, dashArray: '6 6', fill: false, interactive: false },
     ).addTo(instance)
+    L.geoJSON(COUNTY_OUTLINE, {
+      style: { color: markerColor, weight: 2, fill: false },
+      interactive: false,
+      attribution: 'County: US Census Bureau',
+    }).addTo(instance)
+    const checkCenter = () => {
+      const center = instance.getCenter()
+      setOutside(!insideCounty(center.lat, center.lng))
+    }
+    instance.on('moveend', checkCenter)
     markers.current = points.map((point) => ({
       point,
       marker: L.circleMarker([point.lat, point.lon], { radius: 7, color: markerColor, weight: 2, fillOpacity: 0.3 })
@@ -74,6 +84,7 @@ export function MapView({ points, year, compareYear }: Props) {
     return () => {
       instance.remove()
       map.current = null
+      background.current = null
       ndvi.current = null
       other.current = null
       markers.current = []
@@ -94,10 +105,29 @@ export function MapView({ points, year, compareYear }: Props) {
     other.current?.remove()
     other.current = null
     if (compareYear === null) return
-    other.current = L.tileLayer(ndviTileUrl(compareYear), NDVI_OPTIONS).addTo(instance)
+    other.current = L.tileLayer(ndviTileUrl(compareYear), { ...NDVI_OPTIONS, opacity: showVegetation ? BASES[base].ndviOpacity : 0 }).addTo(instance)
     clip()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [compareYear])
+
+  useEffect(() => {
+    const instance = map.current
+    if (!instance) return
+    const next = BASES[base]
+    background.current?.remove()
+    background.current = L.tileLayer(next.url, {
+      maxNativeZoom: next.maxNativeZoom,
+      maxZoom: 14,
+      attribution: next.attribution,
+    })
+      .addTo(instance)
+      .bringToBack()
+    const opacity = showVegetation ? next.ndviOpacity : 0
+    ndvi.current?.setOpacity(opacity)
+    other.current?.setOpacity(opacity)
+    // The background effect runs after the map is created, and again each time the choice changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [base, points, showVegetation])
 
   useEffect(clip, [split])
 
@@ -128,6 +158,12 @@ export function MapView({ points, year, compareYear }: Props) {
             onChange={(event) => setSplit(Number(event.target.value))}
           />
         </>
+      )}
+      {outside && (
+        <p className="map__outside" role="status">
+          This view is outside {COUNTY_NAME}. TEA-8 has climate, soil and crop data only for {COUNTY_NAME}; elsewhere you see
+          the map and the vegetation only.
+        </p>
       )}
       {status === 'loading' && (
         <p className="map__status" role="status">
