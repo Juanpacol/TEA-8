@@ -18,7 +18,9 @@ export function ClaimView({ claim }: { claim: Claim }) {
       ))}
       <p className="claim__text">{claim.text}</p>
       <details className="claim__checks">
-        <summary>How this was checked</summary>
+        <summary>
+          How this was checked: {claim.checks.filter((check) => check.passed).length} of {claim.checks.length} checks passed
+        </summary>
         <ul>
           {claim.checks.map((check) => (
             <li key={check.name}>
