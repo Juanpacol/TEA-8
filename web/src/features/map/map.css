@@ -553,3 +553,27 @@
   color: var(--text);
   font-size: 0.8rem;
 }
+
+.glossary {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.glossary summary {
+  cursor: pointer;
+}
+
+.glossary dl {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.glossary dt {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.glossary dd {
+  margin: 0;
+}
