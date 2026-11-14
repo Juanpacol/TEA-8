@@ -18,7 +18,7 @@ export function RotationPicker({ summaries, selectedId, onSelect }: Props) {
           onClick={() => onSelect(summary.id)}
         >
           <strong>{rotationName(summary)}</strong>
-          <span>{summary.isCurrent ? 'In use today' : 'Hypothetical: not seen in the observed fields'}</span>
+          <span>{summary.isCurrent ? 'In use today' : 'Hypothetical'}</span>
         </button>
       ))}
     </div>

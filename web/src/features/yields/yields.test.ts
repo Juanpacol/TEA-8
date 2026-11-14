@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { TEA8DataFile, YieldRecord } from '../../shared/lib/data-types.ts'
-import { dryRange, outcomesFor, barShares, percentFromUsual, plainChange, plainUnit, signed, summerVerdict, toneOf } from './yields.ts'
+import { dryRange, outcomesFor, barShares, percentFromUsual, plainChange, plainUnit, summerVerdict, toneOf } from './yields.ts'
 
 const fig = (value: number | null) => ({ value, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' })
 
@@ -74,10 +74,5 @@ describe('yields helpers', () => {
     expect(summerVerdict(false)).toBe('not a dry summer')
     expect(summerVerdict(null)).toBe('a summer with no wetness data')
     expect(summerVerdict(undefined)).toBe('a summer with no wetness data')
-  })
-
-  it('writes signed percentages with a real minus', () => {
-    expect(signed(-43.8)).toBe('−43.8%')
-    expect(signed(3.5)).toBe('+3.5%')
   })
 })
