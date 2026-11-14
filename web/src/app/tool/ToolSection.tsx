@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
+import { FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
 import { MapLegend, MapView, YearControl } from '../../features/map/index.ts'
 import { RotationPicker, useRotations } from '../../features/rotations/index.ts'
@@ -45,6 +46,11 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                       <OriginKey />
                     </div>
                   ),
+                },
+                {
+                  id: 'field',
+                  label: 'Field',
+                  content: <FieldPanel points={data.region.case_points} year={year} onSelectYear={setYear} />,
                 },
                 {
                   id: 'missing',
