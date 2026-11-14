@@ -264,10 +264,6 @@
   padding: var(--space-4) 0;
 }
 
-.section--center {
-  text-align: center;
-}
-
 .section__big {
   margin: 0;
   color: var(--ochre);
@@ -369,21 +365,123 @@
   color: var(--origin-citation);
 }
 
-.points {
-  margin: 0;
+/* Limits: the honesty section, a bordered card like the safety card of the reference page. */
+.safety {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  padding: var(--space-5) 0 var(--space-4);
 }
 
-.points dt {
+.safety h2,
+.open-source h2,
+.differentiators h2,
+.cta h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.875rem, 1.5rem + 1.6vw, 2.5rem);
+}
+
+.safety__tagline {
+  margin: 0 0 var(--space-3);
+  color: var(--text-soft);
+}
+
+.safety__card {
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(234, 242, 248, 0.04);
+}
+
+.safety .checklist li::before {
+  color: var(--ochre);
   font-weight: 700;
+}
+
+/* Open source: a short statement and one button, instead of a list of links. */
+.open-source {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: var(--space-5) 0;
+  text-align: center;
+}
+
+.open-source p {
+  margin: 0;
+  max-width: 48ch;
+  color: var(--text-soft);
+}
+
+.open-source__note {
+  font-size: 0.9rem;
+}
+
+.outline-link {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: 1px solid var(--text);
+  border-radius: 3px;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Differentiators: four cards with a thin top rule. */
+.differentiators {
+  padding: var(--space-5) 0 var(--space-4);
+}
+
+.differentiators__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.differentiators__card {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.differentiators__card h3 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
   color: var(--ochre);
 }
 
-.points dd {
+.differentiators__card p {
   margin: 0;
   color: var(--text-soft);
+  line-height: 1.5;
 }
+
+@media (max-width: 860px) {
+  .differentiators__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Call to action: a serif closing line, the button and one quiet link. */
+.cta {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  padding: calc(var(--space-5) * 2) 0 var(--space-5);
+  text-align: center;
+}
+
+.cta__link {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text);
+}
+
 
 /* Demo: a silent loop of the tool in a window frame, like a screen recording. */
 .demo {

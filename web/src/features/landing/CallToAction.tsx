@@ -3,14 +3,14 @@ import './landing.css'
 
 export function CallToAction() {
   return (
-    <section className="section section--center">
-      <h2>See what the data says</h2>
+    <section className="cta">
+      <h2>See what the data says.</h2>
       <a href="#/tool">
-        <Button>Try the tool</Button>
+        <Button>Open the tool</Button>
       </a>
-      <p>
-        <a href="https://github.com/Juanpacol/TEA-8">View the code</a>
-      </p>
+      <a className="cta__link" href="https://github.com/Juanpacol/TEA-8">
+        GitHub repository
+      </a>
     </section>
   )
 }
