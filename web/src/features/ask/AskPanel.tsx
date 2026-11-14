@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
-import { Button, OriginLabel } from '../../shared/components/index.ts'
+import { OriginLabel } from '../../shared/components/index.ts'
 import type { Rotation } from '../../shared/lib/rotation.ts'
 import { rotationName } from '../rotations/labels.ts'
 import { ClaimView } from './ClaimView.tsx'
@@ -28,7 +28,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
     if (state.status === 'answered' || state.status === 'failed') outcome.current?.scrollIntoView({ block: 'nearest' })
   }, [state])
 
-  function submit(event: FormEvent) {
+  function submit(event: { preventDefault: () => void }) {
     event.preventDefault()
     if (question.trim()) void ask(question.trim())
   }
@@ -38,31 +38,59 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
     void ask(example)
   }
 
+  const loading = state.status === 'loading'
   return (
     <div className="ask">
+      {english && (
+        <p className="ask__language">
+          <span aria-hidden="true">ⓘ</span> {english}
+        </p>
+      )}
       <form className="ask__form" onSubmit={submit}>
-        {english && <p className="ask__language">{english}</p>}
-        <label htmlFor="question">{t('ask.question')}</label>
-        <textarea
-          id="question"
-          value={question}
-          maxLength={MAX_LENGTH}
-          rows={2}
-          placeholder={t('ask.placeholder')}
-          onChange={(event) => setQuestion(event.target.value)}
-        />
+        <label htmlFor="question" className="ask__label">
+          {t('ask.question')}
+        </label>
+        <div className="ask__composer">
+          <textarea
+            id="question"
+            value={question}
+            maxLength={MAX_LENGTH}
+            rows={2}
+            placeholder={t('ask.placeholder')}
+            onChange={(event) => setQuestion(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault()
+                submit(event)
+              }
+            }}
+          />
+          <button type="submit" className="ask__send" aria-label={t('ask.send')} disabled={loading || !question.trim()}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+          </button>
+        </div>
         <ul className="ask__examples" aria-label={t('ask.examplesAria')}>
           {EXAMPLES.map((example) => (
             <li key={example}>
-              <Button type="button" variant="ghost" disabled={state.status === 'loading'} onClick={() => askExample(example)}>
-                {example}
-              </Button>
+              <button type="button" className="ask__example" disabled={loading} onClick={() => askExample(example)}>
+                <span>{example}</span>
+                <span aria-hidden="true">→</span>
+              </button>
             </li>
           ))}
         </ul>
-        <Button type="submit" disabled={state.status === 'loading' || !question.trim()}>
-          {state.status === 'loading' ? t('ask.loading') : t('ask.send')}
-        </Button>
+        {loading && (
+          <p className="ask__loading" role="status">
+            <span className="ask__dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            {t('ask.loading')}
+          </p>
+        )}
       </form>
 
       <div ref={outcome}>
