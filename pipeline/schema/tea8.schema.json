@@ -34,8 +34,8 @@
   },
   "$defs": {
     "origin": {
-      "enum": ["nasa_data", "platform_calculation", "model_text", "citation_to_verify"],
-      "description": "Where a statement or figure comes from. Every statement carries one."
+      "enum": ["nasa_data", "platform_calculation", "model_text", "citation", "citation_to_verify"],
+      "description": "Where a statement or figure comes from. 'citation' is a source that was opened and read; 'citation_to_verify' is one that was not. Every statement carries one."
     },
     "figure": {
       "type": "object",

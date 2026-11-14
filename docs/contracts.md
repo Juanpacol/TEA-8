@@ -10,7 +10,7 @@ How the layers of TEA-8 talk to each other, and who owns what. Related: [user-st
 
 Rules baked into the schema:
 - Every number is a `figure`: value, unit, source, parameter and query date. Unknown data is `value: null`, never zero.
-- Every sentence is a `statement` with an `origin`: `nasa_data`, `platform_calculation`, `model_text` or `citation_to_verify`.
+- Every sentence is a `statement` with an `origin`: `nasa_data`, `platform_calculation`, `model_text`, `citation` (a source that was opened and read) or `citation_to_verify` (one that was not).
 - There are exactly three rotations. Alternatives have `hypothetical: true`.
 - **The pipeline computes the rotations and their rules.** The web app only displays and compares what the file contains. Rotation logic in `web/` (`rules.ts`, `compare.ts`) works on the data in this file and does not decide agronomy.
 

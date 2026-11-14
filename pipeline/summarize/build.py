@@ -3,9 +3,9 @@
 Usage: python -m pipeline.summarize.build
 Reads pipeline/output/raw/, writes web/public/data/summary.json and validates it.
 
-The rotations still come from rotations.placeholder.json until BE-5 and BE-6
-produce sourced rules and explanations. While that is true the file is marked
-simulated.
+Rotations and their sourced rules come from pipeline/rotations/rotations.json.
+Their explanations are empty until BE-6 generates them, so the file stays
+marked simulated until then.
 """
 
 import json
@@ -20,7 +20,7 @@ from pipeline.points import CASE_POINTS
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "pipeline" / "schema" / "tea8.schema.json"
-PLACEHOLDER_ROTATIONS = Path(__file__).with_name("rotations.placeholder.json")
+ROTATIONS = ROOT / "pipeline" / "rotations" / "rotations.json"
 OUTPUT = ROOT / "web" / "public" / "data" / "summary.json"
 BASELINE_YEARS = range(2001, 2024)
 CLIMATE_POINT = "point-a"
@@ -86,6 +86,13 @@ def build_case_points(crops: dict, soil: dict) -> list:
     return points
 
 
+def build_rotations() -> list:
+    rotations = json.loads(ROTATIONS.read_text(encoding="utf-8"))["rotations"]
+    for rotation in rotations:
+        rotation["explanation"] = {"why": [], "evidence": [], "gaps": [], "risks": []}
+    return rotations
+
+
 def build() -> dict:
     load = lambda name: json.loads((RAW_DIR / name).read_text(encoding="utf-8"))
     return {
@@ -95,12 +102,13 @@ def build() -> dict:
         "region": {"name": "McLean County", "state": "Illinois",
                    "case_points": build_case_points(load("crops.json"), load("soil.json"))},
         "seasons": build_seasons(load(f"power_{CLIMATE_POINT}.json")),
-        "rotations": json.loads(PLACEHOLDER_ROTATIONS.read_text(encoding="utf-8")),
+        "rotations": build_rotations(),
         "limits": [
             "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
             "Climate figures are for point A only and summarize June to August.",
             "There are no yields: comparisons measure stress and exposure, not outcomes.",
-            "Climate, soil and crop history are real; rotations are placeholders until their rules are sourced.",
+            "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies.",
+            "Rotation explanations are not generated yet.",
         ],
     }
 
