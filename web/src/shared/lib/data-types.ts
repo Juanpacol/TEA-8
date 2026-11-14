@@ -106,6 +106,10 @@ export interface Rule {
   text: string;
   origin: Origin;
   citation?: string;
+  /**
+   * Marks a read source that cautions against the rotation. It is shown under risks, not as supporting evidence.
+   */
+  kind?: "risk";
 }
 /**
  * One sentence of an explanation with its origin label.

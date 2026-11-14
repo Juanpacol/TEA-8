@@ -20,6 +20,9 @@ class DataFilesTest(unittest.TestCase):
         errors = list(validator.iter_errors(json.loads(WEB.read_text(encoding="utf-8"))))
         self.assertEqual([e.message for e in errors], [])
 
+    def test_no_statement_waits_for_a_source_to_be_read(self):
+        self.assertNotIn("citation_to_verify", WEB.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()
