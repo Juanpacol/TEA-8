@@ -62,6 +62,9 @@ export function YearOutcome({ data, rotation, year }: Props) {
           ),
         )}
       </ul>
+      {season?.dry === true && rotation.summer_field_share?.value != null && (
+        <p className="outcome__range">{t('outcome.exposure', { n: Math.round(rotation.summer_field_share.value) })}</p>
+      )}
       {outcomes.some((outcome) => outcome.kind === 'yield') && (
         <p className="outcome__range">{t('outcome.legend')}</p>
       )}

@@ -183,6 +183,8 @@ export const en = {
   'picker.hypothetical': 'Hypothetical',
   'compare.note': 'What each crop did in {year} against its usual yield, as county figures. It is not a result for the rotation.',
   'compare.noData': 'no county data in this tool',
+  'compare.exposure': 'Crop in the field in summer: about {n}% of June to August days',
+  'outcome.exposure': 'In a dry summer like this one, this rotation keeps a crop in the field on about {n}% of June to August days (USDA usual planting and harvest dates, 1997). This measures exposure, not yield.',
   'compare.gaps': 'What we do not know: {n}',
 
   'origin.key': 'What the labels mean',
