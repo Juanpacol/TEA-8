@@ -3,6 +3,7 @@ import {
   Footer,
   Hero,
   HowItWorks,
+  Intro,
   Problem,
   Sources,
   WhyItHoldsUp,
@@ -16,16 +17,19 @@ export function App() {
   const state = useData()
 
   return (
-    <main style={{ maxWidth: 820, margin: '0 auto', padding: '0 var(--space-3)' }}>
-      <Hero driest={state.status === 'ready' ? driestSummer(state.data.seasons) : null} />
-      <Problem />
-      <HowItWorks />
-      <WontTell />
-      <ToolSection state={state} />
-      <Sources />
-      <WhyItHoldsUp />
-      <CallToAction />
-      <Footer />
-    </main>
+    <>
+      <Hero />
+      <Intro driest={state.status === 'ready' ? driestSummer(state.data.seasons) : null} />
+      <main style={{ maxWidth: 820, margin: '0 auto', padding: '0 var(--space-3)' }}>
+        <Problem />
+        <HowItWorks />
+        <WontTell />
+        <ToolSection state={state} />
+        <Sources />
+        <WhyItHoldsUp />
+        <CallToAction />
+        <Footer />
+      </main>
+    </>
   )
 }
