@@ -4,8 +4,7 @@ Usage: python -m pipeline.summarize.build
 Reads pipeline/output/raw/, writes web/public/data/summary.json and validates it.
 
 Rotations and their sourced rules come from pipeline/rotations/rotations.json.
-Their explanations are empty until BE-6 generates them, so the file stays
-marked simulated until then.
+Their explanations are generated from templates by pipeline/explain/.
 """
 
 import json
@@ -15,6 +14,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+from pipeline.explain.templates import explain
 from pipeline.download.power import RAW_DIR, START_YEAR, summer_mean
 from pipeline.points import CASE_POINTS
 
@@ -86,29 +86,29 @@ def build_case_points(crops: dict, soil: dict) -> list:
     return points
 
 
-def build_rotations() -> list:
+def build_rotations(seasons: list) -> list:
     rotations = json.loads(ROTATIONS.read_text(encoding="utf-8"))["rotations"]
     for rotation in rotations:
-        rotation["explanation"] = {"why": [], "evidence": [], "gaps": [], "risks": []}
+        rotation["explanation"] = explain(rotation, seasons, rotations)
     return rotations
 
 
 def build() -> dict:
     load = lambda name: json.loads((RAW_DIR / name).read_text(encoding="utf-8"))
+    seasons = build_seasons(load(f"power_{CLIMATE_POINT}.json"))
     return {
         "schema_version": "1",
-        "simulated": True,
+        "simulated": False,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "region": {"name": "McLean County", "state": "Illinois",
                    "case_points": build_case_points(load("crops.json"), load("soil.json"))},
-        "seasons": build_seasons(load(f"power_{CLIMATE_POINT}.json")),
-        "rotations": build_rotations(),
+        "seasons": seasons,
+        "rotations": build_rotations(seasons),
         "limits": [
             "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
             "Climate figures are for point A only and summarize June to August.",
             "There are no yields: comparisons measure stress and exposure, not outcomes.",
             "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies.",
-            "Rotation explanations are not generated yet.",
         ],
     }
 
