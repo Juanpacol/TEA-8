@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "simulated": false,
-  "generated_at": "2026-11-14T15:20:27Z",
+  "generated_at": "2026-11-14T19:14:38Z",
   "region": {
     "name": "McLean County",
     "state": "Illinois",
@@ -254,6 +254,12 @@
       }
     ]
   },
+  "dry_summer_rule": {
+    "threshold": -1.0,
+    "unit": "standard deviations of summer root-zone wetness (NASA POWER GWETROOT)",
+    "baseline": "2001-2023",
+    "rationale": "A summer is dry when its root-zone wetness is at least one standard deviation below the 2001-2023 mean. The cut is a project choice, not taken from a cited source."
+  },
   "seasons": [
     {
       "year": 2001,
@@ -284,7 +290,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2002,
@@ -315,7 +322,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2003,
@@ -346,7 +354,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2004,
@@ -377,7 +386,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2005,
@@ -408,7 +418,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": true
     },
     {
       "year": 2006,
@@ -439,7 +450,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": true
     },
     {
       "year": 2007,
@@ -470,7 +482,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2008,
@@ -501,7 +514,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2009,
@@ -532,7 +546,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2010,
@@ -563,7 +578,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2011,
@@ -594,7 +610,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2012,
@@ -625,7 +642,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": true
     },
     {
       "year": 2013,
@@ -656,7 +674,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2014,
@@ -687,7 +706,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2015,
@@ -718,7 +738,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2016,
@@ -749,7 +770,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2017,
@@ -780,7 +802,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2018,
@@ -811,7 +834,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2019,
@@ -842,7 +866,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2020,
@@ -873,7 +898,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2021,
@@ -904,7 +930,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2022,
@@ -935,7 +962,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2023,
@@ -966,7 +994,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": true
     },
     {
       "year": 2024,
@@ -997,7 +1026,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2025,
@@ -1028,7 +1058,8 @@
         "source": "NASA POWER",
         "parameter": "T2M",
         "queried_on": "2026-11-14"
-      }
+      },
+      "dry": false
     },
     {
       "year": 2026,
@@ -1058,6 +1089,1259 @@
         "unit": "°C",
         "source": "NASA POWER",
         "parameter": "T2M",
+        "queried_on": "2026-11-14"
+      },
+      "dry": false
+    }
+  ],
+  "yields": [
+    {
+      "year": 2001,
+      "crop": "corn",
+      "yield": {
+        "value": 158.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 160.0,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -1.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2002,
+      "crop": "corn",
+      "yield": {
+        "value": 144.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 163.2,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -11.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2003,
+      "crop": "corn",
+      "yield": {
+        "value": 182.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 166.3,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 9.4,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2004,
+      "crop": "corn",
+      "yield": {
+        "value": 185.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 169.5,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 9.2,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2005,
+      "crop": "corn",
+      "yield": {
+        "value": 161.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 172.6,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -6.7,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2006,
+      "crop": "corn",
+      "yield": {
+        "value": 182.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 175.8,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 3.5,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2007,
+      "crop": "corn",
+      "yield": {
+        "value": 196.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 179.0,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 9.5,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2008,
+      "crop": "corn",
+      "yield": {
+        "value": 190.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 182.1,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 4.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2009,
+      "crop": "corn",
+      "yield": {
+        "value": 186.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 185.3,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 0.4,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2010,
+      "crop": "corn",
+      "yield": {
+        "value": 169.5,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 188.4,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -10.0,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2011,
+      "crop": "corn",
+      "yield": {
+        "value": 159.6,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 191.6,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -16.7,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2012,
+      "crop": "corn",
+      "yield": {
+        "value": 109.5,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 194.7,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -43.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2013,
+      "crop": "corn",
+      "yield": {
+        "value": 188.6,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 197.9,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -4.7,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2014,
+      "crop": "corn",
+      "yield": {
+        "value": 218.3,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 201.1,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 8.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2015,
+      "crop": "corn",
+      "yield": {
+        "value": 199.2,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 204.2,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -2.5,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2016,
+      "crop": "corn",
+      "yield": {
+        "value": 218.1,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 207.4,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 5.2,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2017,
+      "crop": "corn",
+      "yield": {
+        "value": 223.9,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 210.5,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 6.4,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2018,
+      "crop": "corn",
+      "yield": {
+        "value": 229.3,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 213.7,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 7.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2019,
+      "crop": "corn",
+      "yield": {
+        "value": 198.8,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 216.8,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -8.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2020,
+      "crop": "corn",
+      "yield": {
+        "value": 200.7,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 220.0,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -8.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2021,
+      "crop": "corn",
+      "yield": {
+        "value": 205.7,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 223.1,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -7.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2022,
+      "crop": "corn",
+      "yield": {
+        "value": 232.3,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 226.3,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 2.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2023,
+      "crop": "corn",
+      "yield": {
+        "value": 223.3,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 229.5,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -2.7,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2024,
+      "crop": "corn",
+      "yield": {
+        "value": 246.7,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 232.6,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 6.1,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2025,
+      "crop": "corn",
+      "yield": {
+        "value": 243.1,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 235.8,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 3.1,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2001,
+      "crop": "soybeans",
+      "yield": {
+        "value": 49.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 46.4,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 5.5,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2002,
+      "crop": "soybeans",
+      "yield": {
+        "value": 54.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 47.5,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 13.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2003,
+      "crop": "soybeans",
+      "yield": {
+        "value": 36.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 48.6,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -26.0,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2004,
+      "crop": "soybeans",
+      "yield": {
+        "value": 54.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 49.7,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 8.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2005,
+      "crop": "soybeans",
+      "yield": {
+        "value": 54.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 50.8,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 6.2,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2006,
+      "crop": "soybeans",
+      "yield": {
+        "value": 54.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 51.9,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 4.0,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2007,
+      "crop": "soybeans",
+      "yield": {
+        "value": 54.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 53.0,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 1.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2008,
+      "crop": "soybeans",
+      "yield": {
+        "value": 51.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 54.2,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -5.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2009,
+      "crop": "soybeans",
+      "yield": {
+        "value": 54.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 55.3,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -2.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2010,
+      "crop": "soybeans",
+      "yield": {
+        "value": 58.5,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 56.4,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 3.8,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2011,
+      "crop": "soybeans",
+      "yield": {
+        "value": 56.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 57.5,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -2.5,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2012,
+      "crop": "soybeans",
+      "yield": {
+        "value": 52.3,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 58.6,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -10.7,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2013,
+      "crop": "soybeans",
+      "yield": {
+        "value": 57.7,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 59.7,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -3.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2014,
+      "crop": "soybeans",
+      "yield": {
+        "value": 63.2,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 60.8,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 4.0,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2015,
+      "crop": "soybeans",
+      "yield": {
+        "value": 64.6,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 61.9,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 4.4,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2016,
+      "crop": "soybeans",
+      "yield": {
+        "value": 63.8,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 63.0,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 1.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2017,
+      "crop": "soybeans",
+      "yield": {
+        "value": 66.8,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 64.1,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 4.3,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2018,
+      "crop": "soybeans",
+      "yield": {
+        "value": 67.5,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 65.2,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 3.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2019,
+      "crop": "soybeans",
+      "yield": {
+        "value": 61.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 66.3,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -7.9,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2020,
+      "crop": "soybeans",
+      "yield": {
+        "value": 63.9,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 67.4,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -5.1,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2021,
+      "crop": "soybeans",
+      "yield": {
+        "value": 67.4,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 68.5,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -1.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2022,
+      "crop": "soybeans",
+      "yield": {
+        "value": 68.8,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 69.6,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": -1.1,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2023,
+      "crop": "soybeans",
+      "yield": {
+        "value": 71.8,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 70.7,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 1.6,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2024,
+      "crop": "soybeans",
+      "yield": {
+        "value": 74.2,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 71.8,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 3.4,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
+        "queried_on": "2026-11-14"
+      }
+    },
+    {
+      "year": 2025,
+      "crop": "soybeans",
+      "yield": {
+        "value": 74.0,
+        "unit": "bu/acre",
+        "source": "USDA NASS QuickStats",
+        "parameter": "SOYBEANS - YIELD, MEASURED IN BU / ACRE",
+        "queried_on": "2026-11-14"
+      },
+      "expected": {
+        "value": 72.9,
+        "unit": "bu/acre",
+        "source": "TEA-8 calculation",
+        "parameter": "linear trend of the non-dry summers",
+        "queried_on": "2026-11-14"
+      },
+      "change_vs_trend": {
+        "value": 1.5,
+        "unit": "percent",
+        "source": "TEA-8 calculation",
+        "parameter": "yield / expected yield - 1",
         "queried_on": "2026-11-14"
       }
     }
@@ -1094,7 +2378,7 @@
         ],
         "gaps": [
           {
-            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "text": "No yield data exists for this rotation: county yields cover corn and soybeans as a whole, so the comparison measures stress and exposure, not outcomes.",
             "origin": "platform_calculation"
           },
           {
@@ -1169,7 +2453,7 @@
             "origin": "platform_calculation"
           },
           {
-            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "text": "No yield data exists for this rotation: county yields cover corn and soybeans as a whole, so the comparison measures stress and exposure, not outcomes.",
             "origin": "platform_calculation"
           },
           {
@@ -1251,7 +2535,7 @@
             "origin": "platform_calculation"
           },
           {
-            "text": "No yield data is included: the climate comparison measures stress and exposure, not outcomes.",
+            "text": "No yield data exists for this rotation: county yields cover corn and soybeans as a whole, so the comparison measures stress and exposure, not outcomes.",
             "origin": "platform_calculation"
           },
           {
@@ -1276,7 +2560,7 @@
   "limits": [
     "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
     "Climate figures are for point A only and summarize June to August.",
-    "There are no yields: comparisons measure stress and exposure, not outcomes.",
+    "Yields are county averages for corn and soybeans from USDA surveys. They say nothing about each field or each rotation, so comparisons measure stress and exposure, not outcomes.",
     "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies."
   ]
 }

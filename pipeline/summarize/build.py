@@ -17,6 +17,7 @@ from jsonschema import Draft202012Validator
 from pipeline.explain.templates import explain
 from pipeline.download.power import RAW_DIR, START_YEAR, summer_mean
 from pipeline.points import CASE_POINTS
+from pipeline.summarize.yields import build_yields
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / "pipeline" / "schema" / "tea8.schema.json"
@@ -25,6 +26,14 @@ OUTPUT = ROOT / "web" / "public" / "data" / "summary.json"
 API_COPY = ROOT / "api" / "data" / "summary.json"  # the api image carries its own copy
 BASELINE_YEARS = range(2001, 2024)
 CLIMATE_POINT = "point-a"
+DRY_THRESHOLD = -1.0  # standard deviations of summer root-zone wetness; a project choice, see DRY_RULE
+DRY_RULE = {
+    "threshold": DRY_THRESHOLD,
+    "unit": "standard deviations of summer root-zone wetness (NASA POWER GWETROOT)",
+    "baseline": "2001-2023",
+    "rationale": "A summer is dry when its root-zone wetness is at least one standard deviation below the "
+                 "2001-2023 mean. The cut is a project choice, not taken from a cited source.",
+}
 
 
 def figure(value, unit, source, parameter, queried_on):
@@ -60,6 +69,8 @@ def build_seasons(power: dict) -> list:
             "temperature": figure(rounded(summer_mean(series["T2M"], year), 1),
                                   "°C", "NASA POWER", "T2M", queried_on),
         })
+        dev = seasons[-1]["root_wetness_deviation"]["value"]
+        seasons[-1]["dry"] = None if dev is None else dev <= DRY_THRESHOLD
     return seasons
 
 
@@ -103,12 +114,14 @@ def build() -> dict:
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "region": {"name": "McLean County", "state": "Illinois",
                    "case_points": build_case_points(load("crops.json"), load("soil.json"))},
+        "dry_summer_rule": DRY_RULE,
         "seasons": seasons,
+        "yields": build_yields({s["year"] for s in seasons if s["dry"]}),
         "rotations": build_rotations(seasons),
         "limits": [
             "NASA POWER uses a grid of about 50 km: it represents the area, not the plot.",
             "Climate figures are for point A only and summarize June to August.",
-            "There are no yields: comparisons measure stress and exposure, not outcomes.",
+            "Yields are county averages for corn and soybeans from USDA surveys. They say nothing about each field or each rotation, so comparisons measure stress and exposure, not outcomes.",
             "Alternative rotations are hypothetical: they do not exist in the observed fields and rest on the cited studies.",
         ],
     }
