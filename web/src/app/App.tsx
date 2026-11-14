@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react'
 import {
   CallToAction,
   Connector,
@@ -17,7 +18,8 @@ import {
 import { useData } from '../shared/hooks/useData.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
 import { useSmoothScroll } from '../shared/hooks/useSmoothScroll.ts'
-import { ToolPage } from './ToolPage.tsx'
+// The tool (map, soil zones) loads only when someone opens it, so the landing stays light.
+const ToolPage = lazy(() => import('./ToolPage.tsx').then((module) => ({ default: module.ToolPage })))
 
 function Landing() {
   const state = useData()
@@ -60,5 +62,11 @@ function Landing() {
 }
 
 export function App() {
-  return useRoute() === 'tool' ? <ToolPage /> : <Landing />
+  return useRoute() === 'tool' ? (
+    <Suspense fallback={null}>
+      <ToolPage />
+    </Suspense>
+  ) : (
+    <Landing />
+  )
 }
