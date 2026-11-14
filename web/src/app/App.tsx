@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AskPanel } from '../features/ask/index.ts'
 import { EvidencePanel, Limits, Notice } from '../features/evidence/index.ts'
 import {
   CallToAction,
@@ -25,6 +26,7 @@ function Rotations({ data }: { data: TEA8DataFile }) {
         <RotationList summaries={summaries} selectedId={selectedId} onSelect={select} />
       </Panel>
       {selected && <EvidencePanel rotation={selected} />}
+      {selected && <AskPanel rotation={selected} />}
     </>
   )
 }
