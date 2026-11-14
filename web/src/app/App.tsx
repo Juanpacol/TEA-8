@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Limits, Notice } from '../features/evidence/index.ts'
+import { EvidencePanel, Limits, Notice } from '../features/evidence/index.ts'
 import { MapView, YearControl } from '../features/map/index.ts'
 import { RotationList, useRotations } from '../features/rotations/index.ts'
 import { Panel } from '../shared/components/index.ts'
@@ -7,11 +7,14 @@ import { useData } from '../shared/hooks/useData.ts'
 import type { TEA8DataFile } from '../shared/lib/data-types.ts'
 
 function Rotations({ data }: { data: TEA8DataFile }) {
-  const { summaries, selectedId, select } = useRotations(data)
+  const { summaries, selectedId, selected, select } = useRotations(data)
   return (
-    <Panel title="Three rotations, side by side">
-      <RotationList summaries={summaries} selectedId={selectedId} onSelect={select} />
-    </Panel>
+    <>
+      <Panel title="Three rotations, side by side">
+        <RotationList summaries={summaries} selectedId={selectedId} onSelect={select} />
+      </Panel>
+      {selected && <EvidencePanel rotation={selected} />}
+    </>
   )
 }
 
