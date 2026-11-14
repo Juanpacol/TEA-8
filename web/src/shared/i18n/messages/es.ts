@@ -84,6 +84,9 @@ export const es: Record<MessageKey, string> = {
   'compare.none': 'ningún otro año',
   'year.label': 'Año:',
   'year.valuetext': 'Verano de {year}',
+  'year.prev': 'Año anterior',
+  'year.next': 'Año siguiente',
+  'year.dry': 'Veranos secos',
 
   'legend.few': 'Menos plantas',
   'legend.many': 'Más plantas',
