@@ -243,7 +243,6 @@ export const en = {
   'wont.4': 'Satellite and model data are estimates seen from above, not measurements taken in the field.',
   'wont.5': 'Without real yields, the comparison measures stress and exposure, not outcomes.',
   'demo.title': 'See it in action',
-  'demo.aria': 'Silent clip of the tool: change the year on the map, pick a rotation, read its evidence and ask a question',
   'demo.note': 'A prototype built for the NASA Space Apps Challenge, not agronomic advice.',
   'open.title': 'Open code, open data',
   'open.text': 'Every number comes from public NASA and USDA services, and the code is public, so anyone can check where a figure comes from or challenge it.',
