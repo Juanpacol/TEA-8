@@ -49,7 +49,8 @@ Deadlines, form, demo format, evaluation criteria and the pre-submit checklist: 
 - Each feature exposes only what is needed through its `index.ts`.
 - Anything 3D, if done, goes in `features/globe/` with lazy loading.
 - Dependencies go in one direction: components, hooks, rules. Rules do not import React, `fetch` or files.
-- No Docker. Live AI, if done, goes in a serverless function in `web/api/`; pre-generated explanations are the base. The API key goes in environment variables, never in the repository.
+- Live AI questions go through the `api/` service on Google Cloud Run; pre-generated explanations are the fallback. The API key lives in Secret Manager, never in the repository or in the web app.
+- Work is split by layer into user stories: see [docs/user-stories.md](docs/user-stories.md).
 - TypeScript recommended for data and props.
 - Tests next to each file, first on the rules and on the validation of figures and citations.
 - No folders or layers "just in case".
