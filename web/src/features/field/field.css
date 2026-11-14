@@ -1,0 +1,85 @@
+.field {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field__point {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field__title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.field__soil,
+.field__subtitle,
+.field__legend,
+.field__source {
+  margin: 0;
+}
+
+.field__figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+}
+
+.field__source,
+.field__legend {
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+.field__years {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.field__year {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  padding: 0.3rem 0;
+  background: var(--surface-raised);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.field__year[aria-pressed='true'] {
+  border-color: var(--ochre);
+}
+
+.field__year:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.field__letter {
+  font-weight: 700;
+}
+
+.field__letter[data-crop='Corn'] {
+  color: var(--ochre);
+}
+
+.field__letter[data-crop='Soybeans'] {
+  color: var(--accent);
+}
+
+.field__number {
+  color: var(--text-soft);
+  font-size: 0.7rem;
+}

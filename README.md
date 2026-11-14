@@ -95,6 +95,7 @@ tea/
         │   ├── landing/           one section per file
         │   ├── map/               map and timeline
 │   ├── season/            season headline and figures for the chosen year
+│   ├── field/             soil and crop history of each case point
         │   ├── ask/               question box and verified answers
         │   ├── rotations/         pure rules (rules.ts, compare.ts), hooks, components and tests
         │   └── evidence/          evidence sections, origin key, limits and notices
