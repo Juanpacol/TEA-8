@@ -17,7 +17,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [year, setYear] = useState(2023)
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
-  const [showVegetation, setShowVegetation] = useState(false)
+  const [showVegetation, setShowVegetation] = useState(true)
   const [place, setPlace] = useState<Place | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
   const point = data.region.case_points[0]
@@ -46,10 +46,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
           <p className="map-hint map-hint--small">{t('tool.mapHint')}</p>
           <div className="map-toolbar">
             <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
-            <details className="map-more">
-              <summary>{t('tool.moreOptions')}</summary>
-              <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
-            </details>
+            <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
           </div>
           {showVegetation && <MapLegend year={year} />}
         </div>

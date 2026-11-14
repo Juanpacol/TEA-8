@@ -54,5 +54,6 @@ export const BASES: Record<BaseId, Base> = {
   },
 }
 
-export const BASE_ORDER: BaseId[] = ['simple', 'map', 'aerial', 'vegetation']
-export const DEFAULT_BASE: BaseId = 'simple'
+/** Backgrounds offered on the control. `simple` and `vegetation` stay defined but are not offered: an empty or low-detail map hid the NASA layer. */
+export const BASE_ORDER: BaseId[] = ['map', 'aerial']
+export const DEFAULT_BASE: BaseId = 'map'

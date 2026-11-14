@@ -18,7 +18,6 @@ export const es: Record<MessageKey, string> = {
   'step.3': '3 · POR QUÉ',
   'tool.where': 'Empiece aquí: díganos dónde está o elija un campo de ejemplo.',
   'tool.mapHint': 'O haga clic en el mapa para ver qué sabemos de cualquier lugar.',
-  'tool.moreOptions': 'Más opciones',
   'tool.question': '¿Qué podría sembrar?',
   'tool.tabsLabel': 'Sobre {name}',
   'tab.why': 'Por qué',
