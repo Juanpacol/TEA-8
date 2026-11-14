@@ -1,8 +1,19 @@
 import { useState } from 'react'
 import { Limits, Notice } from '../features/evidence/index.ts'
 import { MapView, YearControl } from '../features/map/index.ts'
+import { RotationList, useRotations } from '../features/rotations/index.ts'
 import { Panel } from '../shared/components/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
+import type { TEA8DataFile } from '../shared/lib/data-types.ts'
+
+function Rotations({ data }: { data: TEA8DataFile }) {
+  const { summaries, selectedId, select } = useRotations(data)
+  return (
+    <Panel title="Three rotations, side by side">
+      <RotationList summaries={summaries} selectedId={selectedId} onSelect={select} />
+    </Panel>
+  )
+}
 
 export function App() {
   const state = useData()
@@ -34,6 +45,7 @@ export function App() {
           <MapView points={state.data.region.case_points} year={year} />
         </Panel>
       )}
+      {state.status === 'ready' && <Rotations data={state.data} />}
       {state.status === 'ready' && <Limits limits={state.data.limits ?? []} simulated={state.data.simulated} />}
     </main>
   )
