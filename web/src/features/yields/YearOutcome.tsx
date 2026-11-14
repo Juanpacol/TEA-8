@@ -1,5 +1,5 @@
 import type { Rotation, TEA8DataFile } from '../../shared/lib/data-types.ts'
-import { describeChange, dryRange, outcomesFor, signed, summerVerdict } from './yields.ts'
+import { dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict } from './yields.ts'
 import './yields.css'
 
 type Props = { data: TEA8DataFile; rotation: Rotation; year: number }
@@ -22,8 +22,8 @@ export function YearOutcome({ data, rotation, year }: Props) {
         {outcomes.map((outcome) =>
           outcome.kind === 'yield' ? (
             <li key={outcome.crop}>
-              <strong>{outcome.crop}</strong> {outcome.record.yield.value} {outcome.record.yield.unit}:{' '}
-              {describeChange(outcome.record.change_vs_trend.value)} ({outcome.record.expected.value} expected)
+              <strong>{outcome.crop}</strong>: {plainChange(outcome.record.change_vs_trend.value)}. {Math.round(outcome.record.yield.value ?? 0)}{' '}
+              {plainUnit(outcome.record.yield.unit)} against about {Math.round(outcome.record.expected.value ?? 0)} usually.
             </li>
           ) : (
             <li key={outcome.crop} className="outcome__none">
@@ -35,14 +35,14 @@ export function YearOutcome({ data, rotation, year }: Props) {
       </ul>
       {ranges.map((range) => (
         <p key={range.crop} className="outcome__range">
-          In the {range.count} dry summers since 2001, {range.crop} went from {signed(range.lowest)} to {signed(range.highest)} against its
-          trend.
+          In the {range.count} dry summers since 2001, {range.crop} went from {percentFromUsual(range.lowest)} to{' '}
+          {percentFromUsual(range.highest)}.
         </p>
       ))}
       <details className="outcome__how">
-        <summary>How this is worked out</summary>
+        <summary>How we worked this out</summary>
         <p>
-          Yields are county averages from USDA NASS surveys, not measurements of these fields or of this rotation. The expected yield is a
+          Yields are county averages from USDA NASS surveys, not measurements of these fields or of this rotation. The usual yield is a
           straight line through the years that were not dry summers.
         </p>
         {rule && (
