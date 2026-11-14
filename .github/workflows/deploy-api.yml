@@ -47,6 +47,7 @@ jobs:
             --region "$REGION" \
             --image "$IMAGE:${{ github.sha }}" \
             --allow-unauthenticated \
+            --set-secrets META_MODEL_API_KEY=meta-model-api-key:latest \
             --max-instances 1 \
             --min-instances 0 \
             --cpu 1 \
