@@ -1,29 +1,27 @@
-:root {
-  --bg: #0b1412;
-  --text: #eaf2ef;
-  --text-soft: #93a8a1;
-  --accent: #4fc3cd;
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: system-ui, sans-serif;
+  font-family: var(--font);
+  line-height: 1.5;
 }
 
-.shell {
-  display: grid;
-  place-content: center;
-  min-height: 100vh;
-  text-align: center;
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--space-2);
+  line-height: 1.2;
 }
 
-.shell h1 {
-  margin: 0;
-  color: var(--accent);
-}
-
-.shell p {
-  color: var(--text-soft);
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
