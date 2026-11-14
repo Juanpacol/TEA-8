@@ -409,9 +409,9 @@ Updated November 14, 2026, on branch `feat/map-default-ndvi` (not merged to `mai
 | CG-3 | Done |
 | GLO-1 | Done (next to the map) |
 | TL-7 | Done: water, soil or income opens its tab first and says what the data cannot tell; income says there are no prices |
-| UI-1 | Tool part done (tabs, 40 px targets, no sideways scroll). Images over 300 KB and loading the tool apart from the landing are not done |
+| UI-1 | Done: tabs on one line, 40 px targets, no sideways scroll at 500 px, landing images under 300 KB, tool loaded apart from the landing (landing bundle 490 to 283 KB) |
 | SCA-1 | Partly: baseline, first year and example questions come from the data file; "How to add a region" is in the README. County outline, towns and map limits are still in the web code |
-| MAP-2 | Not done |
+| MAP-2 | Not done on purpose: GIBS has no NDVI anomaly layer. It needs a per-pixel 2001-2023 mean computed in the pipeline from the colored tiles, which means inverting the color scale; that is not worth the risk of a wrong map the night before the deadline |
 | REL-1, CG-9, CG-10, DEP-12, SUB-1 | Not done: they need a merge to `main`, a real phone or the owner |
 
 ### Audit findings
