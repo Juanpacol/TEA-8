@@ -64,11 +64,17 @@ Deadlines, form, demo format, evaluation criteria and the pre-submit checklist: 
 - The repository is public: nothing is published that should not be public.
 
 ### Workflow
-- `main` is protected: changes arrive only through pull requests, merged with **rebase and merge**. Work on a branch, push it, open a PR.
-- Small commits, with a message that says what changes and why.
+- **Nothing goes straight to `main`.** No direct commits, no direct pushes, no force pushes. `main` is protected on GitHub, and the rule applies to everyone, including the repository owner and any AI assistant.
+- Every change, code or documentation, follows the same path: create a branch, commit, push the branch, open a pull request, merge it with **rebase and merge** (the only merge method enabled). The branch is deleted after the merge.
+- Branch names use a type prefix: `feat/`, `fix/`, `docs/`, `chore/`.
+- Small pull requests with a clear title and a description that says what changes and why.
 - Before pushing, check that there are no keys, personal data or heavy files.
 - Data test results are saved in the README with their limits.
-- All documentation, code comments and commit messages are written in English.
+
+### Language
+- **Everything is in English**: documentation, code (identifiers, comments, tests), commit messages, branch names, pull request titles and descriptions, issues, user-interface text and submission material.
+- The only exception is conversation between teammates, which is free.
+- A pull request that adds text or code in another language is not merged until it is translated.
 
 ## 3. SI/AI usage log
 
