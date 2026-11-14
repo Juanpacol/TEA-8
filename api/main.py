@@ -1,9 +1,14 @@
-"""TEA-8 API service: health endpoint with CORS allowlist and rate limiting (DEP-5, DEP-9)."""
+"""TEA-8 API service: /health and POST /ask, with a CORS allowlist and rate limiting (DEP-5, DEP-9, BE-7)."""
 import json
 import os
+import threading
 import time
 from collections import defaultdict, deque
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+from ask.llm import MuseSparkClient
+from ask.service import handle_ask
 
 ALLOWED_ORIGINS = {
     o.strip()
@@ -42,6 +47,11 @@ class RateLimiter:
 
 
 LIMITER = RateLimiter(PER_IP_LIMIT, GLOBAL_LIMIT)
+LIMITER_LOCK = threading.Lock()
+MAX_BODY_BYTES = 4096
+
+DATA = json.loads((Path(__file__).parent / "data" / "summary.json").read_text(encoding="utf-8"))
+LLM = MuseSparkClient(os.environ.get("META_MODEL_API_KEY"), os.environ.get("META_MODEL_ID", "muse-spark-1.3"))
 
 
 def client_ip(forwarded_for, fallback):
@@ -74,6 +84,23 @@ class Handler(BaseHTTPRequestHandler):
         origin = self.headers.get("Origin")
         return bool(origin) and origin not in ALLOWED_ORIGINS
 
+    def _rate_limited(self):
+        """Answers 429 and returns True when this client is over the limit."""
+        ip = client_ip(self.headers.get("X-Forwarded-For"), self.client_address[0])
+        with LIMITER_LOCK:
+            allowed = LIMITER.allow(ip)
+        if allowed:
+            return False
+        body = json.dumps({"error": "too many requests"}).encode()
+        self.send_response(429)
+        self.send_header("Retry-After", str(WINDOW_SECONDS))
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self._cors()
+        self.end_headers()
+        self.wfile.write(body)
+        return True
+
     def do_OPTIONS(self):
         if self._blocked_origin():
             return self._json(403, {"error": "origin not allowed"})
@@ -86,20 +113,27 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(200, {"status": "ok", "service": "tea-8-api"})
         if self._blocked_origin():
             return self._json(403, {"error": "origin not allowed"})
-        ip = client_ip(self.headers.get("X-Forwarded-For"), self.client_address[0])
-        if not LIMITER.allow(ip):
-            self.send_response(429)
-            self.send_header("Retry-After", str(WINDOW_SECONDS))
-            body = json.dumps({"error": "too many requests"}).encode()
-            self.send_header("Content-Type", "application/json")
-            self.send_header("Content-Length", str(len(body)))
-            self._cors()
-            self.end_headers()
-            self.wfile.write(body)
+        if self._rate_limited():
             return
         self._json(404, {"error": "not found"})
+
+    def do_POST(self):
+        if self._blocked_origin():
+            return self._json(403, {"error": "origin not allowed"})
+        if self.path != "/ask":
+            return self._json(404, {"error": "not found"})
+        if self._rate_limited():
+            return
+        try:
+            length = int(self.headers.get("Content-Length") or 0)
+        except ValueError:
+            length = -1
+        if length < 0 or length > MAX_BODY_BYTES:
+            return self._json(413, {"error": {"code": "BAD_REQUEST", "message": "request too large"}})
+        status, payload = handle_ask(self.rfile.read(length), DATA, LLM)
+        self._json(status, payload)
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "8080"))
-    HTTPServer(("0.0.0.0", port), Handler).serve_forever()
+    ThreadingHTTPServer(("0.0.0.0", port), Handler).serve_forever()
