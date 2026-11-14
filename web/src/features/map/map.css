@@ -295,3 +295,8 @@
   font-size: 0.85rem;
   cursor: pointer;
 }
+
+.map-hint--small {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}

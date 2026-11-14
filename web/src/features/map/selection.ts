@@ -25,6 +25,11 @@ export function formatCoords(place: Place): string {
   return `${lat}, ${lon}`
 }
 
+/** The case point the place sits on (within the snap distance), or null when it is somewhere else. */
+export function pointAt(place: Place, points: CasePoint[]): CasePoint | null {
+  return points.find((point) => distanceKm(place, point) <= SNAP_KM) ?? null
+}
+
 export type PlaceInfo = {
   title: string
   /** The case point the place is (or is closest to), so the rest of the page can follow it. */
