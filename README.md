@@ -94,9 +94,10 @@ tea/
         ├── features/
         │   ├── landing/           one section per file
         │   ├── map/               map and timeline
+        │   ├── ask/               question box and verified answers
         │   ├── rotations/         pure rules (rules.ts, compare.ts), hooks, components and tests
-        │   └── evidence/          evidence panel and origin labels
-        ├── shared/                components, hooks and lib (data loading, utilities)
+        │   └── evidence/          evidence panel and limits
+        ├── shared/                components (including the origin label), hooks and lib (data loading, shared types)
         └── styles/                palette variables and global styles
 ```
 
@@ -111,7 +112,7 @@ tea/
 | Infrastructure | `shared/lib` (data loading), `pipeline/` and `api/` |
 | Presentation | Each feature's components |
 
-Dependencies go in one direction only: components use hooks, hooks use rules and data loading, and rules import nothing from React, from `fetch`, or from files.
+Features do not import from each other: anything two features share lives in `shared/`. Dependencies go in one direction only: components use hooks, hooks use rules and data loading, and rules import nothing from React, from `fetch`, or from files.
 
 If the project grows, a `server/` folder is born with `domain/`, `services/`, `repositories/` and `api/`, and `shared/lib` starts calling that API. It is a small change because the boundary with the data is already isolated.
 

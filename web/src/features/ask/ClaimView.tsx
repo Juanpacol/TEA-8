@@ -1,4 +1,4 @@
-import { OriginLabel } from '../evidence/index.ts'
+import { OriginLabel } from '../../shared/components/index.ts'
 import type { Claim } from '../../shared/lib/askApi.ts'
 import './ask.css'
 

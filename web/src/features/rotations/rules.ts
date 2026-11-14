@@ -1,8 +1,7 @@
 // Pure rules: no React, no fetch, no files. The pipeline decides the agronomy;
 // these helpers only classify what the data file already says.
-import type { Origin, TEA8DataFile } from '../../shared/lib/data-types.ts'
-
-export type Rotation = TEA8DataFile['rotations'][number]
+import type { Origin } from '../../shared/lib/data-types.ts'
+import type { Rotation } from '../../shared/lib/rotation.ts'
 
 /** A source that was opened and read. `citation_to_verify` was not. */
 export function isSourceRead(origin: Origin): boolean {
