@@ -35,6 +35,18 @@ class VerifierTest(unittest.TestCase):
         self.assertEqual(r["origins"], ["nasa_data"])
         self.assertEqual([c["passed"] for c in r["checks"]], [True, True, True])
 
+    def test_county_yield_claim_is_verified(self):
+        r = verify(claim("Corn yielded 109.5 bu/acre in 2012, 43.8 percent below the usual 194.7.", "yield.corn.2012"), BUNDLE)
+        self.assertTrue(r["verified"])
+
+    def test_misread_yield_is_caught(self):
+        r = verify(claim("Corn yielded 119.5 bu/acre in 2012.", "yield.corn.2012"), BUNDLE)
+        self.assertFalse(r["verified"])
+
+    def test_dry_summer_is_citable(self):
+        r = verify(claim("Summer 2012 counts as dry under the project rule.", "season.2012.dry"), BUNDLE)
+        self.assertTrue(r["verified"])
+
     def test_number_not_in_evidence_fails(self):
         r = verify(claim("Summer 2012 root wetness was 0.75.", "season.2012.root_wetness"), BUNDLE)
         self.assertFalse(r["verified"])

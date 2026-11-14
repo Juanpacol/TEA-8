@@ -42,6 +42,30 @@ def build_bundle(data):
             f"Summer {y} root-zone wetness deviation", s["root_wetness_deviation"], y)
         bundle[f"season.{y}.rainfall"] = _figure(f"Summer {y} rainfall", s["rainfall"], y)
         bundle[f"season.{y}.temperature"] = _figure(f"Summer {y} temperature", s["temperature"], y)
+    for s in data["seasons"]:
+        if s.get("dry") is not None:
+            verdict = "dry" if s["dry"] else "not dry"
+            bundle[f"season.{s['year']}.dry"] = entry(
+                f"Summer {s['year']} counts as {verdict} under the project rule.",
+                "platform_calculation", [float(s["year"])])
+    rule = data.get("dry_summer_rule")
+    if rule:
+        bundle["method.dry_summer"] = entry(rule["rationale"], "platform_calculation")
+    for r in data.get("yields", []):
+        crop, y = r["crop"], r["year"]
+        value, expected, change = r["yield"], r["expected"], r["change_vs_trend"]
+        if value["value"] is None:
+            continue
+        text = (f"County {crop} yield in {y}: {value['value']} {value['unit']} ({value['source']}, "
+                f"queried {value['queried_on']}).")
+        numbers = [value["value"], float(y)] + numbers_in(value["unit"])
+        if expected["value"] is not None:
+            text += f" The usual yield from the trend of non-dry summers was {expected['value']} {expected['unit']} (TEA-8 calculation)."
+            numbers.append(expected["value"])
+        if change["value"] is not None:
+            text += f" That is a change of {change['value']} percent against the usual yield (TEA-8 calculation)."
+            numbers.append(abs(change["value"]))
+        bundle[f"yield.{crop.replace(' ', '_')}.{y}"] = entry(text, "platform_calculation", numbers)
     for p in data["region"]["case_points"]:
         pid, soil = p["id"], p["soil"]
         bundle[f"soil.{pid}.name"] = entry(f"{p['label']} soil is {soil['name']}, {soil['drainage']}, "
