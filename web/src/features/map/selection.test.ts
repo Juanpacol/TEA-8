@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { powerCell } from './cell.ts'
-import { describePlace, distanceKm, formatCoords, insideCell } from './selection.ts'
+import { describePlace, distanceKm, formatCoords, insideCell, pointAt } from './selection.ts'
 
 const figure = { value: 1, unit: 'x', source: 's', parameter: 'p', queried_on: '2026-11-14' }
 function point(id: string, label: string, lat: number, lon: number, soil: string, crop: string): CasePoint {
@@ -13,6 +13,13 @@ function point(id: string, label: string, lat: number, lon: number, soil: string
 }
 const A = point('point-a', 'Point A', 40.284, -88.6594, 'Osco', 'Corn')
 const B = point('point-b', 'Point B', 40.6954, -88.6735, 'Chenoa', 'Soybeans')
+
+describe('pointAt', () => {
+  it('returns the point under the click and null elsewhere', () => {
+    expect(pointAt({ lat: 40.2845, lon: -88.6595 }, [A, B])?.id).toBe('point-a')
+    expect(pointAt({ lat: 40.5, lon: -88.6 }, [A, B])).toBeNull()
+  })
+})
 
 describe('place helpers', () => {
   it('measures a known distance', () => {

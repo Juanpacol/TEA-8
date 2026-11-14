@@ -30,7 +30,7 @@
 /* One screen: the map on the left, the choice and its reasons on the right. Only the reasons scroll, inside their own box. */
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
   gap: var(--space-4);
   height: clamp(720px, calc(100vh - 4rem), 880px);

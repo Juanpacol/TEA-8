@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
-import { FieldPanel } from '../../features/field/index.ts'
+import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
-import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, YearControl, type BaseId, type Place } from '../../features/map/index.ts'
+import { BaseControl, CompareControl, DEFAULT_BASE, MapLegend, MapView, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, seasonOf } from '../../features/season/index.ts'
@@ -15,10 +15,11 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [year, setYear] = useState(2023)
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
-  const [showVegetation, setShowVegetation] = useState(true)
+  const [showVegetation, setShowVegetation] = useState(false)
   const [place, setPlace] = useState<Place | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
   const point = data.region.case_points[0]
+  const chosen = place ? pointAt(place, data.region.case_points) : null
 
   return (
     <>
@@ -30,8 +31,15 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         </header>
 
         <div className="workspace__map">
+          <p className="map-hint">Start here: pick an example field.</p>
+          <FieldCards
+            points={data.region.case_points}
+            year={year}
+            selectedId={chosen?.id ?? null}
+            onSelect={(p) => setPlace({ lat: p.lat, lon: p.lon })}
+          />
           <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} base={base} showVegetation={showVegetation} selected={place} onSelect={setPlace} />
-          <p className="map-hint">Click anywhere on the map, or on a point, to see what we know about that spot.</p>
+          <p className="map-hint map-hint--small">Or click the map to see what we know about any spot.</p>
           <div className="map-toolbar">
             <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
             <details className="map-more">
@@ -39,7 +47,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
               <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
             </details>
           </div>
-          <MapLegend year={year} />
+          {showVegetation && <MapLegend year={year} />}
         </div>
 
         <div className="workspace__side">
