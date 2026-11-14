@@ -14,15 +14,13 @@ export function MapLegend({ year }: { year: number }) {
         <span>More plants</span>
       </div>
       <p className="legend__key">
-        <span className="legend__dash" aria-hidden="true" /> area the weather numbers describe <span className="legend__line" aria-hidden="true" />{' '}
-        {COUNTY_NAME}
+        <span className="legend__line" aria-hidden="true" /> {COUNTY_NAME}: the only area with project data
       </p>
       <figcaption className="legend__caption">
         <details>
           <summary>About this map</summary>
           <p>
-            Green shows how much vegetation there was in mid-July (NASA satellite). The dashed box is the area the climate
-            figures describe, about 50 km across. The solid line is {COUNTY_NAME}, the only area with project data. Click the
+            Green shows how much vegetation there was in mid-July (NASA satellite). The shaded area is {COUNTY_NAME}, the only area with project data. The weather figures cover about 50 km around it. Click the
             map to see what the data says about that spot.
           </p>
           <p>

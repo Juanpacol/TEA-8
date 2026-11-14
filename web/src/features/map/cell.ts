@@ -28,3 +28,9 @@ export function pointSummary(point: CasePoint, year: number): string {
   const cropText = crop ? `${crop.toLowerCase()} in ${year}` : `no crop record for ${year}`
   return `${point.label}: ${point.soil.name} soil, ${cropText}`
 }
+
+/** The short label on a point of the map: its name and the crop recorded for the year. */
+export function pointLabel(point: CasePoint, year: number): string {
+  const crop = point.crop_history.find((entry) => entry.year === year)?.crop
+  return `${point.label}: ${crop ? crop.toLowerCase() : 'no crop record'}`
+}

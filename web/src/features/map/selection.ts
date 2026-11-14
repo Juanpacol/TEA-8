@@ -56,8 +56,8 @@ export function describePlace(place: Place, points: CasePoint[], year: number): 
   }
   lines.push(
     insideCell(place, cell)
-      ? 'Weather: the numbers at the top of the page apply here (they cover the whole dashed box).'
-      : 'Weather: no numbers here, this spot is outside the dashed box.',
+      ? 'Weather: the numbers at the top of the page apply here (they cover this whole area, about 50 km across).'
+      : 'Weather: no numbers here, this spot is outside the 50 km area they cover.',
   )
   lines.push(insideCounty(place.lat, place.lon) ? `Inside ${COUNTY_NAME}.` : `Outside ${COUNTY_NAME}: this tool has no data here.`)
 

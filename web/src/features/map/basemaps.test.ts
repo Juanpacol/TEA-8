@@ -2,10 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { BASES, BASE_ORDER, DEFAULT_BASE } from './basemaps.ts'
 
 describe('map backgrounds', () => {
-  it('lists every background once and defaults to the satellite photo', () => {
+  it('lists every background once and defaults to the plain one', () => {
     expect(new Set(BASE_ORDER).size).toBe(BASE_ORDER.length)
     expect(BASE_ORDER).toEqual(Object.keys(BASES))
-    expect(DEFAULT_BASE).toBe('aerial')
+    expect(DEFAULT_BASE).toBe('simple')
   })
 
   it('uses tile URLs with z, y and x and credits its source', () => {
