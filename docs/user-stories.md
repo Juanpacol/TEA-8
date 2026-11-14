@@ -183,18 +183,145 @@ As a farmer, I want to ask a question from the page.
 **FE-9. Farmer priorities (optional)**
 As a farmer, I want to choose what matters most to me: water, income or soil.
 
+## Frontend, second set
+
+Updated November 14, 2026. FE-1 to FE-8 are merged: the landing has its eight sections as plain text and the tool has the map, the rotation cards, the evidence panel, the question box and the limits. They were read in the code and seen rendered, not exercised in a browser. FE-9 is not started.
+
+This set finishes the frontend. It is split in two groups so that two worktrees can work at the same time without touching the same files.
+
+### Landing (`web/src/features/landing/`)
+
+**LP-1. Page look**
+As a visitor, I want the page to look like one finished product.
+- The visual decision in [landing-page.md](landing-page.md) (light page, tool in a dark panel) is applied or replaced, and the document says which.
+- A serif face for headlines, a condensed face for labels and a text face for reading are loaded locally, not from an external server.
+- Colors and fonts come from `styles/tokens.css`.
+
+**LP-2. Hero**
+As a visitor, I want to understand in one screen what TEA-8 does.
+- Headline, the 2012 figure computed from the data file, and the "Open the tool" button that scrolls to the tool.
+- One or two images with a feathered edge.
+- The text stays readable over the images at every width.
+
+**LP-3. The problem**
+As a visitor, I want the problem stated with one real number.
+- The 91% figure is large, with its source and the note that it is a sample.
+
+**LP-4. How it works and what it won't tell you**
+As a visitor, I want the four steps and the limits before I use the tool.
+- Four numbered steps, numbers at low opacity.
+- The limits as a checked list. Each line is true in the deployed product.
+
+**LP-5. Sources, code and AI statement**
+As a judge, I want to check where the data and the code come from.
+- Links to NASA POWER, NASA GIBS, USDA Soil Data Access and CropScape.
+- Link to the public repository.
+- One line on the use of AI, linked to CONTRIBUTING, naming the model that answers questions.
+
+**LP-6. Why it holds up**
+As a judge, I want each claim backed by something I can see in the tool.
+- Every point is true in the deployed product. "Doesn't need a server to run" is corrected: the question box uses a server, the rest works without it.
+
+**LP-7. Call to action and footer**
+As a visitor, I want to know what to do next and who made this.
+- Links to the tool, the repository and the team page.
+- NASA and USDA data credits, the list of image references with licenses, and "Created for the NASA Space Apps Challenge". No NASA logo.
+
+**LP-8. Images**
+As the project owner, I want every image to be safe to publish.
+- Each image has its author, license and source link recorded in [landing-page.md](landing-page.md) and CONTRIBUTING.
+- An image made with an AI tool carries a visible watermark.
+- No image is larger than 300 KB.
+
+**LP-9. Motion**
+As a visitor, I want movement that helps and never blocks reading.
+- Sections appear softly on scroll.
+- With `prefers-reduced-motion`, nothing moves and all content is visible.
+
+**LP-10. Small screens**
+As a visitor on a phone, I want to read the whole landing.
+- No horizontal scroll at 360 px.
+- Text does not overlap images.
+
+Order: LP-1, LP-2, then LP-3 to LP-7 in any order, then LP-8, LP-9, LP-10.
+
+### Tool (`web/src/features/map/`, `rotations/`, `evidence/`, `ask/`)
+
+**TL-1. Tool section in its own folder**
+As a developer, I want the tool composed outside `App.tsx` so the two worktrees do not edit the same file.
+- The `Tool` and `Rotations` compositions move from `app/App.tsx` to `features/tool/`.
+- `App.tsx` only places the landing sections and the tool.
+- The page renders the same as before.
+
+**TL-2. Map that explains itself**
+As a farmer, I want to know what the colors on the map mean.
+- Moving the year control changes the image, with a visible loading state.
+- A legend explains NDVI in one sentence and shows the color scale.
+- A caption says the image is the mid-July 16-day composite of the chosen year.
+- The year control works with the keyboard.
+
+**TL-3. The summer of the chosen year**
+As a farmer, I want the weather of the year I am looking at.
+- Next to the map: summer rainfall, temperature, root-zone wetness and its deviation from the 2001-2023 mean, for the selected year, from the data file.
+- Each figure shows its source, and that it comes from a grid of about 50 km.
+- A year with no data says so instead of showing zero.
+
+**TL-4. Rotation cards**
+As a farmer, I want to compare the three rotations at a glance.
+- Three cards side by side on a wide screen, stacked on a phone.
+- The counts (sources read, sources to verify, gaps, risks) say what they mean.
+- The hypothetical rotations are clearly marked. There is no score and no "best".
+
+**TL-5. Evidence panel**
+As a farmer, I want to check every sentence.
+- Each sentence shows its origin label, and a short key explains the labels.
+- A citation with a link opens the source in a new tab.
+- Choosing another card moves the reader to the panel.
+
+**TL-6. Question box, finished**
+As a farmer, I want an answer I can check, or a clear message when there is none.
+- Tested against the deployed API from the production site.
+- Each claim shows whether it was verified and where it comes from.
+- Different messages for: no data to answer, daily limit reached, service down or slow. The last one shows the pre-generated explanation.
+- Two or three example questions can be clicked.
+
+**TL-7. Farmer priorities (optional, was FE-9)**
+As a farmer, I want to choose what matters most to me: water, income or soil.
+- Choosing a priority changes which evidence is shown first. It does not rank the rotations or produce a score.
+- Where the data cannot speak to a priority (no yields, no prices), the tool says so.
+
+**TL-8. Uncertainty in view**
+As a farmer, I want the limits next to the data, not only at the bottom.
+- The fixed notice stays at the top of the tool.
+- The limits of the data file are visible without leaving the tool.
+
+**TL-9. Small screens and accessibility**
+As a farmer on a phone, I want to use the whole tool.
+- No horizontal scroll at 360 px. The map can be scrolled past with one finger.
+- Visible focus, labels on every control, and readable contrast.
+
+**TL-10. Browser check**
+As the project owner, I want proof that the deployed tool works end to end.
+- In the production site: change the year, open the evidence of each rotation, ask one question, and force a failure to see the fallback.
+- The result is written in the deployment status table. This closes DEP-10.
+
+Order: TL-1 first, then TL-2 to TL-6 in any order, then TL-8, TL-9, TL-10. TL-7 only if time remains.
+
 ## Worktrees
 
 | Worktree | Branch | Folders it touches | Stories |
 |---|---|---|---|
 | `tea-deploy` | `chore/deploy` | `.github/`, Vercel and Cloud Run configuration | DEP-2 to DEP-12 |
 | `tea-backend` | `feat/pipeline` | `pipeline/`, `api/` | BE-2 to BE-7 |
-| `tea-frontend` | `feat/web` | `web/src/` | FE-1 to FE-9 |
+| `tea-frontend` | one branch per story | `web/src/features/landing/` | LP-1 to LP-10 |
+| `tea-frontend-tool` | one branch per story | `web/src/features/map/`, `rotations/`, `evidence/`, `ask/`, `tool/` | TL-1 to TL-10 |
 
 Rules to avoid conflicts:
 - Each worktree touches only its own folders.
 - The schema is changed only from the backend worktree, through a pull request.
 - Pull requests are small and frequent, rebased on `main` before merging.
+- `app/App.tsx`, `styles/`, `shared/` and `package.json` are shared by the two frontend worktrees. A change to any of them goes in its own small pull request, merged before the work that needs it.
+- Each worktree works in its own folder on disk. Nobody develops in the main checkout, and work is committed before switching tasks.
 
 Coordination points:
 - FE-8 needs BE-7 and DEP-10.
