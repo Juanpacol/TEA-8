@@ -1,12 +1,12 @@
-/* TEA-8 palette: dark teal, ochre, red accent. Components use only these variables. */
+/* TEA-8 palette: night-sky blue, teal and ochre accents, red for alerts. Components use only these variables. */
 :root {
-  --bg: #0b1412;
-  --surface: #12201d;
-  --surface-raised: #1a2d29;
-  --border: #284039;
+  --bg: #07101c;
+  --surface: #0e1b2e;
+  --surface-raised: #16273d;
+  --border: #223650;
 
-  --text: #eaf2ef;
-  --text-soft: #93a8a1;
+  --text: #eaf2f8;
+  --text-soft: #9bb0c4;
 
   --accent: #4fc3cd;
   --ochre: #d9a441;
@@ -26,4 +26,6 @@
   --space-4: 1.5rem;
   --space-5: 2.5rem;
   --font: system-ui, sans-serif;
+  --font-serif: 'Playfair Display Variable', Georgia, serif;
+  --font-display: 'Barlow Condensed', system-ui, sans-serif;
 }
