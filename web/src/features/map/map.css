@@ -281,7 +281,7 @@
 }
 
 .map-compare select {
-  height: 2rem;
+  height: 2.5rem;
   padding: 0 var(--space-3);
   background: var(--surface-raised);
   border: 1px solid var(--border);
