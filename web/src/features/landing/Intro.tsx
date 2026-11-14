@@ -8,6 +8,7 @@ export function Intro({ driest }: { driest: DriestSummer | null }) {
 
   return (
     <section id="intro" ref={ref} className={`intro reveal${visible ? ' reveal--visible' : ''}`}>
+      <div className="intro__art" aria-hidden="true" />
       <div className="intro__inner">
         <h2>TEA-8 doesn&rsquo;t tell farmers what to plant. It shows them what the data says.</h2>
         {driest && (
