@@ -19,7 +19,7 @@ export const es: Record<MessageKey, string> = {
   'tool.question': '¿Qué podría sembrar?',
   'tool.tabsLabel': 'Sobre {name}',
   'tab.why': 'Por qué',
-  'tab.field': 'Suelo y cultivos',
+  'tab.field': 'Suelo',
   'tab.compare': 'Comparar',
   'tab.missing': 'Falta ({n})',
   'tab.ask': 'Preguntar',

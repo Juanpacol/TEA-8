@@ -30,7 +30,7 @@ export function Segmented({ options, value, onChange, kind, label, idFor, contro
 
   return (
     <div
-      className="seg"
+      className={kind === 'tab' ? 'seg seg--tabs' : 'seg'}
       role={kind === 'tab' ? 'tablist' : 'radiogroup'}
       aria-label={label}
       style={{ '--n': options.length, '--i': index } as CSSProperties}

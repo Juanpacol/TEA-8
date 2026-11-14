@@ -17,7 +17,7 @@ export const en = {
   'tool.question': 'What could you plant?',
   'tool.tabsLabel': 'About {name}',
   'tab.why': 'Why',
-  'tab.field': 'Soil and crops',
+  'tab.field': 'Soil',
   'tab.compare': 'Compare',
   'tab.missing': 'Not known ({n})',
   'tab.ask': 'Ask',
