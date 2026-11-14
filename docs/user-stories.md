@@ -396,6 +396,24 @@ Visual work on the landing and the palette continues after step 5. TL-7 stays op
 
 Updated November 14, 2026, from an audit of production (`tea-8.vercel.app`), the repository and the tests. The submission closes Sunday, November 15, 11:59 p.m. Stories are ordered by priority: P0 blocks the submission, P1 raises the score, P2 only if time remains, P3 after the hackathon.
 
+### Status
+
+Updated November 14, 2026, on branch `feat/map-default-ndvi` (not merged to `main` yet).
+
+| Story | Status |
+|---|---|
+| MAP-1 | Done |
+| FIX-1 | Done: the section keeps its note and button; the video never existed |
+| DOC-1 | README done. LICENSE not added: the license and its holder are the owner's decision |
+| CG-2 | Done: `summer_field_share` per rotation, in Compare, in dry years and in `/ask` evidence. Source read: USDA NASS Handbook 628 (1997). Small grain counted as winter wheat, oat/clover as spring oats |
+| CG-3 | Done |
+| GLO-1 | Done (next to the map) |
+| TL-7 | Done: water, soil or income opens its tab first and says what the data cannot tell; income says there are no prices |
+| UI-1 | Tool part done (tabs, 40 px targets, no sideways scroll). Images over 300 KB and loading the tool apart from the landing are not done |
+| SCA-1 | Partly: baseline, first year and example questions come from the data file; "How to add a region" is in the README. County outline, towns and map limits are still in the web code |
+| MAP-2 | Not done |
+| REL-1, CG-9, CG-10, DEP-12, SUB-1 | Not done: they need a merge to `main`, a real phone or the owner |
+
 ### Audit findings
 
 | Finding | Evidence |

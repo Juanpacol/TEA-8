@@ -9,14 +9,8 @@ import './ask.css'
 
 const MAX_LENGTH = 500
 
-const EXAMPLES = [
-  'How dry was summer 2012?',
-  'How did summer 2023 compare with the 2001-2023 average?',
-  'Which rotation will give me the best yield?',
-]
-
 /** Ask a question about the data. If the service fails or is slow, the pre-generated explanation is shown instead. */
-export function AskPanel({ rotation }: { rotation: Rotation }) {
+export function AskPanel({ rotation, examples }: { rotation: Rotation; examples: string[] }) {
   const { t } = useI18n()
   const english = t('ask.englishOnly')
   const [question, setQuestion] = useState('')
@@ -72,7 +66,7 @@ export function AskPanel({ rotation }: { rotation: Rotation }) {
           </button>
         </div>
         <ul className="ask__examples" aria-label={t('ask.examplesAria')}>
-          {EXAMPLES.map((example) => (
+          {examples.map((example) => (
             <li key={example}>
               <button type="button" className="ask__example" disabled={loading} onClick={() => askExample(example)}>
                 <span>{example}</span>

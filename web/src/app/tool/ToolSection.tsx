@@ -4,9 +4,11 @@ import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
 import { BaseControl, CompareControl, DEFAULT_BASE, Glossary, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
 import { PriorityPicker, orderTabs, type Priority } from '../../features/priorities/index.ts'
+import { driestSummer } from '../../features/landing/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
 import { CompareTable, RotationPicker, rotationName, useRotations } from '../../features/rotations/index.ts'
 import { SeasonStrip, isAfterBaseline, seasonOf } from '../../features/season/index.ts'
+import { DEFAULT_BASELINE, baselineRange } from '../../shared/lib/baseline.ts'
 import { pointName, useI18n } from '../../shared/i18n/index.ts'
 import { Tabs } from '../../shared/components/index.ts'
 import type { useData } from '../../shared/hooks/useData.ts'
@@ -15,7 +17,7 @@ import './tool.css'
 
 function Workspace({ data }: { data: TEA8DataFile }) {
   const { t } = useI18n()
-  const [year, setYear] = useState(2023)
+  const [year, setYear] = useState(() => (baselineRange(data.dry_summer_rule?.baseline ?? DEFAULT_BASELINE) ?? [0, 2023])[1])
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
   const [showVegetation, setShowVegetation] = useState(true)
@@ -23,6 +25,15 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [place, setPlace] = useState<Place | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
   const point = data.region.case_points[0]
+  const baseline = data.dry_summer_rule?.baseline ?? DEFAULT_BASELINE
+  const baselineLast = (baselineRange(baseline) ?? [0, year])[1]
+  const driest = driestSummer(data.seasons, baseline)
+  // The third question is on purpose one the tool must refuse: it asks for a best option.
+  const examples = [
+    ...(driest ? [`How dry was summer ${driest.year}?`] : []),
+    `How did summer ${baselineLast} compare with the ${baseline} average?`,
+    'Which rotation will give me the best yield?',
+  ]
   const chosen = place ? pointAt(place, data.region.case_points) : null
 
   return (
@@ -107,7 +118,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
                     </div>
                   ),
                 },
-                { id: 'ask', label: t('tab.ask'), content: <AskPanel rotation={selected} /> },
+                { id: 'ask', label: t('tab.ask'), content: <AskPanel rotation={selected} examples={examples} /> },
                 { id: 'limits', label: t('tab.limits'), content: <Limits limits={data.limits ?? []} /> },
               ], priority)}
             />
