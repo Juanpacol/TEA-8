@@ -28,7 +28,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
       {data.simulated && <SimulatedNotice />}
       <div className="workspace">
         <header className="workspace__top">
-          <YearControl year={year} onChange={setYear} />
+          <YearControl year={year} onChange={setYear} dryYears={data.seasons.filter((s) => s.dry === true).map((s) => s.year)} />
           <SeasonStrip year={year} season={seasonOf(data.seasons, year)} pointLabel={pointName(t, point.label)} />
         </header>
 

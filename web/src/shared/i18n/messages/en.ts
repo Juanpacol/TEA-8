@@ -82,6 +82,9 @@ export const en = {
   'compare.none': 'no other year',
   'year.label': 'Year:',
   'year.valuetext': 'Summer {year}',
+  'year.prev': 'Previous year',
+  'year.next': 'Next year',
+  'year.dry': 'Dry summers',
 
   'legend.few': 'Fewer plants',
   'legend.many': 'More plants',
