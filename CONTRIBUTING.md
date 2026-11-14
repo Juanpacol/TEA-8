@@ -11,43 +11,14 @@ Páginas de referencia:
 
 ## 1. Requisitos del hackathon
 
-### Fechas
-- Evento: sábado 14 y domingo 15 de noviembre de 2026.
-- Entrega: antes del **domingo 15 de noviembre, 11:59 p.m., hora local del evento local** del equipo. Si el equipo está en el Universal Event, se usa la hora local del dueño del equipo.
-- Nominados, finalistas y menciones: diciembre de 2026. Ganadores globales: enero de 2027.
+Plazos, formulario, formato de la demo, criterios de evaluación y lista antes de enviar: ver [docs/hackathon-requirements.md](docs/hackathon-requirements.md).
 
-### Equipo
-- Un equipo de un solo miembro es válido en un **evento local**.
-- En el **Universal Event** hacen falta al menos 2 personas para ser elegible a la evaluación global.
-- Máximo 6 miembros. Solo se puede estar en un equipo y trabajar en un reto.
-- Todos los miembros deben estar registrados en el mismo evento, sin lista de espera, y aparecer en la pestaña "Members" del equipo.
-- No se pueden añadir miembros después de cerrar la entrega.
-- [ ] Confirmar que el equipo está inscrito en un evento local y no en el Universal.
-
-### Entrega obligatoria
-- [ ] Responder a uno de los retos oficiales (Field Shift).
-- [ ] Completar todos los campos de la página de entrega.
-- [ ] Demo: una presentación de **máximo 7 diapositivas** (incluidas portada e introducción) o un **video**. La guía indica un límite de 30 segundos para el video: confirmarlo en la Guía de entrega antes de grabar.
-- [ ] Todo el texto de la página de entrega y de los materiales enlazados **en inglés**. Un video puede estar en otro idioma, pero con subtítulos en inglés.
-- [ ] Describir **cómo se usaron herramientas de SI/IA** durante el desarrollo (la FAQ usa el término "Super Intelligence" en lugar de "Artificial Intelligence").
-- [ ] Marcar la casilla de que se leyeron los requisitos de entrega, los Términos y Condiciones del participante y la Política de privacidad.
-- [ ] Marcar la casilla de **trabajo original**: el proyecto es trabajo original del equipo y **todo recurso externo (código, texto, imágenes, aunque sea libre) está en el campo "References"**. No se usan materiales con derechos sin permiso (música, imágenes, texto).
-- [ ] Pulsar "submit" en la pestaña Project de la página del equipo. Guardar un borrador no basta.
-
-### Criterios de evaluación (puntúan de 1 a 5 en cada nivel)
-| Criterio | Qué se evalúa |
-|---|---|
-| Impact | Problema real que se atiende y alcance del efecto |
-| Creativity | Originalidad y mejora significativa sobre lo existente |
-| Validity | Base científica y viabilidad técnica, funcional o lógica |
-| Relevance | Responde directamente al reto e integra los datos de la NASA como parte central |
-| Presentation | Comunicación clara y bien contada de reto, solución e importancia |
-
-Premios globales: Best Use of Science, Best Use of Data, Best Use of Technology, Galactic Impact, Best Mission Concept, Most Inspirational, Best Use of Storytelling, Global Connection, Art & Technology y Local Impact.
-
-### Pendiente de leer
-- [ ] Términos y Condiciones del participante. No se encontró una regla explícita sobre trabajo previo al evento; la exigencia visible es la declaración de originalidad y la lista de referencias.
-- [ ] Guía de entrega completa (formato de la demo, campos obligatorios).
+### Reglas sobre el uso de SI (IA)
+- Se permite usar herramientas de SI como apoyo. **No deben usarse para idear cómo resolver el reto.** La idea de la solución debe ser del equipo.
+- Lo generado **no puede usar ni modificar marcas NASA** (logos, banderas, identificadores de misiones).
+- Se debe indicar dónde y cómo se usó: **imágenes y video** generados, con **marca de agua visible**; **audio**, con aviso en el texto descriptivo y los metadatos; **código y datos**, con aviso en el texto descriptivo y los metadatos.
+- La respuesta del campo "Use of SI" es solo para recopilar datos y no la ven los jueces. Sí ven las marcas de agua, textos y metadatos dentro del proyecto, y evalúan originalidad, intención y ejecución.
+- Consecuencia práctica: el ícono hecho con una herramienta de imágenes lleva marca de agua visible, o se hace a mano. Los archivos de código escritos con asistencia llevan un aviso (comentario de cabecera o nota en el README).
 
 ## 2. Reglas del proyecto
 
@@ -124,16 +95,3 @@ Para copiar al campo "References" de la entrega. Estado "por verificar" signific
 | Top Crop Manager, trigo en rotaciones (Ontario), https://www.topcropmanager.com/complex-crop-rotations-19018/ | Evidencia de otra región | Por verificar |
 | NASA Worldview, https://worldview.earthdata.nasa.gov/ | Referencia de diseño de interfaz | Referencia de estilo, sin código reutilizado |
 | Proyectos ganadores de Space Apps 2025 (Queñaris, Henry's Farm Adventures, Twisters) | Referencia de técnicas | Referencia de estilo, sin código reutilizado |
-
-## 5. Lista antes de enviar
-
-- [ ] El equipo está inscrito en un evento local y aparece en "Members".
-- [ ] La página de entrega está completa y en inglés.
-- [ ] La demo (diapositivas o video) cumple el formato y el límite de la guía.
-- [ ] Hay descripción del uso de SI/IA.
-- [ ] El campo "References" lista todo recurso externo de la sección 4.
-- [ ] Las dos casillas (términos y trabajo original) están marcadas.
-- [ ] El sitio publicado abre y funciona con datos reales.
-- [ ] Los límites de los datos están declarados.
-- [ ] No hay claves ni credenciales en el repositorio.
-- [ ] Se pulsó "submit" antes del domingo 15 de noviembre, 11:59 p.m. hora local.
