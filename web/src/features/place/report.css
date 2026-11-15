@@ -1,0 +1,266 @@
+/* The printed report. Hidden on screen; when printing it is the only thing on the page. Light version of the site palette. */
+.report-doc {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: letter;
+    margin: 14mm 14mm 16mm;
+  }
+
+  body.is-printing-report > :not(.report-doc) {
+    display: none !important;
+  }
+
+  body.is-printing-report {
+    background: #fff !important;
+  }
+
+  body.is-printing-report .report-doc {
+    display: block;
+    color: #1a2233;
+    font: 10pt/1.45 system-ui, sans-serif;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+.report-doc h1,
+.report-doc h2,
+.report-doc h3,
+.report-doc p {
+  margin: 0 0 0.5em;
+}
+
+.report-doc h2 {
+  margin-top: 1.4em;
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid #1f8a93;
+  color: #0c1124;
+  font-size: 12pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  break-after: avoid;
+}
+
+.report-doc h3 {
+  margin-top: 0.8em;
+  color: #0c1124;
+  font-size: 10.5pt;
+}
+
+.report-doc section {
+  break-inside: avoid-page;
+}
+
+.report-doc__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.6em;
+  border-bottom: 3px solid #0c1124;
+}
+
+.report-doc__brand {
+  color: #1f8a93;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.report-doc__header h1 {
+  color: #0c1124;
+  font-size: 18pt;
+}
+
+.report-doc__header dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.1em 0.6em;
+  margin: 0;
+  max-width: 48%;
+  font-size: 8.5pt;
+}
+
+.report-doc__header dt {
+  font-weight: 700;
+}
+
+.report-doc__header dd {
+  margin: 0;
+}
+
+.report-doc__link {
+  word-break: break-all;
+  color: #1f8a93;
+}
+
+.report-doc__notice {
+  margin-top: 0.8em !important;
+  padding: 0.5em 0.8em;
+  background: #fbf3e2;
+  border-left: 4px solid #d9a441;
+}
+
+.report-doc__toc ol {
+  columns: 2;
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.report-doc__figures {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5em;
+}
+
+.report-doc__figures div {
+  display: grid;
+  padding: 0.6em;
+  background: #f2f6f9;
+  border-top: 3px solid #1f8a93;
+}
+
+.report-doc__figures strong {
+  color: #0c1124;
+  font-size: 13pt;
+}
+
+.report-doc__figures span {
+  color: #5a6b7d;
+  font-size: 8.5pt;
+}
+
+.report-doc__map {
+  margin: 0;
+}
+
+.report-doc__map > div {
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.report-doc__map img {
+  position: absolute;
+  width: 256px;
+  height: 256px;
+}
+
+.report-doc__map svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.report-doc figcaption,
+.report-doc__source {
+  color: #5a6b7d;
+  font-size: 8pt;
+  font-style: italic;
+}
+
+.report-doc__chart {
+  width: 100%;
+  height: auto;
+}
+
+.report-doc__chart text {
+  fill: #5a6b7d;
+  font-size: 9px;
+}
+
+.report-doc__key {
+  font-size: 8.5pt;
+}
+
+.report-doc__key span {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin: 0 0.3em 0 0.8em;
+  vertical-align: middle;
+}
+
+.report-doc table {
+  width: 100%;
+  margin-bottom: 0.4em;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+}
+
+.report-doc th,
+.report-doc td {
+  padding: 0.25em 0.5em;
+  border: 1px solid #d5dbe3;
+  text-align: left;
+}
+
+.report-doc th {
+  background: #e8f3f4;
+  color: #0c1124;
+}
+
+.report-doc tr.is-dry td {
+  background: #fbf3e2;
+  font-weight: 600;
+}
+
+.report-doc__scale {
+  display: flex;
+  margin: 0 0 0.5em;
+  padding: 0;
+  list-style: none;
+  font-size: 7.5pt;
+  text-align: center;
+}
+
+.report-doc__scale li {
+  display: grid;
+  flex: 1;
+  padding: 0.3em 0.2em;
+  color: #0c1124;
+}
+
+.report-doc__cells {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 3px;
+  margin: 0 0 0.5em;
+  padding: 0;
+  list-style: none;
+  font-size: 7.5pt;
+  text-align: center;
+}
+
+.report-doc__cells li {
+  display: grid;
+  padding: 0.25em 0.1em;
+  color: #0c1124;
+}
+
+.report-doc__cells strong {
+  font-size: 10pt;
+}
+
+.report-doc__limits {
+  padding: 0.6em 0.8em 0.6em 2em;
+  background: #f2f6f9;
+  border-left: 4px solid #1f8a93;
+}
+
+.report-doc__glossary {
+  display: grid;
+  grid-template-columns: 9em 1fr;
+  gap: 0.3em 0.8em;
+  font-size: 8.5pt;
+}
+
+.report-doc__glossary dt {
+  font-weight: 700;
+}
+
+.report-doc__glossary dd {
+  margin: 0;
+}
