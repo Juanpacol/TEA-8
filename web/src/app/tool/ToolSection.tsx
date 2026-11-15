@@ -161,10 +161,6 @@ function Workspace({ data }: { data: TEA8DataFile }) {
               setZone([]);
               setDrawing(false);
             }}
-            onLoad={(corners) => {
-              setDrawing(false);
-              setZone(corners);
-            }}
           />
           <p className="map-hint map-hint--small">{t("tool.mapHint")}</p>
           {!drawing && zone.length >= 3 && <ZonePanel corners={zone} />}

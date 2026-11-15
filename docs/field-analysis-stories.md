@@ -17,7 +17,7 @@ Related: [user-stories.md](user-stories.md), [method.md](method.md), [contracts.
 |---|---|
 | FA-1 Go to a place by coordinates | Done. Checked in Chrome on the local build (2026-11-15): text that is not a coordinate and a place in Colombia each showed their message and moved nothing; `41.59, -93.62` moved the map to Des Moines and the place card said there is no data there |
 | FA-2 Evidence for one point, queried live | Done on the branch, not deployed. Checked in Chrome against a local API (2026-11-15): `38.5, -98.8` (Kansas) returned in 3 s the dry summers 2011 and 2012, the soil Harney and the crop of 2008 to 2023; downtown Des Moines returned no soil and "Developed" as crop. Not checked: the route on Cloud Run, a source that is down in real use |
-| FA-3 Draw a zone point by point | Done. Checked in Chrome on the local build (2026-11-15): four clicks drew a field and "Finish" filled it with its area; a KML of a 0.02° square in Kansas moved the map there with 387 ha (expected about 387); a GeoJSON Feature loaded with 94 ha; a file with no polygon showed its message; "Clear" removed the field |
+| FA-3 Draw a zone point by point | Done. Checked in Chrome on the local build (2026-11-15): four clicks drew a field and "Finish" filled it with its area; "Clear" removed it. Loading a KML or GeoJSON file was built first and then removed, because the farmer wants to draw on the map, not load a file |
 | FA-4 Evidence for a drawn zone | Done on the branch, not deployed. Checked in Chrome against a local API (2026-11-15): a 387 ha field in Kansas returned 8 soils with their share (Harney 37%, New Cambria 20%, Hord 17% …), the crop of 2008 to 2023 at 5 points inside it, and the dry summers 2011 and 2012; it took 31 s, mostly CropScape. A 1° triangle was refused as larger than 50 km² with its message |
 | FA-5 Report to save and share | Done on the branch. Checked in Chrome (2026-11-15): a fresh open of a `#/tool?zone=…` link restored the 387 ha field and its analysis ran; "Copy link" copied and said so; a link opened while the tool was on screen moved to the new place and to a new field. Not checked: the printed page (the print dialog was not opened) |
 | FA-6 County yields for any place | Pending (needs a USDA NASS QuickStats key) |
@@ -43,7 +43,6 @@ As a farmer, I want the soil, the crop of each year and the summer climate of th
 As a farmer, I want to mark the corners of my field on the map so the tool knows its shape.
 - A button starts drawing. Each click adds a corner; the figure can be closed, undone and cleared.
 - The page shows the area in acres and hectares.
-- The zone can also be loaded from a KML or GeoJSON file.
 - Drawing starts on the aerial photo with the vegetation colors off, and the map zooms in to level 18, so a person sees their land and clicks the corners of one field. The place card does not cover the map while drawing.
 
 **FA-4. Evidence for a drawn zone**
