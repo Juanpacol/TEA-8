@@ -10,8 +10,9 @@ from pathlib import Path
 from ask.budget import DailyBudget
 from ask.llm import MuseSparkClient
 from ask.service import handle_ask
-from place.service import handle_place
-from place.zone import handle_zone
+from place.service import handle_place, parse_place
+from place.bundle import Cache
+from place.zone import handle_zone, parse_corners
 
 ALLOWED_ORIGINS = {
     o.strip()
@@ -52,12 +53,44 @@ class RateLimiter:
 LIMITER = RateLimiter(PER_IP_LIMIT, GLOBAL_LIMIT)
 LIMITER_LOCK = threading.Lock()
 MAX_BODY_BYTES = 4096
-# A field outline of up to 200 corners.
+# A field outline of up to 200 corners, alone (/zone) or with a question (/ask).
 MAX_ZONE_BODY_BYTES = 16384
 
 DATA = json.loads((Path(__file__).parent / "data" / "summary.json").read_text(encoding="utf-8"))
 LLM = MuseSparkClient(os.environ.get("META_MODEL_API_KEY"), os.environ.get("META_MODEL_ID", "muse-spark-1.3"))
 BUDGET = DailyBudget(int(os.environ.get("DAILY_ASK_LIMIT", "300")))
+EVIDENCE = Cache()
+
+
+def complete(result):
+    """Only a full answer is kept: a refusal or a source that did not answer is asked again next time."""
+    status, body = result
+    return status == 200 and not any(isinstance(v, dict) and "error" in v for v in body.values())
+
+
+def cached_place(query):
+    place = parse_place(query)
+    key = ("place", place) if place else ("place-bad", query)
+    return EVIDENCE.get_or_make(key, lambda: handle_place(query), keep=complete)
+
+
+def cached_zone(raw):
+    corners = parse_corners(raw)
+    if corners is None:
+        return handle_zone(raw)
+    return EVIDENCE.get_or_make(("zone", tuple(corners)), lambda: handle_zone(raw), keep=complete)
+
+
+def place_evidence(payload):
+    """The evidence for the place or field a question is about, from the cache when it was just analyzed."""
+    if "place" in payload:
+        place = payload["place"] if isinstance(payload["place"], dict) else {}
+        try:
+            query = f"lat={float(place.get('lat')):.5f}&lon={float(place.get('lon')):.5f}"
+        except (TypeError, ValueError):
+            return 400, {"error": {"code": "BAD_REQUEST", "message": "place must have lat and lon"}}
+        return cached_place(query)
+    return cached_zone(json.dumps({"corners": payload.get("zone")}).encode())
 
 
 def client_ip(forwarded_for, fallback):
@@ -123,7 +156,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         path, _, query = self.path.partition("?")
         if path == "/place":
-            return self._json(*handle_place(query))
+            return self._json(*cached_place(query))
         self._json(404, {"error": "not found"})
 
     def do_POST(self):
@@ -137,12 +170,12 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length") or 0)
         except ValueError:
             length = -1
-        limit = MAX_ZONE_BODY_BYTES if self.path == "/zone" else MAX_BODY_BYTES
+        limit = MAX_ZONE_BODY_BYTES  # a question about a field carries its outline too
         if length < 0 or length > limit:
             return self._json(413, {"error": {"code": "BAD_REQUEST", "message": "request too large"}})
         if self.path == "/zone":
-            return self._json(*handle_zone(self.rfile.read(length)))
-        status, payload = handle_ask(self.rfile.read(length), DATA, LLM, BUDGET)
+            return self._json(*cached_zone(self.rfile.read(length)))
+        status, payload = handle_ask(self.rfile.read(length), DATA, LLM, BUDGET, place_evidence)
         self._json(status, payload)
 
 

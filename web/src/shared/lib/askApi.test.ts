@@ -51,3 +51,17 @@ describe('askQuestion', () => {
     expect(failureFromStatus(400, null).kind).toBe('unavailable')
   })
 })
+
+describe('askQuestion about a place', () => {
+  it('sends the place or the field with the question', async () => {
+    const calls: RequestInit[] = []
+    stubFetch(async (_url, init) => {
+      calls.push(init as RequestInit)
+      return new Response(JSON.stringify(good), { status: 200 })
+    })
+    await askQuestion('q', undefined, { baseUrl: 'https://api.test', context: { place: { lat: 38.5, lon: -98.8 } } })
+    await askQuestion('q', undefined, { baseUrl: 'https://api.test', context: { zone: [[38.49, -98.81], [38.49, -98.79], [38.51, -98.79]] } })
+    expect(JSON.parse(calls[0].body as string)).toEqual({ question: 'q', place: { lat: 38.5, lon: -98.8 } })
+    expect(JSON.parse(calls[1].body as string).zone).toHaveLength(3)
+  })
+})

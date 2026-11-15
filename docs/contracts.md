@@ -97,3 +97,10 @@ Evidence for a field outline (story FA-4). Body: `{ "corners": [[lat, lon], ...]
 - `climate`: as in `GET /place`, for the NASA POWER cell of the center.
 - A source that does not answer is `{ "error": "..." }` in its place.
 - Errors: 400 `BAD_REQUEST` (not 3 to 200 corners, or smaller than 100 m²), 400 `OUTSIDE_COVERAGE`, 400 `TOO_LARGE` (over 50 km²), 413 (body too large), 429.
+
+## POST /ask about a place or a field
+
+The body may carry `"place": { "lat", "lon" }` or `"zone": [[lat, lon], ...]` (story FA-7). The evidence bundle is then built from the answer of `GET /place` or `POST /zone` (kept in memory for an hour when every source answered), the prompt names "the place the farmer chose" or "the field the farmer drew" instead of McLean County, and `rotation_id` is ignored. The verifier is unchanged. Without either field the endpoint behaves as before (`ask-v1`).
+
+- Extra errors: the refusals of `/place` and `/zone` are passed on (400 `OUTSIDE_COVERAGE`, `TOO_LARGE`, `BAD_REQUEST`), and 502 `NO_EVIDENCE` when no source answered for the place.
+- Body limit for `/ask` and `/zone`: 16 KB.

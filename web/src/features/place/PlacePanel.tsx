@@ -2,6 +2,7 @@ import { useI18n } from '../../shared/i18n/index.ts'
 import { isUnavailable, type PlaceClimate, type PlaceEvidence, type Unavailable } from '../../shared/lib/placeApi.ts'
 import { useRef } from 'react'
 import { formatCoords } from '../map/index.ts'
+import { PlaceAsk } from './PlaceAsk.tsx'
 import { ReportActions } from './ReportActions.tsx'
 import { placeKey, usePlaceEvidence } from './usePlaceEvidence.ts'
 import './place.css'
@@ -134,6 +135,10 @@ export function PlacePanel({ place }: Props) {
         <>
           <Result evidence={current.evidence} />
           <ReportActions target={{ place }} report={report} />
+          <PlaceAsk
+            context={{ place: { lat: Number(place.lat.toFixed(5)), lon: Number(place.lon.toFixed(5)) } }}
+            examples={["Which summers were dry here?", "What soil is at this point?", "What was grown here since 2008?"]}
+          />
         </>
       )}
     </section>

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
 import { ZoneRefused, fetchZoneEvidence, isUnavailable, type ZoneEvidence } from '../../shared/lib/placeApi.ts'
 import { ClimateSection, Limits } from './PlacePanel.tsx'
+import { PlaceAsk } from './PlaceAsk.tsx'
 import { ReportActions } from './ReportActions.tsx'
 import './place.css'
 
@@ -129,6 +130,10 @@ export function ZonePanel({ corners }: { corners: Corner[] }) {
         <>
           <Result evidence={current.evidence} />
           <ReportActions target={{ zone: corners }} report={report} />
+          <PlaceAsk
+            context={{ zone: corners.map((c) => [Number(c.lat.toFixed(6)), Number(c.lon.toFixed(6))] as [number, number]) }}
+            examples={["Which soils cover most of my field?", "Which summers were dry around my field?", "What was grown in my field in 2020?"]}
+          />
         </>
       )}
     </section>

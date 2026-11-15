@@ -203,6 +203,11 @@ export const en = {
   'report.titleZone': 'TEA-8 evidence for a field',
   'report.zoneLine': '{hectares} hectares, {corners} corners, center {lat}, {lon}.',
 
+  'placeAsk.title': 'Ask about this place',
+  'placeAsk.intro': 'The AI answers only from the evidence above, and code checks every number of its answer against it. Questions and answers are in English.',
+  'placeAsk.placeholder': 'For example: was 2012 a dry summer here?',
+  'placeAsk.failed': 'The question service did not answer. The evidence above is still valid.',
+
   'season.rain': 'Rain',
   'season.temp': 'Temperature',
   'season.moisture': 'Soil moisture',
