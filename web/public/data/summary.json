@@ -1,10 +1,22 @@
 {
   "schema_version": "1",
   "simulated": false,
-  "generated_at": "2026-11-14T23:55:48Z",
+  "generated_at": "2026-11-15T00:06:01Z",
   "region": {
     "name": "McLean County",
     "state": "Illinois",
+    "reference_towns": [
+      {
+        "name": "Bloomington-Normal",
+        "lat": 40.4945,
+        "lon": -88.989
+      },
+      {
+        "name": "Le Roy",
+        "lat": 40.352,
+        "lon": -88.7642
+      }
+    ],
     "case_points": [
       {
         "id": "point-a",

@@ -44,6 +44,14 @@ export interface Region {
    * @minItems 1
    */
   case_points: [CasePoint, ...CasePoint[]];
+  /**
+   * Places to orient by and to pick from the town list. Coordinates checked against OpenStreetMap.
+   */
+  reference_towns?: {
+    name: string;
+    lat: number;
+    lon: number;
+  }[];
 }
 export interface CasePoint {
   id: string;

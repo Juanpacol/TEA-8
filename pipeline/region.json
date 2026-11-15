@@ -7,5 +7,9 @@
   "case_points": {
     "point-a": { "label": "Point A", "lon": -88.6594, "lat": 40.2840 },
     "point-b": { "label": "Point B", "lon": -88.6735, "lat": 40.6954 }
-  }
+  },
+  "reference_towns": [
+    { "name": "Bloomington-Normal", "lat": 40.4945, "lon": -88.989 },
+    { "name": "Le Roy", "lat": 40.352, "lon": -88.7642 }
+  ]
 }

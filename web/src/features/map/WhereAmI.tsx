@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
-import { REFERENCE_TOWNS } from './county.ts'
 import type { Place } from './selection.ts'
 import './map.css'
 
-type Props = { onSelect: (place: Place) => void }
+type Props = { towns: { name: string; lat: number; lon: number }[]; onSelect: (place: Place) => void }
 
 /** Two ways to say where you are without reading a map: the closest town, or the device location. */
-export function WhereAmI({ onSelect }: Props) {
+export function WhereAmI({ towns, onSelect }: Props) {
   const { t } = useI18n()
   const [note, setNote] = useState('')
 
@@ -34,12 +33,12 @@ export function WhereAmI({ onSelect }: Props) {
         <select
           value=""
           onChange={(event) => {
-            const town = REFERENCE_TOWNS.find((entry) => entry.name === event.target.value)
+            const town = towns.find((entry) => entry.name === event.target.value)
             if (town) onSelect({ lat: town.lat, lon: town.lon })
           }}
         >
           <option value="">{t('where.choose')}</option>
-          {REFERENCE_TOWNS.map((town) => (
+          {towns.map((town) => (
             <option key={town.name} value={town.name}>
               {town.name}
             </option>

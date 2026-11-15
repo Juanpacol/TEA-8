@@ -70,9 +70,10 @@ Only McLean County has been run. What a second region needs, and what is still f
 | Crop windows for the summer exposure | `pipeline/rotations/calendar.json` (the values are Illinois, USDA NASS 1997) |
 | Rotations and their cited rules | `pipeline/rotations/rotations.json` (the studies are mostly Midwest) |
 | Regenerate the data file | the commands in [pipeline/README.md](pipeline/README.md), then commit both copies of `summary.json` |
-| **Still in the web code:** county outline, reference towns and map limits | `web/src/features/map/` (`mclean-county.json`, `county.ts`, `MapView.tsx`, `soil-zones.json`) |
+| Reference towns for the town list | `reference_towns` in `pipeline/region.json` |
+| **Still in the web code:** the county outline and the soil zones | `web/src/features/map/mclean-county.json` and `soil-zones.json` (the map limits follow the outline) |
 
-The baseline years, the first year shown and the example questions already come from the data file. Until a second county runs end to end, the project does not claim that it scales.
+The baseline years, the first year shown, the example questions, the town list and the map limits already come from the data. Until a second county runs end to end, the project does not claim that it scales.
 
 ## Out of scope
 

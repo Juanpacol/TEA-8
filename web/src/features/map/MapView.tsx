@@ -65,11 +65,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       scrollWheelZoom: false,
       zoomSnap: 0.25,
       minZoom: 8,
-      // Keeps the view around the county, so nobody gets lost in the rest of the country.
-      maxBounds: [
-        [39.4, -90.4],
-        [41.6, -87.4],
-      ],
+      // Keeps the view around the county (its outline plus a margin), so nobody gets lost in the rest of the country.
+      maxBounds: L.geoJSON(COUNTY_OUTLINE).getBounds().pad(1.5),
       // On a touch screen one finger scrolls the page; the map moves with two fingers or the zoom buttons.
       dragging: !L.Browser.mobile,
     }).setView([points[0].lat + 0.2, points[0].lon], 9)

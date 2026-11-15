@@ -54,7 +54,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
         <div className="workspace__map">
           <span className="step-tag">{t('step.1')}</span>
           <p className="map-hint">{t('tool.where')}</p>
-          <WhereAmI onSelect={setPlace} />
+          <WhereAmI towns={data.region.reference_towns ?? []} onSelect={setPlace} />
           <FieldCards
             points={data.region.case_points}
             year={year}

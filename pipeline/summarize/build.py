@@ -122,6 +122,7 @@ def build() -> dict:
         "simulated": False,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "region": {"name": REGION["name"], "state": REGION["state"],
+                   "reference_towns": REGION.get("reference_towns", []),
                    "case_points": build_case_points(load("crops.json"), load("soil.json"))},
         "dry_summer_rule": DRY_RULE,
         "seasons": seasons,
