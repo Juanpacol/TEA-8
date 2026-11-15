@@ -575,6 +575,40 @@
   border-color: var(--accent);
 }
 
+.footer__sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+}
+
+.footer__label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.footer__sources a {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer__sources a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.footer__note {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
 a {
   color: var(--accent);
 }
@@ -609,4 +643,442 @@ a {
   top: var(--space-3);
   right: var(--space-3);
   z-index: 3;
+}
+
+/* AI usage page: reuses the landing sections; only the stack list is new. */
+.stack {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.stack li {
+  display: grid;
+  grid-template-columns: 9rem 1fr auto;
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--border);
+}
+
+.stack__layer {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+}
+
+.stack__tech {
+  color: var(--text-soft);
+}
+
+.stack__tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.stack__tag--ai {
+  color: var(--origin-model);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .stack li {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+}
+
+.ai-page {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* AI page typography: the serif headings of the landing, big and light like the reference pages, and small tracked caps for labels. */
+.ai-page .ai-intro {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: center;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-5) 0;
+  text-align: center;
+}
+
+.ai-page .ai-intro h1 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.75rem, 2rem + 3.5vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.ai-page .ai-intro p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 1.125rem;
+}
+
+.ai-page .stack__layer {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ai-page .stack__tag {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+}
+
+/* AI hero: two cut-outs on either side of the title, like the engravings of the Ether page. Both fade into the page colour. */
+.ai-hero {
+  position: relative;
+  overflow: clip;
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: min(92vh, 820px);
+  display: grid;
+  align-items: center;
+}
+
+.ai-hero__art {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.ai-hero__art--farmer {
+  right: 0;
+  aspect-ratio: 718 / 1000;
+  background-image: url('./assets/ai-farmer.webp');
+  opacity: 0.9;
+  mask-image: radial-gradient(ellipse closest-side, #000 30%, transparent 100%);
+}
+
+.ai-hero__art--field {
+  left: 0;
+  aspect-ratio: 561 / 1000;
+  background-image: url('./assets/ai-satellite.webp');
+  opacity: 0.85;
+  mask-image: radial-gradient(ellipse closest-side, #000 35%, transparent 92%);
+}
+
+.ai-hero .ai-intro {
+  position: relative;
+}
+
+.ai-hero .ai-intro h1,
+.ai-hero .ai-intro p {
+  text-shadow: 0 0 14px var(--bg), 0 0 32px var(--bg);
+}
+
+@media (max-width: 720px) {
+  .ai-hero__art--farmer,
+  .ai-hero__art--field {
+    opacity: 0.35;
+  }
+}
+
+/* Stat block, like "1 radiologist" on the reference page: a big figure, soft lines, and two cut-outs that run down into the next section. */
+.ai-stat {
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow-x: clip;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: calc(var(--space-5) * 1.5) var(--space-3) calc(var(--space-5) * 1.5);
+  text-align: center;
+}
+
+.ai-stat__art {
+  position: absolute;
+  top: -2rem;
+  left: -14vw;
+  z-index: -1;
+  width: min(52vw, 640px);
+  aspect-ratio: 728 / 1280;
+  background: url('./assets/ai-flow.webp') center / cover no-repeat;
+  mix-blend-mode: screen;
+  opacity: 1;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse closest-side, #000 45%, transparent 100%);
+}
+
+.ai-stat h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(3.5rem, 2.2rem + 6vw, 7rem);
+  line-height: 1;
+}
+
+.ai-stat p {
+  margin: 0;
+  max-width: 44ch;
+}
+
+.ai-stat__sub {
+  color: var(--text-soft);
+  font-size: 1.25rem;
+}
+
+.ai-stat__lead {
+  margin-top: var(--space-3) !important;
+  max-width: 34ch !important;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  line-height: 1.25;
+}
+
+.ai-stat h2,
+.ai-stat p {
+  text-shadow: 0 0 14px var(--bg), 0 0 32px var(--bg);
+}
+
+/* Open sections: a left-aligned serif heading and numbered items with large faint figures, like "How It Works". */
+.ai-open {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+}
+
+.ai-open h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+}
+
+.ai-open p {
+  margin: 0;
+}
+
+.ai-open--end {
+  justify-items: start;
+  padding-bottom: calc(var(--space-5) * 2);
+}
+
+.ai-numbered {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: item;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.ai-numbered li {
+  counter-increment: item;
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  column-gap: var(--space-3);
+  align-items: start;
+}
+
+.ai-numbered li::before {
+  content: counter(item, decimal-leading-zero);
+  grid-row: 1 / span 2;
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  line-height: 0.9;
+  color: var(--ochre);
+  opacity: 0.55;
+}
+
+.ai-numbered h3 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+}
+
+.ai-numbered p {
+  max-width: 52ch;
+  color: var(--text-soft);
+}
+
+/* Full-bleed sections: one cut-out at the edge of the screen, behind the text. */
+.ai-bleed {
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-inline: max(var(--space-3), calc(50vw - 394px));
+  overflow-x: clip;
+}
+
+.ai-bleed__art {
+  position: absolute;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse closest-side, #000 30%, transparent 100%);
+}
+
+.ai-bleed--contain {
+  overflow: clip;
+}
+
+/* Kept inside its own section and tilted, so it reads as a diagonal band and does not run into the next one. */
+.ai-bleed__art--checks {
+  top: 0;
+  bottom: 0;
+  right: -6vw;
+  width: min(56vw, 760px);
+  opacity: 0.85;
+  mask-image: linear-gradient(to right, transparent 0%, #000 45%, #000 75%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 25%, #000 75%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.ai-bleed__art--checks::before {
+  content: '';
+  position: absolute;
+  inset: -25% 0;
+  background: url('./assets/ai-harvest.webp') center / cover no-repeat;
+  transform: rotate(-20deg);
+}
+
+.ai-bleed__art--orbit {
+  top: -3rem;
+  right: -12vw;
+  width: min(50vw, 620px);
+  aspect-ratio: 640 / 1136;
+  background-image: url('./assets/ai-orbit.webp');
+  opacity: 1;
+  mask-image: radial-gradient(ellipse closest-side, #000 45%, transparent 100%);
+}
+
+.ai-bleed h2,
+.ai-bleed h3,
+.ai-bleed p {
+  text-shadow: 0 0 10px var(--bg), 0 0 22px var(--bg);
+}
+
+/* Six layers, one of them lit: the "1 of 6" shown, not told. */
+.ai-dots {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.ai-dots__item {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.ai-dots__item::before {
+  content: '';
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  border: 1px solid var(--text-soft);
+  opacity: 0.6;
+}
+
+.ai-dots__item--lit {
+  color: var(--origin-model);
+}
+
+.ai-dots__item--lit::before {
+  border-color: var(--origin-model);
+  background: var(--origin-model);
+  opacity: 1;
+  box-shadow: 0 0 14px var(--origin-model), 0 0 32px rgba(169, 138, 214, 0.5);
+}
+
+@media (max-width: 720px) {
+  .ai-dots {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+.ai-open .stack li {
+  text-shadow: 0 0 10px var(--bg), 0 0 22px var(--bg);
+}
+
+/* Rules + log share one band, with the harvest photo tilted on the right and faded at every edge. */
+.ai-bleed__art--tail {
+  top: 0;
+  bottom: 0;
+  left: -4vw;
+  width: min(46vw, 640px);
+  opacity: 0.9;
+  mask-image: linear-gradient(to left, transparent 0%, #000 40%, #000 75%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.ai-bleed__art--tail::before {
+  content: '';
+  position: absolute;
+  inset: -15% 0;
+  background: url('./assets/ai-field.webp') center / cover no-repeat;
+  transform: rotate(-15deg);
+}
+
+.ai-bleed--tail {
+  position: relative;
+}
+
+.ai-bleed--tail h2,
+.ai-bleed--tail p,
+.ai-bleed--tail .checklist li {
+  text-shadow: 0 0 10px var(--bg), 0 0 22px var(--bg);
+}
+
+/* Phones: the pictures become a faint backdrop so the text stays readable; the two hero pictures split the height instead of sitting side by side. */
+@media (max-width: 720px) {
+  .ai-bleed__art,
+  .ai-stat__art {
+    opacity: 0.35;
+  }
+
+  .ai-hero__art--field {
+    bottom: 50%;
+    left: -12vw;
+    opacity: 0.5;
+  }
+
+  .ai-hero__art--farmer {
+    top: 50%;
+    right: -12vw;
+    opacity: 0.5;
+  }
+
+  .ai-bleed--tail .checklist li,
+  .ai-bleed .ai-numbered p,
+  .ai-bleed .ai-numbered h3 {
+    text-shadow: 0 0 10px var(--bg), 0 0 22px var(--bg);
+  }
+}
+
+.ai-page + .footer-connector {
+  margin-top: var(--space-4);
 }

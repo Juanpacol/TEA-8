@@ -16,7 +16,7 @@ export function OpenSource() {
       <p className="open-source__note">
         {before}
         <a href={`${REPO}/blob/main/CONTRIBUTING.md`}>CONTRIBUTING.md</a>
-        {after}
+        {after} <a href="#/ai">{t('open.ai')}</a>.
       </p>
     </section>
   )

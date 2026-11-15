@@ -12,17 +12,15 @@ export function Footer() {
   const { t } = useI18n()
   return (
     <footer className="footer">
-      <p>
-        {t('footer.data')}{' '}
-        {SOURCES.map((source, index) => (
-          <span key={source.name}>
-            {index > 0 && ' · '}
-            <a href={source.href}>{source.name}</a>
-          </span>
+      <p className="footer__sources">
+        <span className="footer__label">{t('footer.data').replace(/:$/, '')}</span>
+        {SOURCES.map((source) => (
+          <a key={source.name} href={source.href}>
+            {source.name}
+          </a>
         ))}
-        .
       </p>
-      <p>{t('footer.prototype')}</p>
+      <p className="footer__note">{t('footer.prototype')}</p>
     </footer>
   )
 }

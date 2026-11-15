@@ -113,3 +113,4 @@ To copy into the "References" field of the submission. Status "to verify" means 
 | Ether landing page (author's earlier hackathon project) | Layout and section structure | Style reference, no code or images reused |
 | Ether citation verifier (author's earlier hackathon project, MIT) | Idea of a keyed evidence bundle and a deterministic check of each claim | Technique reference, code written from scratch |
 | Muse Spark, Meta Model API, https://api.meta.ai/v1 | Language model for `/ask` | Verified working Nov 14, 2026 |
+| Six pictures on the AI page (`web/src/features/landing/assets/`: `ai-farmer`, `ai-satellite`, `ai-flow`, `ai-orbit`, `ai-harvest`, `ai-field`) | Backdrops of the "How we use AI" page | Author's own images, supplied by the author; recolored to the page palette, no other edits |
