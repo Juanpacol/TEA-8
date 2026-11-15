@@ -64,6 +64,18 @@ export const es: Record<MessageKey, string> = {
   'where.coordsBad': 'No pudimos leer coordenadas ahí. Pruebe la forma 40.52, -88.86 o pegue un enlace de Google Maps.',
   'where.coordsOutside': 'Ese lugar está fuera de los Estados Unidos contiguos. Esta herramienta no tiene datos allí.',
 
+  'zone.draw': 'Dibujar mi campo',
+  'zone.redraw': 'Dibujar de nuevo',
+  'zone.finish': 'Terminar el campo',
+  'zone.undo': 'Deshacer la última esquina',
+  'zone.clear': 'Borrar',
+  'zone.file': 'Cargar KML o GeoJSON',
+  'zone.hintStart': 'Haga clic en el mapa en cada esquina de su campo ({n} de al menos 3).',
+  'zone.hintMore': '{n} esquinas. Siga haciendo clic para agregar esquinas, o termine el campo.',
+  'zone.area': 'Su campo: unos {acres} acres ({hectares} hectáreas), {n} esquinas.',
+  'zone.fileBad': 'No encontramos el contorno de un campo en ese archivo. Use un KML de Google Earth o un GeoJSON con un polígono.',
+  'zone.fileTooBig': 'Ese archivo es demasiado grande para el contorno de un campo.',
+
   'field.pick': 'Elija un campo de ejemplo',
   'field.soil': 'Suelo {soil}',
   'field.cropIn': '{crop} en {year}',

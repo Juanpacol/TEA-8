@@ -707,3 +707,12 @@
   color: var(--text-soft);
   font-size: 0.85rem;
 }
+
+[data-drawing] {
+  cursor: crosshair;
+}
+
+[data-drawing] .leaflet-interactive,
+[data-drawing].leaflet-container {
+  cursor: crosshair;
+}

@@ -62,6 +62,18 @@ export const en = {
   'where.coordsBad': 'We could not read coordinates there. Try the form 40.52, -88.86 or paste a Google Maps link.',
   'where.coordsOutside': 'That place is outside the contiguous United States. This tool has no data there.',
 
+  'zone.draw': 'Draw my field',
+  'zone.redraw': 'Draw again',
+  'zone.finish': 'Finish the field',
+  'zone.undo': 'Undo last corner',
+  'zone.clear': 'Clear',
+  'zone.file': 'Load KML or GeoJSON',
+  'zone.hintStart': 'Click on the map at each corner of your field ({n} of at least 3).',
+  'zone.hintMore': '{n} corners. Keep clicking to add corners, or finish the field.',
+  'zone.area': 'Your field: about {acres} acres ({hectares} hectares), {n} corners.',
+  'zone.fileBad': 'We could not find a field outline in that file. Use a KML from Google Earth or a GeoJSON with a polygon.',
+  'zone.fileTooBig': 'That file is too large for a field outline.',
+
   'field.pick': 'Pick an example field',
   'field.soil': '{soil} soil',
   'field.cropIn': '{crop} in {year}',

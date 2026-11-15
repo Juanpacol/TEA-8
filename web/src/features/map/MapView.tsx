@@ -21,6 +21,11 @@ type Props = {
   showSoils: boolean
   selected: Place | null
   onSelect: (place: Place | null) => void
+  /** The corners of a field the person drew or loaded. */
+  zone?: Place[]
+  /** While drawing, a click on the map adds a corner instead of choosing a spot. */
+  drawing?: boolean
+  onAddCorner?: (corner: Place) => void
 }
 
 /** Room around the contiguous United States, so the map cannot drift to another continent. */
@@ -35,7 +40,7 @@ const OTHER_SOIL = '#8a97b4'
 const LABEL_ZOOM = 11
 
 /** Satellite vegetation (NASA GIBS NDVI) over the case area, for one year, optionally next to another year. */
-export function MapView({ points, year, compareYear, base, showVegetation, showSoils, selected, onSelect }: Props) {
+export function MapView({ points, year, compareYear, base, showVegetation, showSoils, selected, onSelect, zone = [], drawing = false, onAddCorner }: Props) {
   const { t } = useI18n()
   const tRef = useRef(t)
   tRef.current = t
@@ -51,6 +56,11 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
   const countyBounds = useRef<L.LatLngBounds | null>(null)
   const pick = useRef(onSelect)
   pick.current = onSelect
+  const addCorner = useRef(onAddCorner)
+  addCorner.current = onAddCorner
+  const drawingNow = useRef(drawing)
+  drawingNow.current = drawing
+  const zoneLayer = useRef<L.FeatureGroup | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   const [split, setSplit] = useState(50)
   const [outside, setOutside] = useState(false)
@@ -141,7 +151,11 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
       fill: false,
       interactive: false,
     })
-    instance.on('click', (event: L.LeafletMouseEvent) => pick.current({ lat: event.latlng.lat, lon: event.latlng.lng }))
+    instance.on('click', (event: L.LeafletMouseEvent) => {
+      const spot = { lat: event.latlng.lat, lon: event.latlng.lng }
+      if (drawingNow.current) addCorner.current?.(spot)
+      else pick.current(spot)
+    })
     instance.on('move zoomend resize', clip)
     map.current = instance
     // The frame can change size after the map is drawn (a card appears, the window turns): Leaflet must recompute its size or the view drifts.
@@ -289,11 +303,29 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
 
   useEffect(clip, [split])
 
+  // The field the person drew or loaded: corners while drawing, a filled outline once finished.
+  useEffect(() => {
+    const instance = map.current
+    if (!instance) return
+    zoneLayer.current?.remove()
+    if (zone.length === 0) return
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#4fc3cd'
+    const latlngs = zone.map((c) => [c.lat, c.lon] as L.LatLngTuple)
+    const group = L.featureGroup()
+    if (drawing || zone.length < 3) L.polyline(latlngs, { color, weight: 3, dashArray: '6 6', interactive: false }).addTo(group)
+    else L.polygon(latlngs, { color, weight: 3, fillColor: color, fillOpacity: 0.18, interactive: false }).addTo(group)
+    latlngs.forEach((latlng) => L.circleMarker(latlng, { radius: 5, color, weight: 2, fillColor: '#ffffff', fillOpacity: 1, interactive: false }).addTo(group))
+    group.addTo(instance)
+    zoneLayer.current = group
+    if (!drawing && zone.length >= 3 && !instance.getBounds().contains(group.getBounds())) instance.fitBounds(group.getBounds(), { padding: [30, 30] })
+  }, [zone, drawing])
+
   return (
     <div className="map-wrap">
     <div className="map-frame">
       <div
         ref={container}
+        data-drawing={drawing || undefined}
         className="map"
         role="img"
         aria-label={compareYear === null ? t('map.ariaOne', { year }) : t('map.ariaCompare', { year, other: compareYear })}
