@@ -58,6 +58,11 @@ export const es: Record<MessageKey, string> = {
   'where.noGeo': 'Este navegador no puede compartir su ubicación. Elija el pueblo más cercano.',
   'where.searching': 'Buscando su ubicación…',
   'where.failed': 'No pudimos obtener su ubicación. Elija el pueblo más cercano.',
+  'where.coords': 'O pegue coordenadas',
+  'where.coordsHint': '40.52, -88.86 o un enlace de mapa',
+  'where.go': 'Ir',
+  'where.coordsBad': 'No pudimos leer coordenadas ahí. Pruebe la forma 40.52, -88.86 o pegue un enlace de Google Maps.',
+  'where.coordsOutside': 'Ese lugar está fuera de los Estados Unidos contiguos. Esta herramienta no tiene datos allí.',
 
   'field.pick': 'Elija un campo de ejemplo',
   'field.soil': 'Suelo {soil}',
