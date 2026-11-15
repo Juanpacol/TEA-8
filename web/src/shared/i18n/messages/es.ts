@@ -124,7 +124,7 @@ export const es: Record<MessageKey, string> = {
   'map.loading': 'Cargando imágenes de la NASA de {year}…',
   'map.failed': 'No se pudieron cargar algunas imágenes de la NASA de {year}. El resto de la herramienta sigue funcionando.',
   'map.backToCounty': '← Todo el condado',
-  'map.soilsTitle': 'Suelos alrededor de este campo (vegetación oculta)',
+  'map.soilsTitle': 'Suelos (vegetación oculta)',
   'map.soilOwn': '{family} (este campo)',
   'map.soilsOther': 'Otros suelos',
   'map.thisField': '{name} (este campo)',

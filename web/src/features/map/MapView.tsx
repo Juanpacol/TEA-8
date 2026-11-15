@@ -22,6 +22,8 @@ type Props = {
 }
 
 const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
+/** On a wide screen the soil key starts open; on a phone it starts closed so it does not cover the map. */
+const WIDE = window.matchMedia('(min-width: 861px)')
 const MAX_SOIL_COLORS = 6
 const OTHER_SOIL = '#8a97b4'
 /** From this zoom on the point labels stay on screen. */
@@ -278,8 +280,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
           <button type="button" className="map__back" onClick={() => onSelect(null)}>
             {t('map.backToCounty')}
           </button>
-          <div className="map__soils" role="group" aria-label={t('map.soilsTitle')}>
-            <p className="map__soils-title">{t('map.soilsTitle')}</p>
+          <details className="map__soils" open={WIDE.matches}>
+            <summary>{t('map.soilsTitle')}</summary>
             <ul>
               {soils.legend.map((entry) => (
                 <li key={entry.family || 'other'}>
@@ -288,7 +290,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
                 </li>
               ))}
             </ul>
-          </div>
+          </details>
         </>
       )}
       {outside && (
@@ -308,13 +310,14 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       )}
     </div>
     {selected && (
-      <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />
+      <PlaceCard place={selected} points={points} year={year} compact={soils !== null} onClose={() => onSelect(null)} />
     )}
     </div>
   )
 }
 
-function PlaceCard({ place, points, year, onClose }: { place: Place; points: CasePoint[]; year: number; onClose: () => void }) {
+/** Inside a field the card keeps only the first line (what grew there) so it does not cover the soils; the rest is one tap away on the county view. */
+function PlaceCard({ place, points, year, compact, onClose }: { place: Place; points: CasePoint[]; year: number; compact: boolean; onClose: () => void }) {
   const { t } = useI18n()
   const info = describePlace(t, place, points, year)
   return (
@@ -327,7 +330,7 @@ function PlaceCard({ place, points, year, onClose }: { place: Place; points: Cas
       </div>
       <p className="place-card__coords">{formatCoords(t, place)}</p>
       <ul>
-        {info.lines.map((line) => (
+        {(compact ? info.lines.slice(0, 1) : info.lines).map((line) => (
           <li key={line}>{line}</li>
         ))}
       </ul>
