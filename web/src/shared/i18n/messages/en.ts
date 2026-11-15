@@ -86,6 +86,8 @@ export const en = {
   'year.prev': 'Previous year',
   'year.next': 'Next year',
   'year.dry': 'Dry summers',
+  'year.barTitle': '{year}: soil moisture {deviation} standard deviations from the 2001-2023 mean{dry}',
+  'year.barsLegend': 'One bar per summer: taller means wetter soil. Ochre: dry summers.',
 
   'glossary.title': 'What these words mean',
   'glossary.ndvi': 'NDVI',
