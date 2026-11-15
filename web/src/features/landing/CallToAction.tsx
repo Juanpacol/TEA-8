@@ -11,6 +11,9 @@ export function CallToAction() {
       <a className="cta__link" href="https://github.com/Juanpacol/TEA-8">
         GitHub repository
       </a>
+      <a className="cta__link" href="#/ai">
+        How we use AI
+      </a>
       <div className="cta__team">
         <p className="cta__team-label">Built by</p>
         <p className="cta__team-name">Juan Pablo Botero</p>

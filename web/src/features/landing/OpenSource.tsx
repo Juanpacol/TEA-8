@@ -14,8 +14,8 @@ export function OpenSource() {
         View the repository
       </a>
       <p className="open-source__note">
-        AI assistants helped write the code and the text; how and where is logged in{' '}
-        <a href={`${REPO}/blob/main/CONTRIBUTING.md`}>CONTRIBUTING.md</a>.
+        AI assistants helped write the code and the text, and Muse Spark answers questions in the tool.{' '}
+        <a href="#/ai">See how we use AI</a>.
       </p>
     </section>
   )

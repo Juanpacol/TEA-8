@@ -10,17 +10,15 @@ const SOURCES = [
 export function Footer() {
   return (
     <footer className="footer">
-      <p>
-        Data:{' '}
-        {SOURCES.map((source, index) => (
-          <span key={source.name}>
-            {index > 0 && ' · '}
-            <a href={source.href}>{source.name}</a>
-          </span>
+      <p className="footer__sources">
+        <span className="footer__label">Data</span>
+        {SOURCES.map((source) => (
+          <a key={source.name} href={source.href}>
+            {source.name}
+          </a>
         ))}
-        .
       </p>
-      <p>A prototype created for the NASA Space Apps Challenge, not agronomic advice.</p>
+      <p className="footer__note">A prototype created for the NASA Space Apps Challenge, not agronomic advice.</p>
     </footer>
   )
 }

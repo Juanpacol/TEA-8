@@ -16,6 +16,7 @@ import {
 } from '../features/landing/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
+import { AiUsagePage } from './AiUsagePage.tsx'
 import { ToolPage } from './ToolPage.tsx'
 
 function Landing() {
@@ -58,5 +59,8 @@ function Landing() {
 }
 
 export function App() {
-  return useRoute() === 'tool' ? <ToolPage /> : <Landing />
+  const route = useRoute()
+  if (route === 'tool') return <ToolPage />
+  if (route === 'ai') return <AiUsagePage />
+  return <Landing />
 }

@@ -1,6 +1,8 @@
-export type Route = 'landing' | 'tool'
+export type Route = 'landing' | 'tool' | 'ai'
 
-/** The tool has its own page at `#/tool`. Any other hash, such as `#intro`, stays on the landing page. */
+/** The tool and the AI statement have their own pages. Any other hash, such as `#intro`, stays on the landing page. */
 export function routeFromHash(hash: string): Route {
-  return hash === '#/tool' ? 'tool' : 'landing'
+  if (hash === '#/tool') return 'tool'
+  if (hash === '#/ai') return 'ai'
+  return 'landing'
 }
