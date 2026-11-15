@@ -112,8 +112,7 @@ def zone_crops(corners):
     points = sample_points(corners)
     years = list(range(sources.CROP_YEARS[0], sources.CROP_YEARS[1] + 1))
     jobs = [(lat, lon, year) for lat, lon in points for year in years]
-    with ThreadPoolExecutor(max_workers=12) as pool:
-        found = list(pool.map(lambda job: sources.crop_of_year(*job), jobs))
+    found = sources.crops_at(jobs)
     if all(crop is None for crop in found):
         raise OSError("CropScape gave no answer")
     by_year = {}

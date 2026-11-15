@@ -132,10 +132,39 @@ def crop_of_year(lat, lon, year):
         return None
 
 
+CROP_DEADLINE = 20  # seconds
+CROP_WORKERS = 16
+CROP_TTL = 24 * 3600
+_crop_cache = {}
+
+
+def crops_at(jobs, deadline=CROP_DEADLINE, clock=time.monotonic):
+    """The crop for each (lat, lon, year). Answers are kept for a day; those not back before the deadline are None."""
+    now = clock()
+    found, todo = {}, []
+    for job in jobs:
+        key = (round(job[0], 4), round(job[1], 4), job[2])
+        hit = _crop_cache.get(key)
+        if hit and now - hit[0] < CROP_TTL:
+            found[job] = hit[1]
+        else:
+            todo.append(job)
+    if todo:
+        pool = ThreadPoolExecutor(max_workers=CROP_WORKERS)
+        running = {pool.submit(crop_of_year, *job): job for job in todo}
+        done, _ = wait(running, timeout=deadline)
+        pool.shutdown(wait=False, cancel_futures=True)
+        for future in done:
+            job, crop = running[future], future.result()
+            found[job] = crop
+            if crop is not None:
+                _crop_cache[(round(job[0], 4), round(job[1], 4), job[2])] = (now, crop)
+    return [found.get(job) for job in jobs]
+
+
 def crops(lat, lon):
     years = range(CROP_YEARS[0], CROP_YEARS[1] + 1)
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        found = list(pool.map(lambda year: crop_of_year(lat, lon, year), years))
+    found = crops_at([(lat, lon, year) for year in years])
     if all(crop is None for crop in found):
         raise OSError("CropScape gave no answer")
     return {

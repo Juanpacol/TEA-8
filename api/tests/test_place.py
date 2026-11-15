@@ -126,3 +126,30 @@ class VegetationDeadline(unittest.TestCase):
             self.assertEqual([s["year"] for s in out["seasons"]], list(range(2001, 2013)))
         finally:
             sources.summer_ndvi = original
+
+
+class CropDeadline(unittest.TestCase):
+    def test_slow_years_are_left_empty_and_answers_are_kept(self):
+        import time as t
+        calls = []
+        original = sources.crop_of_year
+
+        def fake(lat, lon, year):
+            calls.append(year)
+            if year == 2015:
+                t.sleep(2)
+            return "Corn"
+
+        sources.crop_of_year = fake
+        sources._crop_cache.clear()
+        try:
+            jobs = [(40.1, -88.1, y) for y in (2014, 2015)]
+            start = t.monotonic()
+            self.assertEqual(sources.crops_at(jobs, deadline=0.5), ["Corn", None])
+            self.assertLess(t.monotonic() - start, 1.5)
+            calls.clear()
+            sources.crops_at(jobs[:1], deadline=0.5)
+            self.assertEqual(calls, [])
+        finally:
+            sources.crop_of_year = original
+            sources._crop_cache.clear()
