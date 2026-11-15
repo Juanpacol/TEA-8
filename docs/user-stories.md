@@ -487,6 +487,31 @@ Updated November 14, 2026, on branch `feat/map-default-ndvi` (not merged to `mai
 **SCA-2. Second county** with a region selector. Until it runs, nobody can claim the project scales.
 **CI-1. Required checks**: `api` and `pipeline` become required on `main`.
 
+## Landing polish, fifth set
+
+Updated November 15, 2026. Three stories on the branch `feat/landing-story`, one commit each. Checked in a headless Chrome at 360, 390, 820 and 1440 px wide, in English and Spanish. Not checked: a real phone, a real tablet, Firefox and Safari.
+
+**LP-11. Buttons and the way into the tool**
+As a visitor, I want one clear button that takes me to the tool.
+- "Open the tool" is a link, not a button inside a link, so it works in every browser. Done.
+- It appears twice: under the chart and at the end of the page. The copy in the middle of the page is removed. Done.
+- One ochre style for the way into the tool; the repository and "How we use AI" are outline buttons in one row. Done.
+- A click opens the tool at the top of the page with no console error. Done (the error came from the scroll library, removed in LP-12).
+
+**LP-12. A page that does not feel slow**
+As a visitor, I want the page to follow my scroll at once.
+- Scrolling is the browser's own. The Lenis library is removed (it ran on every frame and made the page trail the wheel). Done.
+- No large picture is filtered or blended while scrolling: the hero sky and the footer lantern carry their brightness in the file. Done.
+- The landing pictures weigh 1.5 MB together, down from 3.0 MB; none is over 300 KB (the pictures of the AI page are not counted; one of them is 330 KB). Done.
+- Not measured: frame rate on a real laptop or phone. The headless browser showed no slow frame before or after, so it cannot prove the gain.
+
+**LP-13. Phones and tablets**
+As a visitor on a phone or a tablet, I want to read every section.
+- No sideways scroll at 360, 390 and 820 px. Done.
+- Below 1180 px the side pictures fade behind the text; below 720 px they fade further. Done.
+- The year chart keeps readable labels on a phone. Done.
+- Buttons are at least 44 px tall. Done.
+
 ## Worktrees
 
 | Worktree | Branch | Folders it touches | Stories |

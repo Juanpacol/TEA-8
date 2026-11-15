@@ -1,16 +1,10 @@
 import type { ReactNode } from 'react'
-import { useDepth } from '../../shared/hooks/useDepth.ts'
-import { useParallax } from '../../shared/hooks/useParallax.ts'
 import './landing.css'
 
-/** Two sections that share one picture crossing the line between them. */
+/** Two sections that read as one block: Why McLean County and How it works. */
 export function Connector({ children }: { children: ReactNode }) {
-  const { first } = useParallax<HTMLDivElement, HTMLDivElement>(0.05)
-  const depth = useDepth<HTMLDivElement>()
-
   return (
-    <div ref={depth} className="connector">
-      <div ref={first} className="connector__art" aria-hidden="true" />
+    <div className="connector">
       <div className="connector__content">{children}</div>
     </div>
   )

@@ -15,7 +15,8 @@ export function useReveal<T extends HTMLElement>() {
           observer.disconnect()
         }
       },
-      { threshold: 0.15 },
+      // Fire as soon as the top edge is 80px inside the screen. A fraction of the height would keep tall sections blank for a long scroll.
+      { threshold: 0, rootMargin: '0px 0px -80px 0px' },
     )
     observer.observe(element)
     return () => observer.disconnect()
