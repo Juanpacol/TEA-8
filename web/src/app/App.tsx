@@ -16,12 +16,14 @@ import {
   driestSummer,
 } from '../features/landing/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
+import { useLazyArt } from '../shared/hooks/useLazyArt.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
 
 const ToolPage = lazy(() => import('./ToolPage.tsx').then((module) => ({ default: module.ToolPage })))
 
 function Landing() {
   const state = useData()
+  useLazyArt()
 
   return (
     <>
