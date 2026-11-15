@@ -1,14 +1,24 @@
 import { useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
+import { insideUS, parseCoords } from './coords.ts'
 import type { Place } from './selection.ts'
 import './map.css'
 
 type Props = { towns: { name: string; lat: number; lon: number }[]; onSelect: (place: Place) => void }
 
-/** Two ways to say where you are without reading a map: the closest town, or the device location. */
+/** Three ways to say where you are without reading a map: the closest town, the device location or pasted coordinates. */
 export function WhereAmI({ towns, onSelect }: Props) {
   const { t } = useI18n()
   const [note, setNote] = useState('')
+  const [coords, setCoords] = useState('')
+
+  function goToCoords() {
+    const place = parseCoords(coords)
+    if (!place) return setNote(t('where.coordsBad'))
+    if (!insideUS(place)) return setNote(t('where.coordsOutside'))
+    setNote('')
+    onSelect(place)
+  }
 
   function useMyLocation() {
     if (!('geolocation' in navigator)) {
@@ -48,6 +58,27 @@ export function WhereAmI({ towns, onSelect }: Props) {
       <button type="button" className="where__locate" onClick={useMyLocation}>
         {t('where.locate')}
       </button>
+      <form
+        className="where__coords"
+        onSubmit={(event) => {
+          event.preventDefault()
+          goToCoords()
+        }}
+      >
+        <label>
+          {t('where.coords')}
+          <input
+            type="text"
+            value={coords}
+            onChange={(event) => setCoords(event.target.value)}
+            placeholder={t('where.coordsHint')}
+            autoComplete="off"
+          />
+        </label>
+        <button type="submit" className="where__locate">
+          {t('where.go')}
+        </button>
+      </form>
       {note && (
         <p className="where__note" role="status">
           {note}

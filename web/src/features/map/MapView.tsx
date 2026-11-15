@@ -23,6 +23,10 @@ type Props = {
   onSelect: (place: Place | null) => void
 }
 
+/** Room around the contiguous United States, so the map cannot drift to another continent. */
+const US_BOUNDS: L.LatLngBoundsExpression = [[20, -130], [53, -62]]
+/** Close enough to see fields and roads around a chosen place. */
+const PLACE_ZOOM = 11
 const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
 /** On a wide screen the soil key starts open; on a phone it starts closed so it does not cover the map. */
 const MAX_SOIL_COLORS = 6
@@ -80,9 +84,9 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
       // Scrolling the page must not zoom the map by accident; the zoom buttons and a double click still work.
       scrollWheelZoom: false,
       zoomSnap: 0.25,
-      minZoom: 8,
-      // Keeps the view around the county (its outline plus a margin), so nobody gets lost in the rest of the country.
-      maxBounds: L.geoJSON(COUNTY_OUTLINE).getBounds().pad(1.5),
+      minZoom: 4,
+      // The contiguous United States: a pasted coordinate can be anywhere in it.
+      maxBounds: US_BOUNDS,
       // On a touch screen one finger scrolls the page; the map moves with two fingers or the zoom buttons.
       dragging: !L.Browser.mobile,
     }).setView([points[0].lat + 0.2, points[0].lon], 9)
@@ -202,7 +206,9 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
     if (selected) {
       marker.setLatLng([selected.lat, selected.lon]).addTo(instance)
       // A town or a located device may be off screen: bring it into view.
-      if (!instance.getBounds().contains([selected.lat, selected.lon])) instance.panTo([selected.lat, selected.lon])
+      if (!instance.getBounds().contains([selected.lat, selected.lon])) {
+        instance.setView([selected.lat, selected.lon], Math.max(instance.getZoom(), PLACE_ZOOM))
+      }
     }
     else marker.remove()
   }, [selected])

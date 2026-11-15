@@ -56,6 +56,11 @@ export const en = {
   'where.noGeo': 'This browser cannot share your location. Pick the closest town instead.',
   'where.searching': 'Looking for your location…',
   'where.failed': 'We could not get your location. Pick the closest town instead.',
+  'where.coords': 'Or paste coordinates',
+  'where.coordsHint': '40.52, -88.86 or a map link',
+  'where.go': 'Go',
+  'where.coordsBad': 'We could not read coordinates there. Try the form 40.52, -88.86 or paste a Google Maps link.',
+  'where.coordsOutside': 'That place is outside the contiguous United States. This tool has no data there.',
 
   'field.pick': 'Pick an example field',
   'field.soil': '{soil} soil',
