@@ -79,12 +79,14 @@ Evidence for one point, asked from the sources at request time (story FA-2 in [f
   "climate": { "baseline": "2001-2023", "seasons": [{ "year": 2012, "root_wetness": 0.42, "root_wetness_deviation": -1.18, "rainfall_mm_day": 1.9, "temperature_c": 27.1, "dry": true }], "dry_years": [2011, 2012], "source": "...", "note": "..." },
   "soil": { "name": "Harney", "component_pct": 97.0, "drainage": "Well drained", "hydrologic_group": "C", "organic_matter_pct": 2.3, "available_water": 0.22, "source": "..." },
   "crops": { "years": { "2008": "Winter Wheat" }, "source": "...", "note": "..." },
+  "vegetation": { "range": "2001-2025", "seasons": [{ "year": 2012, "ndvi": 0.32, "vci": 2 }], "source": "...", "note": "..." },
   "limits": ["..."]
 }
 ```
 
 - A source that does not answer is `{ "error": "..." }` in its place; the others are still returned. `soil` is `null` when the survey has nothing at the point.
 - Errors: 400 `BAD_REQUEST` (lat or lon missing or not a number), 400 `OUTSIDE_COVERAGE` (outside the contiguous United States), 429 (rate limit).
+- `vegetation`: the mean NDVI of the June to August MODIS composites for each summer, and its VCI = 100 × (NDVI − lowest) ÷ (highest − lowest) over the summers on record, at one 250 m pixel. Years that did not answer within 25 s are left out; with fewer than 10 summers the field is `{ "error": ... }`.
 - The example values of `seasons` are illustrative; the dry-summer rule is the one in [method.md](method.md), computed for the grid cell of the point.
 
 ## POST /zone
@@ -94,13 +96,13 @@ Evidence for a field outline (story FA-4). Body: `{ "corners": [[lat, lon], ...]
 - `zone`: number of corners, area in hectares and the center used for the climate.
 - `soil`: `{ "soils": [{ "name", "drainage", "hydrologic_group", "share_pct" }], "source", "note" }`, the major soil components of USDA SSURGO intersected with the outline, as a share of the field area (shares under 1% are left out). `null` when the survey has nothing inside.
 - `crops`: `{ "points", "years": { "2008": { "Corn": 3, "Soybeans": 2 } }, "source", "note" }`, the crop at up to 5 points sampled inside the outline.
-- `climate`: as in `GET /place`, for the NASA POWER cell of the center.
+- `climate` and `vegetation`: as in `GET /place`, for the NASA POWER cell and the MODIS pixel of the center.
 - A source that does not answer is `{ "error": "..." }` in its place.
 - Errors: 400 `BAD_REQUEST` (not 3 to 200 corners, or smaller than 100 m²), 400 `OUTSIDE_COVERAGE`, 400 `TOO_LARGE` (over 50 km²), 413 (body too large), 429.
 
 ## POST /ask about a place or a field
 
-The body may carry `"place": { "lat", "lon" }` or `"zone": [[lat, lon], ...]` (story FA-7). The evidence bundle is then built from the answer of `GET /place` or `POST /zone` (kept in memory for an hour when every source answered), the prompt names "the place the farmer chose" or "the field the farmer drew" instead of McLean County, and `rotation_id` is ignored. The verifier is unchanged. Without either field the endpoint behaves as before (`ask-v1`).
+The body may carry `"place": { "lat", "lon" }` or `"zone": [[lat, lon], ...]` (story FA-7). The evidence bundle is then built from the answer of `GET /place` or `POST /zone` (kept in memory for an hour when every source answered), the bundle also holds `season.<year>.ndvi` and `season.<year>.vci`, the prompt names "the place the farmer chose" or "the field the farmer drew" instead of McLean County, and `rotation_id` is ignored. The verifier is unchanged. Without either field the endpoint behaves as before (`ask-v1`).
 
 - Extra errors: the refusals of `/place` and `/zone` are passed on (400 `OUTSIDE_COVERAGE`, `TOO_LARGE`, `BAD_REQUEST`), and 502 `NO_EVIDENCE` when no source answered for the place.
 - Body limit for `/ask` and `/zone`: 16 KB.
