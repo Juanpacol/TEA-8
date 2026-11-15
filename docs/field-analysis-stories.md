@@ -44,6 +44,7 @@ As a farmer, I want to mark the corners of my field on the map so the tool knows
 - A button starts drawing. Each click adds a corner; the figure can be closed, undone and cleared.
 - The page shows the area in acres and hectares.
 - The zone can also be loaded from a KML or GeoJSON file.
+- Drawing starts on the aerial photo with the vegetation colors off, and the map zooms in to level 18, so a person sees their land and clicks the corners of one field. The place card does not cover the map while drawing.
 
 **FA-4. Evidence for a drawn zone**
 As a farmer, I want the evidence for my whole field, not for one point.

@@ -30,9 +30,11 @@ type Props = {
 
 /** Room around the contiguous United States, so the map cannot drift to another continent. */
 const US_BOUNDS: L.LatLngBoundsExpression = [[20, -130], [53, -62]]
-/** Close enough to see fields and roads around a chosen place. */
-const PLACE_ZOOM = 11
-const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
+/** Close enough to see the fields around a chosen place. */
+const PLACE_ZOOM = 14
+/** Close enough to tell one field from the next and click its corners. The aerial photo is real up to 16 and enlarged beyond. */
+const MAX_ZOOM = 18
+const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: MAX_ZOOM }
 /** On a wide screen the soil key starts open; on a phone it starts closed so it does not cover the map. */
 const MAX_SOIL_COLORS = 6
 const OTHER_SOIL = '#8a97b4'
@@ -205,7 +207,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
     if (!instance) return
     const next = BASES[base]
     background.current?.remove()
-    background.current = L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: 14, attribution: next.attribution })
+    background.current = L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: MAX_ZOOM, attribution: next.attribution })
       .addTo(instance)
       .bringToBack()
     // With the soil types on, the vegetation is hidden: its 250 m pixels would only muddy the soil colors.
@@ -355,7 +357,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
           {t('map.backToCounty')}
         </button>
       )}
-      {outside && (
+      {outside && !drawing && (
         <p className="map__outside" role="status">
           {t('map.outside', { county: t('county.name') })}
         </p>
@@ -385,7 +387,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
         <p className="map__soils-note">{t('map.soilsSquare')}</p>
       </section>
     )}
-    {selected && !inField && <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />}
+    {selected && !inField && !drawing && zone.length < 3 && <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />}
     </div>
   )
 }

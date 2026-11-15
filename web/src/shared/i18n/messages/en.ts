@@ -68,7 +68,7 @@ export const en = {
   'zone.undo': 'Undo last corner',
   'zone.clear': 'Clear',
   'zone.file': 'Load KML or GeoJSON',
-  'zone.hintStart': 'Click on the map at each corner of your field ({n} of at least 3).',
+  'zone.hintStart': 'Zoom in with + until you see your land, then click each corner of your field ({n} of at least 3). Drag the map to move.',
   'zone.hintMore': '{n} corners. Keep clicking to add corners, or finish the field.',
   'zone.area': 'Your field: about {acres} acres ({hectares} hectares), {n} corners.',
   'zone.fileBad': 'We could not find a field outline in that file. Use a KML from Google Earth or a GeoJSON with a polygon.',

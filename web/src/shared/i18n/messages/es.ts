@@ -70,7 +70,7 @@ export const es: Record<MessageKey, string> = {
   'zone.undo': 'Deshacer la última esquina',
   'zone.clear': 'Borrar',
   'zone.file': 'Cargar KML o GeoJSON',
-  'zone.hintStart': 'Haga clic en el mapa en cada esquina de su campo ({n} de al menos 3).',
+  'zone.hintStart': 'Acérquese con + hasta ver su tierra y haga clic en cada esquina de su campo ({n} de al menos 3). Arrastre el mapa para moverlo.',
   'zone.hintMore': '{n} esquinas. Siga haciendo clic para agregar esquinas, o termine el campo.',
   'zone.area': 'Su campo: unos {acres} acres ({hectares} hectáreas), {n} esquinas.',
   'zone.fileBad': 'No encontramos el contorno de un campo en ese archivo. Use un KML de Google Earth o un GeoJSON con un polígono.',

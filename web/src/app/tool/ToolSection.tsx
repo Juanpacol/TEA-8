@@ -151,6 +151,9 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             onStart={() => {
               setZone([]);
               setDrawing(true);
+              // To draw on the land the photo must be seen: the vegetation colors would cover it.
+              setBase("aerial");
+              setShowVegetation(false);
             }}
             onFinish={() => setDrawing(false)}
             onUndo={() => setZone((current) => current.slice(0, -1))}
