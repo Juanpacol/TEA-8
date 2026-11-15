@@ -13,6 +13,9 @@ export function CallToAction() {
       <a className="cta__link" href="https://github.com/Juanpacol/TEA-8">
         {t('end.github')}
       </a>
+      <a className="cta__link" href="#/ai">
+        {t('cta.ai')}
+      </a>
       <div className="cta__team">
         <p className="cta__team-label">{t('end.builtBy')}</p>
         <p className="cta__team-name">Juan Pablo Botero</p>

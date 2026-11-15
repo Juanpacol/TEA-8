@@ -18,6 +18,7 @@ import {
 import { useData } from '../shared/hooks/useData.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
 import { useSmoothScroll } from '../shared/hooks/useSmoothScroll.ts'
+import { AiUsagePage } from './AiUsagePage.tsx'
 // The tool (map, soil zones) loads only when someone opens it, so the landing stays light.
 const ToolPage = lazy(() => import('./ToolPage.tsx').then((module) => ({ default: module.ToolPage })))
 
@@ -62,11 +63,14 @@ function Landing() {
 }
 
 export function App() {
-  return useRoute() === 'tool' ? (
-    <Suspense fallback={null}>
-      <ToolPage />
-    </Suspense>
-  ) : (
-    <Landing />
-  )
+  const route = useRoute()
+  if (route === 'tool') {
+    return (
+      <Suspense fallback={null}>
+        <ToolPage />
+      </Suspense>
+    )
+  }
+  if (route === 'ai') return <AiUsagePage />
+  return <Landing />
 }
