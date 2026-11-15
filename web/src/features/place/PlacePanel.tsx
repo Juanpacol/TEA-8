@@ -1,9 +1,27 @@
 import { useI18n } from '../../shared/i18n/index.ts'
 import { isUnavailable, type PlaceClimate, type PlaceEvidence, type Unavailable } from '../../shared/lib/placeApi.ts'
+import { useRef } from 'react'
+import { formatCoords } from '../map/index.ts'
+import { ReportActions } from './ReportActions.tsx'
 import { placeKey, usePlaceEvidence } from './usePlaceEvidence.ts'
 import './place.css'
 
 type Props = { place: { lat: number; lon: number } }
+
+/** The limits the service sends with every answer (in English, like the evidence). */
+export function Limits({ limits }: { limits: string[] }) {
+  const { t } = useI18n()
+  return (
+    <section>
+      <h4>{t('report.limits')}</h4>
+      <ul className="place-panel__limits">
+        {limits.map((limit) => (
+          <li key={limit}>{limit}</li>
+        ))}
+      </ul>
+    </section>
+  )
+}
 
 /** The summer climate of the grid cell, with the dry summers of the project rule. Shared by a point and a field. */
 export function ClimateSection({ climate }: { climate: PlaceClimate | Unavailable }) {
@@ -84,6 +102,7 @@ function Result({ evidence }: { evidence: PlaceEvidence }) {
           </>
         )}
       </section>
+      <Limits limits={evidence.limits} />
       <p className="place-panel__source">{t('placePanel.queried', { date: evidence.queried_on })}</p>
     </div>
   )
@@ -93,9 +112,14 @@ function Result({ evidence }: { evidence: PlaceEvidence }) {
 export function PlacePanel({ place }: Props) {
   const { t } = useI18n()
   const { state, analyze } = usePlaceEvidence()
+  const report = useRef<HTMLElement>(null)
   const current = state.status !== 'idle' && state.key === placeKey(place) ? state : { status: 'idle' as const }
   return (
-    <section className="place-panel" aria-label={t('placePanel.aria')}>
+    <section ref={report} className="place-panel" aria-label={t('placePanel.aria')}>
+      <header className="place-panel__report-head">
+        <h3>{t('report.titlePlace')}</h3>
+        <p>{formatCoords(t, place)}</p>
+      </header>
       <div className="place-panel__head">
         <p>{t('placePanel.intro')}</p>
         <button type="button" disabled={current.status === 'loading'} onClick={() => void analyze(place)}>
@@ -106,7 +130,12 @@ export function PlacePanel({ place }: Props) {
         {current.status === 'loading' && <p>{t('placePanel.wait')}</p>}
         {current.status === 'failed' && <p>{t('placePanel.failed')}</p>}
       </div>
-      {current.status === 'ready' && <Result evidence={current.evidence} />}
+      {current.status === 'ready' && (
+        <>
+          <Result evidence={current.evidence} />
+          <ReportActions target={{ place }} report={report} />
+        </>
+      )}
     </section>
   )
 }

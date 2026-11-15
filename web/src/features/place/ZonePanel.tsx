@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
 import { ZoneRefused, fetchZoneEvidence, isUnavailable, type ZoneEvidence } from '../../shared/lib/placeApi.ts'
-import { ClimateSection } from './PlacePanel.tsx'
+import { ClimateSection, Limits } from './PlacePanel.tsx'
+import { ReportActions } from './ReportActions.tsx'
 import './place.css'
 
 type Corner = { lat: number; lon: number }
@@ -74,6 +75,7 @@ function Result({ evidence }: { evidence: ZoneEvidence }) {
         )}
       </section>
       <ClimateSection climate={climate} />
+      <Limits limits={evidence.limits} />
       <p className="place-panel__source">{t('zonePanel.queried', { date: evidence.queried_on })}</p>
     </div>
   )
@@ -83,6 +85,7 @@ function Result({ evidence }: { evidence: ZoneEvidence }) {
 export function ZonePanel({ corners }: { corners: Corner[] }) {
   const { t } = useI18n()
   const [state, setState] = useState<State>({ status: 'idle' })
+  const report = useRef<HTMLElement>(null)
   const key = zoneKey(corners)
   const current = state.status !== 'idle' && state.key === key ? state : { status: 'idle' as const }
 
@@ -98,7 +101,20 @@ export function ZonePanel({ corners }: { corners: Corner[] }) {
   }
 
   return (
-    <section className="place-panel" aria-label={t('zonePanel.aria')}>
+    <section ref={report} className="place-panel" aria-label={t('zonePanel.aria')}>
+      <header className="place-panel__report-head">
+        <h3>{t('report.titleZone')}</h3>
+        {current.status === 'ready' && (
+          <p>
+            {t('report.zoneLine', {
+              hectares: current.evidence.zone.area_ha,
+              corners: current.evidence.zone.corners,
+              lat: current.evidence.zone.center.lat,
+              lon: current.evidence.zone.center.lon,
+            })}
+          </p>
+        )}
+      </header>
       <div className="place-panel__head">
         <p>{t('zonePanel.intro')}</p>
         <button type="button" disabled={current.status === 'loading'} onClick={() => void analyze()}>
@@ -109,7 +125,12 @@ export function ZonePanel({ corners }: { corners: Corner[] }) {
         {current.status === 'loading' && <p>{t('placePanel.wait')}</p>}
         {current.status === 'failed' && <p>{t(REFUSALS[current.code] ?? 'placePanel.failed')}</p>}
       </div>
-      {current.status === 'ready' && <Result evidence={current.evidence} />}
+      {current.status === 'ready' && (
+        <>
+          <Result evidence={current.evidence} />
+          <ReportActions target={{ zone: corners }} report={report} />
+        </>
+      )}
     </section>
   )
 }
