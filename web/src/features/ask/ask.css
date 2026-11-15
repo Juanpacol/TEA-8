@@ -65,7 +65,9 @@
   border-radius: 50%;
   color: var(--bg);
   cursor: pointer;
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
 }
 
 .ask__send:hover:not(:disabled) {
@@ -101,7 +103,10 @@
   font-size: 0.86rem;
   text-align: left;
   cursor: pointer;
-  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    background 200ms ease;
 }
 
 .ask__example:hover:not(:disabled) {
@@ -119,13 +124,129 @@
   color: var(--accent);
 }
 
-.ask__loading {
+/* The way through the panel: topic, question, answer. */
+.ask__steps {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ask__steps li[aria-current="step"] {
+  color: var(--text);
+}
+
+.ask__steps li[aria-current="step"] span {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.ask__steps li.is-done span {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ask__steps span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-right: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  font-size: 0.72rem;
+}
+
+.ask__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.ask__topic {
+  min-height: 2.4rem;
+  padding: 0 0.95rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-soft);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition:
+    border-color 200ms ease,
+    color 200ms ease,
+    background 200ms ease;
+}
+
+.ask__topic:hover,
+.ask__topic[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.ask__topic[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.ask__hint {
   margin: 0;
   color: var(--text-soft);
+  font-size: 0.86rem;
+}
+
+/* The answer builds in stages: each line appears once its step is done. */
+.ask__timeline {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-soft);
   font-size: 0.88rem;
+}
+
+.ask__timeline > li {
+  position: relative;
+  display: grid;
+  gap: var(--space-1);
+  padding-left: 1.5rem;
+  animation: ask-in 240ms ease-out;
+}
+
+.ask__timeline > li::before {
+  content: "";
+  position: absolute;
+  top: 0.35rem;
+  left: 0;
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+}
+
+.ask__timeline > li.is-done::before {
+  background: var(--accent);
+}
+
+.ask__timeline > li.is-active {
+  color: var(--text);
+}
+
+.ask__timeline .ask__dots {
+  margin-right: 0.4rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask__timeline > li {
+    animation: none;
+  }
 }
 
 .ask__dots {
@@ -243,6 +364,10 @@
 
 .claim__checks summary {
   cursor: pointer;
+}
+
+.claim__checks[open] summary {
+  color: var(--text);
 }
 
 .claim__checks ul {

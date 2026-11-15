@@ -512,6 +512,13 @@ As a visitor on a phone or a tablet, I want to read every section.
 - The year chart keeps readable labels on a phone. Done.
 - Buttons are at least 44 px tall. Done.
 
+**ASK-1. A guided path through the question box**
+As a visitor, I want to go from a topic to a question to a checked answer, and see how the answer was checked.
+- The example questions are grouped by topic (dry summers, soil, yield, rotations), and a three-step marker (topic, question, answer) shows where I am. Done.
+- The answer shows in stages: question sent, answer received, then each claim with its checks, its cited items and its source in view. Done.
+- The service sends the whole answer at once, so the stages replay real data from that answer; nothing is shown that the service did not return. With reduced motion everything shows at once.
+- Checked with a stubbed service at 1440 and 390 px wide. Not checked: the example questions against the deployed service, a real phone.
+
 ## Worktrees
 
 | Worktree | Branch | Folders it touches | Stories |
