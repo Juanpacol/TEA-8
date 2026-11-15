@@ -47,7 +47,7 @@ Response (200):
 }
 ```
 
-- The model may cite only keys of the evidence bundle built from the data file (`season.<year>.<figure>`, `soil.<point>.*`, `crop.<point>.<year>`, `rotation.<id>`, `exposure.<id>`, `rule.<id>`, `limit.<n>`).
+- The model may cite only keys of the evidence bundle built from the data file (`season.<year>.<figure>`, where the figure may also be `drought_monitor` or `smap_root_zone` for the years that have them, `soil.<point>.*`, `crop.<point>.<year>`, `rotation.<id>`, `exposure.<id>`, `rule.<id>`, `limit.<n>`).
 - A claim is `verified` only when it cites at least one key, every key exists and every number in the claim appears in the cited evidence. The `checks` show that process and the web app displays them. Unverified claims are shown flagged, never hidden, and are left out of `answer`.
 - `answered` is false when the data does not cover the question or no claim could be verified.
 - Wording that names a best option, gives a final score or tells the farmer what to plant is rejected; the model gets one retry.

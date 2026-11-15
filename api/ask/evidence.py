@@ -30,7 +30,7 @@ def _figure(label, fig, year=None):
     text = (f"{label}: {fig['value']} {fig['unit']} "
             f"({fig['source']}, {fig['parameter']}, queried {fig['queried_on']}).")
     numbers = [abs(fig["value"])] + numbers_in(fig["unit"]) + ([year] if year else [])
-    return entry(text, "nasa_data" if fig["source"] == "NASA POWER" else "platform_calculation", numbers)
+    return entry(text, "nasa_data" if fig["source"].startswith("NASA") else "platform_calculation", numbers)
 
 
 def build_bundle(data):
@@ -42,6 +42,13 @@ def build_bundle(data):
             f"Summer {y} root-zone wetness deviation", s["root_wetness_deviation"], y)
         bundle[f"season.{y}.rainfall"] = _figure(f"Summer {y} rainfall", s["rainfall"], y)
         bundle[f"season.{y}.temperature"] = _figure(f"Summer {y} temperature", s["temperature"], y)
+        if "drought_monitor" in s:
+            bundle[f"season.{y}.drought_monitor"] = _figure(
+                f"Summer {y} share of the county in drought on the US Drought Monitor (an independent check)",
+                s["drought_monitor"], y)
+        if "smap_root_zone" in s:
+            bundle[f"season.{y}.smap_root_zone"] = _figure(
+                f"Summer {y} NASA SMAP root-zone soil moisture (a satellite-driven check)", s["smap_root_zone"], y)
     for s in data["seasons"]:
         if s.get("dry") is not None:
             verdict = "dry" if s["dry"] else "not dry"
