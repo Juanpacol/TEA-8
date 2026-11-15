@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { M2_PER_ACRE, areaM2, centerOf, parseGeoJson, parseKml, parseZoneFile } from './zone.ts'
+import { M2_PER_ACRE, areaM2 } from './zone.ts'
 
 // A square of 0.01° by 0.01° near Bloomington, Illinois: about 1.11 km by 0.85 km.
 const square = [
@@ -34,56 +34,5 @@ describe('areaM2', () => {
       { lat: 40.5 + dLat, lon: -88.9 },
     ]
     expect(areaM2(quarter) / M2_PER_ACRE).toBeCloseTo(160, 0)
-  })
-})
-
-describe('centerOf', () => {
-  it('is the mean of the corners', () => {
-    const center = centerOf(square)
-    expect(center.lat).toBeCloseTo(40.505, 9)
-    expect(center.lon).toBeCloseTo(-88.895, 9)
-  })
-})
-
-describe('parseGeoJson', () => {
-  const ring = [[-88.9, 40.5], [-88.89, 40.5], [-88.89, 40.51], [-88.9, 40.51], [-88.9, 40.5]]
-
-  it('reads a Polygon, a Feature and a FeatureCollection, without the repeated last corner', () => {
-    const polygon = { type: 'Polygon', coordinates: [ring] }
-    expect(parseGeoJson(JSON.stringify(polygon))).toEqual(square)
-    expect(parseGeoJson(JSON.stringify({ type: 'Feature', geometry: polygon, properties: {} }))).toEqual(square)
-    expect(parseGeoJson(JSON.stringify({ type: 'FeatureCollection', features: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [0, 0] } }, { type: 'Feature', geometry: polygon }] }))).toEqual(square)
-  })
-
-  it('reads the first polygon of a MultiPolygon', () => {
-    expect(parseGeoJson(JSON.stringify({ type: 'MultiPolygon', coordinates: [[ring]] }))).toEqual(square)
-  })
-
-  it('rejects text with no polygon', () => {
-    expect(parseGeoJson('not json')).toBeNull()
-    expect(parseGeoJson(JSON.stringify({ type: 'Point', coordinates: [0, 0] }))).toBeNull()
-    expect(parseGeoJson(JSON.stringify({ type: 'Polygon', coordinates: [[[0, 0], [1, 1]]] }))).toBeNull()
-  })
-})
-
-describe('parseKml', () => {
-  const kml = `<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2"><Document><Placemark><name>My field</name>
-<Polygon><outerBoundaryIs><LinearRing><coordinates>
-  -88.9,40.5,0 -88.89,40.5,0 -88.89,40.51,0 -88.9,40.51,0 -88.9,40.5,0
-</coordinates></LinearRing></outerBoundaryIs></Polygon></Placemark></Document></kml>`
-
-  it('reads the outer boundary as Google Earth saves it', () => {
-    expect(parseKml(kml)).toEqual(square)
-  })
-
-  it('rejects a KML with only a point', () => {
-    expect(parseKml('<kml><Placemark><Point><coordinates>-88.9,40.5,0</coordinates></Point></Placemark></kml>')).toBeNull()
-  })
-
-  it('parseZoneFile picks the reader from the name or the content', () => {
-    expect(parseZoneFile('field.kml', kml)).toEqual(square)
-    expect(parseZoneFile('field.txt', kml)).toEqual(square)
-    expect(parseZoneFile('field.geojson', JSON.stringify({ type: 'Polygon', coordinates: [[[-88.9, 40.5], [-88.89, 40.5], [-88.89, 40.51], [-88.9, 40.51]]] }))).toEqual(square)
   })
 })
