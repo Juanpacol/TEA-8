@@ -85,22 +85,38 @@
   box-shadow: 0 0 0 6px rgb(79 195 205 / 0.45);
 }
 
+/* One bar per summer, as tall as the soil was wet. They sit on the slider track and select their year when tapped. */
 .year-control__marks {
   position: relative;
-  height: 10px;
+  height: 34px;
+  margin-top: var(--space-1);
 }
 
-.year-control__mark {
+.year-control__bar {
   position: absolute;
-  top: 1px;
-  width: 8px;
-  height: 8px;
-  margin-left: -4px;
+  bottom: 0;
+  width: 6px;
+  min-height: 4px;
+  margin-left: -3px;
   padding: 0;
-  background: var(--ochre);
+  background: color-mix(in srgb, var(--text-soft) 45%, transparent);
   border: 0;
-  border-radius: 50%;
+  border-radius: 2px 2px 0 0;
   cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+.year-control__bar:hover {
+  background: var(--text-soft);
+}
+
+.year-control__bar--dry {
+  background: var(--ochre);
+}
+
+.year-control__bar--on {
+  background: var(--accent);
+  box-shadow: 0 0 0 2px rgb(79 195 205 / 0.35);
 }
 
 .year-control__ends {

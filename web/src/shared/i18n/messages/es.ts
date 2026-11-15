@@ -88,6 +88,8 @@ export const es: Record<MessageKey, string> = {
   'year.prev': 'Año anterior',
   'year.next': 'Año siguiente',
   'year.dry': 'Veranos secos',
+  'year.barTitle': '{year}: humedad del suelo {deviation} desviaciones estándar de la media 2001-2023{dry}',
+  'year.barsLegend': 'Una barra por verano: más alta, suelo más húmedo. Ocre: veranos secos.',
 
   'glossary.title': 'Qué significan estas palabras',
   'glossary.ndvi': 'NDVI',

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AskPanel } from '../../features/ask/index.ts'
 import { FieldCards, FieldPanel } from '../../features/field/index.ts'
 import { EvidenceSection, Limits, Notice, OriginKey, SimulatedNotice } from '../../features/evidence/index.ts'
-import { BaseControl, CompareControl, DEFAULT_BASE, Glossary, MapLegend, MapView, WhereAmI, YearControl, pointAt, type BaseId, type Place } from '../../features/map/index.ts'
+import { BaseControl, CompareControl, DEFAULT_BASE, Glossary, MapLegend, MapView, NDVI_FIRST_YEAR, NDVI_LAST_YEAR, WhereAmI, YearControl, pointAt, yearBars, type BaseId, type Place } from '../../features/map/index.ts'
 import { PriorityPicker, orderTabs, type Priority } from '../../features/priorities/index.ts'
 import { driestSummer } from '../../features/landing/index.ts'
 import { YearOutcome } from '../../features/yields/index.ts'
@@ -41,7 +41,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
       {data.simulated && <SimulatedNotice />}
       <div className="workspace">
         <header className="workspace__top">
-          <YearControl year={year} onChange={setYear} dryYears={data.seasons.filter((s) => s.dry === true).map((s) => s.year)} />
+          <YearControl year={year} onChange={setYear} bars={yearBars(data.seasons, NDVI_FIRST_YEAR, NDVI_LAST_YEAR)} />
           <SeasonStrip
             year={year}
             season={seasonOf(data.seasons, year)}
