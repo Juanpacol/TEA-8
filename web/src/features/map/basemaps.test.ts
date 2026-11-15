@@ -10,14 +10,16 @@ describe('map backgrounds', () => {
   })
 
   it('uses tile URLs with z, y and x and credits its source', () => {
-    for (const base of Object.values(BASES).filter((b) => b.url)) {
+    for (const base of Object.values(BASES)) {
       expect(base.url).toContain('{z}/{y}/{x}')
       expect(base.attribution.length).toBeGreaterThan(0)
     }
   })
 
   it('keeps the vegetation visible but see-through over detailed backgrounds', () => {
-    expect(BASES.map.ndviOpacity).toBeLessThan(BASES.vegetation.ndviOpacity)
-    expect(BASES.aerial.ndviOpacity).toBeLessThan(BASES.vegetation.ndviOpacity)
+    for (const base of Object.values(BASES)) {
+      expect(base.ndviOpacity).toBeGreaterThan(0)
+      expect(base.ndviOpacity).toBeLessThan(1)
+    }
   })
 })

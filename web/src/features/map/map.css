@@ -470,30 +470,6 @@
   font-size: 0.85rem;
 }
 
-/* Plain background: just the county and the points, no roads or names. */
-.map.map--simple {
-  background: var(--surface);
-}
-
-.map-town span {
-  display: inline-block;
-  transform: translate(-50%, 6px);
-  color: var(--text-soft);
-  font-size: 0.8rem;
-  white-space: nowrap;
-}
-
-.map-town::before {
-  content: '';
-  position: absolute;
-  left: -3px;
-  top: -3px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--text-soft);
-}
-
 .where {
   display: flex;
   flex-wrap: wrap;

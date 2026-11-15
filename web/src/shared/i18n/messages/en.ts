@@ -75,10 +75,8 @@ export const en = {
   'field.onePixel': '{source}, queried {date}. One pixel at the point, not the whole field.',
 
   'base.label': 'Map background',
-  'base.simple': 'Simple',
   'base.map': 'Map',
   'base.aerial': 'Satellite',
-  'base.vegetation': 'Plants only',
   'base.showVegetation': 'Show plant colors (green)',
   'compare.label': 'Compare the map with',
   'compare.none': 'no other year',

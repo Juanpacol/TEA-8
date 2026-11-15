@@ -6,7 +6,7 @@ import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASES, type BaseId } from './basemaps.ts'
 import { pointLabel } from './cell.ts'
 import { loadSoilZones, soilFamily } from './soil-zones.ts'
-import { COUNTY_OUTLINE, REFERENCE_TOWNS, insideCounty } from './county.ts'
+import { COUNTY_OUTLINE, insideCounty } from './county.ts'
 import { ndviTileUrl } from './gibs.ts'
 import { describePlace, formatCoords, pointAt, type Place } from './selection.ts'
 import './map.css'
@@ -31,7 +31,6 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const container = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
   const background = useRef<L.TileLayer | null>(null)
-  const towns = useRef<L.LayerGroup | null>(null)
   const ndvi = useRef<L.TileLayer | null>(null)
   const other = useRef<L.TileLayer | null>(null)
   const markers = useRef<{ point: CasePoint; marker: L.CircleMarker }[]>([])
@@ -156,25 +155,9 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     if (!instance) return
     const next = BASES[base]
     background.current?.remove()
-    background.current = next.url
-      ? L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: 14, attribution: next.attribution })
-          .addTo(instance)
-          .bringToBack()
-      : null
-    instance.getContainer().classList.toggle('map--simple', !next.url)
-    towns.current?.remove()
-    towns.current = null
-    if (!next.url) {
-      towns.current = L.layerGroup(
-        REFERENCE_TOWNS.map((town) =>
-          L.marker([town.lat, town.lon], {
-            interactive: false,
-            keyboard: false,
-            icon: L.divIcon({ className: 'map-town', html: `<span>${town.name}</span>`, iconSize: [0, 0] }),
-          }),
-        ),
-      ).addTo(instance)
-    }
+    background.current = L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: 14, attribution: next.attribution })
+      .addTo(instance)
+      .bringToBack()
     const opacity = showVegetation ? next.ndviOpacity : 0
     ndvi.current?.setOpacity(opacity)
     other.current?.setOpacity(opacity)

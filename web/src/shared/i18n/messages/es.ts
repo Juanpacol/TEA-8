@@ -77,10 +77,8 @@ export const es: Record<MessageKey, string> = {
   'field.onePixel': '{source}, consultado el {date}. Un solo píxel en el punto, no todo el campo.',
 
   'base.label': 'Fondo del mapa',
-  'base.simple': 'Simple',
   'base.map': 'Mapa',
   'base.aerial': 'Satélite',
-  'base.vegetation': 'Solo plantas',
   'base.showVegetation': 'Mostrar colores de las plantas (verde)',
   'compare.label': 'Comparar el mapa con',
   'compare.none': 'ningún otro año',
