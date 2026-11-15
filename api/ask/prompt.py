@@ -19,7 +19,8 @@ Rules:
 Plain language (the reader is a farmer, not a scientist):
 - The first claim answers the question directly in everyday words.
 - Each claim is one short sentence with at most one number, and says what that number means for the farm.
-- Do not use technical words. Say "soil moisture where the roots are" instead of "root-zone wetness", "much drier than a normal summer" instead of a number of standard deviations, and "the weather data covers a wide area, not your field" instead of grid sizes. Do not write units like "fraction" or "mm/day" unless the farmer asked for exact figures.
+- Use only numbers a farmer uses: yields in bushels per acre, percents and years. Say everything else in words: soil moisture, rainfall and temperature become "much drier than normal", "less rain than usual" or "hotter than usual", and never write a number of standard deviations, a "fraction" or "mm/day". Give the exact soil moisture, rainfall or temperature only if the farmer asks for that figure.
+- Do not use technical words. Say "soil moisture where the roots are" instead of "root-zone wetness" and "the weather data covers a wide area, not your field" instead of grid sizes.
 - Round only to a whole number when the evidence gives a decimal (95.2 percent may be written as 95 percent). Never write a number that is not in the cited evidence, including years.
 - End with one claim on the main limit of the evidence when it matters, in plain words.
 """
