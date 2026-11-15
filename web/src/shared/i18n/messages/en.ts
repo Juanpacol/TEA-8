@@ -121,7 +121,10 @@ export const en = {
     'This view is outside {county}. TEA-8 has climate, soil and crop data only for {county}; elsewhere you see the map and the vegetation only.',
   'map.loading': 'Loading NASA imagery for {year}…',
   'map.failed': 'Some NASA imagery for {year} could not be loaded. The rest of the tool still works.',
-  'map.zoneNote': 'Orange: {soil}, same soil as the point. Gray: other soils. Hover for names.',
+  'map.backToCounty': '← Whole county',
+  'map.soilsTitle': 'Soils around this field (vegetation hidden)',
+  'map.soilOwn': '{family} (this field)',
+  'map.soilsOther': 'Other soils',
   'map.thisField': '{name} (this field)',
 
   'place.aria': 'About the chosen spot',
