@@ -142,7 +142,7 @@ export const es: Record<MessageKey, string> = {
   'map.ariaCompare': 'Mapa de vegetación NDVI: {year} a la izquierda, {other} a la derecha',
   'map.divider': 'Divisor entre {year} y {other}',
   'map.outside':
-    'Esta vista está fuera del {county}. TEA-8 solo tiene datos de clima, suelo y cultivos del {county}; en el resto solo se ve el mapa y la vegetación.',
+    'Esta vista está fuera del {county}. Las cifras de arriba de la página son del {county}. Para otro lugar, elíjalo y pulse "Analizar este lugar", o dibuje su campo.',
   'map.loading': 'Cargando imágenes de la NASA de {year}…',
   'map.failed': 'No se pudieron cargar algunas imágenes de la NASA de {year}. El resto de la herramienta sigue funcionando.',
   'map.backToCounty': '← Todo el condado',

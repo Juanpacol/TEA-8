@@ -61,6 +61,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
   const drawingNow = useRef(drawing)
   drawingNow.current = drawing
   const zoneLayer = useRef<L.FeatureGroup | null>(null)
+  const zoneNow = useRef(zone)
+  zoneNow.current = zone
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   const [split, setSplit] = useState(50)
   const [outside, setOutside] = useState(false)
@@ -118,7 +120,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
     }).addTo(instance)
     // Show the whole county, with room around it.
     countyBounds.current = county.getBounds()
-    instance.fitBounds(countyBounds.current, { padding: [30, 30] })
+    // Without animation: a pending county animation would pull the map back from a field opened right after (a shared link).
+    instance.fitBounds(countyBounds.current, { padding: [30, 30], animate: false })
     const checkCenter = () => {
       const center = instance.getCenter()
       setOutside(!insideCounty(center.lat, center.lng))
@@ -237,7 +240,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
     setSoils(null)
     const point = selected ? pointAt(selected, points) : null
     if (!point) {
-      if (countyBounds.current && selected === null) instance.fitBounds(countyBounds.current, { padding: [30, 30] })
+      // Back to the whole county, unless a field the person drew or opened from a link is on the map.
+      if (countyBounds.current && selected === null && zoneNow.current.length < 3) instance.fitBounds(countyBounds.current, { padding: [30, 30] })
       return
     }
     let stale = false
