@@ -22,6 +22,8 @@ type Props = {
 }
 
 const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
+/** From this zoom on the point labels stay on screen. */
+const LABEL_ZOOM = 11
 
 /** Satellite vegetation (NASA GIBS NDVI) over the case area, for one year, optionally next to another year. */
 export function MapView({ points, year, compareYear, base, showVegetation, selected, onSelect }: Props) {
@@ -45,6 +47,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const [zoneSoil, setZoneSoil] = useState<string | null>(null)
   const splitNow = useRef(split)
   splitNow.current = split
+  const yearNow = useRef(year)
+  yearNow.current = year
 
   /** Shows the other year only to the right of the divider. Layer panes move with the map, so the cut is recomputed. */
   function clip() {
@@ -96,7 +100,6 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     instance.on('moveend', checkCenter)
     markers.current = points.map((point) => {
       const marker = L.circleMarker([point.lat, point.lon], { radius: 10, color: markerColor, weight: 3, fillColor: markerColor, fillOpacity: 0.85 })
-        .bindTooltip(pointLabel(tRef.current, point, year), { permanent: true, direction: 'right' })
         .addTo(instance)
       marker.on('click', (event) => {
         L.DomEvent.stopPropagation(event)
@@ -104,6 +107,15 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       })
       return { point, marker }
     })
+    // Seen from the whole county the two labels would cover the outline and the points: they stay permanent only once zoomed in, and show on hover before that.
+    const labels = () => {
+      const permanent = instance.getZoom() >= LABEL_ZOOM
+      for (const { point, marker } of markers.current) {
+        marker.unbindTooltip().bindTooltip(pointLabel(tRef.current, point, yearNow.current), { permanent, direction: 'right' })
+      }
+    }
+    labels()
+    instance.on('zoomend', labels)
     ring.current = L.circleMarker([points[0].lat, points[0].lon], {
       radius: 14,
       color: markerColor,
