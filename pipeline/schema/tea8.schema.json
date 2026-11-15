@@ -248,6 +248,30 @@
           "items": {
             "$ref": "#/$defs/case_point"
           }
+        },
+        "reference_towns": {
+          "type": "array",
+          "description": "Places to orient by and to pick from the town list. Coordinates checked against OpenStreetMap.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "lat",
+              "lon"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lon": {
+                "type": "number"
+              }
+            }
+          }
         }
       }
     },
