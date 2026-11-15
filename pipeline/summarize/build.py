@@ -21,6 +21,7 @@ from pipeline.points import CASE_POINTS
 from pipeline.rotations.exposure import rotation_summer_share
 from pipeline.region import REGION
 from pipeline.summarize.drought import summer_drought_share
+from pipeline.summarize.smap import summer_smap
 from pipeline.summarize.yields import build_yields
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -56,7 +57,7 @@ def rounded(value, digits):
     return None if value is None else round(value, digits)
 
 
-def build_seasons(power: dict, drought=None) -> list:
+def build_seasons(power: dict, drought=None, smap=None) -> list:
     queried_on = power["queried_on"]
     series = power["properties"]["parameter"]
     wetness = {y: summer_mean(series["GWETROOT"], y) for y in range(START_YEAR, 2027)}
@@ -79,6 +80,11 @@ def build_seasons(power: dict, drought=None) -> list:
             seasons[-1]["drought_monitor"] = figure(
                 share, "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
                 "US Drought Monitor", "county statistics, cumulative D1", drought["queried_on"])
+        moisture = summer_smap(smap["years"].get(str(year), [])) if smap else None
+        if moisture is not None:
+            seasons[-1]["smap_root_zone"] = figure(
+                moisture, "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+                "NASA SMAP L4 via GIBS", "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture", smap["queried_on"])
         dev = seasons[-1]["root_wetness_deviation"]["value"]
         seasons[-1]["dry"] = None if dev is None else dev <= DRY_THRESHOLD
     return seasons
@@ -124,7 +130,8 @@ def build_rotations(seasons: list) -> list:
 def build() -> dict:
     load = lambda name: json.loads((RAW_DIR / name).read_text(encoding="utf-8"))
     load_optional = lambda path: json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
-    seasons = build_seasons(load(f"power_{CLIMATE_POINT}.json"), load_optional(drought_path(REGION["county_fips"])))
+    seasons = build_seasons(load(f"power_{CLIMATE_POINT}.json"), load_optional(drought_path(REGION["county_fips"])),
+                            load_optional(RAW_DIR / f"smap_{CLIMATE_POINT}.json"))
     return {
         "schema_version": "1",
         "simulated": False,

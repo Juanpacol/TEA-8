@@ -18,21 +18,29 @@ export function pairsFor(data: TEA8DataFile, crop: string, first: number, last: 
   return pairs.sort((a, b) => a.year - b.year)
 }
 
-/** Pearson correlation, or null when it cannot be computed (fewer than 3 points, or no spread). */
-export function pearson(pairs: readonly Pair[]): number | null {
-  if (pairs.length < 3) return null
-  const meanX = pairs.reduce((sum, p) => sum + p.deviation, 0) / pairs.length
-  const meanY = pairs.reduce((sum, p) => sum + p.change, 0) / pairs.length
+/** Pearson correlation of two series of the same length, or null when it cannot be computed (fewer than 3 points, or no spread). */
+export function correlation(xs: readonly number[], ys: readonly number[]): number | null {
+  if (xs.length < 3 || xs.length !== ys.length) return null
+  const meanX = xs.reduce((sum, v) => sum + v, 0) / xs.length
+  const meanY = ys.reduce((sum, v) => sum + v, 0) / ys.length
   let covariance = 0
   let spreadX = 0
   let spreadY = 0
-  for (const p of pairs) {
-    covariance += (p.deviation - meanX) * (p.change - meanY)
-    spreadX += (p.deviation - meanX) ** 2
-    spreadY += (p.change - meanY) ** 2
-  }
+  xs.forEach((x, i) => {
+    covariance += (x - meanX) * (ys[i] - meanY)
+    spreadX += (x - meanX) ** 2
+    spreadY += (ys[i] - meanY) ** 2
+  })
   if (spreadX === 0 || spreadY === 0) return null
   return covariance / Math.sqrt(spreadX * spreadY)
+}
+
+/** Pearson correlation of soil moisture deviation and yield change, or null when it cannot be computed. */
+export function pearson(pairs: readonly Pair[]): number | null {
+  return correlation(
+    pairs.map((p) => p.deviation),
+    pairs.map((p) => p.change),
+  )
 }
 
 /** The summer whose yield moved the most from its trend, in either direction: the one that can carry a whole correlation. */

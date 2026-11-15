@@ -97,6 +97,7 @@ To copy into the "References" field of the submission. Status "to verify" means 
 |---|---|---|
 | NASA POWER, https://power.larc.nasa.gov/ | Climate and root-zone wetness | Verified accessible |
 | NASA GIBS (Worldview), https://gibs.earthdata.nasa.gov | Dated satellite tiles | Verified accessible |
+| NASA SMAP Level 4 root-zone soil moisture, served by GIBS (`SMAP_L4_Analyzed_Root_Zone_Soil_Moisture`) | Satellite-driven cross-check of the soil moisture | Verified working Nov 14, 2026 (tiles and published color map read, no account) |
 | USDA Soil Data Access (SSURGO) | Soil by coordinate | Verified accessible |
 | USDA CropScape (CDL), https://nassgeodata.gmu.edu/CropScape/ | Crop by year | Verified accessible |
 | US Drought Monitor (NDMC, USDA, NOAA), county statistics, https://droughtmonitor.unl.edu/ | Independent cross-check of the dry summers | Verified working Nov 14, 2026 (public service, no key) |

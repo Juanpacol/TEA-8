@@ -305,6 +305,10 @@
           "$ref": "#/$defs/figure",
           "description": "Optional independent cross-check: the mean share of the county in drought (D1 or worse) over the June-August weekly US Drought Monitor maps. Absent when the summer is not over or has gaps."
         },
+        "smap_root_zone": {
+          "$ref": "#/$defs/figure",
+          "description": "Optional satellite cross-check: mean NASA SMAP L4 root-zone soil moisture over weekly samples of June to August, read from NASA GIBS tiles at the climate point. Only from 2015. SMAP L4 is a land model corrected with SMAP satellite measurements. Absent when the summer is not over or has gaps."
+        },
         "dry": {
           "type": [
             "boolean",

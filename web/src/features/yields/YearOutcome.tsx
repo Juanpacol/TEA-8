@@ -3,6 +3,7 @@ import type { Rotation, TEA8DataFile } from '../../shared/lib/data-types.ts'
 import type { CropOutcome } from './yields.ts'
 import { barShares, dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict, swingOf, toneOf, typicalSwing } from './yields.ts'
 import { DroughtCheck } from './DroughtCheck.tsx'
+import { SatelliteCheck } from './SatelliteCheck.tsx'
 import { WetnessVsYield } from './WetnessVsYield.tsx'
 import './yields.css'
 
@@ -79,6 +80,7 @@ export function YearOutcome({ data, rotation, year }: Props) {
         </p>
       ))}
       <DroughtCheck data={data} year={year} />
+      <SatelliteCheck data={data} />
       <WetnessVsYield data={data} year={year} />
       <details className="outcome__how">
         <summary>{t('outcome.how')}</summary>
