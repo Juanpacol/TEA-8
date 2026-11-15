@@ -30,6 +30,7 @@ import {
   type Priority,
 } from "../../features/priorities/index.ts";
 import { driestSummer } from "../../features/landing/index.ts";
+import { PlacePanel } from "../../features/place/index.ts";
 import { YearOutcome } from "../../features/yields/index.ts";
 import {
   CompareTable,
@@ -121,6 +122,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             onSelect={setPlace}
           />
           <p className="map-hint map-hint--small">{t("tool.mapHint")}</p>
+          {place && !chosen && <PlacePanel place={place} />}
           <div className="map-toolbar">
             <BaseControl
               value={base}

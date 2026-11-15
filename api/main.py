@@ -1,4 +1,4 @@
-"""TEA-8 API service: /health and POST /ask, with a CORS allowlist and rate limiting (DEP-5, DEP-9, BE-7)."""
+"""TEA-8 API service: /health, GET /place and POST /ask, with a CORS allowlist and rate limiting (DEP-5, DEP-9, BE-7)."""
 import json
 import os
 import threading
@@ -10,6 +10,7 @@ from pathlib import Path
 from ask.budget import DailyBudget
 from ask.llm import MuseSparkClient
 from ask.service import handle_ask
+from place.service import handle_place
 
 ALLOWED_ORIGINS = {
     o.strip()
@@ -117,6 +118,9 @@ class Handler(BaseHTTPRequestHandler):
             return self._json(403, {"error": "origin not allowed"})
         if self._rate_limited():
             return
+        path, _, query = self.path.partition("?")
+        if path == "/place":
+            return self._json(*handle_place(query))
         self._json(404, {"error": "not found"})
 
     def do_POST(self):

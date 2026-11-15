@@ -65,3 +65,24 @@ Response (200):
 | `.github/`, hosting config | deploy worktree | |
 
 Every pull request that changes the schema must keep `sample.json` valid.
+
+## GET /place
+
+Evidence for one point, asked from the sources at request time (story FA-2 in [field-analysis-stories.md](field-analysis-stories.md)). Nothing about the place is stored.
+
+`GET /place?lat=38.5&lon=-98.8`
+
+```json
+{
+  "place": { "lat": 38.5, "lon": -98.8 },
+  "queried_on": "2026-11-15",
+  "climate": { "baseline": "2001-2023", "seasons": [{ "year": 2012, "root_wetness": 0.42, "root_wetness_deviation": -1.18, "rainfall_mm_day": 1.9, "temperature_c": 27.1, "dry": true }], "dry_years": [2011, 2012], "source": "...", "note": "..." },
+  "soil": { "name": "Harney", "component_pct": 97.0, "drainage": "Well drained", "hydrologic_group": "C", "organic_matter_pct": 2.3, "available_water": 0.22, "source": "..." },
+  "crops": { "years": { "2008": "Winter Wheat" }, "source": "...", "note": "..." },
+  "limits": ["..."]
+}
+```
+
+- A source that does not answer is `{ "error": "..." }` in its place; the others are still returned. `soil` is `null` when the survey has nothing at the point.
+- Errors: 400 `BAD_REQUEST` (lat or lon missing or not a number), 400 `OUTSIDE_COVERAGE` (outside the contiguous United States), 429 (rate limit).
+- The example values of `seasons` are illustrative; the dry-summer rule is the one in [method.md](method.md), computed for the grid cell of the point.
