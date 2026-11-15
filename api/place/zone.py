@@ -129,7 +129,7 @@ def zone_crops(corners):
     }
 
 
-def handle_zone(body, today=None, climate=None, soil=None, crops=None):
+def handle_zone(body, today=None, climate=None, soil=None, crops=None, vegetation=None):
     corners = parse_corners(body)
     if corners is None:
         return error(400, "BAD_REQUEST", f"corners must be 3 to {MAX_CORNERS} [lat, lon] pairs")
@@ -146,18 +146,21 @@ def handle_zone(body, today=None, climate=None, soil=None, crops=None):
     climate = climate or (lambda: sources.climate(lat_c, lon_c, today.year - 1))
     soil = soil or (lambda: zone_soil(corners, field_m2))
     crops = crops or (lambda: zone_crops(corners))
-    with ThreadPoolExecutor(max_workers=3) as pool:
-        jobs = [pool.submit(_safe, job) for job in (climate, soil, crops)]
+    vegetation = vegetation or (lambda: sources.vegetation(lat_c, lon_c, today.year - 1))
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        jobs = [pool.submit(_safe, job) for job in (climate, soil, crops, vegetation)]
         return 200, {
             "zone": {"corners": len(corners), "area_ha": round(field_m2 / 1e4, 1), "center": {"lat": round(lat_c, 5), "lon": round(lon_c, 5)}},
             "queried_on": today.isoformat(),
             "climate": jobs[0].result(),
             "soil": jobs[1].result(),
             "crops": jobs[2].result(),
+            "vegetation": jobs[3].result(),
             "limits": [
                 "Climate is one value for a grid cell of about 50 km around the center of the field: it describes the area, not the field.",
                 "Soil shares come from the soil survey map, not from samples taken in the field.",
                 "Crops are read at a few points inside the field, not over its whole area.",
+                "NDVI and VCI are read at one 250 m pixel at the center of the field.",
                 "No yields are given for this field.",
                 "This supports a decision and does not replace local expertise.",
             ],

@@ -44,6 +44,19 @@ def _climate(bundle, climate, where):
         USDA, [float(y) for y in climate["dry_years"]] + numbers_in(climate["baseline"]))
 
 
+def _vegetation(bundle, vegetation, where):
+    if not isinstance(vegetation, dict) or "seasons" not in vegetation:
+        return
+    for s in vegetation["seasons"]:
+        y = s["year"]
+        bundle[f"season.{y}.ndvi"] = entry(
+            f"Summer {y} vegetation greenness (NDVI) {where}: {s['ndvi']} (NASA MODIS, June to August, one 250 m pixel).", NASA, [s["ndvi"], float(y), 250.0])
+        if s.get("vci") is not None:
+            bundle[f"season.{y}.vci"] = entry(
+                f"Summer {y} vegetation condition index (VCI) {where}: {s['vci']} on a scale from 0 (least green summer on record) "
+                f"to 100 (greenest), from {vegetation['range']}.", USDA, [float(s["vci"]), float(y), 0.0, 100.0] + numbers_in(vegetation["range"]))
+
+
 def _soil_point(bundle, soil):
     if not isinstance(soil, dict) or "name" not in soil:
         return
@@ -89,6 +102,7 @@ def place_bundle(evidence):
     where = "in the area around this field" if zone else "in the area around this place"
     bundle = {}
     _climate(bundle, evidence.get("climate"), where)
+    _vegetation(bundle, evidence.get("vegetation"), where)
     (_soil_zone if zone else _soil_point)(bundle, evidence.get("soil"))
     _crops(bundle, evidence.get("crops"), zone)
     if zone:

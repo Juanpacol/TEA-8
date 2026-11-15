@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
 import { ZoneRefused, fetchZoneEvidence, isUnavailable, type ZoneEvidence } from '../../shared/lib/placeApi.ts'
-import { ClimateSection, Limits } from './PlacePanel.tsx'
+import { ClimateSection, Limits, VegetationSection } from './PlacePanel.tsx'
 import { PlaceAsk } from './PlaceAsk.tsx'
 import { ReportActions } from './ReportActions.tsx'
 import './place.css'
@@ -76,6 +76,7 @@ function Result({ evidence }: { evidence: ZoneEvidence }) {
         )}
       </section>
       <ClimateSection climate={climate} />
+      <VegetationSection vegetation={evidence.vegetation} />
       <Limits limits={evidence.limits} />
       <p className="place-panel__source">{t('zonePanel.queried', { date: evidence.queried_on })}</p>
     </div>

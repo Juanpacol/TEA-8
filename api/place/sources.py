@@ -17,6 +17,7 @@ from place.albers import to_conus_albers
 
 POWER_URL = "https://power.larc.nasa.gov/api/temporal/monthly/point"
 SOIL_URL = "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest"
+NDVI_URL = "https://modis.ornl.gov/rst/api/v1/MOD13Q1/subset"
 CROP_URL = "https://nassgeodata.gmu.edu/axis2/services/CDLService/GetCDLValue"
 
 BASELINE = (2001, 2023)
@@ -24,6 +25,11 @@ FIRST_YEAR = 2001
 CROP_YEARS = (2008, 2023)
 SUMMER_MONTHS = ("06", "07", "08")
 DRY_THRESHOLD = -1.0
+
+NDVI_FILL = -3000
+NDVI_SCALE = 0.0001
+NDVI_FIRST_YEAR = 2001
+SUMMER_DAYS = (161, 241)  # day of year of the first and last 16-day composite of June to August
 
 SOIL_QUERY = """SELECT TOP 1 c.compname, c.comppct_r, c.drainagecl, c.hydgrp, h.om_r, h.awc_r
 FROM SDA_Get_Mukey_from_intersection_with_WktWgs84('point({lon} {lat})') m
@@ -134,3 +140,46 @@ def crops(lat, lon):
         "source": "USDA CropScape (Cropland Data Layer), one 30 m pixel at the point",
         "note": "One pixel at the point, not the whole field. A year with no answer is left empty.",
     }
+
+
+def summarize_vegetation(summers, last_year):
+    """NDVI of each summer and its VCI: where the summer sits between the driest and greenest summer on record.
+
+    summers: {year: mean NDVI of the June to August composites, or None}. VCI = 100 * (x - min) / (max - min).
+    """
+    known = {y: v for y, v in summers.items() if v is not None}
+    if len(known) < 10:
+        raise ValueError("not enough summers with NDVI")
+    low, high = min(known.values()), max(known.values())
+    seasons = [{
+        "year": y,
+        "ndvi": round(v, 2),
+        "vci": None if high == low else round(100 * (v - low) / (high - low)),
+    } for y, v in sorted(known.items())]
+    return {
+        "seasons": seasons,
+        "range": f"{NDVI_FIRST_YEAR}-{last_year}",
+        "source": "NASA MODIS MOD13Q1 NDVI (250 m, via ORNL DAAC), mean of the June to August 16-day composites",
+        "note": "NDVI near 0.2 is bare ground and near 0.9 is dense green crop. VCI 0 is the least green summer on record for this pixel and 100 the greenest, "
+                "so a low VCI means vegetation stress compared with the other summers. One 250 m pixel at the point, not the whole field.",
+    }
+
+
+def summer_ndvi(lat, lon, year):
+    query = urllib.parse.urlencode({
+        "latitude": lat, "longitude": lon, "band": "250m_16_days_NDVI", "kmAboveBelow": 0, "kmLeftRight": 0,
+        "startDate": f"A{year}{SUMMER_DAYS[0]:03d}", "endDate": f"A{year}{SUMMER_DAYS[1]:03d}",
+    })
+    try:
+        rows = json.loads(fetch(f"{NDVI_URL}?{query}", timeout=40)).get("subset", [])
+    except (OSError, ValueError):
+        return None
+    values = [r["data"][0] * NDVI_SCALE for r in rows if r.get("data") and r["data"][0] != NDVI_FILL]
+    return statistics.fmean(values) if values else None
+
+
+def vegetation(lat, lon, last_year):
+    years = range(NDVI_FIRST_YEAR, last_year + 1)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        found = list(pool.map(lambda year: summer_ndvi(lat, lon, year), years))
+    return summarize_vegetation(dict(zip(years, found)), last_year)

@@ -18,6 +18,7 @@ PLACE = {
     "soil": {"name": "Harney", "drainage": "Well drained", "hydrologic_group": "C",
              "organic_matter_pct": 2.3, "available_water": 0.22, "source": "SSURGO"},
     "crops": {"years": {"2012": "Winter Wheat", "2013": None}, "source": "CDL", "note": ""},
+    "vegetation": {"range": "2001-2025", "seasons": [{"year": 2012, "ndvi": 0.32, "vci": 2}], "source": "MODIS", "note": ""},
     "limits": ["Climate describes the area, not the field."],
 }
 
@@ -46,6 +47,12 @@ class PlaceBundle(unittest.TestCase):
         bundle = place_bundle(PLACE)
         claim = {"text": "Summer 2012 was dry here: soil moisture 0.42 on a scale from 0 to 1.",
                  "evidence_keys": ["season.2012.root_wetness", "season.2012.dry"]}
+        self.assertTrue(verify(claim, bundle)["verified"])
+
+    def test_ndvi_and_vci_can_be_cited(self):
+        bundle = place_bundle(PLACE)
+        claim = {"text": "Summer 2012 had an NDVI of 0.32 and a VCI of 2 out of 100.",
+                 "evidence_keys": ["season.2012.ndvi", "season.2012.vci"]}
         self.assertTrue(verify(claim, bundle)["verified"])
 
     def test_a_wrong_number_is_not_verified(self):

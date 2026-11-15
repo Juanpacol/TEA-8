@@ -12,6 +12,13 @@ export type PlaceSeason = {
 
 export type PlaceClimate = { baseline: string; seasons: PlaceSeason[]; dry_years: number[]; source: string; note: string }
 
+export type PlaceVegetation = {
+  seasons: { year: number; ndvi: number; vci: number | null }[]
+  range: string
+  source: string
+  note: string
+}
+
 export type PlaceSoil = {
   name: string
   component_pct: number | null
@@ -31,6 +38,7 @@ export type PlaceEvidence = {
   /** null when the soil survey has nothing at the point (a city, water). */
   soil: PlaceSoil | Unavailable | null
   crops: PlaceCrops | Unavailable
+  vegetation?: PlaceVegetation | Unavailable
   limits: string[]
 }
 
@@ -80,6 +88,7 @@ export type ZoneEvidence = {
   climate: PlaceClimate | Unavailable
   soil: ZoneSoils | Unavailable | null
   crops: ZoneCrops | Unavailable
+  vegetation?: PlaceVegetation | Unavailable
   limits: string[]
 }
 

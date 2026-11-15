@@ -1,5 +1,5 @@
 import { useI18n } from '../../shared/i18n/index.ts'
-import { isUnavailable, type PlaceClimate, type PlaceEvidence, type Unavailable } from '../../shared/lib/placeApi.ts'
+import { isUnavailable, type PlaceClimate, type PlaceEvidence, type PlaceVegetation, type Unavailable } from '../../shared/lib/placeApi.ts'
 import { useRef } from 'react'
 import { formatCoords } from '../map/index.ts'
 import { PlaceAsk } from './PlaceAsk.tsx'
@@ -54,12 +54,40 @@ export function ClimateSection({ climate }: { climate: PlaceClimate | Unavailabl
   )
 }
 
+/** How green each summer was (NDVI) and how it ranks against the other summers on record (VCI, 0 to 100). */
+export function VegetationSection({ vegetation }: { vegetation: PlaceVegetation | Unavailable | undefined }) {
+  const { t } = useI18n()
+  if (!vegetation) return null
+  return (
+    <section>
+      <h4>{t('placePanel.vegetation')}</h4>
+      {isUnavailable(vegetation) ? (
+        <p>{t('placePanel.unavailable')}</p>
+      ) : (
+        <>
+          <ol className="place-panel__years place-panel__years--vegetation" aria-label={t('placePanel.vegetationAria')}>
+            {vegetation.seasons.map((season) => (
+              <li key={season.year} className={season.vci !== null && season.vci < 25 ? 'is-dry' : undefined}>
+                <span>{season.year}</span>
+                <span>{season.ndvi.toFixed(2)}</span>
+                <span>{season.vci === null ? '–' : `VCI ${season.vci}`}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="place-panel__source">{t('placePanel.vegetationNote', { range: vegetation.range })} {vegetation.source}.</p>
+        </>
+      )}
+    </section>
+  )
+}
+
 function Result({ evidence }: { evidence: PlaceEvidence }) {
   const { t } = useI18n()
   const { climate, soil, crops } = evidence
   return (
     <div className="place-panel__result">
       <ClimateSection climate={climate} />
+      <VegetationSection vegetation={evidence.vegetation} />
       <section>
         <h4>{t('placePanel.soil')}</h4>
         {soil === null ? (

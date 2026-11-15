@@ -269,3 +269,7 @@
 .is-printing .place-ask {
   display: none;
 }
+
+.place-panel__years--vegetation li span:last-child {
+  font-size: 0.7rem;
+}
