@@ -190,3 +190,25 @@ class ExposureEvidenceTest(unittest.TestCase):
             entry = BUNDLE[f"exposure.{rotation['id']}"]
             self.assertIn(str(rotation["summer_field_share"]["value"]), entry["text"])
             self.assertIn("not yield", entry["text"])
+
+
+class CrossCheckEvidenceTest(unittest.TestCase):
+    def test_drought_monitor_and_smap_are_citable_for_the_years_that_have_them(self):
+        for season in DATA["seasons"]:
+            y = season["year"]
+            self.assertEqual(f"season.{y}.drought_monitor" in BUNDLE, "drought_monitor" in season)
+            self.assertEqual(f"season.{y}.smap_root_zone" in BUNDLE, "smap_root_zone" in season)
+
+    def test_a_claim_with_the_monitor_figure_is_verified_and_a_wrong_one_is_not(self):
+        share = next(s for s in DATA["seasons"] if s["year"] == 2012)["drought_monitor"]["value"]
+        ok = verify(claim(f"In 2012 the Drought Monitor had {share}% of the county in drought.", "season.2012.drought_monitor"), BUNDLE)
+        self.assertTrue(ok["verified"])
+        self.assertEqual(ok["origins"], ["platform_calculation"])
+        bad = verify(claim("In 2012 the Drought Monitor had 40% of the county in drought.", "season.2012.drought_monitor"), BUNDLE)
+        self.assertFalse(bad["verified"])
+
+    def test_smap_is_nasa_data(self):
+        value = next(s for s in DATA["seasons"] if s["year"] == 2023)["smap_root_zone"]["value"]
+        r = verify(claim(f"In 2023 SMAP root-zone soil moisture was {value}.", "season.2023.smap_root_zone"), BUNDLE)
+        self.assertTrue(r["verified"])
+        self.assertEqual(r["origins"], ["nasa_data"])
