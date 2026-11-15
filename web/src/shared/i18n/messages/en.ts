@@ -140,7 +140,7 @@ export const en = {
   'map.ariaCompare': 'NDVI vegetation map: {year} on the left, {other} on the right',
   'map.divider': 'Divider between {year} and {other}',
   'map.outside':
-    'This view is outside {county}. TEA-8 has climate, soil and crop data only for {county}; elsewhere you see the map and the vegetation only.',
+    'This view is outside {county}. The figures at the top of the page are about {county}. For another place, choose it and press "Analyze this place", or draw your field.',
   'map.loading': 'Loading NASA imagery for {year}…',
   'map.failed': 'Some NASA imagery for {year} could not be loaded. The rest of the tool still works.',
   'map.backToCounty': '← Whole county',
