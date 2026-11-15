@@ -34,3 +34,27 @@ export function agreement(checks: readonly Check[]): Agreement {
     missed: checks.filter((check) => !check.dry && droughty(check)),
   }
 }
+
+export type Sensitivity = {
+  threshold: number
+  /** Summers whose soil wetness is at or below the threshold. */
+  dry: Check[]
+  /** Of those, how many the Drought Monitor also puts in drought. */
+  confirmed: number
+  /** Summers the Drought Monitor puts in drought that this threshold does not flag. */
+  missed: Check[]
+}
+
+/** The same cross-check at other cuts, so it is clear how much the result leans on the one we chose. */
+export function sensitivity(checks: readonly Check[], thresholds: readonly number[]): Sensitivity[] {
+  const known = checks.filter((check) => check.deviation !== null)
+  return thresholds.map((threshold) => {
+    const dry = known.filter((check) => (check.deviation as number) <= threshold)
+    return {
+      threshold,
+      dry,
+      confirmed: dry.filter((check) => check.share > DROUGHT_SHARE).length,
+      missed: known.filter((check) => check.share > DROUGHT_SHARE && !dry.includes(check)),
+    }
+  })
+}
