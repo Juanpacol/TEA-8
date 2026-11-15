@@ -1,7 +1,5 @@
 import { useI18n } from '../../shared/i18n/index.ts'
 import { isUnavailable, type PlaceClimate, type PlaceEvidence, type PlaceVegetation, type Unavailable } from '../../shared/lib/placeApi.ts'
-import { useRef } from 'react'
-import { formatCoords } from '../map/index.ts'
 import { PlaceAsk } from './PlaceAsk.tsx'
 import { ReportActions } from './ReportActions.tsx'
 import { placeKey, usePlaceEvidence } from './usePlaceEvidence.ts'
@@ -141,14 +139,9 @@ function Result({ evidence }: { evidence: PlaceEvidence }) {
 export function PlacePanel({ place }: Props) {
   const { t } = useI18n()
   const { state, analyze } = usePlaceEvidence()
-  const report = useRef<HTMLElement>(null)
   const current = state.status !== 'idle' && state.key === placeKey(place) ? state : { status: 'idle' as const }
   return (
-    <section ref={report} className="place-panel" aria-label={t('placePanel.aria')}>
-      <header className="place-panel__report-head">
-        <h3>{t('report.titlePlace')}</h3>
-        <p>{formatCoords(t, place)}</p>
-      </header>
+    <section className="place-panel" aria-label={t('placePanel.aria')}>
       <div className="place-panel__head">
         <p>{t('placePanel.intro')}</p>
         <button type="button" disabled={current.status === 'loading'} onClick={() => void analyze(place)}>
@@ -162,7 +155,7 @@ export function PlacePanel({ place }: Props) {
       {current.status === 'ready' && (
         <>
           <Result evidence={current.evidence} />
-          <ReportActions target={{ place }} report={report} />
+          <ReportActions target={{ place }} evidence={current.evidence} />
           <PlaceAsk
             context={{ place: { lat: Number(place.lat.toFixed(5)), lon: Number(place.lon.toFixed(5)) } }}
             examples={["Which summers were dry here?", "What soil is at this point?", "What was grown here since 2008?"]}

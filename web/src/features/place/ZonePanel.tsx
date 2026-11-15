@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { useI18n } from '../../shared/i18n/index.ts'
 import { ZoneRefused, fetchZoneEvidence, isUnavailable, type ZoneEvidence } from '../../shared/lib/placeApi.ts'
 import { ClimateSection, Limits, VegetationSection } from './PlacePanel.tsx'
@@ -87,7 +87,6 @@ function Result({ evidence }: { evidence: ZoneEvidence }) {
 export function ZonePanel({ corners }: { corners: Corner[] }) {
   const { t } = useI18n()
   const [state, setState] = useState<State>({ status: 'idle' })
-  const report = useRef<HTMLElement>(null)
   const key = zoneKey(corners)
   const current = state.status !== 'idle' && state.key === key ? state : { status: 'idle' as const }
 
@@ -103,20 +102,7 @@ export function ZonePanel({ corners }: { corners: Corner[] }) {
   }
 
   return (
-    <section ref={report} className="place-panel" aria-label={t('zonePanel.aria')}>
-      <header className="place-panel__report-head">
-        <h3>{t('report.titleZone')}</h3>
-        {current.status === 'ready' && (
-          <p>
-            {t('report.zoneLine', {
-              hectares: current.evidence.zone.area_ha,
-              corners: current.evidence.zone.corners,
-              lat: current.evidence.zone.center.lat,
-              lon: current.evidence.zone.center.lon,
-            })}
-          </p>
-        )}
-      </header>
+    <section className="place-panel" aria-label={t('zonePanel.aria')}>
       <div className="place-panel__head">
         <p>{t('zonePanel.intro')}</p>
         <button type="button" disabled={current.status === 'loading'} onClick={() => void analyze()}>
@@ -130,7 +116,7 @@ export function ZonePanel({ corners }: { corners: Corner[] }) {
       {current.status === 'ready' && (
         <>
           <Result evidence={current.evidence} />
-          <ReportActions target={{ zone: corners }} report={report} />
+          <ReportActions target={{ zone: corners }} evidence={current.evidence} />
           <PlaceAsk
             context={{ zone: corners.map((c) => [Number(c.lat.toFixed(6)), Number(c.lon.toFixed(6))] as [number, number]) }}
             examples={["Which soils cover most of my field?", "Which summers were dry around my field?", "What was grown in my field in 2020?"]}

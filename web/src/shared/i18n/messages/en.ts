@@ -199,9 +199,6 @@ export const en = {
   'report.copyFailed': 'Copy this link: {link}',
   'report.print': 'Print or save as PDF',
   'report.limits': 'What this does not tell you',
-  'report.titlePlace': 'TEA-8 evidence for a place',
-  'report.titleZone': 'TEA-8 evidence for a field',
-  'report.zoneLine': '{hectares} hectares, {corners} corners, center {lat}, {lon}.',
 
   'placeAsk.title': 'Ask about this place',
   'placeAsk.intro': 'The AI answers only from the evidence above, and code checks every number of its answer against it. Questions and answers are in English.',

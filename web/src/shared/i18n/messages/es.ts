@@ -201,9 +201,6 @@ export const es: Record<MessageKey, string> = {
   'report.copyFailed': 'Copie este enlace: {link}',
   'report.print': 'Imprimir o guardar como PDF',
   'report.limits': 'Lo que esto no le dice',
-  'report.titlePlace': 'Evidencia de TEA-8 para un lugar',
-  'report.titleZone': 'Evidencia de TEA-8 para un campo',
-  'report.zoneLine': '{hectares} hectáreas, {corners} esquinas, centro {lat}, {lon}.',
 
   'placeAsk.title': 'Preguntar sobre este lugar',
   'placeAsk.intro': 'La IA responde solo con la evidencia de arriba, y el código revisa cada número de su respuesta contra ella. Preguntas y respuestas en inglés.',
