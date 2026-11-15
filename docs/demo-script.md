@@ -1,18 +1,18 @@
 # Demo script, 30 seconds
 
-For the challenge video (30 seconds at most, English, no NASA logo or branding). Record the screen of `tea-8.vercel.app/#/tool` at desktop width, with a voice-over. Every scene below was seen working in production on 2026-11-14; re-check each one before recording.
+For the challenge video (30 seconds at most, English, no NASA logo or branding). Published version: https://youtu.be/9Tsnuw9hfzE (29.9 s, recorded on 2026-11-15). Screens are real recordings of the tool; the voice-over is generated with ElevenLabs.
 
 ## Scenes
 
 | Time | Screen | Voice-over |
 |---|---|---|
-| 0-4 s | Tool page, year 2023. | "A farmer in McLean County, Illinois, wonders how a dry summer would hit each crop rotation." |
-| 4-10 s | Drag the year slider to 2012. The headline reads "Summer 2012 was drier than average." The map changes. Open the 2012 tab: corn 44% below its trend. | "TEA-8 uses public NASA and USDA data. In 2012, county corn yield fell 44% below its trend." |
-| 10-16 s | Click Compare. Three rotations side by side, "no data" where there are no county yields. | "It compares three rotations, shows what is hypothetical and what is missing. No score, no best option." |
-| 16-25 s | Click Ask. Click the example "How dry was summer 2012?". The answer appears; open "How this was checked: 3 of 3 checks passed". | "Questions are answered only from the data. Code checks every claim and every number against its source." |
-| 25-30 s | Back to the top of the page. | "TEA-8 supports a farmer's decision. It does not replace local expertise." |
-
-About 75 words of voice-over; read it aloud once with a timer, and cut words if it passes 30 seconds.
+| 0-5.7 s | Hook: the 2012 drought in McLean County, Illinois. | "A dry summer took 44% of the corn. Next summer, will your crops make it?" |
+| 5.7-9.9 s | McLean County: three rotations side by side, with what is not known and no best option. | "Compare rotations side by side. You decide." |
+| 9.9-15.5 s | Draw a field corner by corner on the aerial photo (a 139 ha field near Bloomington, Illinois). | "Or draw your own field, anywhere in the U.S." |
+| 15.5-19.9 s | Field results: dry summers and the vegetation (NDVI, VCI) per year. | "NASA data shows its dry summers, and how green each one was." |
+| 19.9-24.3 s | Ask about the field. One claim is marked "Not verified": the model wrote NDVI 0.77, the data says 0.74. The camera closes in on it. | "Ask anything. Every number is checked, and errors are flagged." |
+| 24.3-27.3 s | The printable field report, section 4 (NDVI and VCI). | "Then download a printable field report." |
+| 27.3-29.9 s | End card: "Know your risk before the dry summer", author, tea-8.vercel.app. | "TEA-8. Evidence before advice." |
 
 ## Before recording
 
