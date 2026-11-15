@@ -45,7 +45,8 @@ def exposure_evidence(rotation, seasons):
     if share is None or share["value"] is None or not dry:
         return []
     years = ", ".join(str(y) for y in dry)
-    text = (f"In the {len(dry)} dry summers of 2001-2023 ({years}), this rotation would have had a crop in the field "
+    summers = "dry summer" if len(dry) == 1 else "dry summers"
+    text = (f"In the {len(dry)} {summers} of 2001-2023 ({years}), this rotation would have had a crop in the field "
             f"on about {share['value']:.0f}% of June to August days (usual Illinois planting and harvest dates, "
             f"USDA NASS Handbook 628, 1997). This measures how much of the summer a crop is exposed, not yield.")
     return [statement(text, "platform_calculation")]

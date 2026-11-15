@@ -48,7 +48,7 @@ class ExposureEvidenceTest(unittest.TestCase):
         seasons = [{"year": 2012, "dry": True}, {"year": 2013, "dry": False}, {"year": 2024, "dry": True}]
         [statement] = exposure_evidence({"summer_field_share": self.share}, seasons)
         self.assertEqual(statement["origin"], "platform_calculation")
-        self.assertIn("1 dry summers of 2001-2023 (2012)", statement["text"])
+        self.assertIn("1 dry summer of 2001-2023 (2012)", statement["text"])
         self.assertIn("80%", statement["text"])
         self.assertIn("not yield", statement["text"])
 
