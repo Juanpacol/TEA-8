@@ -323,7 +323,10 @@ export function MapView({ points, year, compareYear, base, showVegetation, showS
     latlngs.forEach((latlng) => L.circleMarker(latlng, { radius: 5, color, weight: 2, fillColor: '#ffffff', fillOpacity: 1, interactive: false }).addTo(group))
     group.addTo(instance)
     zoneLayer.current = group
-    if (!drawing && zone.length >= 3 && !instance.getBounds().contains(group.getBounds())) instance.fitBounds(group.getBounds(), { padding: [30, 30] })
+    // Go to the field when it is off screen, or too small to see from here (a field inside McLean opened from a link shows on the county view).
+    const bounds = group.getBounds()
+    const hidden = !instance.getBounds().contains(bounds) || instance.getBoundsZoom(bounds) - instance.getZoom() >= 3
+    if (!drawing && zone.length >= 3 && hidden) instance.fitBounds(bounds, { padding: [30, 30] })
   }, [zone, drawing])
 
   return (
