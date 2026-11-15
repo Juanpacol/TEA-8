@@ -6,7 +6,7 @@ from pipeline.download.soil_zones import clip, outer_rings, simplify
 from pipeline.points import CASE_POINTS
 
 ROOT = Path(__file__).resolve().parents[2]
-ZONES = ROOT / "web" / "src" / "features" / "map" / "soil-zones.json"
+ZONES = ROOT / "web" / "src" / "regions" / "mclean-il" / "soil-zones.json"
 SUMMARY = ROOT / "web" / "public" / "data" / "summary.json"
 
 

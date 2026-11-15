@@ -71,7 +71,7 @@ Only McLean County has been run. What a second region needs, and what is still f
 | Rotations and their cited rules | `pipeline/rotations/rotations.json` (the studies are mostly Midwest) |
 | Regenerate the data file | the commands in [pipeline/README.md](pipeline/README.md), then commit both copies of `summary.json` |
 | Reference towns for the town list | `reference_towns` in `pipeline/region.json` |
-| **Still in the web code:** the county outline and the soil zones | `web/src/features/map/mclean-county.json` and `soil-zones.json` (the map limits follow the outline) |
+| **Region map files:** the county outline and the soil zones | `web/src/regions/mclean-il/` (`county.json`, `soil-zones.json`), pointed at from `web/src/regions/index.ts`; the map limits follow the outline |
 
 The baseline years, the first year shown, the example questions, the town list and the map limits already come from the data. Until a second county runs end to end, the project does not claim that it scales.
 
