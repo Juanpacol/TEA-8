@@ -58,7 +58,7 @@ cd web && npm install && npm run dev          # the tool at http://localhost:517
 npm test && npm run lint && npm run build     # checks, as in CI
 ```
 
-Without `VITE_API_URL` (see `web/.env.example`) the question box falls back to the pre-generated explanations. The data pipeline is in [pipeline/README.md](pipeline/README.md).
+Without `VITE_API_URL` (see `web/.env.example`) the question box falls back to the pre-generated explanations. The data pipeline is in [pipeline/README.md](pipeline/README.md). How every figure is made, with its limits: [docs/method.md](docs/method.md).
 
 ## How to add a region
 

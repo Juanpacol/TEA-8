@@ -92,6 +92,8 @@ export const es: Record<MessageKey, string> = {
   'year.barTitle': '{year}: humedad del suelo {deviation} desviaciones estándar de la media 2001-2023{dry}',
   'year.barsLegend': 'Una barra por verano: más alta, suelo más húmedo. Ocre: veranos secos.',
 
+  'glossary.method': 'Cómo se hace cada cifra, con sus límites (en inglés):',
+  'glossary.methodLink': 'el método',
   'glossary.title': 'Qué significan estas palabras',
   'glossary.ndvi': 'NDVI',
   'glossary.ndvi.text': 'Una medida satelital de qué tan verdes y densas están las plantas, de 0 (suelo desnudo) a 1 (verde denso). Muestra vegetación, no rendimiento.',

@@ -23,6 +23,12 @@ export function Glossary() {
           </div>
         ))}
       </dl>
+      <p className="glossary__method">
+        {t('glossary.method')}{' '}
+        <a href="https://github.com/Juanpacol/TEA-8/blob/main/docs/method.md" target="_blank" rel="noreferrer">
+          {t('glossary.methodLink')}
+        </a>
+      </p>
     </details>
   )
 }

@@ -91,6 +91,8 @@ export const en = {
   'year.barsLegend': 'One bar per summer: taller means wetter soil. Ochre: dry summers.',
 
   'glossary.title': 'What these words mean',
+  'glossary.method': 'How every figure is made, with its limits:',
+  'glossary.methodLink': 'the method',
   'glossary.ndvi': 'NDVI',
   'glossary.ndvi.text': 'A satellite measure of how green and dense the plants are, from 0 (bare ground) to 1 (dense green). It shows vegetation, not yield.',
   'glossary.wetness': 'Root-zone wetness',
