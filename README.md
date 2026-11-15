@@ -5,6 +5,7 @@ A decision-support tool that compares crop rotations using NASA and USDA data an
 **Challenge:** Field Shift: Adapting Farms with NASA Data (NASA Space Apps 2026).
 **Dates:** Saturday and Sunday of the hackathon (November 14-15, 2026).
 **Live:** https://tea-8.vercel.app (the tool is at `#/tool`).
+**Demo video (30 s):** https://youtu.be/t9PbvMMhg3s (voice-over generated with ElevenLabs).
 **Status:** working prototype for McLean County, Illinois. Real NASA and USDA data, deployed. Not agronomic advice.
 
 ## What it does
