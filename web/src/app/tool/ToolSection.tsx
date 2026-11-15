@@ -21,6 +21,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [compareYear, setCompareYear] = useState<number | null>(null)
   const [base, setBase] = useState<BaseId>(DEFAULT_BASE)
   const [showVegetation, setShowVegetation] = useState(true)
+  const [showSoils, setShowSoils] = useState(false)
   const [priority, setPriority] = useState<Priority | null>(null)
   const [place, setPlace] = useState<Place | null>(null)
   const { summaries, selectedId, selected, select } = useRotations(data)
@@ -61,10 +62,10 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             selectedId={chosen?.id ?? null}
             onSelect={(p) => setPlace({ lat: p.lat, lon: p.lon })}
           />
-          <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} base={base} showVegetation={showVegetation} selected={place} onSelect={setPlace} />
+          <MapView points={data.region.case_points} year={year} compareYear={compareYear === year ? null : compareYear} base={base} showVegetation={showVegetation} showSoils={showSoils} selected={place} onSelect={setPlace} />
           <p className="map-hint map-hint--small">{t('tool.mapHint')}</p>
           <div className="map-toolbar">
-            <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
+            <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} {...(chosen ? { showSoils, onShowSoils: setShowSoils } : {})} />
             <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} driestYear={driest?.year} />
           </div>
           {showVegetation && <MapLegend year={year} />}
