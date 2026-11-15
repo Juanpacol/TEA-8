@@ -60,6 +60,6 @@ describe('describePlace', () => {
   it('says there is no climate and no project data outside the cell and the county', () => {
     const info = describePlace(t, { lat: 40.1164, lon: -88.2434 }, [A, B], 2023)
     expect(info.lines[1]).toContain('no numbers here')
-    expect(info.lines[2]).toBe('Outside McLean County: this tool has no data here.')
+    expect(info.lines[2]).toContain('Outside McLean County: the figures of this page are not about this spot')
   })
 })
