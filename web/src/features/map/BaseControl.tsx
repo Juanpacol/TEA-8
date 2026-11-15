@@ -8,10 +8,13 @@ type Props = {
   onChange: (id: BaseId) => void
   showVegetation: boolean
   onShowVegetation: (show: boolean) => void
+  /** Given only while a field is chosen: the switch for the other soil types around it. */
+  showSoils?: boolean
+  onShowSoils?: (show: boolean) => void
 }
 
 /** Chooses what the vegetation colors sit on: roads and names, an aerial photo, or nothing else. */
-export function BaseControl({ value, onChange, showVegetation, onShowVegetation }: Props) {
+export function BaseControl({ value, onChange, showVegetation, onShowVegetation, showSoils, onShowSoils }: Props) {
   const { t } = useI18n()
   return (
     <div className="base-control">
@@ -26,6 +29,12 @@ export function BaseControl({ value, onChange, showVegetation, onShowVegetation 
         <input type="checkbox" checked={showVegetation} onChange={(event) => onShowVegetation(event.target.checked)} />
         {t('base.showVegetation')}
       </label>
+      {onShowSoils && (
+        <label className="base-control__toggle">
+          <input type="checkbox" checked={showSoils ?? false} onChange={(event) => onShowSoils(event.target.checked)} />
+          {t('base.showSoils')}
+        </label>
+      )}
     </div>
   )
 }

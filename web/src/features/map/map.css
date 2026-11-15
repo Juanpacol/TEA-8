@@ -619,34 +619,25 @@
   background: var(--surface);
 }
 
-/* Which color is which soil, inside the map, so nobody has to read a note under it. */
+/* Which color is which soil: a block under the map, so it never hides the soils it explains. */
 .map__soils {
-  position: absolute;
-  left: var(--space-2);
-  bottom: 1.8rem;
-  z-index: 480;
-  width: min(15rem, 46%);
-  max-height: calc(100% - 7rem);
-  overflow-y: auto;
-  padding: var(--space-2);
-  background: var(--surface-raised);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  margin-top: var(--space-2);
   color: var(--text);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
 }
 
-.map__soils summary {
-  /* tool.css makes disclosures tall for fingers; this one sits inside the map and stays slim. */
-  padding-block: 0.2rem;
+.map__soils h3 {
+  margin: 0 0 var(--space-1);
+  font-size: 0.85rem;
   font-weight: 600;
-  cursor: pointer;
 }
 
+/* Chips in a wrapping row. */
 .map__soils ul {
-  display: grid;
-  gap: 0.2rem;
-  margin: var(--space-1) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem var(--space-3);
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -673,4 +664,10 @@
     max-height: none;
     margin-top: var(--space-2);
   }
+}
+
+.map__soils-note {
+  margin: var(--space-1) 0 0;
+  color: var(--text-soft);
+  font-size: 0.72rem;
 }

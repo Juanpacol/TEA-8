@@ -17,20 +17,21 @@ type Props = {
   compareYear: number | null
   base: BaseId
   showVegetation: boolean
+  /** Inside a field: also draw the other soil types around it. Off by default so a field looks like the rest of the map. */
+  showSoils: boolean
   selected: Place | null
   onSelect: (place: Place | null) => void
 }
 
 const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
 /** On a wide screen the soil key starts open; on a phone it starts closed so it does not cover the map. */
-const WIDE = window.matchMedia('(min-width: 1181px)')
 const MAX_SOIL_COLORS = 6
 const OTHER_SOIL = '#8a97b4'
 /** From this zoom on the point labels stay on screen. */
 const LABEL_ZOOM = 11
 
 /** Satellite vegetation (NASA GIBS NDVI) over the case area, for one year, optionally next to another year. */
-export function MapView({ points, year, compareYear, base, showVegetation, selected, onSelect }: Props) {
+export function MapView({ points, year, compareYear, base, showVegetation, showSoils, selected, onSelect }: Props) {
   const { t } = useI18n()
   const tRef = useRef(t)
   tRef.current = t
@@ -42,6 +43,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const markers = useRef<{ point: CasePoint; marker: L.CircleMarker }[]>([])
   const ring = useRef<L.CircleMarker | null>(null)
   const zones = useRef<L.FeatureGroup | null>(null)
+  const others = useRef<L.FeatureGroup | null>(null)
   const countyBounds = useRef<L.LatLngBounds | null>(null)
   const pick = useRef(onSelect)
   pick.current = onSelect
@@ -53,6 +55,12 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   splitNow.current = split
   const yearNow = useRef(year)
   yearNow.current = year
+  const inField = selected !== null && pointAt(selected, points) !== null
+  const inFieldNow = useRef(inField)
+  inFieldNow.current = inField
+  const relabel = useRef<() => void>(() => {})
+  const soilsNow = useRef(showSoils)
+  soilsNow.current = showSoils
 
   /** Shows the other year only to the right of the divider. Layer panes move with the map, so the cut is recomputed. */
   function clip() {
@@ -112,13 +120,15 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       return { point, marker }
     })
     // Seen from the whole county the two labels would cover the outline and the points: they stay permanent only once zoomed in, and show on hover before that.
+    // Inside a field they would cover the soil under the point, and the chosen field card already says what grew there.
     const labels = () => {
-      const permanent = instance.getZoom() >= LABEL_ZOOM
+      const permanent = instance.getZoom() >= LABEL_ZOOM && !inFieldNow.current
       for (const { point, marker } of markers.current) {
         marker.unbindTooltip().bindTooltip(pointLabel(tRef.current, point, yearNow.current), { permanent, direction: 'right' })
       }
     }
     labels()
+    relabel.current = labels
     instance.on('zoomend', labels)
     ring.current = L.circleMarker([points[0].lat, points[0].lon], {
       radius: 14,
@@ -156,6 +166,8 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     for (const { point, marker } of markers.current) marker.setTooltipContent(pointLabel(t, point, year))
   }, [year, t])
 
+  useEffect(() => relabel.current(), [inField])
+
   useEffect(() => {
     const instance = map.current
     if (!instance) return
@@ -175,13 +187,13 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     background.current = L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: 14, attribution: next.attribution })
       .addTo(instance)
       .bringToBack()
-    // Inside a field the vegetation is hidden: its 250 m pixels would only muddy the soil colors.
-    const opacity = showVegetation && !soils ? next.ndviOpacity : 0
+    // With the soil types on, the vegetation is hidden: its 250 m pixels would only muddy the soil colors.
+    const opacity = showVegetation && !(showSoils && inField) ? next.ndviOpacity : 0
     ndvi.current?.setOpacity(opacity)
     other.current?.setOpacity(opacity)
     // The background effect runs after the map is created, and again each time the choice changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [base, points, showVegetation, soils])
+  }, [base, points, showVegetation, showSoils, inField])
 
   useEffect(() => {
     const instance = map.current
@@ -201,6 +213,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     if (!instance) return
     zones.current?.remove()
     zones.current = null
+    others.current = null
     setSoils(null)
     const point = selected ? pointAt(selected, points) : null
     if (!point) {
@@ -217,17 +230,20 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       const named = families.slice(0, MAX_SOIL_COLORS)
       const colorFor = (family: string) => (named.includes(family) ? colorOf(family, named) : OTHER_SOIL)
       const group = L.featureGroup()
-      // Draw the zone that holds the point last, so it sits on top.
-      for (const zone of [...list].sort((a, b) => Number(a.holds_point) - Number(b.holds_point))) {
+      const rest = L.featureGroup()
+      for (const zone of list) {
         const color = colorFor(soilFamily(zone.name))
-        L.polygon(
-          zone.ring.map(([lon, lat]) => [lat, lon] as [number, number]),
-          zone.holds_point
-            ? { color: '#fff', weight: 3, fillColor: color, fillOpacity: 0.85 }
-            : { color: '#0b1020', weight: 1, opacity: 0.6, fillColor: color, fillOpacity: 0.6 },
-        )
-          .bindTooltip(zone.holds_point ? tRef.current('map.thisField', { name: zone.name }) : zone.name, { sticky: true })
-          .addTo(group)
+        const ring = zone.ring.map(([lon, lat]) => [lat, lon] as [number, number])
+        if (zone.holds_point) {
+          // The soil at the point is always drawn: thick white edge, and its name written on it.
+          L.polygon(ring, { color: '#fff', weight: 4, fillColor: color, fillOpacity: 0.55 })
+            .bindTooltip(tRef.current('map.soilHere', { name: zone.name.split(',')[0] }), { permanent: true, direction: 'top', offset: [0, -4] })
+            .addTo(group)
+        } else {
+          L.polygon(ring, { color: '#0b1020', weight: 1, opacity: 0.35, fillColor: color, fillOpacity: 0.4 })
+            .bindTooltip(zone.name, { sticky: true })
+            .addTo(rest)
+        }
       }
       const counts = new Map(families.map((family) => [family, list.filter((zone) => soilFamily(zone.name) === family).length]))
       setSoils({
@@ -239,14 +255,31 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
             : []),
         ],
       })
+      // The soil file is cut to a square around the point: with the other soils on, draw its edge so the cut reads as the limit of the data.
+      const square = L.latLngBounds(list.flatMap((zone) => zone.ring.map(([lon, lat]) => [lat, lon] as [number, number])))
+      L.rectangle(square, { color: '#fff', weight: 2, dashArray: '6 6', fill: false, interactive: false }).addTo(rest)
       group.addTo(map.current)
       zones.current = group
-      map.current.fitBounds(group.getBounds(), { padding: [20, 20] })
+      others.current = rest
+      if (soilsNow.current) group.addLayer(rest)
+      if (soilsNow.current) rest.bringToBack()
+      map.current.fitBounds(square, { padding: [20, 20] })
     })
     return () => {
       stale = true
     }
   }, [selected, points])
+
+  // The other soils come and go with the switch, without moving the map.
+  useEffect(() => {
+    const group = zones.current
+    const rest = others.current
+    if (!group || !rest) return
+    if (showSoils) {
+      group.addLayer(rest)
+      rest.bringToBack()
+    } else group.removeLayer(rest)
+  }, [showSoils, soils])
 
   useEffect(clip, [split])
 
@@ -275,23 +308,10 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
           />
         </>
       )}
-      {soils && (
-        <>
-          <button type="button" className="map__back" onClick={() => onSelect(null)}>
-            {t('map.backToCounty')}
-          </button>
-          <details className="map__soils" open={WIDE.matches}>
-            <summary>{t('map.soilsTitle')}</summary>
-            <ul>
-              {soils.legend.map((entry) => (
-                <li key={entry.family || 'other'}>
-                  <i style={{ background: entry.color }} aria-hidden="true" />
-                  {entry.family ? (entry.family === soils.own ? t('map.soilOwn', { family: entry.family }) : entry.family) : t('map.soilsOther')}
-                </li>
-              ))}
-            </ul>
-          </details>
-        </>
+      {inField && (
+        <button type="button" className="map__back" onClick={() => onSelect(null)}>
+          {t('map.backToCounty')}
+        </button>
       )}
       {outside && (
         <p className="map__outside" role="status">
@@ -309,15 +329,27 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
         </p>
       )}
     </div>
-    {selected && (
-      <PlaceCard place={selected} points={points} year={year} compact={soils !== null} onClose={() => onSelect(null)} />
+    {soils && showSoils && (
+      <section className="map__soils" aria-label={t('map.soilsTitle')}>
+        <h3>{t('map.soilsTitle')}</h3>
+        <ul>
+          {soils.legend.map((entry) => (
+            <li key={entry.family || 'other'}>
+              <i style={{ background: entry.color }} aria-hidden="true" />
+              {entry.family ? (entry.family === soils.own ? t('map.soilOwn', { family: entry.family }) : entry.family) : t('map.soilsOther')}
+            </li>
+          ))}
+        </ul>
+        <p className="map__soils-note">{t('map.soilsSquare')}</p>
+      </section>
     )}
+    {selected && !inField && <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />}
     </div>
   )
 }
 
-/** Inside a field the card keeps only the first line (what grew there) so it does not cover the soils; the rest is one tap away on the county view. */
-function PlaceCard({ place, points, year, compact, onClose }: { place: Place; points: CasePoint[]; year: number; compact: boolean; onClose: () => void }) {
+/** What we know about a spot the user clicked. Inside an example field the field card and the side panel say it instead. */
+function PlaceCard({ place, points, year, onClose }: { place: Place; points: CasePoint[]; year: number; onClose: () => void }) {
   const { t } = useI18n()
   const info = describePlace(t, place, points, year)
   return (
@@ -330,7 +362,7 @@ function PlaceCard({ place, points, year, compact, onClose }: { place: Place; po
       </div>
       <p className="place-card__coords">{formatCoords(t, place)}</p>
       <ul>
-        {(compact ? info.lines.slice(0, 1) : info.lines).map((line) => (
+        {info.lines.map((line) => (
           <li key={line}>{line}</li>
         ))}
       </ul>
