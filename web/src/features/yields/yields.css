@@ -79,3 +79,85 @@
   width: 2px;
   background: var(--text);
 }
+
+.relation {
+  margin-top: var(--space-3);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+
+.relation summary {
+  cursor: pointer;
+}
+
+.relation__chart {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  margin: var(--space-2) 0;
+}
+
+.relation__zero {
+  stroke: var(--border);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.relation__tick,
+.relation__axis,
+.relation__label {
+  fill: var(--text-soft);
+  font-size: 9px;
+}
+
+.relation__label {
+  fill: var(--text);
+  font-weight: 600;
+}
+
+.relation__dot {
+  fill: var(--text-soft);
+  fill-opacity: 0.8;
+}
+
+.relation__dot--dry {
+  fill: var(--ochre);
+  fill-opacity: 1;
+}
+
+.relation__chosen {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.relation__key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 var(--space-2);
+}
+
+.relation__swatch {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-left: var(--space-2);
+  background: var(--text-soft);
+  border-radius: 50%;
+}
+
+.relation__swatch:first-of-type {
+  margin-left: 0;
+}
+
+.relation__swatch--dry {
+  background: var(--ochre);
+}
+
+.relation__caution {
+  color: var(--text-soft);
+  font-style: italic;
+}
