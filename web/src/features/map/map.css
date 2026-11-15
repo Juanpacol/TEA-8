@@ -81,6 +81,10 @@
   outline: none;
 }
 
+.year-control__track input:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 6px rgb(79 195 205 / 0.45);
+}
+
 .year-control__track input:focus-visible::-webkit-slider-thumb {
   box-shadow: 0 0 0 6px rgb(79 195 205 / 0.45);
 }
@@ -661,8 +665,8 @@
   border-radius: 3px;
 }
 
-@media (max-width: 860px) {
-  /* Under 860 px the map is a block among others: the card sits below it, not over it. */
+@media (max-width: 1180px) {
+  /* Under 1180 px the map is a block among others: the card sits below it, not over it. */
   .map-wrap .place-card {
     position: static;
     width: auto;

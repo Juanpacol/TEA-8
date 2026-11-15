@@ -175,7 +175,8 @@
   border-radius: 14px;
 }
 
-@media (max-width: 860px) {
+/* Below 1180 px two columns leave the right panel narrower than its row of tabs, so everything stacks. */
+@media (max-width: 1180px) {
   .workspace {
     display: flex;
     flex-direction: column;
@@ -207,6 +208,14 @@
 
   .workspace__side .tabs__panel {
     overflow: visible;
+  }
+}
+
+/* A stacked map on a tablet is wide: give it more height than on a phone. */
+@media (min-width: 600px) and (max-width: 1180px) {
+  .workspace__map .map-frame,
+  .workspace__map .map {
+    height: 30rem;
   }
 }
 
