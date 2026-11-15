@@ -1,7 +1,7 @@
 """Download the soil map-unit polygons around each case point from USDA SSURGO.
 
 Usage: python -m pipeline.download.soil_zones
-Writes web/src/features/map/soil-zones.json: for every case point, the soil zones
+Writes web/src/regions/mclean-il/soil-zones.json: for every case point, the soil zones
 (polygons) in a small window around it, simplified so the file stays small, and the
 zone that holds the point. Only the outer ring of each polygon is kept.
 """
@@ -17,7 +17,7 @@ from pipeline.download.http import request
 from pipeline.points import CASE_POINTS
 
 URL = "https://sdmdataaccess.sc.egov.usda.gov/Tabular/post.rest"
-OUT = Path(__file__).resolve().parents[2] / "web" / "src" / "features" / "map" / "soil-zones.json"
+OUT = Path(__file__).resolve().parents[2] / "web" / "src" / "regions" / "mclean-il" / "soil-zones.json"
 HALF_LAT, HALF_LON = 0.012, 0.015  # about 1.3 km each way
 TOLERANCE_M = 4.0  # simplification: shapes move by at most this much
 DECIMALS = 5  # about 1 m

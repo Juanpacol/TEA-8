@@ -1,10 +1,12 @@
+import { loadRegionSoilZones } from '../../regions/index.ts'
+
 /** The soil zones drawn around a chosen case point (USDA SSURGO map units, made by pipeline/download/soil_zones.py). */
 export type SoilZone = { name: string; holds_point: boolean; ring: [number, number][] }
 export type SoilZonesFile = { source: string; queried_on: string; points: Record<string, { zones: SoilZone[] }> }
 
 /** Loaded on demand: the file is only needed once someone chooses a field. */
 export async function loadSoilZones(): Promise<SoilZonesFile> {
-  return (await import('./soil-zones.json')).default as unknown as SoilZonesFile
+  return (await loadRegionSoilZones()) as SoilZonesFile
 }
 
 /** The soil family of a map unit: "Catlin silt loam, 2 to 5 percent slopes" is a Catlin. */
