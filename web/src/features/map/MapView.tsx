@@ -5,7 +5,7 @@ import { useI18n } from '../../shared/i18n/index.ts'
 import type { CasePoint } from '../../shared/lib/data-types.ts'
 import { BASES, type BaseId } from './basemaps.ts'
 import { pointLabel } from './cell.ts'
-import { loadSoilZones, soilFamily } from './soil-zones.ts'
+import { colorOf, familiesOf, loadSoilZones, soilFamily } from './soil-zones.ts'
 import { COUNTY_OUTLINE, insideCounty } from './county.ts'
 import { ndviTileUrl } from './gibs.ts'
 import { describePlace, formatCoords, pointAt, type Place } from './selection.ts'
@@ -22,6 +22,8 @@ type Props = {
 }
 
 const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
+const MAX_SOIL_COLORS = 6
+const OTHER_SOIL = '#8a97b4'
 /** From this zoom on the point labels stay on screen. */
 const LABEL_ZOOM = 11
 
@@ -44,7 +46,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   const [status, setStatus] = useState<'loading' | 'ready' | 'failed'>('loading')
   const [split, setSplit] = useState(50)
   const [outside, setOutside] = useState(false)
-  const [zoneSoil, setZoneSoil] = useState<string | null>(null)
+  const [soils, setSoils] = useState<{ own: string; legend: { family: string; color: string; count: number }[] } | null>(null)
   const splitNow = useRef(split)
   splitNow.current = split
   const yearNow = useRef(year)
@@ -126,7 +128,11 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     instance.on('click', (event: L.LeafletMouseEvent) => pick.current({ lat: event.latlng.lat, lon: event.latlng.lng }))
     instance.on('move zoomend resize', clip)
     map.current = instance
+    // The frame can change size after the map is drawn (a card appears, the window turns): Leaflet must recompute its size or the view drifts.
+    const watcher = new ResizeObserver(() => instance.invalidateSize())
+    watcher.observe(container.current)
     return () => {
+      watcher.disconnect()
       instance.remove()
       map.current = null
       background.current = null
@@ -167,12 +173,13 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     background.current = L.tileLayer(next.url, { maxNativeZoom: next.maxNativeZoom, maxZoom: 14, attribution: next.attribution })
       .addTo(instance)
       .bringToBack()
-    const opacity = showVegetation ? next.ndviOpacity : 0
+    // Inside a field the vegetation is hidden: its 250 m pixels would only muddy the soil colors.
+    const opacity = showVegetation && !soils ? next.ndviOpacity : 0
     ndvi.current?.setOpacity(opacity)
     other.current?.setOpacity(opacity)
     // The background effect runs after the map is created, and again each time the choice changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [base, points, showVegetation])
+  }, [base, points, showVegetation, soils])
 
   useEffect(() => {
     const instance = map.current
@@ -192,8 +199,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     if (!instance) return
     zones.current?.remove()
     zones.current = null
-    setZoneSoil(null)
-    const markerColor = getComputedStyle(document.documentElement).getPropertyValue('--ochre').trim() || '#d9a441'
+    setSoils(null)
     const point = selected ? pointAt(selected, points) : null
     if (!point) {
       if (countyBounds.current && selected === null) instance.fitBounds(countyBounds.current, { padding: [30, 30] })
@@ -204,22 +210,33 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
       const list = file.points[point.id]?.zones
       if (stale || !list || !map.current) return
       const own = soilFamily(list.find((zone) => zone.holds_point)?.name ?? '')
+      // The most common soils get their own color; the rest share one gray, so the map stays readable.
+      const families = familiesOf(list)
+      const named = families.slice(0, MAX_SOIL_COLORS)
+      const colorFor = (family: string) => (named.includes(family) ? colorOf(family, named) : OTHER_SOIL)
       const group = L.featureGroup()
       // Draw the zone that holds the point last, so it sits on top.
       for (const zone of [...list].sort((a, b) => Number(a.holds_point) - Number(b.holds_point))) {
-        const same = soilFamily(zone.name) === own
+        const color = colorFor(soilFamily(zone.name))
         L.polygon(
           zone.ring.map(([lon, lat]) => [lat, lon] as [number, number]),
           zone.holds_point
-            ? { color: '#fff', weight: 3, fillColor: markerColor, fillOpacity: 0.7 }
-            : same
-              ? { color: markerColor, weight: 1, fillColor: markerColor, fillOpacity: 0.5 }
-              : { color: '#8a97b4', weight: 1, fillColor: '#8a97b4', fillOpacity: 0.18 },
+            ? { color: '#fff', weight: 3, fillColor: color, fillOpacity: 0.85 }
+            : { color: '#0b1020', weight: 1, opacity: 0.6, fillColor: color, fillOpacity: 0.6 },
         )
           .bindTooltip(zone.holds_point ? tRef.current('map.thisField', { name: zone.name }) : zone.name, { sticky: true })
           .addTo(group)
       }
-      setZoneSoil(own)
+      const counts = new Map(families.map((family) => [family, list.filter((zone) => soilFamily(zone.name) === family).length]))
+      setSoils({
+        own,
+        legend: [
+          ...named.map((family) => ({ family, color: colorFor(family), count: counts.get(family) ?? 0 })),
+          ...(families.length > named.length
+            ? [{ family: '', color: OTHER_SOIL, count: families.slice(named.length).reduce((sum, family) => sum + (counts.get(family) ?? 0), 0) }]
+            : []),
+        ],
+      })
       group.addTo(map.current)
       zones.current = group
       map.current.fitBounds(group.getBounds(), { padding: [20, 20] })
@@ -232,7 +249,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
   useEffect(clip, [split])
 
   return (
-    <>
+    <div className="map-wrap">
     <div className="map-frame">
       <div
         ref={container}
@@ -256,7 +273,24 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
           />
         </>
       )}
-      {zoneSoil && <p className="map__zones">{t('map.zoneNote', { soil: zoneSoil })}</p>}
+      {soils && (
+        <>
+          <button type="button" className="map__back" onClick={() => onSelect(null)}>
+            {t('map.backToCounty')}
+          </button>
+          <div className="map__soils" role="group" aria-label={t('map.soilsTitle')}>
+            <p className="map__soils-title">{t('map.soilsTitle')}</p>
+            <ul>
+              {soils.legend.map((entry) => (
+                <li key={entry.family || 'other'}>
+                  <i style={{ background: entry.color }} aria-hidden="true" />
+                  {entry.family ? (entry.family === soils.own ? t('map.soilOwn', { family: entry.family }) : entry.family) : t('map.soilsOther')}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
       {outside && (
         <p className="map__outside" role="status">
           {t('map.outside', { county: t('county.name') })}
@@ -276,7 +310,7 @@ export function MapView({ points, year, compareYear, base, showVegetation, selec
     {selected && (
       <PlaceCard place={selected} points={points} year={year} onClose={() => onSelect(null)} />
     )}
-    </>
+    </div>
   )
 }
 

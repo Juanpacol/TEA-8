@@ -123,7 +123,10 @@ export const es: Record<MessageKey, string> = {
     'Esta vista está fuera del {county}. TEA-8 solo tiene datos de clima, suelo y cultivos del {county}; en el resto solo se ve el mapa y la vegetación.',
   'map.loading': 'Cargando imágenes de la NASA de {year}…',
   'map.failed': 'No se pudieron cargar algunas imágenes de la NASA de {year}. El resto de la herramienta sigue funcionando.',
-  'map.zoneNote': 'Naranja: {soil}, el mismo suelo del punto. Gris: otros suelos. Pase el cursor para ver los nombres.',
+  'map.backToCounty': '← Todo el condado',
+  'map.soilsTitle': 'Suelos alrededor de este campo (vegetación oculta)',
+  'map.soilOwn': '{family} (este campo)',
+  'map.soilsOther': 'Otros suelos',
   'map.thisField': '{name} (este campo)',
 
   'place.aria': 'Sobre el lugar elegido',

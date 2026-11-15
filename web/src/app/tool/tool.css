@@ -63,9 +63,9 @@
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-items: start;
   gap: var(--space-4);
-  height: clamp(980px, calc(100vh - 2rem), 1040px);
 }
 
 .workspace__top {
@@ -112,8 +112,9 @@
 }
 
 .workspace__map .map-frame {
-  flex: 1;
-  min-height: 0;
+  /* The map has a height of its own. It no longer takes whatever the controls leave. */
+  flex: none;
+  height: clamp(24rem, 56vh, 36rem);
   border-radius: 20px;
   box-shadow: var(--card-shadow);
   overflow: hidden;
@@ -134,6 +135,10 @@
   flex-direction: column;
   gap: var(--space-3);
   min-height: 0;
+  /* Stays in view while the left column scrolls; only the panel's text scrolls inside it. */
+  position: sticky;
+  top: var(--space-3);
+  max-height: calc(100vh - 2 * var(--space-3));
   padding: var(--space-4);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -187,6 +192,15 @@
   }
 
   .workspace__map .map {
+    height: 22rem;
+  }
+
+  .workspace__side {
+    position: static;
+    max-height: none;
+  }
+
+  .workspace__map .map-frame {
     height: 22rem;
   }
 

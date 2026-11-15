@@ -516,20 +516,6 @@
   font-size: 0.85rem;
 }
 
-.map__zones {
-  position: absolute;
-  left: var(--space-2);
-  right: var(--space-2);
-  bottom: 1.8rem;
-  z-index: 480;
-  margin: 0;
-  padding: var(--space-1) var(--space-2);
-  background: var(--surface-raised);
-  border-radius: var(--radius);
-  color: var(--text);
-  font-size: 0.8rem;
-}
-
 .glossary {
   color: var(--text-soft);
   font-size: 0.85rem;
@@ -574,4 +560,95 @@
 
 .map-compare__driest:hover {
   background: rgb(79 195 205 / 0.24);
+}
+
+.map-wrap {
+  position: relative;
+}
+
+/* The place card floats over the map, so choosing a place never changes the size of the map. */
+.map-wrap .place-card {
+  position: absolute;
+  right: var(--space-2);
+  bottom: 1.8rem;
+  z-index: 600;
+  width: min(20rem, 48%);
+  max-height: calc(100% - 4rem);
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.4);
+}
+
+.map__back {
+  position: absolute;
+  top: 10px;
+  left: 3.6rem;
+  z-index: 500;
+  min-height: 2.5rem;
+  padding: 0 var(--space-3);
+  background: var(--surface-raised);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map__back:hover {
+  background: var(--surface);
+}
+
+/* Which color is which soil, inside the map, so nobody has to read a note under it. */
+.map__soils {
+  position: absolute;
+  left: var(--space-2);
+  bottom: 1.8rem;
+  z-index: 480;
+  width: min(15rem, 46%);
+  max-height: calc(100% - 7rem);
+  overflow-y: auto;
+  padding: var(--space-2);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 0.78rem;
+}
+
+.map__soils-title {
+  margin: 0 0 var(--space-1);
+  font-weight: 600;
+}
+
+.map__soils ul {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.map__soils li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.map__soils li i {
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: 3px;
+}
+
+@media (max-width: 860px) {
+  /* Under 860 px the map is a block among others: the card sits below it, not over it. */
+  .map-wrap .place-card {
+    position: static;
+    width: auto;
+    max-height: none;
+    margin-top: var(--space-2);
+  }
 }
