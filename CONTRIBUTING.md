@@ -99,6 +99,9 @@ To copy into the "References" field of the submission. Status "to verify" means 
 | NASA GIBS (Worldview), https://gibs.earthdata.nasa.gov | Dated satellite tiles | Verified accessible |
 | USDA Soil Data Access (SSURGO) | Soil by coordinate | Verified accessible |
 | USDA CropScape (CDL), https://nassgeodata.gmu.edu/CropScape/ | Crop by year | Verified accessible |
+| US Drought Monitor (NDMC, USDA, NOAA), county statistics, https://droughtmonitor.unl.edu/ | Independent cross-check of the dry summers | Verified working Nov 14, 2026 (public service, no key) |
+| USDA NASS, Usual Planting and Harvesting Dates, Agricultural Handbook 628 (1997), Illinois | Planting and harvest calendar for the share of summer with a crop in the field | Used in `pipeline/rotations/calendar.json` |
+| USGS The National Map, https://basemap.nationalmap.gov/ | Base maps under the satellite layer | Verified working Nov 14, 2026 |
 | CropWatch, University of Nebraska: diverse rotations, https://cropwatch.unl.edu/2021/more-diverse-crop-rotations-improve-yield-yield-stability-and-soil-health | Alternative rotations | Verified: read in full on Nov 14, 2026 |
 | Manski, Socolar et al., "Diversified crop rotations mitigate agricultural losses from dry weather", https://par.nsf.gov/servlets/purl/10554940 | Risk of low corn yields in dry weather, Illinois | Verified: read in full on Nov 14, 2026 |
 | American Society of Agronomy, cover crop study in Illinois, https://agronomy.org/news/media-releases/releases/2020/0916/1214 | Caution on cover crops | To verify (blocked by the site, could not be opened) |

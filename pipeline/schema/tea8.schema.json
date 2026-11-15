@@ -301,6 +301,10 @@
         "temperature": {
           "$ref": "#/$defs/figure"
         },
+        "drought_monitor": {
+          "$ref": "#/$defs/figure",
+          "description": "Optional independent cross-check: the mean share of the county in drought (D1 or worse) over the June-August weekly US Drought Monitor maps. Absent when the summer is not over or has gaps."
+        },
         "dry": {
           "type": [
             "boolean",

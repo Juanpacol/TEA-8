@@ -1,6 +1,7 @@
 {
   "name": "McLean County",
   "state": "Illinois",
+  "county_fips": "17113",
   "climate_point": "point-a",
   "baseline_years": [2001, 2023],
   "crop_history_years": [2008, 2023],
