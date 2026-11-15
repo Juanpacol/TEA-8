@@ -14,12 +14,7 @@
 
 body {
   margin: 0;
-  /* A soft teal glow at the top and a faint violet one low down, over the base color. */
-  background:
-    radial-gradient(60rem 28rem at 50% -8rem, rgb(79 195 205 / 0.1), transparent 70%),
-    radial-gradient(50rem 30rem at 100% 100%, rgb(120 100 220 / 0.07), transparent 70%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font);
   line-height: 1.5;
@@ -37,6 +32,19 @@ h3 {
   outline-offset: 2px;
 }
 
+/* A soft teal glow at the top and a faint violet one low down, over the base color. A fixed layer
+   instead of `background-attachment: fixed`, which repaints the whole page on every scroll frame. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 28rem at 50% -8rem, rgb(79 195 205 / 0.1), transparent 70%),
+    radial-gradient(50rem 30rem at 100% 100%, rgb(120 100 220 / 0.07), transparent 70%);
+}
+
 /* A very light film grain over everything, so the dark color is not flat. It never takes clicks. */
 body::after {
   content: '';
@@ -44,7 +52,7 @@ body::after {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: plus-lighter;
+  /* no blend mode: blending a full-screen layer makes the browser recomposite the whole page on every scroll frame */
 }
