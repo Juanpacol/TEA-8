@@ -6,6 +6,9 @@ const SOURCES = [
   { name: 'NASA GIBS', href: 'https://gibs.earthdata.nasa.gov' },
   { name: 'USDA Soil Data Access', href: 'https://sdmdataaccess.nrcs.usda.gov/' },
   { name: 'USDA CropScape', href: 'https://nassgeodata.gmu.edu/CropScape/' },
+  { name: 'USDA NASS QuickStats', href: 'https://quickstats.nass.usda.gov/' },
+  { name: 'NASA SMAP', href: 'https://smap.jpl.nasa.gov/' },
+  { name: 'US Drought Monitor', href: 'https://droughtmonitor.unl.edu/' },
 ]
 
 export function Footer() {

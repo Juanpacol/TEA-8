@@ -5,6 +5,7 @@ import './landing.css'
 export function FooterConnector({ children }: { children: ReactNode }) {
   return (
     <div className="footer-connector">
+      <div className="footer-connector__art" aria-hidden="true" />
       <span className="footer-connector__ghost" aria-hidden="true">
         TEA-8
       </span>

@@ -32,6 +32,8 @@ How the 2025 winners present and sell their project, what is adopted in TEA-8 an
 
 ## Sections
 
+**Version 0.2 (Nov 14, 2026) changed this list.** Current order on the page: hero, headline, Why McLean County, How it works, The tool, What it won't tell you, Why it holds up, call to action, footer. "The problem" became "Why McLean County" (it keeps the 91% figure and adds the scale of the county, the 2012 drought and the income caveat, with sources). "Sources and code" ("Open code, open data") is now inside "Why it holds up". The headline is the farmer's question, "When the next dry summer comes, which rotation holds up?", with "TEA-8 puts NASA and USDA evidence beside each option, and says what it can't know." under it. The figures of the 2012 story and of "Why it holds up" are computed from the data file; the 2022 ranking, the 2012 Illinois yield and the 2012 income note are external and carry a link. The sections below are the version 0.1 drafts and are kept for reference.
+
 ### 1. Hero
 - Goal: say in one sentence what TEA-8 does and that it does not replace the farmer.
 - Headline draft: "TEA-8 doesn't tell farmers what to plant. It shows them what the data says."
@@ -112,6 +114,7 @@ Each image is verified before use: license, author and source link. Noted in "Re
 | Version | Date | Change |
 |---|---|---|
 | 0.1 | Nov 13, 2026 | Structure and text drafts. No code. |
+| 0.2 | Nov 14, 2026 | Why McLean County replaces The problem; open code merged into Why it holds up; new headline; steps use the challenge's words; footer credits the Drought Monitor, SMAP and NASS. |
 
 To do:
 - [ ] Confirm the content of each section with final data.

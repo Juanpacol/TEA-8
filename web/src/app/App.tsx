@@ -2,37 +2,39 @@ import { Suspense, lazy } from 'react'
 import {
   CallToAction,
   Connector,
-  Demo,
   Footer,
   FooterConnector,
   Hero,
   HowItWorks,
   Intro,
-  OpenSource,
-  Problem,
   Reveal,
   WhyItHoldsUp,
+  WhyMclean,
   WontTell,
+  cornYearBars,
   driestSummer,
+  mcleanStory,
+  proofFigures,
 } from '../features/landing/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
-import { useSmoothScroll } from '../shared/hooks/useSmoothScroll.ts'
 import { AiUsagePage } from './AiUsagePage.tsx'
 // The tool (map, soil zones) loads only when someone opens it, so the landing stays light.
 const ToolPage = lazy(() => import('./ToolPage.tsx').then((module) => ({ default: module.ToolPage })))
 
 function Landing() {
   const state = useData()
-  useSmoothScroll()
 
   return (
     <>
       <Hero />
-      <Intro driest={state.status === 'ready' ? driestSummer(state.data.seasons, state.data.dry_summer_rule?.baseline) : null} />
+      <Intro
+        driest={state.status === 'ready' ? driestSummer(state.data.seasons, state.data.dry_summer_rule?.baseline) : null}
+        bars={state.status === 'ready' ? cornYearBars(state.data) : []}
+      />
       <Connector>
         <Reveal>
-          <Problem />
+          <WhyMclean story={state.status === 'ready' ? mcleanStory(state.data) : null} />
         </Reveal>
         <Reveal>
           <HowItWorks />
@@ -42,16 +44,10 @@ function Landing() {
         <Reveal>
           <WontTell />
         </Reveal>
-        <Reveal>
-          <Demo />
-        </Reveal>
-        <Reveal>
-          <OpenSource />
-        </Reveal>
       </main>
       <FooterConnector>
         <Reveal>
-          <WhyItHoldsUp />
+          <WhyItHoldsUp proof={state.status === 'ready' ? proofFigures(state.data) : null} />
         </Reveal>
         <Reveal>
           <CallToAction />
