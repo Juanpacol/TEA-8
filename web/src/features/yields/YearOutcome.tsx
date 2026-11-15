@@ -1,7 +1,7 @@
 import { cropName, useI18n } from '../../shared/i18n/index.ts'
 import type { Rotation, TEA8DataFile } from '../../shared/lib/data-types.ts'
 import type { CropOutcome } from './yields.ts'
-import { barShares, dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict, toneOf } from './yields.ts'
+import { barShares, dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict, swingOf, toneOf, typicalSwing } from './yields.ts'
 import { DroughtCheck } from './DroughtCheck.tsx'
 import { WetnessVsYield } from './WetnessVsYield.tsx'
 import './yields.css'
@@ -9,7 +9,7 @@ import './yields.css'
 type Props = { data: TEA8DataFile; rotation: Rotation; year: number }
 
 /** One crop: what it did against usual in words, a bar against the usual yield, and the figures. */
-function CropRow({ outcome }: { outcome: Extract<CropOutcome, { kind: 'yield' }> }) {
+function CropRow({ outcome, swing }: { outcome: Extract<CropOutcome, { kind: 'yield' }>; swing: number | null }) {
   const { t } = useI18n()
   const { record } = outcome
   const crop = cropName(t, outcome.crop)
@@ -33,6 +33,9 @@ function CropRow({ outcome }: { outcome: Extract<CropOutcome, { kind: 'yield' }>
       <p className="crop-row__figures">
         {t('outcome.figures', { actual: Math.round(actual), unit: plainUnit(t, record.yield.unit), usual: Math.round(usual) })}
       </p>
+      {swing !== null && change !== null && (
+        <p className="crop-row__figures">{t(`outcome.swing.${swingOf(change, swing)}`, { sd: Math.round(swing) })}</p>
+      )}
     </li>
   )
 }
@@ -55,7 +58,7 @@ export function YearOutcome({ data, rotation, year }: Props) {
       <ul className="outcome__list">
         {outcomes.map((outcome) =>
           outcome.kind === 'yield' ? (
-            <CropRow key={outcome.crop} outcome={outcome} />
+            <CropRow key={outcome.crop} outcome={outcome} swing={typicalSwing(data, outcome.crop)} />
           ) : (
             <li key={outcome.crop} className="outcome__none">
               <strong>{cropName(t, outcome.crop)}</strong>{' '}
@@ -68,7 +71,7 @@ export function YearOutcome({ data, rotation, year }: Props) {
         <p className="outcome__range">{t('outcome.exposure', { n: Math.round(rotation.summer_field_share.value) })}</p>
       )}
       {outcomes.some((outcome) => outcome.kind === 'yield') && (
-        <p className="outcome__range">{t('outcome.legend')}</p>
+        <p className="outcome__range">{t('outcome.legend')} {t('outcome.swingLegend')}</p>
       )}
       {ranges.map((range) => (
         <p key={range.crop} className="outcome__range">

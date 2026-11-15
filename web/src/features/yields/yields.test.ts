@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { TEA8DataFile, YieldRecord } from '../../shared/lib/data-types.ts'
-import { dryRange, outcomesFor, barShares, percentFromUsual, plainChange, plainUnit, summerVerdict, toneOf } from './yields.ts'
+import { dryRange, outcomesFor, barShares, percentFromUsual, plainChange, plainUnit, summerVerdict, swingOf, toneOf, typicalSwing } from './yields.ts'
 import { translator } from '../../shared/i18n/index.ts'
 const t = translator('en')
 
@@ -76,5 +76,30 @@ describe('yields helpers', () => {
     expect(summerVerdict(t, false)).toBe('not a dry summer')
     expect(summerVerdict(t, null)).toBe('a summer with no wetness data')
     expect(summerVerdict(t, undefined)).toBe('a summer with no wetness data')
+  })
+})
+
+describe('typical swing', () => {
+  const years = Array.from({ length: 10 }, (_, i) => 2001 + i)
+  const swingData = {
+    seasons: [...years.map((year) => ({ year, dry: false })), { year: 2012, dry: true }],
+    // Ten non-dry years moving +-8 around zero, and one dry year far below: the dry year must not widen the swing.
+    yields: [...years.map((year, i) => record('corn', year, i % 2 === 0 ? 8 : -8)), record('corn', 2012, -44)],
+  } as unknown as TEA8DataFile
+
+  it('is the spread of the non-dry years, not counting the dry ones', () => {
+    expect(typicalSwing(swingData, 'corn')).toBeCloseTo(8, 5)
+  })
+
+  it('is unknown with too few non-dry years or no yields', () => {
+    expect(typicalSwing(data, 'corn')).toBeNull()
+    expect(typicalSwing(swingData, 'soybeans')).toBeNull()
+  })
+
+  it('puts a change within, beyond or far outside the swing', () => {
+    expect(swingOf(-8, 8)).toBe('within')
+    expect(swingOf(11, 8)).toBe('beyond')
+    expect(swingOf(-16, 8)).toBe('beyond')
+    expect(swingOf(-43.8, 8)).toBe('far')
   })
 })
