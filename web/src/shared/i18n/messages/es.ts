@@ -196,6 +196,15 @@ export const es: Record<MessageKey, string> = {
   'zonePanel.cropsNote': 'El cultivo en {n} puntos dentro del campo, no un conteo de toda su área.',
   'zonePanel.queried': 'Consultado el {date}. El clima es el de la zona alrededor del centro del campo. No se dan rendimientos para este campo. Esto apoya una decisión y no reemplaza el criterio local.',
 
+  'report.copy': 'Copiar enlace',
+  'report.copied': 'Enlace copiado. Quien lo abra ve este mismo lugar en el mapa y puede analizarlo de nuevo.',
+  'report.copyFailed': 'Copie este enlace: {link}',
+  'report.print': 'Imprimir o guardar como PDF',
+  'report.limits': 'Lo que esto no le dice',
+  'report.titlePlace': 'Evidencia de TEA-8 para un lugar',
+  'report.titleZone': 'Evidencia de TEA-8 para un campo',
+  'report.zoneLine': '{hectares} hectáreas, {corners} esquinas, centro {lat}, {lon}.',
+
   'season.rain': 'Lluvia',
   'season.temp': 'Temperatura',
   'season.moisture': 'Humedad del suelo',

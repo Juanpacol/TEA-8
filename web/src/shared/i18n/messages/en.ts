@@ -194,6 +194,15 @@ export const en = {
   'zonePanel.cropsNote': 'The crop at {n} points inside the field, not a full count of its area.',
   'zonePanel.queried': 'Queried on {date}. The climate is the area around the center of the field. No yields are given for this field. This supports a decision and does not replace local expertise.',
 
+  'report.copy': 'Copy link',
+  'report.copied': 'Link copied. Whoever opens it sees this same place on the map and can analyze it again.',
+  'report.copyFailed': 'Copy this link: {link}',
+  'report.print': 'Print or save as PDF',
+  'report.limits': 'What this does not tell you',
+  'report.titlePlace': 'TEA-8 evidence for a place',
+  'report.titleZone': 'TEA-8 evidence for a field',
+  'report.zoneLine': '{hectares} hectares, {corners} corners, center {lat}, {lon}.',
+
   'season.rain': 'Rain',
   'season.temp': 'Temperature',
   'season.moisture': 'Soil moisture',

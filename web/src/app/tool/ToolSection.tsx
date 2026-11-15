@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AskPanel, askTopics } from "../../features/ask/index.ts";
 import { FieldCards, FieldPanel } from "../../features/field/index.ts";
 import {
@@ -30,7 +30,7 @@ import {
   type Priority,
 } from "../../features/priorities/index.ts";
 import { driestSummer } from "../../features/landing/index.ts";
-import { PlacePanel, ZonePanel } from "../../features/place/index.ts";
+import { PlacePanel, ZonePanel, sharedFromHash } from "../../features/place/index.ts";
 import { ZoneControl, type Corner } from "../../features/zone/index.ts";
 import { YearOutcome } from "../../features/yields/index.ts";
 import {
@@ -64,9 +64,27 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [showVegetation, setShowVegetation] = useState(true);
   const [showSoils, setShowSoils] = useState(false);
   const [priority, setPriority] = useState<Priority | null>(null);
-  const [place, setPlace] = useState<Place | null>(null);
-  const [zone, setZone] = useState<Corner[]>([]);
+  // A shared link (#/tool?place=… or #/tool?zone=…) reopens that place or field.
+  const [shared] = useState(() => sharedFromHash(window.location.hash));
+  const [place, setPlace] = useState<Place | null>(
+    shared && "place" in shared ? shared.place : null,
+  );
+  const [zone, setZone] = useState<Corner[]>(
+    shared && "zone" in shared ? shared.zone : [],
+  );
   const [drawing, setDrawing] = useState(false);
+  // A shared link opened while the tool is already on screen.
+  useEffect(() => {
+    const onHash = () => {
+      const next = sharedFromHash(window.location.hash);
+      if (!next) return;
+      setDrawing(false);
+      if ("place" in next) setPlace(next.place);
+      else setZone(next.zone);
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
   const { summaries, selectedId, selected, select } = useRotations(data);
   const point = data.region.case_points[0];
   const baseline = data.dry_summer_rule?.baseline ?? DEFAULT_BASELINE;

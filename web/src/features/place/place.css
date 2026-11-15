@@ -119,3 +119,78 @@
 .zone-panel__crops li span:first-child {
   color: var(--text-soft);
 }
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.report-actions button {
+  height: 2.25rem;
+  padding: 0 1rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.report-actions__note {
+  flex-basis: 100%;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+}
+
+.place-panel__report-head {
+  display: none;
+}
+
+.place-panel__limits {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+@media print {
+  body:has(.is-printing) * {
+    visibility: hidden;
+  }
+
+  body:has(.is-printing) .is-printing,
+  body:has(.is-printing) .is-printing * {
+    visibility: visible;
+  }
+
+  .is-printing {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 100%;
+    background: #fff !important;
+    border: 0 !important;
+    color: #111 !important;
+  }
+
+  .is-printing * {
+    color: #111 !important;
+  }
+
+  .is-printing .place-panel__head,
+  .is-printing .report-actions {
+    display: none;
+  }
+
+  .is-printing .place-panel__report-head {
+    display: block;
+  }
+
+  .is-printing .zone-panel__bar {
+    background: #ddd !important;
+    print-color-adjust: exact;
+  }
+}
