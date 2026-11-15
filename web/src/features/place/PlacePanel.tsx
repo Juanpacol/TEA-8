@@ -1,38 +1,46 @@
 import { useI18n } from '../../shared/i18n/index.ts'
-import { isUnavailable, type PlaceEvidence } from '../../shared/lib/placeApi.ts'
+import { isUnavailable, type PlaceClimate, type PlaceEvidence, type Unavailable } from '../../shared/lib/placeApi.ts'
 import { placeKey, usePlaceEvidence } from './usePlaceEvidence.ts'
 import './place.css'
 
 type Props = { place: { lat: number; lon: number } }
+
+/** The summer climate of the grid cell, with the dry summers of the project rule. Shared by a point and a field. */
+export function ClimateSection({ climate }: { climate: PlaceClimate | Unavailable }) {
+  const { t } = useI18n()
+  return (
+    <section>
+      <h4>{t('placePanel.climate')}</h4>
+      {isUnavailable(climate) ? (
+        <p>{t('placePanel.unavailable')}</p>
+      ) : (
+        <>
+          <p>
+            {climate.dry_years.length
+              ? t('placePanel.dryYears', { years: climate.dry_years.join(', '), baseline: climate.baseline })
+              : t('placePanel.noDryYears', { baseline: climate.baseline })}
+          </p>
+          <ol className="place-panel__years" aria-label={t('placePanel.wetnessAria')}>
+            {climate.seasons.map((season) => (
+              <li key={season.year} className={season.dry ? 'is-dry' : undefined}>
+                <span>{season.year}</span>
+                <span>{season.root_wetness.toFixed(2)}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="place-panel__source">{t('placePanel.climateNote')} {climate.source}.</p>
+        </>
+      )}
+    </section>
+  )
+}
 
 function Result({ evidence }: { evidence: PlaceEvidence }) {
   const { t } = useI18n()
   const { climate, soil, crops } = evidence
   return (
     <div className="place-panel__result">
-      <section>
-        <h4>{t('placePanel.climate')}</h4>
-        {isUnavailable(climate) ? (
-          <p>{t('placePanel.unavailable')}</p>
-        ) : (
-          <>
-            <p>
-              {climate.dry_years.length
-                ? t('placePanel.dryYears', { years: climate.dry_years.join(', '), baseline: climate.baseline })
-                : t('placePanel.noDryYears', { baseline: climate.baseline })}
-            </p>
-            <ol className="place-panel__years" aria-label={t('placePanel.wetnessAria')}>
-              {climate.seasons.map((season) => (
-                <li key={season.year} className={season.dry ? 'is-dry' : undefined}>
-                  <span>{season.year}</span>
-                  <span>{season.root_wetness.toFixed(2)}</span>
-                </li>
-              ))}
-            </ol>
-            <p className="place-panel__source">{t('placePanel.climateNote')} {climate.source}.</p>
-          </>
-        )}
-      </section>
+      <ClimateSection climate={climate} />
       <section>
         <h4>{t('placePanel.soil')}</h4>
         {soil === null ? (

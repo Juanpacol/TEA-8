@@ -1,4 +1,4 @@
-"""TEA-8 API service: /health, GET /place and POST /ask, with a CORS allowlist and rate limiting (DEP-5, DEP-9, BE-7)."""
+"""TEA-8 API service: /health, GET /place, POST /zone and POST /ask, with a CORS allowlist and rate limiting (DEP-5, DEP-9, BE-7)."""
 import json
 import os
 import threading
@@ -11,6 +11,7 @@ from ask.budget import DailyBudget
 from ask.llm import MuseSparkClient
 from ask.service import handle_ask
 from place.service import handle_place
+from place.zone import handle_zone
 
 ALLOWED_ORIGINS = {
     o.strip()
@@ -51,6 +52,8 @@ class RateLimiter:
 LIMITER = RateLimiter(PER_IP_LIMIT, GLOBAL_LIMIT)
 LIMITER_LOCK = threading.Lock()
 MAX_BODY_BYTES = 4096
+# A field outline of up to 200 corners.
+MAX_ZONE_BODY_BYTES = 16384
 
 DATA = json.loads((Path(__file__).parent / "data" / "summary.json").read_text(encoding="utf-8"))
 LLM = MuseSparkClient(os.environ.get("META_MODEL_API_KEY"), os.environ.get("META_MODEL_ID", "muse-spark-1.3"))
@@ -126,7 +129,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self._blocked_origin():
             return self._json(403, {"error": "origin not allowed"})
-        if self.path != "/ask":
+        if self.path not in ("/ask", "/zone"):
             return self._json(404, {"error": "not found"})
         if self._rate_limited():
             return
@@ -134,8 +137,11 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length") or 0)
         except ValueError:
             length = -1
-        if length < 0 or length > MAX_BODY_BYTES:
+        limit = MAX_ZONE_BODY_BYTES if self.path == "/zone" else MAX_BODY_BYTES
+        if length < 0 or length > limit:
             return self._json(413, {"error": {"code": "BAD_REQUEST", "message": "request too large"}})
+        if self.path == "/zone":
+            return self._json(*handle_zone(self.rfile.read(length)))
         status, payload = handle_ask(self.rfile.read(length), DATA, LLM, BUDGET)
         self._json(status, payload)
 
