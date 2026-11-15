@@ -45,19 +45,22 @@ def handle_place(query, today=None, src=sources):
     if not (US["south"] <= lat <= US["north"] and US["west"] <= lon <= US["east"]):
         return error(400, "OUTSIDE_COVERAGE", "This tool has data only for the contiguous United States.")
     today = today or date.today()
-    with ThreadPoolExecutor(max_workers=3) as pool:
+    with ThreadPoolExecutor(max_workers=4) as pool:
         climate = pool.submit(_safe, lambda: src.climate(lat, lon, today.year - 1))
         soil = pool.submit(_safe, lambda: src.soil(lat, lon))
         crops = pool.submit(_safe, lambda: src.crops(lat, lon))
+        vegetation = pool.submit(_safe, lambda: src.vegetation(lat, lon, today.year - 1))
         return 200, {
             "place": {"lat": lat, "lon": lon},
             "queried_on": today.isoformat(),
             "climate": climate.result(),
             "soil": soil.result(),
             "crops": crops.result(),
+            "vegetation": vegetation.result(),
             "limits": [
                 "Climate is one value for a grid cell of about 50 km: it describes the area, not the field.",
                 "Soil and crop are read at one point, not over the whole field.",
+                "NDVI and VCI are read at one 250 m pixel at the point.",
                 "No yields are given for this place.",
                 "This supports a decision and does not replace local expertise.",
             ],

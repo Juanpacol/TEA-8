@@ -27,6 +27,9 @@ class FakeSources:
     def crops(self, lat, lon):
         return {"years": {"2008": "Corn"}}
 
+    def vegetation(self, lat, lon, last_year):
+        return {"seasons": [{"year": 2012, "ndvi": 0.4, "vci": 0}]}
+
 
 class HandlePlace(unittest.TestCase):
     def test_returns_the_three_sources(self):
@@ -94,3 +97,18 @@ class Parsers(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Vegetation(unittest.TestCase):
+    def test_vci_places_each_summer_between_the_least_and_most_green(self):
+        summers = {2001 + i: 0.5 + i * 0.02 for i in range(12)}
+        summers[2012] = 0.40
+        out = sources.summarize_vegetation(summers, 2023)
+        by_year = {s["year"]: s for s in out["seasons"]}
+        self.assertEqual(by_year[2012]["vci"], 0)
+        self.assertEqual(by_year[2011]["vci"], 100)
+        self.assertEqual(by_year[2012]["ndvi"], 0.4)
+
+    def test_too_few_summers_is_an_error(self):
+        with self.assertRaises(ValueError):
+            sources.summarize_vegetation({2001: 0.5, 2002: None}, 2023)

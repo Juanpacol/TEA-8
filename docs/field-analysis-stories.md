@@ -65,3 +65,6 @@ As a farmer, I want the yields of my county, so the dry summers are compared wit
 As a farmer, I want to ask about my place and get answers checked against its data.
 - The evidence bundle is built from the data of the place.
 - The verifier is unchanged: every number must come from the cited evidence.
+
+
+Added 2026-11-15: NDVI and VCI per summer (NASA MODIS MOD13Q1 via ORNL DAAC, 2001 to last year) in GET /place and POST /zone, shown in the panel, the printed report and the evidence the AI can cite. VCI = 100 * (summer NDVI - minimum) / (maximum - minimum) over the years on record, at one 250 m pixel.

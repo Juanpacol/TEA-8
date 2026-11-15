@@ -48,7 +48,7 @@ class ParseCorners(unittest.TestCase):
 
 class HandleZone(unittest.TestCase):
     def test_returns_the_three_sources_and_the_area(self):
-        status, payload = handle_zone(body(SQUARE), date(2026, 11, 15), ok({"dry_years": [2012]}), ok({"soils": []}), ok({"points": 5}))
+        status, payload = handle_zone(body(SQUARE), date(2026, 11, 15), ok({"dry_years": [2012]}), ok({"soils": []}), ok({"points": 5}), ok({"seasons": []}))
         self.assertEqual(status, 200)
         self.assertEqual(payload["zone"]["corners"], 4)
         self.assertAlmostEqual(payload["zone"]["area_ha"], 387, delta=1)
@@ -56,7 +56,7 @@ class HandleZone(unittest.TestCase):
         self.assertEqual(payload["queried_on"], "2026-11-15")
 
     def test_a_source_that_fails_does_not_hide_the_others(self):
-        status, payload = handle_zone(body(SQUARE), date(2026, 11, 15), down, ok({"soils": []}), down)
+        status, payload = handle_zone(body(SQUARE), date(2026, 11, 15), down, ok({"soils": []}), down, down)
         self.assertEqual(status, 200)
         self.assertIn("error", payload["climate"])
         self.assertIn("error", payload["crops"])
