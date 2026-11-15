@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react'
 import {
   CallToAction,
   Connector,
@@ -16,7 +17,8 @@ import {
 } from '../features/landing/index.ts'
 import { useData } from '../shared/hooks/useData.ts'
 import { useRoute } from '../shared/hooks/useRoute.ts'
-import { ToolPage } from './ToolPage.tsx'
+
+const ToolPage = lazy(() => import('./ToolPage.tsx').then((module) => ({ default: module.ToolPage })))
 
 function Landing() {
   const state = useData()
@@ -58,5 +60,11 @@ function Landing() {
 }
 
 export function App() {
-  return useRoute() === 'tool' ? <ToolPage /> : <Landing />
+  return useRoute() === 'tool' ? (
+    <Suspense fallback={null}>
+      <ToolPage />
+    </Suspense>
+  ) : (
+    <Landing />
+  )
 }
