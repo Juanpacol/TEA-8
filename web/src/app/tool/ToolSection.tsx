@@ -31,6 +31,7 @@ import {
 } from "../../features/priorities/index.ts";
 import { driestSummer } from "../../features/landing/index.ts";
 import { PlacePanel } from "../../features/place/index.ts";
+import { ZoneControl, type Corner } from "../../features/zone/index.ts";
 import { YearOutcome } from "../../features/yields/index.ts";
 import {
   CompareTable,
@@ -64,6 +65,8 @@ function Workspace({ data }: { data: TEA8DataFile }) {
   const [showSoils, setShowSoils] = useState(false);
   const [priority, setPriority] = useState<Priority | null>(null);
   const [place, setPlace] = useState<Place | null>(null);
+  const [zone, setZone] = useState<Corner[]>([]);
+  const [drawing, setDrawing] = useState(false);
   const { summaries, selectedId, selected, select } = useRotations(data);
   const point = data.region.case_points[0];
   const baseline = data.dry_summer_rule?.baseline ?? DEFAULT_BASELINE;
@@ -120,6 +123,27 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             showSoils={showSoils}
             selected={place}
             onSelect={setPlace}
+            zone={zone}
+            drawing={drawing}
+            onAddCorner={(corner) => setZone((current) => [...current, corner])}
+          />
+          <ZoneControl
+            corners={zone}
+            drawing={drawing}
+            onStart={() => {
+              setZone([]);
+              setDrawing(true);
+            }}
+            onFinish={() => setDrawing(false)}
+            onUndo={() => setZone((current) => current.slice(0, -1))}
+            onClear={() => {
+              setZone([]);
+              setDrawing(false);
+            }}
+            onLoad={(corners) => {
+              setDrawing(false);
+              setZone(corners);
+            }}
           />
           <p className="map-hint map-hint--small">{t("tool.mapHint")}</p>
           {place && !chosen && <PlacePanel place={place} />}

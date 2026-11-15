@@ -17,7 +17,7 @@ Related: [user-stories.md](user-stories.md), [method.md](method.md), [contracts.
 |---|---|
 | FA-1 Go to a place by coordinates | Done. Checked in Chrome on the local build (2026-11-15): text that is not a coordinate and a place in Colombia each showed their message and moved nothing; `41.59, -93.62` moved the map to Des Moines and the place card said there is no data there |
 | FA-2 Evidence for one point, queried live | Done on the branch, not deployed. Checked in Chrome against a local API (2026-11-15): `38.5, -98.8` (Kansas) returned in 3 s the dry summers 2011 and 2012, the soil Harney and the crop of 2008 to 2023; downtown Des Moines returned no soil and "Developed" as crop. Not checked: the route on Cloud Run, a source that is down in real use |
-| FA-3 Draw a zone point by point | Pending |
+| FA-3 Draw a zone point by point | Done. Checked in Chrome on the local build (2026-11-15): four clicks drew a field and "Finish" filled it with its area; a KML of a 0.02° square in Kansas moved the map there with 387 ha (expected about 387); a GeoJSON Feature loaded with 94 ha; a file with no polygon showed its message; "Clear" removed the field |
 | FA-4 Evidence for a drawn zone | Pending |
 | FA-5 Report to save and share | Pending |
 | FA-6 County yields for any place | Pending (needs a USDA NASS QuickStats key) |
