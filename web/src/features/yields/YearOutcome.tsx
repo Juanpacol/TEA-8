@@ -2,6 +2,7 @@ import { cropName, useI18n } from '../../shared/i18n/index.ts'
 import type { Rotation, TEA8DataFile } from '../../shared/lib/data-types.ts'
 import type { CropOutcome } from './yields.ts'
 import { barShares, dryRange, outcomesFor, percentFromUsual, plainChange, plainUnit, summerVerdict, toneOf } from './yields.ts'
+import { WetnessVsYield } from './WetnessVsYield.tsx'
 import './yields.css'
 
 type Props = { data: TEA8DataFile; rotation: Rotation; year: number }
@@ -73,6 +74,7 @@ export function YearOutcome({ data, rotation, year }: Props) {
           {t('outcome.range', { count: range.count, crop: cropName(t, range.crop), low: percentFromUsual(t, range.lowest), high: percentFromUsual(t, range.highest) })}
         </p>
       ))}
+      <WetnessVsYield data={data} year={year} />
       <details className="outcome__how">
         <summary>{t('outcome.how')}</summary>
         <p>{t('outcome.how1')}</p>
