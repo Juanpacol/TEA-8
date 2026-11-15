@@ -8,7 +8,7 @@ export function Connector({ children }: { children: ReactNode }) {
 
   return (
     <div className="connector">
-      <div ref={first} className="connector__art" aria-hidden="true" />
+      <div ref={first} className="connector__art" data-lazy-art aria-hidden="true" />
       <div className="connector__content">{children}</div>
     </div>
   )

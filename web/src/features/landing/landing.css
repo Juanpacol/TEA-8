@@ -196,7 +196,6 @@
   width: min(1100px, 130%);
   aspect-ratio: 4 / 3;
   transform: translate(-50%, -50%);
-  background: url('./assets/eclipse.webp') center / contain no-repeat;
   opacity: 0.4;
   pointer-events: none;
   mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, #000 40%, transparent 95%);
@@ -287,7 +286,6 @@
   aspect-ratio: 9 / 16;
   max-width: 70%;
   /* satellite at the top, the Earth at its sunrise at the bottom: the section goes from space to the ground */
-  background: url('./assets/satellite.webp') center bottom / cover no-repeat;
   mix-blend-mode: screen;
   filter: saturate(0.85);
   opacity: 0.75;
@@ -339,7 +337,6 @@
   width: 72%;
   aspect-ratio: 780 / 580;
   transform: translateY(-50%);
-  background: url('./assets/orbit.webp') center / contain no-repeat;
   opacity: 0.4;
   pointer-events: none;
   mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, #000 40%, transparent 95%);
@@ -601,4 +598,17 @@ a {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 1.5rem;
+}
+
+/* Below-the-fold art is only fetched once its section is near the screen (see useLazyArt). */
+.intro__art.art-loaded {
+  background: url('./assets/eclipse.webp') center / contain no-repeat;
+}
+
+.connector__art.art-loaded {
+  background: url('./assets/satellite.webp') center bottom / cover no-repeat;
+}
+
+.how__orbit.art-loaded {
+  background: url('./assets/orbit.webp') center / contain no-repeat;
 }

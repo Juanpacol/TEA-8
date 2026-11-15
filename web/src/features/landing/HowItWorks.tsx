@@ -10,7 +10,7 @@ const STEPS = [
 export function HowItWorks() {
   return (
     <section className="section how">
-      <div className="how__orbit" aria-hidden="true" />
+      <div className="how__orbit" data-lazy-art aria-hidden="true" />
       <h2>How it works</h2>
       <ol className="steps">
         {STEPS.map((step) => (
