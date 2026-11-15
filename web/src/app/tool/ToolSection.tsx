@@ -30,7 +30,7 @@ import {
   type Priority,
 } from "../../features/priorities/index.ts";
 import { driestSummer } from "../../features/landing/index.ts";
-import { PlacePanel } from "../../features/place/index.ts";
+import { PlacePanel, ZonePanel } from "../../features/place/index.ts";
 import { ZoneControl, type Corner } from "../../features/zone/index.ts";
 import { YearOutcome } from "../../features/yields/index.ts";
 import {
@@ -146,6 +146,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
             }}
           />
           <p className="map-hint map-hint--small">{t("tool.mapHint")}</p>
+          {!drawing && zone.length >= 3 && <ZonePanel corners={zone} />}
           {place && !chosen && <PlacePanel place={place} />}
           <div className="map-toolbar">
             <BaseControl

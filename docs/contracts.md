@@ -86,3 +86,14 @@ Evidence for one point, asked from the sources at request time (story FA-2 in [f
 - A source that does not answer is `{ "error": "..." }` in its place; the others are still returned. `soil` is `null` when the survey has nothing at the point.
 - Errors: 400 `BAD_REQUEST` (lat or lon missing or not a number), 400 `OUTSIDE_COVERAGE` (outside the contiguous United States), 429 (rate limit).
 - The example values of `seasons` are illustrative; the dry-summer rule is the one in [method.md](method.md), computed for the grid cell of the point.
+
+## POST /zone
+
+Evidence for a field outline (story FA-4). Body: `{ "corners": [[lat, lon], ...] }`, 3 to 200 corners, at most 16 KB. Nothing about the field is stored.
+
+- `zone`: number of corners, area in hectares and the center used for the climate.
+- `soil`: `{ "soils": [{ "name", "drainage", "hydrologic_group", "share_pct" }], "source", "note" }`, the major soil components of USDA SSURGO intersected with the outline, as a share of the field area (shares under 1% are left out). `null` when the survey has nothing inside.
+- `crops`: `{ "points", "years": { "2008": { "Corn": 3, "Soybeans": 2 } }, "source", "note" }`, the crop at up to 5 points sampled inside the outline.
+- `climate`: as in `GET /place`, for the NASA POWER cell of the center.
+- A source that does not answer is `{ "error": "..." }` in its place.
+- Errors: 400 `BAD_REQUEST` (not 3 to 200 corners, or smaller than 100 m²), 400 `OUTSIDE_COVERAGE`, 400 `TOO_LARGE` (over 50 km²), 413 (body too large), 429.

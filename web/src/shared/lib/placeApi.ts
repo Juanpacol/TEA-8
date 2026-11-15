@@ -65,3 +65,60 @@ export async function fetchPlaceEvidence(
     clearTimeout(timer)
   }
 }
+
+export type ZoneSoils = {
+  soils: { name: string; drainage: string | null; hydrologic_group: string | null; share_pct: number }[]
+  source: string
+  note: string
+}
+
+export type ZoneCrops = { points: number; years: Record<string, Record<string, number>>; source: string; note: string }
+
+export type ZoneEvidence = {
+  zone: { corners: number; area_ha: number; center: { lat: number; lon: number } }
+  queried_on: string
+  climate: PlaceClimate | Unavailable
+  soil: ZoneSoils | Unavailable | null
+  crops: ZoneCrops | Unavailable
+  limits: string[]
+}
+
+/** Why the service refused a field: too large, outside the covered area, or any other failure. */
+export class ZoneRefused extends Error {
+  readonly code: string
+  constructor(code: string) {
+    super(`The zone service refused the field: ${code}`)
+    this.code = code
+  }
+}
+
+/** Asks the API what the sources hold for a field outline. Throws ZoneRefused on any failure. */
+export async function fetchZoneEvidence(
+  corners: { lat: number; lon: number }[],
+  options: { baseUrl?: string; timeoutMs?: number } = {},
+): Promise<ZoneEvidence> {
+  const baseUrl = options.baseUrl ?? (import.meta.env.VITE_API_URL as string | undefined)
+  if (!baseUrl) throw new ZoneRefused('NOT_CONFIGURED')
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? TIMEOUT_MS)
+  try {
+    const response = await fetch(`${baseUrl.replace(/\/$/, '')}/zone`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ corners: corners.map((c) => [Number(c.lat.toFixed(6)), Number(c.lon.toFixed(6))]) }),
+      signal: controller.signal,
+    })
+    const body: unknown = await response.json().catch(() => null)
+    if (!response.ok) {
+      const code = (body as { error?: { code?: unknown } } | null)?.error?.code
+      throw new ZoneRefused(typeof code === 'string' ? code : 'UNAVAILABLE')
+    }
+    const v = body as Record<string, unknown> | null
+    if (!v || typeof v.zone !== 'object' || !Array.isArray(v.limits)) throw new ZoneRefused('UNAVAILABLE')
+    return body as ZoneEvidence
+  } catch (failure) {
+    throw failure instanceof ZoneRefused ? failure : new ZoneRefused('UNAVAILABLE')
+  } finally {
+    clearTimeout(timer)
+  }
+}
