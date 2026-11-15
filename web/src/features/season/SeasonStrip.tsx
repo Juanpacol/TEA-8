@@ -11,7 +11,7 @@ export function SeasonStrip({ year, season, pointLabel, baseline, afterBaseline 
   const none = t('field.noData')
   return (
     <div className="season-strip">
-      <p className="season__headline">{seasonHeadline(t, season, year)}</p>
+      <h1 className="season__headline">{seasonHeadline(t, season, year)}</h1>
       {afterBaseline && (
         <p className="season-strip__baseline" role="note">
           {t('season.afterBaseline', { year, baseline: baseline ?? '' })}

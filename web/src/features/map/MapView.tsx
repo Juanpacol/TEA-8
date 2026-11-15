@@ -23,7 +23,7 @@ type Props = {
 
 const NDVI_OPTIONS = { maxNativeZoom: 9, maxZoom: 14 }
 /** On a wide screen the soil key starts open; on a phone it starts closed so it does not cover the map. */
-const WIDE = window.matchMedia('(min-width: 861px)')
+const WIDE = window.matchMedia('(min-width: 1181px)')
 const MAX_SOIL_COLORS = 6
 const OTHER_SOIL = '#8a97b4'
 /** From this zoom on the point labels stay on screen. */
