@@ -112,3 +112,17 @@ class Vegetation(unittest.TestCase):
     def test_too_few_summers_is_an_error(self):
         with self.assertRaises(ValueError):
             sources.summarize_vegetation({2001: 0.5, 2002: None}, 2023)
+
+
+class VegetationDeadline(unittest.TestCase):
+    def test_a_slow_service_does_not_hold_the_answer(self):
+        import time as t
+        original = sources.summer_ndvi
+        sources.summer_ndvi = lambda lat, lon, year: (t.sleep(2) if year > 2012 else None) or 0.5 + (year % 7) / 20
+        try:
+            start = t.monotonic()
+            out = sources.vegetation(1.0, 2.0, 2025, deadline=0.5)
+            self.assertLess(t.monotonic() - start, 1.5)
+            self.assertEqual([s["year"] for s in out["seasons"]], list(range(2001, 2013)))
+        finally:
+            sources.summer_ndvi = original

@@ -11,7 +11,7 @@ import statistics
 import time
 import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, wait
 
 from place.albers import to_conus_albers
 
@@ -29,6 +29,9 @@ DRY_THRESHOLD = -1.0
 NDVI_FILL = -3000
 NDVI_SCALE = 0.0001
 NDVI_FIRST_YEAR = 2001
+VEGETATION_DEADLINE = 25  # seconds: the service is sometimes very slow, and the other sources must not wait for it
+VEGETATION_TTL = 24 * 3600
+_vegetation_cache = {}
 SUMMER_DAYS = (161, 241)  # day of year of the first and last 16-day composite of June to August
 
 SOIL_QUERY = """SELECT TOP 1 c.compname, c.comppct_r, c.drainagecl, c.hydgrp, h.om_r, h.awc_r
@@ -171,15 +174,26 @@ def summer_ndvi(lat, lon, year):
         "startDate": f"A{year}{SUMMER_DAYS[0]:03d}", "endDate": f"A{year}{SUMMER_DAYS[1]:03d}",
     })
     try:
-        rows = json.loads(fetch(f"{NDVI_URL}?{query}", timeout=40)).get("subset", [])
+        rows = json.loads(fetch(f"{NDVI_URL}?{query}", timeout=VEGETATION_DEADLINE, attempts=1)).get("subset", [])
     except (OSError, ValueError):
         return None
     values = [r["data"][0] * NDVI_SCALE for r in rows if r.get("data") and r["data"][0] != NDVI_FILL]
     return statistics.fmean(values) if values else None
 
 
-def vegetation(lat, lon, last_year):
-    years = range(NDVI_FIRST_YEAR, last_year + 1)
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        found = list(pool.map(lambda year: summer_ndvi(lat, lon, year), years))
-    return summarize_vegetation(dict(zip(years, found)), last_year)
+def vegetation(lat, lon, last_year, deadline=VEGETATION_DEADLINE, clock=time.monotonic):
+    """Summer NDVI and VCI. Years that do not answer before the deadline are left out; the pixel is kept for a day."""
+    key = (round(lat, 3), round(lon, 3), last_year)
+    hit = _vegetation_cache.get(key)
+    if hit and clock() - hit[0] < VEGETATION_TTL:
+        return hit[1]
+    years = list(range(NDVI_FIRST_YEAR, last_year + 1))
+    pool = ThreadPoolExecutor(max_workers=13)
+    jobs = {pool.submit(summer_ndvi, lat, lon, year): year for year in years}
+    done, _ = wait(jobs, timeout=deadline)
+    pool.shutdown(wait=False, cancel_futures=True)
+    found = {jobs[job]: job.result() for job in done}
+    result = summarize_vegetation({y: found.get(y) for y in years}, last_year)
+    if len(found) == len(years):
+        _vegetation_cache[key] = (clock(), result)
+    return result
