@@ -43,7 +43,7 @@ Response (200):
     }
   ],
   "notice": "This tool supports, and does not replace, local agricultural expertise.",
-  "prompt_version": "ask-v2"
+  "prompt_version": "ask-v1"
 }
 ```
 
