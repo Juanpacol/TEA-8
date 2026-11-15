@@ -89,6 +89,7 @@ export interface Season {
   rainfall: Figure;
   temperature: Figure;
   drought_monitor?: Figure1;
+  smap_root_zone?: Figure2;
   /**
    * True when the summer is dry under dry_summer_rule. null when the root-zone wetness is unknown.
    */
@@ -98,6 +99,16 @@ export interface Season {
  * A number with its provenance. value is null when the data is unknown; it is never filled with zero.
  */
 export interface Figure1 {
+  value: number | null;
+  unit: string;
+  source: string;
+  parameter: string;
+  queried_on: string;
+}
+/**
+ * A number with its provenance. value is null when the data is unknown; it is never filled with zero.
+ */
+export interface Figure2 {
   value: number | null;
   unit: string;
   source: string;
@@ -119,7 +130,7 @@ export interface Rotation {
    */
   sequence: [string, ...string[]];
   rules: Rule[];
-  summer_field_share?: Figure2;
+  summer_field_share?: Figure3;
   explanation: {
     why: Statement[];
     evidence: Statement[];
@@ -143,7 +154,7 @@ export interface Rule {
 /**
  * A number with its provenance. value is null when the data is unknown; it is never filled with zero.
  */
-export interface Figure2 {
+export interface Figure3 {
   value: number | null;
   unit: string;
   source: string;

@@ -14,7 +14,7 @@ The farmer picks a summer (2001 to 2026) and one of three rotations, including t
 - how that summer compared with 2001-2023 (NASA POWER rainfall, temperature and root-zone wetness), and whether it counts as dry under a written rule;
 - a map of NASA satellite vegetation (NASA GIBS, MODIS NDVI) for that year, with a second year to compare against;
 - what the county corn and soybean yields (USDA NASS) did in that summer against their trend;
-- a cross-check of our dry summers against the US Drought Monitor, an independent source;
+- a cross-check of our dry summers against the US Drought Monitor, an independent source, and of our soil moisture against NASA SMAP, a satellite-driven one;
 - the soil of two case points (USDA SSURGO) and the crop of each year from 2008 to 2023 (CropScape);
 - for each rotation: why it is suggested, the evidence, what we do not know and which risks a local expert should review;
 - a question box. Answers come from a language model and every claim is checked by code against the data; a claim that fails the check is shown flagged.
@@ -211,7 +211,7 @@ Reason for the zone: the soil data (USDA) and crops-by-year data (CropScape) tha
 | Crop by year and coordinate | CropScape (CDL) | Works through 2025. Needs coordinates in meters, Albers projection EPSG:5070 |
 
 Notes:
-- GIBS does not offer SMAP soil moisture, only brightness temperature layers. Root wetness comes from NASA POWER (`GWETROOT`).
+- GIBS does offer SMAP soil moisture (Level 4 root zone, daily since 2015, as colored tiles), checked against its capabilities file on 2026-11-14. The tool uses it as a satellite-driven cross-check: a pixel's color is looked up in the layer's published color map to get a number (steps of 0.003 m3/m3). The soil wetness the tool is built on still comes from NASA POWER (`GWETROOT`), which covers 2001 on.
 - NASA POWER uses a grid of about 50 km: it represents the area, not the plot.
 - The services were tested with single queries. Continuous loading of several layers during a demo was not tested.
 

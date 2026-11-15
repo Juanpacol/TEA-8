@@ -1,7 +1,7 @@
 {
   "schema_version": "1",
   "simulated": false,
-  "generated_at": "2026-11-15T02:34:48Z",
+  "generated_at": "2026-11-15T02:47:41Z",
   "region": {
     "name": "McLean County",
     "state": "Illinois",
@@ -856,6 +856,13 @@
         "parameter": "county statistics, cumulative D1",
         "queried_on": "2026-11-14"
       },
+      "smap_root_zone": {
+        "value": 0.372,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
+        "queried_on": "2026-11-14"
+      },
       "dry": false
     },
     {
@@ -893,6 +900,13 @@
         "unit": "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
         "source": "US Drought Monitor",
         "parameter": "county statistics, cumulative D1",
+        "queried_on": "2026-11-14"
+      },
+      "smap_root_zone": {
+        "value": 0.342,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
         "queried_on": "2026-11-14"
       },
       "dry": false
@@ -934,6 +948,13 @@
         "parameter": "county statistics, cumulative D1",
         "queried_on": "2026-11-14"
       },
+      "smap_root_zone": {
+        "value": 0.293,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
+        "queried_on": "2026-11-14"
+      },
       "dry": false
     },
     {
@@ -971,6 +992,13 @@
         "unit": "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
         "source": "US Drought Monitor",
         "parameter": "county statistics, cumulative D1",
+        "queried_on": "2026-11-14"
+      },
+      "smap_root_zone": {
+        "value": 0.304,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
         "queried_on": "2026-11-14"
       },
       "dry": false
@@ -1012,6 +1040,13 @@
         "parameter": "county statistics, cumulative D1",
         "queried_on": "2026-11-14"
       },
+      "smap_root_zone": {
+        "value": 0.337,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
+        "queried_on": "2026-11-14"
+      },
       "dry": false
     },
     {
@@ -1049,6 +1084,13 @@
         "unit": "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
         "source": "US Drought Monitor",
         "parameter": "county statistics, cumulative D1",
+        "queried_on": "2026-11-14"
+      },
+      "smap_root_zone": {
+        "value": 0.337,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
         "queried_on": "2026-11-14"
       },
       "dry": false
@@ -1090,6 +1132,13 @@
         "parameter": "county statistics, cumulative D1",
         "queried_on": "2026-11-14"
       },
+      "smap_root_zone": {
+        "value": 0.351,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
+        "queried_on": "2026-11-14"
+      },
       "dry": false
     },
     {
@@ -1127,6 +1176,13 @@
         "unit": "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
         "source": "US Drought Monitor",
         "parameter": "county statistics, cumulative D1",
+        "queried_on": "2026-11-14"
+      },
+      "smap_root_zone": {
+        "value": 0.293,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
         "queried_on": "2026-11-14"
       },
       "dry": false
@@ -1168,6 +1224,13 @@
         "parameter": "county statistics, cumulative D1",
         "queried_on": "2026-11-14"
       },
+      "smap_root_zone": {
+        "value": 0.282,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
+        "queried_on": "2026-11-14"
+      },
       "dry": true
     },
     {
@@ -1205,6 +1268,13 @@
         "unit": "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
         "source": "US Drought Monitor",
         "parameter": "county statistics, cumulative D1",
+        "queried_on": "2026-11-14"
+      },
+      "smap_root_zone": {
+        "value": 0.328,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
         "queried_on": "2026-11-14"
       },
       "dry": false
@@ -1246,6 +1316,13 @@
         "parameter": "county statistics, cumulative D1",
         "queried_on": "2026-11-14"
       },
+      "smap_root_zone": {
+        "value": 0.311,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
+        "queried_on": "2026-11-14"
+      },
       "dry": false
     },
     {
@@ -1283,6 +1360,13 @@
         "unit": "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
         "source": "US Drought Monitor",
         "parameter": "county statistics, cumulative D1",
+        "queried_on": "2026-11-14"
+      },
+      "smap_root_zone": {
+        "value": 0.365,
+        "unit": "m3/m3, mean of weekly samples June-August (about 9 km grid cell)",
+        "source": "NASA SMAP L4 via GIBS",
+        "parameter": "SMAP_L4_Analyzed_Root_Zone_Soil_Moisture",
         "queried_on": "2026-11-14"
       },
       "dry": false
