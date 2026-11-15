@@ -56,7 +56,7 @@ class RouteTest(unittest.TestCase):
         self.assertEqual((status, body["error"]["code"]), (400, "BAD_REQUEST"))
 
     def test_oversized_body_is_a_413(self):
-        status, _, _ = post(f"{self.url}/ask", b'{"question": "' + b"x" * 5000 + b'"}')
+        status, _, _ = post(f"{self.url}/ask", b'{"question": "' + b"x" * 17000 + b'"}')
         self.assertEqual(status, 413)
 
     def test_unknown_post_path_is_a_404(self):

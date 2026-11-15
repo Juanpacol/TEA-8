@@ -8,6 +8,7 @@ from ask.guardrails import find_violations
 from ask.llm import LLMError
 from ask.prompt import OUTPUT_SCHEMA, PROMPT_VERSION, build_messages
 from ask.verifier import verify
+from place.bundle import place_bundle
 
 MAX_QUESTION_CHARS = 500
 MAX_ATTEMPTS = 2
@@ -27,15 +28,18 @@ def _reply(answered, answer, claims):
             "notice": NOTICE, "prompt_version": PROMPT_VERSION}
 
 
-def ask(question, rotation_id, data, llm, budget=None, clock=time.monotonic):
+def ask(question, rotation_id, data, llm, budget=None, clock=time.monotonic, bundle=None, region=None):
     if not isinstance(question, str) or not question.strip():
         raise AskError("BAD_REQUEST", "question is required", 400)
     if len(question) > MAX_QUESTION_CHARS:
         raise AskError("BAD_REQUEST", f"question is longer than {MAX_QUESTION_CHARS} characters", 400)
     if budget is not None and not budget.try_acquire():
         raise AskError("DAILY_LIMIT", "the daily limit of questions was reached", 429)
-    bundle = build_bundle(data)
-    messages = build_messages(question, bundle, rotation_id)
+    if bundle is None:
+        bundle = build_bundle(data)
+        messages = build_messages(question, bundle, rotation_id)
+    else:
+        messages = build_messages(question, bundle, None, region)
     started = clock()
     for attempt in range(MAX_ATTEMPTS):
         if attempt and clock() - started > RETRY_ONLY_BEFORE_SECONDS:
@@ -55,15 +59,29 @@ def ask(question, rotation_id, data, llm, budget=None, clock=time.monotonic):
     raise AskError("LLM_INVALID_OUTPUT", "the answer broke the wording rules twice", 502)
 
 
-def handle_ask(body, data, llm, budget=None):
-    """HTTP-agnostic entry point: raw request body to (status, JSON-able dict)."""
+def handle_ask(body, data, llm, budget=None, place_evidence=None):
+    """HTTP-agnostic entry point: raw request body to (status, JSON-able dict).
+
+    With "place": {"lat", "lon"} or "zone": [[lat, lon], ...] the question is about that place
+    or field: `place_evidence(payload)` returns (status, evidence) and the bundle is built from it.
+    """
     try:
         payload = json.loads(body or b"{}")
     except json.JSONDecodeError:
         return 400, {"error": {"code": "BAD_REQUEST", "message": "body must be JSON"}}
     if not isinstance(payload, dict):
         return 400, {"error": {"code": "BAD_REQUEST", "message": "body must be a JSON object"}}
+    bundle = region = None
+    if place_evidence is not None and ("place" in payload or "zone" in payload):
+        status, evidence = place_evidence(payload)
+        if status != 200:
+            return status, evidence
+        bundle = place_bundle(evidence)
+        if len([k for k in bundle if not k.startswith("limit.")]) == 0:
+            return 502, {"error": {"code": "NO_EVIDENCE", "message": "the sources did not answer for this place"}}
+        region = "the field the farmer drew" if "zone" in payload else "the place the farmer chose"
     try:
-        return 200, ask(payload.get("question"), payload.get("rotation_id"), data, llm, budget)
+        return 200, ask(payload.get("question"), None if bundle else payload.get("rotation_id"), data, llm, budget,
+                        bundle=bundle, region=region)
     except AskError as exc:
         return exc.status, {"error": {"code": exc.code, "message": exc.message}}

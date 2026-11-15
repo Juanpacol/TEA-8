@@ -49,10 +49,13 @@ function isAskResponse(value: unknown): value is AskResponse {
 }
 
 /** Asks the API a question. Throws on any failure so the page can fall back to the pre-generated explanations. */
+/** A question about a place or a field the person chose, instead of the case area. */
+export type AskContext = { place: { lat: number; lon: number } } | { zone: [number, number][] }
+
 export async function askQuestion(
   question: string,
   rotationId?: string,
-  options: { baseUrl?: string; timeoutMs?: number } = {},
+  options: { baseUrl?: string; timeoutMs?: number; context?: AskContext } = {},
 ): Promise<AskResponse> {
   const baseUrl = options.baseUrl ?? (import.meta.env.VITE_API_URL as string | undefined)
   if (!baseUrl) throw new AskFailure('unavailable', 'The question service is not configured')
@@ -63,7 +66,7 @@ export async function askQuestion(
     const response = await fetch(`${baseUrl.replace(/\/$/, '')}/ask`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question, rotation_id: rotationId }),
+      body: JSON.stringify({ question, rotation_id: rotationId, ...options.context }),
       signal: controller.signal,
     })
     const body: unknown = await response.json().catch(() => null)

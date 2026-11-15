@@ -21,7 +21,7 @@ Related: [user-stories.md](user-stories.md), [method.md](method.md), [contracts.
 | FA-4 Evidence for a drawn zone | Done on the branch, not deployed. Checked in Chrome against a local API (2026-11-15): a 387 ha field in Kansas returned 8 soils with their share (Harney 37%, New Cambria 20%, Hord 17% …), the crop of 2008 to 2023 at 5 points inside it, and the dry summers 2011 and 2012; it took 31 s, mostly CropScape. A 1° triangle was refused as larger than 50 km² with its message |
 | FA-5 Report to save and share | Done on the branch. Checked in Chrome (2026-11-15): a fresh open of a `#/tool?zone=…` link restored the 387 ha field and its analysis ran; "Copy link" copied and said so; a link opened while the tool was on screen moved to the new place and to a new field. Not checked: the printed page (the print dialog was not opened) |
 | FA-6 County yields for any place | Pending (needs a USDA NASS QuickStats key) |
-| FA-7 Questions about my place | Pending |
+| FA-7 Questions about my place | Done on the branch, plumbing only. Checked in Chrome against a local API with a stand-in model (2026-11-15): after analyzing a field, a question was answered in 0.5 s from the cached evidence; two claims citing the field's evidence were verified and one with a wrong temperature (23.3 °C) was marked not verified. Not checked: the real model (Muse Spark) with this evidence; must be tried on a no-traffic Cloud Run revision before any merge. The McLean prompt is unchanged (`ask-v1`) |
 
 ## Stories
 
