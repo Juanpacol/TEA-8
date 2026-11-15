@@ -79,3 +79,27 @@ export function summerVerdict(t: Translate, dry: boolean | null | undefined): st
   if (dry === false) return t('summer.notDry')
   return t('summer.noData')
 }
+
+/** The fewest non-dry years that make a usual swing worth stating. */
+const MIN_YEARS_FOR_SWING = 8
+
+/** How much the yield of a crop usually moves from its trend: one standard deviation of the change in the years that were not dry, in percent. Null with too few years. */
+export function typicalSwing(data: TEA8DataFile, crop: string): number | null {
+  const dryYears = new Set((data.seasons ?? []).filter((s) => s.dry === true).map((s) => s.year))
+  const changes = (data.yields ?? [])
+    .filter((r) => r.crop === crop && !dryYears.has(r.year))
+    .map((r) => r.change_vs_trend.value)
+    .filter((v): v is number => v !== null)
+  if (changes.length < MIN_YEARS_FOR_SWING) return null
+  const mean = changes.reduce((sum, v) => sum + v, 0) / changes.length
+  return Math.sqrt(changes.reduce((sum, v) => sum + (v - mean) ** 2, 0) / changes.length)
+}
+
+export type Swing = 'within' | 'beyond' | 'far'
+
+/** Whether a change is inside the usual swing, up to twice it, or past that. */
+export function swingOf(percent: number, swing: number): Swing {
+  const size = Math.abs(percent)
+  if (size <= swing) return 'within'
+  return size <= 2 * swing ? 'beyond' : 'far'
+}
