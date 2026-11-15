@@ -17,7 +17,9 @@ GitHub (main)
 - **Secrets:** Secret Manager holds `meta-model-api-key`. The deploy workflow injects it into Cloud Run as `META_MODEL_API_KEY`.
 - **Deploys:** the workflow `.github/workflows/deploy-api.yml` runs on merge to `main` when `api/` changes. CI (`.github/workflows/ci.yml`) runs the web, api and pipeline checks on every pull request.
 
-Cloud Run settings: max 1 instance, min 0, 1 vCPU, 256 MiB, concurrency 20, 30 s timeout. The API allows requests only from `https://tea-8.vercel.app` (CORS) and limits requests per client, overall and per day.
+Cloud Run settings: max 1 instance, min 0, 1 vCPU, 256 MiB, concurrency 20, 90 s timeout (a field analysis followed by a question can take longer than 30 s). The API allows requests only from `https://tea-8.vercel.app` (CORS) and limits requests per client, overall and per day.
+
+Outbound calls: `/place` and `/zone` query NASA POWER, the ORNL DAAC MODIS service, USDA Soil Data Access and CropScape at request time. MODIS stops at 25 s and CropScape at 20 s, so a slow service leaves its years empty instead of holding the answer; their answers are kept in memory for a day, and a complete place or field for an hour.
 
 ## How GitHub gets permission (no stored keys)
 
@@ -37,4 +39,4 @@ curl https://tea-api-p7nky5zeba-uc.a.run.app/health   # should return {"status":
 ## Still to do
 
 - DEP-12: request the FortiGuard web filter classification for the site and open it in a private window.
-- Preview deployments cannot call `/ask`: CORS only allows the production domain. Add the preview domain to `ALLOWED_ORIGINS` if previews need it.
+- Preview deployments cannot call `/ask`, `/place` or `/zone`: CORS only allows the production domain. Add the preview domain to `ALLOWED_ORIGINS` if previews need it.

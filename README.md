@@ -6,7 +6,7 @@ A decision-support tool that compares crop rotations using NASA and USDA data an
 **Dates:** Saturday and Sunday of the hackathon (November 14-15, 2026).
 **Live:** https://tea-8.vercel.app (the tool is at `#/tool`).
 **Demo video (30 s):** https://youtu.be/t9PbvMMhg3s (voice-over generated with ElevenLabs).
-**Status:** working prototype for McLean County, Illinois. Real NASA and USDA data, deployed. Not agronomic advice.
+**Status:** working prototype, deployed. The full rotation comparison is built for McLean County, Illinois; any other point or drawn field in the contiguous United States gets its climate, vegetation, soil and crop history, queried live. Real NASA and USDA data. Not agronomic advice.
 
 ## What it does
 
@@ -19,6 +19,14 @@ The farmer picks a summer (2001 to 2026) and one of three rotations, including t
 - the soil of two case points (USDA SSURGO) and the crop of each year from 2008 to 2023 (CropScape);
 - for each rotation: why it is suggested, the evidence, what we do not know and which risks a local expert should review;
 - a question box. Answers come from a language model and every claim is checked by code against the data; a claim that fails the check is shown flagged.
+
+Outside McLean County, the person can paste coordinates, click the map or draw their own field on the aerial photo. For that place or field the tool queries the sources live and shows:
+
+- the summer climate of the area and its dry summers under the same rule (NASA POWER);
+- how green each summer was (NDVI) and how it ranks against the other summers on record (VCI, 0 to 100), from NASA MODIS;
+- the soils inside the field with their share of its area (USDA SSURGO) and the crops of each year from 2008 to 2023 (CropScape);
+- what this does not tell, and a question box answered from that evidence, with the same claim check;
+- a link that reopens the same place or field, and a printable English report (map with the outline, charts, color scales for NDVI and VCI, sources and glossary).
 
 An optional priority (water, soil or income) changes which panel opens first and says what the data can and cannot tell about it. It never ranks or scores the rotations.
 
@@ -36,7 +44,8 @@ TEA-8 supports the decision and does not replace it. It gives no final score and
 - It has no prices, costs or returns.
 - Yields are county averages for corn and soybeans. They say nothing about one field or one rotation, so comparisons measure stress and exposure, not outcomes.
 - The alternative rotations are hypothetical and rest on studies, mostly from the Midwest.
-- It was built and checked for McLean County only. A second county has not been run.
+- The rotation comparison, county yields and cross-checks were built and checked for McLean County only. Other places get climate, vegetation, soil and crops, but no rotations and no yields.
+- For another place, climate is one value for a cell of about 50 km, NDVI and VCI are one 250 m pixel, and crops are read at up to 5 points inside the field.
 - Nobody has compared its answers with an agronomist's, and no farmer has used it.
 
 See [docs/alternatives.md](docs/alternatives.md) and [docs/user-stories.md](docs/user-stories.md).
@@ -48,7 +57,7 @@ See [docs/alternatives.md](docs/alternatives.md) and [docs/user-stories.md](docs
 | Data preparation | Python (standard library plus jsonschema) | Runs before the demo. Downloads, summarizes and writes one validated JSON file. |
 | Interface | React, Vite and TypeScript | Static page, English and Spanish. |
 | Map | Leaflet | NASA GIBS NDVI tiles over USGS base maps. |
-| NASA and USDA data | NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape, USDA NASS, US Drought Monitor | Saved as static files. No live queries to them during use. |
+| NASA and USDA data | NASA POWER, NASA GIBS, NASA MODIS (ORNL DAAC), USDA Soil Data Access, CropScape, USDA NASS, US Drought Monitor | McLean County: saved as static files. Any other place or field: queried live by `api/` (`/place`, `/zone`), with time limits and a one-day cache. |
 | Questions | `api/` on Google Cloud Run | The model is Muse Spark (Meta Model API). The key lives in Secret Manager. If the service fails, the pre-generated explanations are shown. |
 | Hosting | Vercel (web) and Cloud Run (`api/`) | See [docs/infrastructure.md](docs/infrastructure.md). |
 
