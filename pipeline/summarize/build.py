@@ -15,10 +15,12 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from pipeline.explain.templates import explain
+from pipeline.download.drought_monitor import raw_path as drought_path
 from pipeline.download.power import RAW_DIR, START_YEAR, summer_mean
 from pipeline.points import CASE_POINTS
 from pipeline.rotations.exposure import rotation_summer_share
 from pipeline.region import REGION
+from pipeline.summarize.drought import summer_drought_share
 from pipeline.summarize.yields import build_yields
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -54,7 +56,7 @@ def rounded(value, digits):
     return None if value is None else round(value, digits)
 
 
-def build_seasons(power: dict) -> list:
+def build_seasons(power: dict, drought=None) -> list:
     queried_on = power["queried_on"]
     series = power["properties"]["parameter"]
     wetness = {y: summer_mean(series["GWETROOT"], y) for y in range(START_YEAR, 2027)}
@@ -72,6 +74,11 @@ def build_seasons(power: dict) -> list:
             "temperature": figure(rounded(summer_mean(series["T2M"], year), 1),
                                   "°C", "NASA POWER", "T2M", queried_on),
         })
+        share = summer_drought_share(drought["weeks"], year) if drought else None
+        if share is not None:
+            seasons[-1]["drought_monitor"] = figure(
+                share, "percent of the county in drought (D1 or worse), mean of the June-August weekly maps",
+                "US Drought Monitor", "county statistics, cumulative D1", drought["queried_on"])
         dev = seasons[-1]["root_wetness_deviation"]["value"]
         seasons[-1]["dry"] = None if dev is None else dev <= DRY_THRESHOLD
     return seasons
@@ -116,7 +123,8 @@ def build_rotations(seasons: list) -> list:
 
 def build() -> dict:
     load = lambda name: json.loads((RAW_DIR / name).read_text(encoding="utf-8"))
-    seasons = build_seasons(load(f"power_{CLIMATE_POINT}.json"))
+    load_optional = lambda path: json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
+    seasons = build_seasons(load(f"power_{CLIMATE_POINT}.json"), load_optional(drought_path(REGION["county_fips"])))
     return {
         "schema_version": "1",
         "simulated": False,

@@ -14,6 +14,7 @@ The farmer picks a summer (2001 to 2026) and one of three rotations, including t
 - how that summer compared with 2001-2023 (NASA POWER rainfall, temperature and root-zone wetness), and whether it counts as dry under a written rule;
 - a map of NASA satellite vegetation (NASA GIBS, MODIS NDVI) for that year, with a second year to compare against;
 - what the county corn and soybean yields (USDA NASS) did in that summer against their trend;
+- a cross-check of our dry summers against the US Drought Monitor, an independent source;
 - the soil of two case points (USDA SSURGO) and the crop of each year from 2008 to 2023 (CropScape);
 - for each rotation: why it is suggested, the evidence, what we do not know and which risks a local expert should review;
 - a question box. Answers come from a language model and every claim is checked by code against the data; a claim that fails the check is shown flagged.
@@ -46,7 +47,7 @@ See [docs/alternatives.md](docs/alternatives.md) and [docs/user-stories.md](docs
 | Data preparation | Python (standard library plus jsonschema) | Runs before the demo. Downloads, summarizes and writes one validated JSON file. |
 | Interface | React, Vite and TypeScript | Static page, English and Spanish. |
 | Map | Leaflet | NASA GIBS NDVI tiles over USGS base maps. |
-| NASA and USDA data | NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape, USDA NASS | Saved as static files. No live queries to them during use. |
+| NASA and USDA data | NASA POWER, NASA GIBS, USDA Soil Data Access, CropScape, USDA NASS, US Drought Monitor | Saved as static files. No live queries to them during use. |
 | Questions | `api/` on Google Cloud Run | The model is Muse Spark (Meta Model API). The key lives in Secret Manager. If the service fails, the pre-generated explanations are shown. |
 | Hosting | Vercel (web) and Cloud Run (`api/`) | See [docs/infrastructure.md](docs/infrastructure.md). |
 

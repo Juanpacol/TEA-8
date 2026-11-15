@@ -161,3 +161,8 @@
   color: var(--text-soft);
   font-style: italic;
 }
+
+.relation__rows {
+  margin: 0 0 var(--space-2);
+  padding-left: var(--space-4);
+}
