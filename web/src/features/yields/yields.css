@@ -166,3 +166,34 @@
   margin: 0 0 var(--space-2);
   padding-left: var(--space-4);
 }
+
+.relation__subtitle {
+  margin: var(--space-3) 0 var(--space-1);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.relation__table {
+  width: 100%;
+  margin-bottom: var(--space-2);
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.relation__table th,
+.relation__table td {
+  padding: 0.25rem 0.4rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.relation__table thead th {
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+.relation__ours {
+  color: var(--text);
+  font-weight: 600;
+}
