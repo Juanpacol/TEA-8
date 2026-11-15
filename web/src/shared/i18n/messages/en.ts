@@ -79,6 +79,7 @@ export const en = {
   'base.aerial': 'Satellite',
   'base.showVegetation': 'Show plant colors (green)',
   'compare.label': 'Compare the map with',
+  'compare.driest': 'Compare with the driest summer ({year})',
   'compare.none': 'no other year',
   'year.label': 'Year',
   'year.valuetext': 'Summer {year}',

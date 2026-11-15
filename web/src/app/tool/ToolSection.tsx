@@ -65,7 +65,7 @@ function Workspace({ data }: { data: TEA8DataFile }) {
           <p className="map-hint map-hint--small">{t('tool.mapHint')}</p>
           <div className="map-toolbar">
             <BaseControl value={base} onChange={setBase} showVegetation={showVegetation} onShowVegetation={setShowVegetation} />
-            <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} />
+            <CompareControl year={year} compareYear={compareYear} onChange={setCompareYear} driestYear={driest?.year} />
           </div>
           {showVegetation && <MapLegend year={year} />}
           <Glossary />

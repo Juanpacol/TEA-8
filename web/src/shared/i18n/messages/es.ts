@@ -81,6 +81,7 @@ export const es: Record<MessageKey, string> = {
   'base.aerial': 'Satélite',
   'base.showVegetation': 'Mostrar colores de las plantas (verde)',
   'compare.label': 'Comparar el mapa con',
+  'compare.driest': 'Comparar con el verano más seco ({year})',
   'compare.none': 'ningún otro año',
   'year.label': 'Año',
   'year.valuetext': 'Verano de {year}',
