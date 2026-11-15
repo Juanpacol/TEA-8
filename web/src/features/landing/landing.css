@@ -20,7 +20,8 @@
   transform: translateY(var(--parallax, 0px));
 }
 
-/* The whole photo, not a cut-out: `screen` turns its near-black sky into the page colour, and the masks soften the edges. */
+/* The whole photo, not a cut-out. Its brightness and a `screen` blend over the page colour are baked into the file
+   (Safari repaints blend modes and filters on every scroll frame); the masks soften the edges. */
 .hero__art--right {
   right: 0;
   aspect-ratio: 2 / 3;
@@ -28,8 +29,6 @@
   background-image: url('./assets/sky.webp');
   background-size: cover;
   background-position: center;
-  mix-blend-mode: screen;
-  filter: brightness(1.6) saturate(1.15);
   mask-image: linear-gradient(90deg, transparent, #000 40%), linear-gradient(0deg, transparent, #000 22%);
   mask-composite: intersect;
   -webkit-mask-composite: source-in;
@@ -286,8 +285,7 @@
   aspect-ratio: 9 / 16;
   max-width: 70%;
   /* satellite at the top, the Earth at its sunrise at the bottom: the section goes from space to the ground */
-  mix-blend-mode: screen;
-  filter: saturate(0.85);
+  /* the `screen` blend over the page colour and the desaturation are baked into the file, see .hero__art--right */
   opacity: 0.75;
   pointer-events: none;
   will-change: transform;
